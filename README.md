@@ -1,5 +1,9 @@
 # Mi impacto ambiental
 
+La consigna completa de la primera iteración se encuentra [aquí](https://docs.google.com/document/d/1VjI_qd5L2GGb6oY8Ti2PxEbFEMvMN1yOcK_0mYn59Tg/edit).
+----------
+
+
 **Nuestro Sistema**
 
 En el contexto de suma importancia del cambio climático y asumiendo un compromiso con la reducción de la huella de 
