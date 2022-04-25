@@ -1,6 +1,6 @@
 # Mi impacto ambiental
 
-<u>Nuestro Sistema</u>
+**Nuestro Sistema**
 
 En el contexto de suma importancia del cambio climático y asumiendo un compromiso con la reducción de la huella de 
 carbono, diseñaremos y desarrollaremos un Sistema, de alcance Nacional, que permita el seguimiento del impacto de HC de
@@ -23,20 +23,20 @@ El equipo que trabajó hasta el momento en el proyecto nos envió un diagrama ge
 
 ## Primer entrega: Modelado de Objetos Parte 1
 
-<u>Alcance:</u>
+**Alcance:**
 - Organizaciones y Miembros
 - Registro de trayectos (básico) para los Miembros
 - Registro para la autenticación de usuario Administrador
 
-<u>Dominio:</u>
+**Dominio:**
 En esta primera iteración trabajaremos con la definición de las Organizaciones y sus miembros, así como también sobre el Registro de trayectos que realizan estos últimos y el Registro para la autenticación de usuario Administrador.
 
-<u>Organizaciones y Miembros:</u>
+**Organizaciones y Miembros:**
 De las Organizaciones interesa conocer su Razón Social, su tipo (Gubernamental, ONG, Empresa, Institución), su ubicación geográfica, los sectores o áreas que la componen y sus miembros. Además, es necesario conocer la clasificación de la Organización (Ministerio, Universidad, Escuela, Empresa del sector primario, Empresa del sector secundario, etc.).
 De cada miembro de una Organización interesa su nombre, apellido, tipo y número de documento y las Organizaciones en las cuales trabaja, detallando por cada una el área al que pertenece.
 
 
-<u>Registro de Trayectos:</u>
+**Registro de Trayectos:**
 Un miembro puede ser parte de más de una Organización. El mismo debe registrar en el Sistema, semestralmente o cada vez que existan cambios significativos, los trayectos que realiza para poder llegar (y regresar) hasta las Organizaciones en las cuales trabaja. Es necesario considerar que si la persona pertenece a más de una Organización, puede comenzar el recorrido desde su punto de partida (su hogar, por ejemplo), luego dirigirse a la primera Organización; desde allí dirigirse a la segunda; y así sucesivamente. 
 Además, es necesario detallar el medio de transporte utilizado en cada tramo, los cuales pueden ser: vehículo particular, transporte público (tren, subte, colectivo), servicio de transporte contratado (taxis, remises, etc.), bicicleta (y similares, como monopatín) o a pie:
 - Si el medio de transporte es vehículo particular, se debe especificar el tipo de vehículo (moto, auto o camioneta) y el tipo de combustible utilizado (GNC, Nafta, Eléctrico o Gasoil).
@@ -47,7 +47,7 @@ Además, es necesario detallar el medio de transporte utilizado en cada tramo, l
 Para los casos de vehículo particular, servicio contratado y bicicleta/pie, debe especificarse una dirección de inicio y una dirección de llegada.
 Cabe destacar que un trayecto, considerado como un viaje del punto A al punto B, puede contener muchos tramos intermedios.
 
-<u>Registro para el Administrador:</u>
+**Registro para el Administrador:**
 Los administradores de la plataforma serán los encargados de configurar los parámetros generales, tales como los valores de Factores de Emisión (FE) y demás configuraciones requeridas para el correcto funcionamiento.
 
 
