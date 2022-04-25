@@ -22,7 +22,7 @@ El Sistema deberá contar, mínimamente, con las siguientes funcionalidades de a
 El equipo que trabajó hasta el momento en el proyecto nos envió un diagrama general de Casos de Uso inicial:
 
 <p align="center">
-  <img src="CasosDeUso.png" />
+  <img src="media/CasosDeUso.png" />
 </p>
 
 ## Primer entrega: Modelado de Objetos Parte 1

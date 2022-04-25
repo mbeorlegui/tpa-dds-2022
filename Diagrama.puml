@@ -1,0 +1,145 @@
+@startuml TPA-1
+
+class Organizacion {
+  razonSocial : String
+  tipo : Tipo
+  ubicacionGeografica : Ubicacion
+  sectores : List<Sector>
+  clasificacion : Clasificacion
+}
+
+class Ubicacion {
+  latitud : int
+  longitud : int
+}
+
+class Sector {
+  miembros : List<Miembro>
+  organizacion : Organizacion
+}
+
+class Miembro {
+  nombre : String
+  apellido : String
+  nroDocumento : int
+  tipoDocumento : Documento
+  sectores : List<Sector>
+  trayecto : Trayecto
+}
+' Ponemos lista de sectores en el Miembro
+' y que cada sector conozca su organizacion,
+' de forma tal que el miembro pueda acceder a su
+' organizacion mediante el sector
+
+enum Documento {
+  DNI,
+  LIBRETA,
+}
+
+enum Tipo {
+  GUBERNAMENTAL,
+  ONG,
+  EMPRESA,
+  INSTITUCION,
+}
+
+enum Clasificacion {
+  MINISTERIO,
+  UNIVERSIDAD,
+  ESCUELA,
+  EMPRESA_DEL_SECTOR_PRIMARIO,
+  EMPRESA_DEL_SECTOR_SECUNDARIO,
+}
+
+' Usamos strategy para los medios de transportes
+abstract class Transporte {
+
+}
+
+class VehiculoParticular {
+  tipoDeVehiculo : TipoDeVehiculo
+  combustible : Combustible
+}
+
+class TransportePublico {
+  tipoDeTransportePublico : TipoDeTransportePublico
+  paradas : List<Ubicacion>
+  linea : String
+}
+
+class ServicioContratado {
+  tipoDeServicioContratado : TipoDeServicioContratado
+}
+
+' Se refiere a caminar o a bicicleta
+class MediosEcologicos {
+
+}
+
+
+enum TipoDeTransportePublico {
+  SUBTE,
+  TREN,
+  COLECTIVO,
+}
+
+enum TipoDeVehiculo {
+  AUTO,
+  MOTO,
+  CAMIONETA,
+}
+
+enum TipoDeServicioContratado{
+  TAXI,
+  REMIS,
+}
+
+enum Combustible {
+  GNC,
+  NAFTA,
+  ELECTRICO,
+  GASOIL,
+}
+
+class Tramo {
+  inicioDeTramo : Ubicacion
+  finDeTramo : Ubicacion
+  transporteUtilizado : Transporte
+}
+
+class Trayecto {
+  tramos : List<Tramo>
+}
+
+Miembro "*"<-->"*" Sector
+Organizacion --> Tipo
+Organizacion --> Clasificacion
+Organizacion --> Ubicacion
+Organizacion "1"<-->"*" Sector
+Miembro --> Documento
+
+Trayecto --> "*" Tramo
+Trayecto <-- Miembro
+Tramo --> Transporte
+TransportePublico --> TipoDeTransportePublico
+VehiculoParticular --> TipoDeVehiculo
+VehiculoParticular --> Combustible
+ServicioContratado --> TipoDeServicioContratado
+
+TransportePublico --|> Transporte
+VehiculoParticular --|> Transporte
+MediosEcologicos --|> Transporte
+ServicioContratado --|> Transporte
+
+class Administrador {
+  user : String
+  password : String
+}
+
+class PasswordValidator {
+  bool chequearValidez(user, password)
+}
+
+PasswordValidator ..> Administrador
+
+@enduml
