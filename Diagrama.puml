@@ -111,35 +111,38 @@ class Trayecto {
   tramos : List<Tramo>
 }
 
-Miembro "*"<-->"*" Sector
-Organizacion --> Tipo
-Organizacion --> Clasificacion
-Organizacion --> Ubicacion
-Organizacion "1"<-->"*" Sector
-Miembro --> Documento
-
-Trayecto --> "*" Tramo
-Trayecto <-- Miembro
-Tramo --> Transporte
-TransportePublico --> TipoDeTransportePublico
-VehiculoParticular --> TipoDeVehiculo
-VehiculoParticular --> Combustible
-ServicioContratado --> TipoDeServicioContratado
-
-TransportePublico --|> Transporte
-VehiculoParticular --|> Transporte
-MediosEcologicos --|> Transporte
-ServicioContratado --|> Transporte
-
 class Administrador {
   user : String
   password : String
 }
 
 class PasswordValidator {
+  INSTANCE : Singleton
   bool chequearValidez(user, password)
+  Singleton getIstance()
 }
 
-PasswordValidator ..> Administrador
+Miembro "*"<-->"*" Sector
+Organizacion -up-> Tipo
+Organizacion -up-> Clasificacion
+Organizacion --> Ubicacion
+Organizacion "1"<-->"*" Sector
+Miembro -up-> Documento
+
+Trayecto --> "*" Tramo
+Trayecto <-- Miembro
+Tramo --> Transporte
+TransportePublico --> TipoDeTransportePublico
+VehiculoParticular --> TipoDeVehiculo
+VehiculoParticular -up-> Combustible
+ServicioContratado -down-> TipoDeServicioContratado
+
+TransportePublico -up-|> Transporte
+VehiculoParticular -up-|> Transporte
+MediosEcologicos -up-|> Transporte
+ServicioContratado -up-|> Transporte
+
+PasswordValidator .up.> Administrador
+PasswordValidator --> PasswordValidator
 
 @enduml

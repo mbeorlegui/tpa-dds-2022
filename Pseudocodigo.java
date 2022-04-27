@@ -20,7 +20,8 @@ class PasswordValidator {
   // vez que se requiera chequear la validez de las contraseñas
 	private static final PasswordValidator INSTANCE = new PasswordValidator();
   final String REGEX = "[a-zA-Z0-9_%^&*()!@/#=+-¡]*";
-  public static instance() {
+  
+  public static getInstance() {
     return INSTANCE;
   }
 
