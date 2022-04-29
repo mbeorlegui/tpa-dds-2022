@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PasswordValidatorTests {
+public class AdministradorTests {
   @DisplayName("Admin no puede tener usuario vacio")
   @Test
   public void adminNoPuedeTenerUserVacio() {
