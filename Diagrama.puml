@@ -132,8 +132,10 @@ Miembro -up-> Documento
 Trayecto --> "*" Tramo
 Trayecto <-- Miembro
 Tramo --> Transporte
+Tramo -->"2" Ubicacion
+TransportePublico -up->"*" Ubicacion
 TransportePublico --> TipoDeTransportePublico
-VehiculoParticular --> TipoDeVehiculo
+VehiculoParticular -down-> TipoDeVehiculo
 VehiculoParticular -up-> Combustible
 ServicioContratado -down-> TipoDeServicioContratado
 
