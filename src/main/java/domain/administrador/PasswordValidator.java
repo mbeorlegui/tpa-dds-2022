@@ -1,6 +1,7 @@
 package domain.administrador;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class PasswordValidator {
   // o abrir el archivo y contrastar con todas esas palabras cada
   // vez que se requiera chequear la validez de las contraseñas
   private static final PasswordValidator INSTANCE = new PasswordValidator();
-  static final String VALID_CHARACTERS_REGEX = "[a-zA-Z0-9_%^&*()!@/#=+¡]*";
+  static final String VALID_CHARACTERS_REGEX = "[a-zA-Z0-9_%^&*()!@/#=+¡,;]*";
   // final String TOO_SIMPLE_REGEX = "[a-zA-Z0-9]*";
   static final int MAX_LENGTH = 64;
   static final int MIN_LENGTH = 8;
@@ -28,40 +29,27 @@ public class PasswordValidator {
   }
 
   public PasswordValidator() {
-    File myFile = new File(COMMON_PASSWORDS_LOCATION);
-    System.out.println("file is opened");
   }
 
-  public List<String> palabrasComunes() {
-    int lineNumber = 0;
-    Scanner scanner = null;
-    List<String> lasPalabras = null;
+  public boolean palabraEsComun(String unaPalabra) throws FileNotFoundException {
+    Scanner txtscan = new Scanner(new File(COMMON_PASSWORDS_LOCATION));
 
-    // Lee linea por linea el archivo y separa las palabras (a testear)
-    while (scanner.hasNextLine()) {
-      String line = scanner.nextLine();
-      int positionNumber = 0;
-      for (String palabra : line.split("\\s")) {
-        if (!palabra.isEmpty()) {
-          lasPalabras.add(palabra);
-        }
-        positionNumber += palabra.length() + 1;
+    while (txtscan.hasNextLine()) {
+      String str = txtscan.nextLine();
+      if (str.contains(unaPalabra)) {
+        System.out.println("EXISTE");
+        return true;
       }
-      lineNumber++;
     }
-
-    return lasPalabras;
+    return false;
   }
 
-  public Boolean chequearValidez(String password, String user) {
+  public Boolean chequearValidez(String password, String user) throws FileNotFoundException {
     if (password.length() < MIN_LENGTH) {
       throw new IllegalArgumentException(PASSWORD + MIN_LENGTH_ERROR);
     }
     if (password.length() > MAX_LENGTH) {
       throw new IllegalArgumentException(PASSWORD + MAX_LENGTH_ERROR);
-    }
-    if (this.palabrasComunes().contains(password)) {
-      throw new IllegalArgumentException(PASSWORD + COMMON_PASSWORD_ERROR);
     }
     if (password.contains(user)) {
       throw new IllegalArgumentException(PASSWORD + USER_PASSWORD_ERROR);
@@ -69,6 +57,9 @@ public class PasswordValidator {
     if (!password.matches(VALID_CHARACTERS_REGEX)) {
       throw new IllegalArgumentException(PASSWORD + INVALID_CHARACTERS_ERROR);
     }
+//    if (this.palabraEsComun(password)) {
+//      throw new IllegalArgumentException(PASSWORD + COMMON_PASSWORD_ERROR);  // TODO: Needs refactor
+//    }
     return true;
   }
 }
