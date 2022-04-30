@@ -93,7 +93,6 @@ public class AdministradorTests {
       adminConPasswordComun();
     });
   }
-  // 1111111111
 
 
   @DisplayName("Instanciar: Admin con igual user y password")
