@@ -8,12 +8,11 @@ import java.util.stream.Collectors;
 
 public class Sector {
   private Organizacion organizacion;
-  private List<Miembro> miembros;
+  private List<Miembro> miembros = new ArrayList<>();
 
   public Sector(Organizacion organizacion) {
-    this.miembros = new ArrayList<Miembro>();
     this.organizacion = organizacion;
-    organizacion.addSector(this);
+    //organizacion.addSector(this);
   }
 
   public Organizacion getOrganizacion() {

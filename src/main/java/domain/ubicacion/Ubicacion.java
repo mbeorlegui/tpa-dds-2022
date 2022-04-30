@@ -1,10 +1,10 @@
 package domain.ubicacion;
 
 public class Ubicacion {
-  private Integer latitud;
-  private Integer longitud;
+  private double latitud;
+  private double longitud;
 
-  public Ubicacion(Integer latitud, Integer longitud) {
+  public Ubicacion(double latitud, double longitud) {
     this.latitud = latitud;
     this.longitud = longitud;
   }
