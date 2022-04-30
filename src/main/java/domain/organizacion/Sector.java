@@ -25,7 +25,10 @@ public class Sector {
   }
 
   public void addMiembro(Miembro miembro) {
-    miembros.add(miembro);
+    if(!miembros.contains(miembro)) {
+      miembros.add(miembro);
+      miembro.addSector(this);
+    }
   }
 
   public List<Miembro> getMiembros() {
