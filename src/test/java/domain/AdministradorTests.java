@@ -25,7 +25,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña vacia")
   @Test
   public void adminNoPuedeTenerPasswordVacio() {
-    assertThrows(NullPointerException.class, () -> {
+    assertThrows(IllegalArgumentException.class, () -> {
       adminConPasswordVacio();
     });
   }
@@ -86,13 +86,13 @@ public class AdministradorTests {
     });
   }
 
-//  @DisplayName("Admin no puede tener contraseña comun")
-//  @Test
-//  public void adminNoPuedeTenerPasswordComun() {
-//    assertThrows(IllegalArgumentException.class, () -> {
-//      adminConPasswordComun();
-//    });
-//  }
+  @DisplayName("Admin no puede tener contraseña comun")
+  @Test
+  public void adminNoPuedeTenerPasswordComun() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      adminConPasswordComun();
+    });
+  }
   // 1111111111
 
 

@@ -11,7 +11,6 @@ public class Administrador {
 
   public Administrador(String user, String password) throws FileNotFoundException {
     this.user = requireNonNull(user, "El usuario no debe ser vacio!");
-    this.password = requireNonNull(password, "La contraseña no debe ser vacia!");
     if (validador.chequearValidez(password, user)) {
       this.password = password;
     }
