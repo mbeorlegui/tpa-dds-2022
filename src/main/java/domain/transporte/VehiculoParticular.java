@@ -1,5 +1,19 @@
 package domain.transporte;
 
 public class VehiculoParticular extends Transporte {
-  //TODO
+  private TipoDeVehiculo tipoDeVehiculo;
+  private  Combustible combustible;
+
+  public VehiculoParticular(TipoDeVehiculo tipoDeVehiculo, Combustible combustible) {
+    this.tipoDeVehiculo = tipoDeVehiculo;
+    this.combustible = combustible;
+  }
+
+  public TipoDeVehiculo getTipoDeVehiculo() {
+    return tipoDeVehiculo;
+  }
+
+  public Combustible getCombustible() {
+    return combustible;
+  }
 }
