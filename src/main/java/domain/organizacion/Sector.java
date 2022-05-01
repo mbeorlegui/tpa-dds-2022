@@ -12,7 +12,7 @@ public class Sector {
 
   public Sector(Organizacion organizacion) {
     this.organizacion = organizacion;
-    //organizacion.addSector(this);
+    organizacion.addSector(this);
   }
 
   public Organizacion getOrganizacion() {
@@ -24,7 +24,7 @@ public class Sector {
   }
 
   public void addMiembro(Miembro miembro) {
-    if(!miembros.contains(miembro)) {
+    if (!miembros.contains(miembro)) {
       miembros.add(miembro);
       miembro.addSector(this);
     }

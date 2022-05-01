@@ -1,5 +1,7 @@
 package domain;
 
+import domain.miembro.Documento;
+import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
@@ -16,9 +18,12 @@ public class OrganizacionTests {
   private Organizacion unaUniversidadGubernamental() {
     Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
+    // organizacion.crearNuevoSector();
+    Sector unSectorDeRRHH = sectorDeRRHH(organizacion);
     organizacion.crearNuevoSector();
     organizacion.crearNuevoSector();
-    organizacion.crearNuevoSector();
+    Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI);
+    miembro.addSector(unSectorDeRRHH);
 
     return organizacion;
   }
@@ -47,6 +52,7 @@ public class OrganizacionTests {
     // Como se llama a la universidad dos veces, se hace new dos veces => cada objeto de universidad es distinto
   }
 */
+
   @DisplayName("La organizacion del sector RRHH es la Universidad")
   @Test
   public void laOrganizacionDelSectorRRHHEsLaUniversidad() {
@@ -58,7 +64,7 @@ public class OrganizacionTests {
   @DisplayName("La Universidad tiene 3 sectores")
   @Test
   public void laUniversidadTieneTresSectores() {
-
+    assertEquals(unaUniversidadGubernamental().cantidadDeSectores(), 3);
   }
 
 }

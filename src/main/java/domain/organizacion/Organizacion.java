@@ -15,7 +15,8 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   private Clasificacion clasificacion;
 
-  public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion, Clasificacion clasificacion) {
+  public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
+                      Clasificacion clasificacion) {
     this.razonSocial = razonSocial;
     this.tipo = tipo;
     this.ubicacion = ubicacion;
@@ -46,11 +47,14 @@ public class Organizacion {
   }
 
   public void crearNuevoSector() {
-    sectores.add(new Sector(this));
+    this.addSector(new Sector(this));
   }
 
   public List<Miembro> getMiembros() {
-    List<Miembro> miembros = sectores.stream().flatMap(s -> s.getMiembros().stream()).collect(Collectors.toList());
+    List<Miembro> miembros = sectores
+                              .stream()
+                              .flatMap(s -> s.getMiembros().stream())
+                              .collect(Collectors.toList());
     return miembros;
   }
 
