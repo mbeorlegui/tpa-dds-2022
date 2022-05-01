@@ -144,7 +144,5 @@ VehiculoParticular -up-|> Transporte
 MediosEcologicos -up-|> Transporte
 ServicioContratado -up-|> Transporte
 
-PasswordValidator .up.> Administrador
-PasswordValidator --> PasswordValidator
-
+'PasswordValidator .up.>
 @enduml

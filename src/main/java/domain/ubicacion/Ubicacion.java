@@ -8,4 +8,14 @@ public class Ubicacion {
     this.latitud = latitud;
     this.longitud = longitud;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Ubicacion) {
+      Ubicacion ubicacion = (Ubicacion) obj;
+      return (this.latitud == ubicacion.latitud && this.longitud == ubicacion.longitud);
+    } else {
+      return false;
+    }
+  }
 }
