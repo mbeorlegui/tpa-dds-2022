@@ -1,5 +1,5 @@
 package domain.transporte;
 
-public class ServicioContratado {
+public class ServicioContratado extends Transporte {
   //TODO
 }

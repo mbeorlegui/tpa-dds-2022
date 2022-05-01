@@ -1,5 +1,5 @@
 package domain.transporte;
 
-public class MedioEcologico {
+public class MedioEcologico extends Transporte {
   //TODO
 }

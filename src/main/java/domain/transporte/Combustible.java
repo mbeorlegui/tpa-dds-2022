@@ -1,5 +1,8 @@
 package domain.transporte;
 
 public enum Combustible {
-  //TODO
+  GNC,
+  NAFTA,
+  ELECTRICO,
+  GASOIL
 }

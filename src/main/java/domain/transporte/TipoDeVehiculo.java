@@ -1,5 +1,7 @@
 package domain.transporte;
 
 public enum TipoDeVehiculo {
-  //TODO
+  AUTO,
+  MOTO,
+  CAMIONETA
 }

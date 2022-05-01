@@ -1,5 +1,7 @@
 package domain.transporte;
 
 public enum TipoDeTransportePublico {
-  //TODO
+  SUBTE,
+  TREN,
+  COLECTIVO
 }
