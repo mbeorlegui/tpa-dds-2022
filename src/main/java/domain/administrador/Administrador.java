@@ -10,7 +10,7 @@ public class Administrador {
 
   public Administrador(String user, String password) {
     this.user = requireNonNull(user, "El usuario no debe ser vacio!");
-    if (validador.chequearValidez(password, user)) {
+    if (validador.passwordEsValido(password, user)) {
       this.password = password;
     }
   }

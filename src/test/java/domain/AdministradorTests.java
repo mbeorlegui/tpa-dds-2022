@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class AdministradorTests {
   static final String LARGE_TEXT =
       "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||";
-  static final String SHORT_TEXT = "1728401";
+  static final String SHORT_TEXT = "1Ab_401";
 
   @DisplayName("Admin no puede tener usuario vacio")
   @Test
@@ -40,7 +40,7 @@ public class AdministradorTests {
 
   @DisplayName("Admin no puede tener contraseña que contenga a usuario")
   @Test
-  public void adminNoPuedeTeneUserQueContienePassword() {
+  public void adminNoPuedeTenerUserQueContienePassword() {
     assertThrows(IllegalArgumentException.class, () -> {
       adminConUserQueContienePassword();
     });

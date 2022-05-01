@@ -35,19 +35,11 @@ public class PasswordValidator {
     return INSTANCE;
   }
 
-  public PasswordValidator() {
-  }
-
-  public boolean palabraEsComun(String unaPalabra) {
+  private boolean passwordEsComun(String unPassword) {
     try {
-      Scanner scanner = new Scanner(new File(COMMON_PASSWORDS_LOCATION));
+      Scanner unArchivo = new Scanner(new File(COMMON_PASSWORDS_LOCATION));
+      return palabraEstaEnArchivo(unPassword, unArchivo);
 
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        if (line.contains(unaPalabra)) {
-          return true;
-        }
-      }
     } catch (FileNotFoundException e) {
       System.out.println(
           "Error al abrir archivo, verifique que el mismo se encuentre en "
@@ -57,7 +49,17 @@ public class PasswordValidator {
     return false;
   }
 
-  public Boolean chequearValidez(String password, String user) {
+  private boolean palabraEstaEnArchivo(String unPassword, Scanner unArchivo) {
+    while (unArchivo.hasNextLine()) {
+      String line = unArchivo.nextLine();
+      if (line.equals(unPassword)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Boolean passwordEsValido(String password, String user) {
     if (password == null) {
       throw new IllegalArgumentException(PASSWORD + EMPTY_PASSWORD_ERROR);
     }
@@ -82,7 +84,7 @@ public class PasswordValidator {
     if (password.matches(ONLY_NUMBERS_AND_LETTERS_REGEX)) {
       throw new IllegalArgumentException(PASSWORD + ONLY_NUMBERS_AND_LETTERS_ERROR);
     }
-    if (palabraEsComun(password)) {
+    if (passwordEsComun(password)) {
       throw new IllegalArgumentException(PASSWORD + COMMON_PASSWORD_ERROR);
     }
     return true;
