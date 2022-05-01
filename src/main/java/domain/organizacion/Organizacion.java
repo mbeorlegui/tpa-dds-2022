@@ -6,7 +6,6 @@ import domain.ubicacion.Ubicacion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Organizacion {
   private String razonSocial;
@@ -14,6 +13,7 @@ public class Organizacion {
   private Ubicacion ubicacion;
   private List<Sector> sectores = new ArrayList<>();
   private Clasificacion clasificacion;
+
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
                       Clasificacion clasificacion) {
@@ -64,5 +64,9 @@ public class Organizacion {
 
   public Integer cantidadDeSectores() {
     return sectores.size();
+  }
+
+  public Integer cantidadDeMiembros() {
+    return this.getMiembros().size();
   }
 }

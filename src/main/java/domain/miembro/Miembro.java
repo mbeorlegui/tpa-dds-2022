@@ -22,10 +22,28 @@ public class Miembro {
     this.tipoDeDocumento = tipoDeDocumento;
   }
 
+  public String getNombre() {
+    return nombre;
+  }
+
+  public String getApellido() {
+    return apellido;
+  }
+
+  public Integer getNumeroDeDocumento() {
+    return numeroDeDocumento;
+  }
+
+  public Documento getTipoDeDocumento() {
+    return tipoDeDocumento;
+  }
+
   public void addSector(Sector sector) {
     if (!sectores.contains(sector)) {
       sectores.add(sector);
       sector.addMiembro(this);
     }
   }
+
+
 }

@@ -67,4 +67,9 @@ public class OrganizacionTests {
     assertEquals(unaUniversidadGubernamental().cantidadDeSectores(), 3);
   }
 
+  @DisplayName("La Universidad tiene 1 miembro")
+  @Test
+  public void laUniversidadTieneUnEmpleado() {
+    assertEquals(unaUniversidadGubernamental().cantidadDeMiembros(), 1);
+  }
 }

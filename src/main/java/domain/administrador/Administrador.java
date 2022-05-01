@@ -14,4 +14,12 @@ public class Administrador {
       this.password = password;
     }
   }
+
+  public String getUser() {
+    return user;
+  }
+
+  public String getPassword() {
+    return password;
+  }
 }
