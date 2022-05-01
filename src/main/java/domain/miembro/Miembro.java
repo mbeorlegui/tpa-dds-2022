@@ -14,7 +14,8 @@ public class Miembro {
   // private Trayecto trayecto;
 
 
-  public Miembro(String nombre, String apellido, Integer numeroDeDocumento, Documento tipoDeDocumento) {
+  public Miembro(
+      String nombre, String apellido, Integer numeroDeDocumento, Documento tipoDeDocumento) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.numeroDeDocumento = numeroDeDocumento;
@@ -22,7 +23,8 @@ public class Miembro {
   }
 
   public void addSector(Sector sector) {
-    if(!sectores.contains(sector)) {
+
+    if (!sectores.contains(sector)) {
       sectores.add(sector);
       sector.addMiembro(this);
     }

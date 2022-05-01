@@ -6,7 +6,6 @@ import domain.ubicacion.Ubicacion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Organizacion {
   private String razonSocial;
@@ -15,7 +14,8 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   private Clasificacion clasificacion;
 
-  public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion, Clasificacion clasificacion) {
+  public Organizacion(
+      String razonSocial, Tipo tipo, Ubicacion ubicacion, Clasificacion clasificacion) {
     this.razonSocial = razonSocial;
     this.tipo = tipo;
     this.ubicacion = ubicacion;
@@ -50,7 +50,8 @@ public class Organizacion {
   }
 
   public List<Miembro> getMiembros() {
-    List<Miembro> miembros = sectores.stream().flatMap(s -> s.getMiembros().stream()).collect(Collectors.toList());
+    List<Miembro> miembros
+        = sectores.stream().flatMap(s -> s.getMiembros().stream()).collect(Collectors.toList());
     return miembros;
   }
 
