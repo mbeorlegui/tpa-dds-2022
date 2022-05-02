@@ -43,4 +43,8 @@ public class TransportePublico extends Transporte {
   public void addParadas(List<Ubicacion> paradas) {
     paradas.stream().map(parada -> this.paradas.add(parada));
   }
+  
+  public void addParada(Ubicacion parada){
+    this.paradas.add(parada); 
+  }
 }
