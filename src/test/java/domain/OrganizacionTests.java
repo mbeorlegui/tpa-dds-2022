@@ -9,6 +9,7 @@ import domain.organizacion.Tipo;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,9 +57,12 @@ public class OrganizacionTests {
   @DisplayName("La organizacion del sector RRHH es la Universidad")
   @Test
   public void laOrganizacionDelSectorRRHHEsLaUniversidad() {
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getClasificacion(), Clasificacion.UNIVERSIDAD);
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getTipo(), Tipo.GUBERNAMENTAL);
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getRazonSocial(), "UTN");
+    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getClasificacion(),
+        Clasificacion.UNIVERSIDAD);
+    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getTipo(), Tipo.
+        GUBERNAMENTAL);
+    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getRazonSocial(),
+        "UTN");
   }
 
   @DisplayName("La Universidad tiene 3 sectores")
