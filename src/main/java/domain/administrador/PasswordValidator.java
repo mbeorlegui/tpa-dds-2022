@@ -37,7 +37,7 @@ public class PasswordValidator {
 
   private boolean passwordEsComun(String unPassword) {
     try {
-      Scanner unArchivo = new Scanner(new File(COMMON_PASSWORDS_LOCATION));
+      Scanner unArchivo = new Scanner(new File(COMMON_PASSWORDS_LOCATION), "UTF-8");
       return palabraEstaEnArchivo(unPassword, unArchivo);
 
     } catch (FileNotFoundException e) {
