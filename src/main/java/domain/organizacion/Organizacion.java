@@ -62,4 +62,8 @@ public class Organizacion {
   public Integer cantidadDeSectores() {
     return sectores.size();
   }
+
+  public Integer cantidadDeMiembros() {
+    return this.getMiembros().size();
+  }
 }
