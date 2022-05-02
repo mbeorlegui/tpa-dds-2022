@@ -19,7 +19,7 @@ public class TransporteTests {
     assertEquals(bicicleta().getTipoTransporte(), TipoTransporte.BICICLETA);
   }
 
-  @DisplayName("Un colectivo 156 es un transporte publico de tipo Colectivo y su linea es 157")
+  @DisplayName("Un colectivo 157 es un transporte publico de tipo Colectivo y su linea es 157")
   @Test
   public void colectivo157EsTransportePublicoDeTipoColectivoYLinea157() throws FileNotFoundException {
     assertEquals(colectivoLinea157().getTipoTransporte(), TipoTransporte.PUBLICO);
