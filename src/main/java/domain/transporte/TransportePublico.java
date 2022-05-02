@@ -12,7 +12,7 @@ public class TransportePublico extends Transporte {
   private Ubicacion paradaInicio; // Agrego paradaInicio y paradaFin como atributos
   private Ubicacion paradaFin;
 
-  public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea) {
+  public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea, Ubicacion paradaInicio, Ubicacion paradaFin) {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
     this.linea = linea;
     this.paradaInicio = paradaInicio; // Agrego paradaInicio y paradaFin como parametros necesarios para el constructor.
