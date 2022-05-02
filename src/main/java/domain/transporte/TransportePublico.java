@@ -9,10 +9,14 @@ public class TransportePublico extends Transporte {
   private TipoDeTransportePublico tipoDeTransportePublico;
   private List<Ubicacion> paradas = new ArrayList<>();
   private String linea;
+  private Ubicacion paradaInicio; // Agrego paradaInicio y paradaFin como atributos
+  private Ubicacion paradaFin;
 
   public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea) {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
     this.linea = linea;
+    this.paradaInicio = paradaInicio; // Agrego paradaInicio y paradaFin como parametros necesarios para el constructor.
+    this.paradaFin = paradaFin;
     setTipoTransporte(TipoTransporte.PUBLICO);
   }
 
@@ -26,6 +30,14 @@ public class TransportePublico extends Transporte {
 
   public String getLinea() {
     return linea;
+  }
+  
+  public Ubicacion getParadaInicio() {
+    return paradaInicio;
+  }
+
+  public Ubicacion getParadaFin() {
+    return paradaFin;
   }
 
   public void addParadas(List<Ubicacion> paradas) {
