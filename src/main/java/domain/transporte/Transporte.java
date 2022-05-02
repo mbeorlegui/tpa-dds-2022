@@ -1,7 +1,7 @@
 package domain.transporte;
 
 public abstract class Transporte {
-  private TipoTransporte tipoTransporte;
+  protected TipoTransporte tipoTransporte;
 
   public TipoTransporte getTipoTransporte() {
     return tipoTransporte;
@@ -11,13 +11,8 @@ public abstract class Transporte {
     this.tipoTransporte = tipoTransporte;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof Transporte) {
-      Transporte transporte = (Transporte) obj;
-      return (this.tipoTransporte.equals(transporte.tipoTransporte));
-    } else {
-      return false;
-    }
+  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
+    return (this.tipoTransporte.equals(unTransporte.tipoTransporte));
   }
+
 }

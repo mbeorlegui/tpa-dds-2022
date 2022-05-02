@@ -22,16 +22,13 @@ public class Tramo {
     return finDeTramo;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof Tramo) {
-      Tramo tramo = (Tramo) obj;
-      return (this.inicioDeTramo.equals(tramo.inicioDeTramo)
-          && this.finDeTramo.equals(tramo.finDeTramo)
-          && this.transporteUtilizado.equals(tramo.transporteUtilizado)
-        );
-    } else {
-      return false;
-    }
+  public Transporte getTransporteUtilizado() {
+    return transporteUtilizado;
+  }
+
+  public boolean esMismoTramo(Tramo unTramo) {
+    return (this.inicioDeTramo.esMismaUbicacionQue(unTramo.getInicioDeTramo())
+        && this.finDeTramo.esMismaUbicacionQue(unTramo.getFinDeTramo())
+        && this.transporteUtilizado.esMismoTipoDeTransporteQue(unTramo.getTransporteUtilizado()));
   }
 }

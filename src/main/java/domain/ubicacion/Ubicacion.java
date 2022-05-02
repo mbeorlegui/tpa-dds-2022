@@ -9,21 +9,16 @@ public class Ubicacion {
     this.longitud = longitud;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof Ubicacion) {
-      Ubicacion ubicacion = (Ubicacion) obj;
-      return (this.latitud == ubicacion.latitud && this.longitud == ubicacion.longitud);
-    } else {
-      return false;
-    }
-  }
-  
+
   public double getLatitud() {
     return latitud;
   }
 
   public double getLongitud() {
     return longitud;
+  }
+
+  public boolean esMismaUbicacionQue(Ubicacion unaUbicacion) {
+    return (this.latitud == unaUbicacion.latitud && this.longitud == unaUbicacion.longitud);
   }
 }

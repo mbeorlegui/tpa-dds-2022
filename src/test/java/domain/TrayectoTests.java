@@ -51,20 +51,20 @@ public class TrayectoTests {
     Ubicacion paradaCasaLinea7 = new Ubicacion(-34.61908707635995, -58.41677917831219);
     Tramo casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
 
-    assertEquals(casaHastaUTN().getTramos().get(0), (casaHastaParadaLinea7));
+    assertTrue(casaHastaUTN().getTramos().get(0).esMismoTramo(casaHastaParadaLinea7));
   }
 
   @Test
   public void inicioDelTrayectoEsCasa() {
     Ubicacion inicioTrayecto = casaHastaUTN().getTramos().get(0).getInicioDeTramo();
     Ubicacion casa = new Ubicacion(-34.615995882339334, -58.41700275360413);
-    assertEquals(inicioTrayecto, casa);
+    assertTrue(inicioTrayecto.esMismaUbicacionQue(casa));
   }
 
   @Test
   public void finalDelTrayectoEsUniversidadTecnologicaNacionalFRBA() {
     Ubicacion finalTrayecto = casaHastaUTN().getTramos().get(1).getFinDeTramo();
-    assertEquals(finalTrayecto, universidadTecnologicaNacionalFRBA().getUbicacion());
+    assertTrue(finalTrayecto.esMismaUbicacionQue(universidadTecnologicaNacionalFRBA().getUbicacion()));
   }
 
 }

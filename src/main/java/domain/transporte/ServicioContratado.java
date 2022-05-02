@@ -5,9 +5,11 @@ public class ServicioContratado extends Transporte {
 
   public ServicioContratado(TipoDeServicioContratado tipoDeServicioContratado) {
     this.tipoDeServicioContratado = tipoDeServicioContratado;
+    setTipoTransporte(TipoTransporte.CONTRATADO);
   }
 
   public TipoDeServicioContratado getTipoDeServicioContratado() {
     return tipoDeServicioContratado;
   }
+  
 }
