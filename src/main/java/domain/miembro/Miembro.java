@@ -14,8 +14,32 @@ public class Miembro {
   private List<Sector> sectores = new ArrayList<>();
   private Trayecto trayecto;
 
+  public String getNombre() {
+    return nombre;
+  }
 
-  public Miembro(String nombre, String apellido, Integer numeroDeDocumento, Documento tipoDeDocumento, Trayecto trayecto) {
+  public String getApellido() {
+    return apellido;
+  }
+
+  public Integer getNumeroDeDocumento() {
+    return numeroDeDocumento;
+  }
+
+  public Documento getTipoDeDocumento() {
+    return tipoDeDocumento;
+  }
+
+  public List<Sector> getSectores() {
+    return sectores;
+  }
+
+  public Miembro(
+      String nombre,
+      String apellido,
+      Integer numeroDeDocumento,
+      Documento tipoDeDocumento,
+      Trayecto trayecto) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.numeroDeDocumento = numeroDeDocumento;
@@ -24,7 +48,7 @@ public class Miembro {
   }
 
   public void addSector(Sector sector) {
-    if(!sectores.contains(sector)) {
+    if (!sectores.contains(sector)) {
       sectores.add(sector);
       sector.addMiembro(this);
     }
@@ -32,5 +56,9 @@ public class Miembro {
 
   public void setTrayecto(Trayecto trayecto) {
     this.trayecto = trayecto;
+  }
+
+  public Trayecto getTrayecto() {
+    return trayecto;
   }
 }

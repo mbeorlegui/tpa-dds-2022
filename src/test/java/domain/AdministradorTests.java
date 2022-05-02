@@ -4,15 +4,13 @@ import domain.administrador.Administrador;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AdministradorTests {
   static final String LARGE_TEXT =
       "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||";
-  static final String SHORT_TEXT = "1728401";
+  static final String SHORT_TEXT = "1Ab_401";
 
   @DisplayName("Admin no puede tener usuario vacio")
   @Test
@@ -40,7 +38,7 @@ public class AdministradorTests {
 
   @DisplayName("Admin no puede tener contraseña que contenga a usuario")
   @Test
-  public void adminNoPuedeTeneUserQueContienePassword() {
+  public void adminNoPuedeTenerUserQueContienePassword() {
     assertThrows(IllegalArgumentException.class, () -> {
       adminConUserQueContienePassword();
     });
@@ -96,57 +94,57 @@ public class AdministradorTests {
 
 
   @DisplayName("Instanciar: Admin con igual user y password")
-  private Administrador adminConUserQueContienePassword() throws FileNotFoundException {
+  private Administrador adminConUserQueContienePassword() {
     return new Administrador("matias", "matias");
   }
 
   @DisplayName("Instanciar: Admin con user que contiene a password")
-  private Administrador adminConIgualPasswordYUsuario() throws FileNotFoundException {
+  private Administrador adminConIgualPasswordYUsuario() {
     return new Administrador("matias", "matias");
   }
 
   @DisplayName("Instanciar: Admin con password corto")
-  private Administrador adminConPasswordFacil() throws FileNotFoundException {
+  private Administrador adminConPasswordFacil() {
     return new Administrador("matias", "asd");
   }
 
   @DisplayName("Instanciar: Admin con password comun")
-  private Administrador adminConPasswordComun() throws FileNotFoundException {
+  private Administrador adminConPasswordComun() {
     return new Administrador("matias", "1111111111");
   }
 
   @DisplayName("Instanciar: Admin con password sin definir")
-  private Administrador adminConPasswordVacio() throws FileNotFoundException {
+  private Administrador adminConPasswordVacio() {
     return new Administrador("matias", null);
   }
 
   @DisplayName("Instanciar: Admin con user sin definir")
-  private Administrador adminConUserVacio() throws FileNotFoundException {
+  private Administrador adminConUserVacio() {
     return new Administrador(null, "AltaContrRaseNia_*3154");
   }
 
   @DisplayName("Instanciar: Admin con password largo")
-  private Administrador adminConPasswordLargo() throws FileNotFoundException {
+  private Administrador adminConPasswordLargo() {
     return new Administrador("matias", LARGE_TEXT);
   }
 
   @DisplayName("Instanciar: Admin con password corto")
-  private Administrador adminConPasswordCorto() throws FileNotFoundException {
+  private Administrador adminConPasswordCorto() {
     return new Administrador("matias", SHORT_TEXT);
   }
 
   @DisplayName("Instanciar: Admin con password completo")
-  private Administrador adminConPasswordCompleto() throws FileNotFoundException {
+  private Administrador adminConPasswordCompleto() {
     return new Administrador("matias", "AltaContrRaseNia_*3154");
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres invalidos")
-  private Administrador adminConPasswordConCaracteresRarosPeroValidos() throws FileNotFoundException {
+  private Administrador adminConPasswordConCaracteresRarosPeroValidos() {
     return new Administrador("matias", "AltaContrRaseNia_*3154");
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres raros pero invalidos")
-  private Administrador adminConPasswordConCaracteresInvalidos() throws FileNotFoundException {
+  private Administrador adminConPasswordConCaracteresInvalidos() {
     return new Administrador("matias", "AltaContrRaseNia_*3154¥");
   }
 
