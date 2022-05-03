@@ -45,8 +45,8 @@ public class PasswordValidator {
           "Error al abrir archivo, verifique que el mismo se encuentre en "
               + COMMON_PASSWORDS_LOCATION);
       e.printStackTrace();
+      return false;
     }
-    return false;
   }
 
   private boolean palabraEstaEnArchivo(String unPassword, Scanner unArchivo) {
