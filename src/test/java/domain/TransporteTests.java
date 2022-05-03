@@ -19,7 +19,7 @@ public class TransporteTests {
     assertEquals(bicicleta().getTipoTransporte(), TipoTransporte.BICICLETA);
   }
 
-  @DisplayName("Un colectivo 157 es un transporte publico de tipo Colectivo y su linea es 157")
+  @DisplayName("Un colectivo 156 es un transporte publico de tipo Colectivo y su linea es 157")
   @Test
   public void colectivo157EsTransportePublicoDeTipoColectivoYLinea157() throws FileNotFoundException {
     assertEquals(colectivoLinea157().getTipoTransporte(), TipoTransporte.PUBLICO);
@@ -42,21 +42,22 @@ public class TransporteTests {
     assertEquals(motoNafta().getCombustible(), Combustible.NAFTA);
   }
 
-  @DisplayName("puedoAgregarParadasAUnColectivo")
+
+  @DisplayName("Puedo agregar 2 paradas a un colectivo")
   @Test
-  public void puedoAgregarParadasAUnColectivo() throws FileNotFoundException {
+  public void puedoAgregarDosParadasAUnColectivo() throws FileNotFoundException {
+    assertEquals(colectivoLinea157().getParadas().get(0).getLatitud(), parada3().getLatitud());
+    assertEquals(colectivoLinea157().getParadas().get(0).getLongitud(), parada3().getLongitud());
+    assertEquals(colectivoLinea157().getParadas().get(1).getLatitud(), parada4().getLatitud());
+    assertEquals(colectivoLinea157().getParadas().get(1).getLongitud(), parada4().getLongitud());
+  }
+
+  @DisplayName("Instancias: Paradas")
+  private List<Ubicacion> paradas() throws FileNotFoundException{
     List<Ubicacion> paradas = new ArrayList<>();
     paradas.add(parada3());
     paradas.add(parada4());
-    colectivoLinea157().addParadas(paradas);
-    assertEquals(colectivoLinea157().getParadas(), paradas);
-  }
-
-  @DisplayName("puedoAgregarUnaParadaAUnColectivo")
-  @Test
-  public void puedoAgregarUnaParadaAUnColectivo() throws FileNotFoundException {
-    colectivoLinea157().addParada(parada3());
-    assertEquals(colectivoLinea157().getParadas(), parada3());
+    return paradas;
   }
 
   @DisplayName("Instanciar: Parada1")
@@ -86,7 +87,9 @@ public class TransporteTests {
 
   @DisplayName("Instanciar: Colectivo linea 157")
   private TransportePublico colectivoLinea157() throws FileNotFoundException {
-    return new TransportePublico(TipoDeTransportePublico.COLECTIVO, "157", parada1(), parada2());
+    TransportePublico bondi = new TransportePublico(TipoDeTransportePublico.COLECTIVO, "157", parada1(), parada2());
+    bondi.addParadas(paradas());
+    return bondi;
   }
 
   @DisplayName("Instanciar: Taxi")
@@ -97,5 +100,4 @@ public class TransporteTests {
   private VehiculoParticular motoNafta() throws FileNotFoundException {
     return new VehiculoParticular(TipoDeVehiculo.MOTO, Combustible.NAFTA);
   }
-
 }
