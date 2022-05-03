@@ -19,7 +19,7 @@ public class TransporteTests {
     assertEquals(bicicleta().getTipoTransporte(), TipoTransporte.BICICLETA);
   }
 
-  @DisplayName("Un colectivo 156 es un transporte publico de tipo Colectivo y su linea es 157")
+  @DisplayName("Un colectivo 157 es un transporte publico de tipo Colectivo y su linea es 157")
   @Test
   public void colectivo157EsTransportePublicoDeTipoColectivoYLinea157() throws FileNotFoundException {
     assertEquals(colectivoLinea157().getTipoTransporte(), TipoTransporte.PUBLICO);
@@ -42,14 +42,11 @@ public class TransporteTests {
     assertEquals(motoNafta().getCombustible(), Combustible.NAFTA);
   }
 
-
   @DisplayName("Puedo agregar 2 paradas a un colectivo")
   @Test
   public void puedoAgregarDosParadasAUnColectivo() throws FileNotFoundException {
-    assertEquals(colectivoLinea157().getParadas().get(0).getLatitud(), parada3().getLatitud());
-    assertEquals(colectivoLinea157().getParadas().get(0).getLongitud(), parada3().getLongitud());
-    assertEquals(colectivoLinea157().getParadas().get(1).getLatitud(), parada4().getLatitud());
-    assertEquals(colectivoLinea157().getParadas().get(1).getLongitud(), parada4().getLongitud());
+    assertEquals(colectivoLinea157().getParadas().get(0).esMismaUbicacionQue(parada3()), true);
+    assertEquals(colectivoLinea157().getParadas().get(1).esMismaUbicacionQue(parada4()), true);
   }
 
   @DisplayName("Instancias: Paradas")
