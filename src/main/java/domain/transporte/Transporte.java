@@ -15,4 +15,8 @@ public abstract class Transporte {
     return (this.tipoTransporte.equals(unTransporte.tipoTransporte));
   }
 
+  public boolean esTranspportePublico() {
+    return (this.tipoTransporte.equals(TipoTransporte.PUBLICO));
+  }
+
 }

@@ -75,7 +75,7 @@ public class MiembroTests {
     Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
 
     Tramo casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
-    Tramo paradaLinea7HastaUTN = new Tramo(paradaCasaLinea7, ubicacionUtn, new TransportePublico(TipoDeTransportePublico.COLECTIVO, "7"));
+    Tramo paradaLinea7HastaUTN = new Tramo(paradaCasaLinea7, ubicacionUtn, colectivoLinea7());
 
     List<Tramo> tramos = new ArrayList<>();
     tramos.add(casaHastaParadaLinea7);
@@ -83,4 +83,11 @@ public class MiembroTests {
     return new Trayecto(tramos);
   }
 
+  @DisplayName("Instanciar: Colectivo Linea 7")
+  private TransportePublico colectivoLinea7() {
+    TransportePublico colectivo7 = new TransportePublico(TipoDeTransportePublico.COLECTIVO,"7");
+    colectivo7.addParadas(new Ubicacion(-34.61908707635995, -58.41677917831219),
+        new Ubicacion(-34.659488779869484, -58.4671460833512));
+    return colectivo7;
+  }
 }
