@@ -3,19 +3,26 @@
 class Organizacion {
   razonSocial : String
   tipo : Tipo
-  ubicacionGeografica : Ubicacion
+  ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
+  void addSector(sector)
+  void crearNuevoSector()
+  bool esSectorDeLaOrganizacion(Sector)
+  int cantidadDeSectores()
+  int cantidadDeMiembros()
+  void crearNuevoSector()
 }
 
 class Ubicacion {
-  latitud : int
-  longitud : int
+  latitud : double
+  longitud : double
 }
 
 class Sector {
   miembros : List<Miembro>
   organizacion : Organizacion
+  void addMiembro(Miembro)
 }
 
 class Miembro {
@@ -25,6 +32,7 @@ class Miembro {
   tipoDocumento : Documento
   sectores : List<Sector>
   trayecto : Trayecto
+  void addSector(Sector)
 }
 ' Ponemos lista de sectores en el Miembro
 ' y que cada sector conozca su organizacion,
@@ -53,7 +61,15 @@ enum Clasificacion {
 
 ' Usamos strategy para los medios de transportes
 abstract class Transporte {
+  tipoTransporte : TipoTransporte
+}
 
+enum TipoTransporte {
+  PUBLICO,
+  PARTICULAR,
+  CONTRATADO,
+  BICICLETA,
+  PIE,
 }
 
 class VehiculoParticular {
@@ -65,6 +81,8 @@ class TransportePublico {
   tipoDeTransportePublico : TipoDeTransportePublico
   paradas : List<Ubicacion>
   linea : String
+  void addParadas(Ubicaciones)
+  bool tieneUnaParadaEn(Ubicacion)
 }
 
 class ServicioContratado {
@@ -72,7 +90,11 @@ class ServicioContratado {
 }
 
 ' Se refiere a caminar o a bicicleta
-class MediosEcologicos {
+class Pie {
+
+}
+
+class Bicicleta {
 
 }
 
@@ -118,7 +140,8 @@ class Administrador {
 
 class PasswordValidator {
   INSTANCE : Singleton
-  bool chequearValidez(user, password)
+  bool passwordEsComun(password)
+  bool passwordEsValido(password, user)
   Singleton getIstance()
 }
 
@@ -133,16 +156,20 @@ Trayecto --> "*" Tramo
 Trayecto <-- Miembro
 Tramo --> Transporte
 Tramo -->"2" Ubicacion
+
+Transporte -up-> TipoTransporte
 TransportePublico -up->"*" Ubicacion
 TransportePublico --> TipoDeTransportePublico
 VehiculoParticular -down-> TipoDeVehiculo
 VehiculoParticular -up-> Combustible
 ServicioContratado -down-> TipoDeServicioContratado
-
 TransportePublico -up-|> Transporte
 VehiculoParticular -up-|> Transporte
-MediosEcologicos -up-|> Transporte
+Pie -up-|> Transporte
+Bicicleta -up-|> Transporte
 ServicioContratado -up-|> Transporte
+
+Administrador -right-> PasswordValidator
 
 'PasswordValidator .up.>
 @enduml
