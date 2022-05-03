@@ -31,7 +31,7 @@ public class TransportePublico extends Transporte {
   public String getLinea() {
     return linea;
   }
-  
+
   public Ubicacion getParadaInicio() {
     return paradaInicio;
   }
@@ -41,10 +41,8 @@ public class TransportePublico extends Transporte {
   }
 
   public void addParadas(List<Ubicacion> paradas) {
-    paradas.stream().map(parada -> this.paradas.add(parada));
-  }
-  
-  public void addParada(Ubicacion parada){
-    this.paradas.add(parada); 
+    for (Ubicacion parada:paradas){
+      this.paradas.add(parada);
+    }
   }
 }
