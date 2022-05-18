@@ -3,6 +3,7 @@ package domain.administrador;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 public class FileHandler {
   // Las instancias de esta clase abren el archivo y contrasta con todas esas palabras
   // cada vez que se requiera chequear la validez de las contraseñas

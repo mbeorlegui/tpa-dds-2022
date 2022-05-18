@@ -1,5 +1,8 @@
 package domain.administrador;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PasswordValidator {
   static final int MAX_LENGTH = 64;
   static final int MIN_LENGTH = 8;
@@ -22,13 +25,14 @@ public class PasswordValidator {
       "debe tener caracteres especiales (_%^&*()!@/#=+¡,;)!";
 
   FileHandler fileReader = new FileHandler();
+  private List<Validator> validadores = new ArrayList<Validator>(); // TODO: Revisar validacion
 
 
   private boolean passwordEsComun(String unPassword) {
     return fileReader.palabraEstaEnArchivo(unPassword);
   }
 
-
+  // TODO: Revisar validacion
   public void validarPassword(String password, String user) {
     if (password == null) {
       throw new NullPointerException(PASSWORD + EMPTY_PASSWORD_ERROR);
@@ -58,4 +62,13 @@ public class PasswordValidator {
       throw new IllegalArgumentException(PASSWORD + COMMON_PASSWORD_ERROR);
     }
   }
+
+  // TODO: Revisar validacion
+  public void validarPassword_2(String password, String user) {
+
+    for (Validator v : this.validadores) {
+      v.validar(password, user);
+    }
+  }
+
 }
