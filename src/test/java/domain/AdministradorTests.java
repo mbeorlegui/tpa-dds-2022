@@ -23,7 +23,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña vacia")
   @Test
   public void adminNoPuedeTenerPasswordVacio() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(NullPointerException.class, () -> {
       adminConPasswordVacio();
     });
   }
@@ -52,7 +52,7 @@ public class AdministradorTests {
     });
   }
 
-  @DisplayName("Admin no puede tener password menor a 8 caracteres")
+  @DisplayName("Admin no puede tener password mayor a 64 caracteres")
   @Test
   public void adminNoPuedeTenerPasswordLargo() {
     assertThrows(IllegalArgumentException.class, () -> {
