@@ -6,12 +6,8 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  void addSector(sector)
   void crearNuevoSector()
   bool esSectorDeLaOrganizacion(Sector)
-  int cantidadDeSectores()
-  int cantidadDeMiembros()
-  void crearNuevoSector()
 }
 
 class Ubicacion {
@@ -22,7 +18,6 @@ class Ubicacion {
 class Sector {
   miembros : List<Miembro>
   organizacion : Organizacion
-  void addMiembro(Miembro)
 }
 
 class Miembro {
@@ -32,7 +27,6 @@ class Miembro {
   tipoDocumento : Documento
   sectores : List<Sector>
   trayecto : Trayecto
-  void addSector(Sector)
 }
 ' Ponemos lista de sectores en el Miembro
 ' y que cada sector conozca su organizacion,
@@ -81,7 +75,6 @@ class TransportePublico {
   tipoDeTransportePublico : TipoDeTransportePublico
   paradas : List<Ubicacion>
   linea : String
-  void addParadas(Ubicaciones)
   bool tieneUnaParadaEn(Ubicacion)
 }
 
@@ -136,13 +129,18 @@ class Trayecto {
 class Administrador {
   user : String
   password : String
+  validador : PasswordValidator 
 }
 
 class PasswordValidator {
-  INSTANCE : Singleton
   bool passwordEsComun(password)
-  bool passwordEsValido(password, user)
-  Singleton getIstance()
+  void validarPassword(password, user)
+  fileReader : FileHandler
+}
+
+class FileHandler {
+  void openFile()
+  bool palabraEstaEnArchivo(unaPalabra)
 }
 
 Miembro "*"<-->"*" Sector
@@ -169,7 +167,8 @@ Pie -up-|> Transporte
 Bicicleta -up-|> Transporte
 ServicioContratado -up-|> Transporte
 
-Administrador -right-> PasswordValidator
+Administrador -down->"1" PasswordValidator
+PasswordValidator -down->"1" FileHandler
 
-'PasswordValidator .up.>
+
 @enduml
