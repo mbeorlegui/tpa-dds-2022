@@ -133,15 +133,75 @@ class Administrador {
 }
 
 class PasswordValidator {
+  List<Validator> : validadores
   bool passwordEsComun(password)
   void validarPassword(password, user)
-  fileReader : FileHandler
+  void ejecutarValidaciones()
 }
 
 class FileHandler {
   void openFile()
   bool palabraEstaEnArchivo(unaPalabra)
 }
+
+abstract class Validator {
+  password : String
+  user : String
+  abstract void ejecutarValidacion()
+}
+
+class PasswordMatchesInvalidCharactersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordIsCommonValidator {
+  fileReader : FileHandler
+  void ejecutarValidacion()
+}
+
+class PasswordHasOnlyLettersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordContainsUserValidator {
+  void ejecutarValidacion()
+}
+
+
+class PasswordHasOnlyNumbersAndLettersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordHasOnlyNumbersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordMaxLengthValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordMinLengthValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordNullValidator {
+  void ejecutarValidacion()
+}
+
+
+Administrador -down->"1" PasswordValidator
+PasswordValidator --> "9" Validator
+Validator <|-down- PasswordIsCommonValidator
+PasswordIsCommonValidator -down->"1" FileHandler
+Validator <|-down- PasswordHasOnlyLettersValidator
+Validator <|-down- PasswordContainsUserValidator
+Validator <|-down- PasswordHasOnlyNumbersAndLettersValidator
+Validator <|-left- PasswordHasOnlyNumbersValidator
+Validator <|-right- PasswordMaxLengthValidator
+Validator <|-left- PasswordMinLengthValidator
+Validator <|-right- PasswordNullValidator
+Validator <|-down- PasswordMatchesInvalidCharactersValidator
+
 
 Miembro "*"<-->"*" Sector
 Organizacion -up-> Tipo
@@ -166,9 +226,6 @@ VehiculoParticular -up-|> Transporte
 Pie -up-|> Transporte
 Bicicleta -up-|> Transporte
 ServicioContratado -up-|> Transporte
-
-Administrador -down->"1" PasswordValidator
-PasswordValidator -down->"1" FileHandler
 
 
 @enduml
