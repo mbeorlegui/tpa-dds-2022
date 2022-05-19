@@ -21,7 +21,7 @@ public class PasswordValidator {
     validadores.add(new PasswordHasOnlyLettersValidator(password, user));
     validadores.add(new PasswordHasOnlyNumbersValidator(password, user));
     validadores.add(new PasswordHasOnlyNumbersAndLettersValidator(password, user));
-    validadores.add(new CommonPasswordValidator(password, user));
+    validadores.add(new PasswordIsCommonValidator(password, user));
   }
 
   public void ejecutarValidaciones() {
