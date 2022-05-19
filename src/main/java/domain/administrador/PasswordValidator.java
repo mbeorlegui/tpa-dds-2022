@@ -67,7 +67,7 @@ public class PasswordValidator {
   public void validarPassword_2(String password, String user) {
 
     for (Validator v : this.validadores) {
-      v.validar(password, user);
+      v.validate();
     }
   }
 
