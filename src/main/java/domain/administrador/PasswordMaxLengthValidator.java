@@ -1,16 +1,17 @@
 package domain.administrador;
 
-public class PasswordMaxLengthValidator extends Validator{
-  static int MAX_LENGTH;
-  public PasswordMaxLengthValidator(String password, String user, String errorMessage, Integer MAX_LENGTH) {
-    super(password, user, errorMessage);
-    this.MAX_LENGTH = MAX_LENGTH;
+public class PasswordMaxLengthValidator extends Validator {
+  static final int MAX_LENGTH = 64;
+  static final String ERROR_MESSAGE = "debe tener 64 caracteres o menos!";
+
+  public PasswordMaxLengthValidator(String password, String user) {
+    super(password, user);
   }
 
   @Override
-  public void validate() {
-    if (password.length() > MAX_LENGTH){
-      throw new IllegalArgumentException(errorMessage);
+  public void ejecutarValidacion() {
+    if (password.length() > MAX_LENGTH) {
+      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

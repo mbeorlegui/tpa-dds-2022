@@ -1,16 +1,18 @@
 package domain.administrador;
 
-public class PasswordHasOnlyNumbersValidator extends Validator{
-  static String ONLY_NUMBERS_REGEX;
-  public PasswordHasOnlyNumbersValidator(String password, String user, String errorMessage, String ONLY_NUMBERS_REGEX) {
-    super(password, user, errorMessage);
-    this.ONLY_NUMBERS_REGEX = ONLY_NUMBERS_REGEX;
+public class PasswordHasOnlyNumbersValidator extends Validator {
+  static final String ONLY_NUMBERS_REGEX = "[0-9]*";
+  static final String ERROR_MESSAGE =
+      "solo contiene numeros, debe agregar letras y caracteres especiales (_%^&*()!@/#=+¡,;)!";
+
+  public PasswordHasOnlyNumbersValidator(String password, String user) {
+    super(password, user);
   }
 
   @Override
-  public void validate() {
+  public void ejecutarValidacion() {
     if (password.matches(ONLY_NUMBERS_REGEX)) {
-      throw new IllegalArgumentException(errorMessage);
+      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

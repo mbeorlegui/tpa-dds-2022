@@ -1,16 +1,17 @@
 package domain.administrador;
 
-public class PasswordMatchesInvalidCharactersValidator extends Validator{
-  static String VALID_CHARACTERS_REGEX;
-  public PasswordMatchesInvalidCharactersValidator(String password, String user, String errorMessage, String VALID_CHARACTERS_REGEX) {
-    super(password, user, errorMessage);
-    this.VALID_CHARACTERS_REGEX = VALID_CHARACTERS_REGEX;
+public class PasswordMatchesInvalidCharactersValidator extends Validator {
+  static final String VALID_CHARACTERS_REGEX = "[a-zA-Z0-9_%^&*()!@/#=+¡,;]*";
+  static final String ERROR_MESSAGE = "contiene caracteres invalidos!";
+
+  public PasswordMatchesInvalidCharactersValidator(String password, String user) {
+    super(password, user);
   }
 
   @Override
-  public void validate() {
+  public void ejecutarValidacion() {
     if (!password.matches(VALID_CHARACTERS_REGEX)) {
-      throw new IllegalArgumentException(errorMessage);
+      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

@@ -1,16 +1,17 @@
 package domain.administrador;
 
-public class PasswordNullValidator extends Validator{
+public class PasswordNullValidator extends Validator {
+  static final String ERROR_MESSAGE = "no puede ser vacia!";
 
 
-  public PasswordNullValidator(String password, String user, String errorMessage) {
-    super(password, user, errorMessage);
+  public PasswordNullValidator(String password, String user) {
+    super(password, user);
   }
 
   @Override
-  public void validate() {
-    if (this.password == null){
-      throw new NullPointerException(errorMessage);
+  public void ejecutarValidacion() {
+    if (password == null) {
+      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
     }
   }
 

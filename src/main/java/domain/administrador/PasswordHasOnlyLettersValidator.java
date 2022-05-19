@@ -1,16 +1,18 @@
 package domain.administrador;
 
-public class PasswordHasOnlyLettersValidator extends Validator{
-  static String ONLY_LETTERS_REGEX;
-  public PasswordHasOnlyLettersValidator(String password, String user, String errorMessage, String ONLY_LETTERS_REGEX) {
-    super(password, user, errorMessage);
-    this.ONLY_LETTERS_REGEX = ONLY_LETTERS_REGEX;
+public class PasswordHasOnlyLettersValidator extends Validator {
+  static final String ONLY_LETTERS_REGEX = "[a-zA-Z]*";
+  static final String ERROR_MESSAGE =
+      "solo contiene letras, debe agregar numeros y caracteres especiales (_%^&*()!@/#=+¡,;)!";
+
+  public PasswordHasOnlyLettersValidator(String password, String user) {
+    super(password, user);
   }
 
   @Override
-  public void validate() {
+  public void ejecutarValidacion() {
     if (password.matches(ONLY_LETTERS_REGEX)) {
-      throw new IllegalArgumentException(errorMessage);
+      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

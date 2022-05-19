@@ -1,16 +1,14 @@
 package domain.administrador;
 
 public abstract class Validator {
-  static String password;
-  static String user;
-  static String errorMessage;
+  String password;
+  String user;
+  static final String PASSWORD = "La contraseña ";
 
-  public Validator(String password, String user, String errorMessage){
+  public Validator(String password, String user) {
     this.password = password;
     this.user = user;
-    this.errorMessage = errorMessage;
-
   }
-  public abstract void validate();
+
+  public abstract void ejecutarValidacion();
 }
-// TODO: Revisar validacion

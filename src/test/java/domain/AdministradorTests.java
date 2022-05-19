@@ -23,7 +23,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña vacia")
   @Test
   public void adminNoPuedeTenerPasswordVacio() {
-    assertThrows(NullPointerException.class, () -> {
+    assertThrows(IllegalArgumentException.class, () -> {
       adminConPasswordVacio();
     });
   }
