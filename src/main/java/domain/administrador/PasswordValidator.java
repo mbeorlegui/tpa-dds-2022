@@ -27,7 +27,6 @@ public class PasswordValidator {
   FileHandler fileReader = new FileHandler();
   private List<Validator> validadores = new ArrayList<Validator>(); // TODO: Revisar validacion
 
-
   private boolean passwordEsComun(String unPassword) {
     return fileReader.palabraEstaEnArchivo(unPassword);
   }
@@ -61,6 +60,18 @@ public class PasswordValidator {
     if (passwordEsComun(password)) {
       throw new IllegalArgumentException(PASSWORD + COMMON_PASSWORD_ERROR);
     }
+  }
+
+  public void crearValidadores(String password, String user){
+    validadores.add(new PasswordNullValidator(password, user, PASSWORD + EMPTY_PASSWORD_ERROR));
+    validadores.add(new PasswordMinLengthValidator(password, user, PASSWORD + MIN_LENGTH_ERROR, MIN_LENGTH));
+    validadores.add(new PasswordMaxLengthValidator(password, user, PASSWORD + MAX_LENGTH_ERROR, MAX_LENGTH));
+    validadores.add(new PasswordContainsUserValidator(password, user, PASSWORD + USER_PASSWORD_ERROR));
+    validadores.add(new PasswordMatchesInvalidCharactersValidator(password, user, PASSWORD + INVALID_CHARACTERS_ERROR, VALID_CHARACTERS_REGEX));
+    validadores.add(new PasswordHasOnlyLettersValidator(password, user, PASSWORD + ONLY_LETTERS_ERROR, ONLY_LETTERS_REGEX));
+    validadores.add(new PasswordHasOnlyNumbersValidator(password, user, PASSWORD + ONLY_NUMBERS_ERROR, ONLY_NUMBERS_REGEX));
+    validadores.add(new PasswordHasOnlyNumbersAndLettersValidator(password, user, PASSWORD + ONLY_NUMBERS_AND_LETTERS_ERROR, ONLY_NUMBERS_AND_LETTERS_REGEX));
+    validadores.add(new CommonPasswordValidator(password, user, PASSWORD + COMMON_PASSWORD_ERROR, fileReader));
   }
 
   // TODO: Revisar validacion
