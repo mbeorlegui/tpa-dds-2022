@@ -1,5 +1,7 @@
 package domain.administrador;
 
+import domain.exceptions.InvalidPasswordException;
+
 public class PasswordHasOnlyLettersValidator extends Validator {
   static final String ONLY_LETTERS_REGEX = "[a-zA-Z]*";
   static final String ERROR_MESSAGE =
@@ -12,7 +14,7 @@ public class PasswordHasOnlyLettersValidator extends Validator {
   @Override
   public void ejecutarValidacion() {
     if (password.matches(ONLY_LETTERS_REGEX)) {
-      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
+      throw new InvalidPasswordException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

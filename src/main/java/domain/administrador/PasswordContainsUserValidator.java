@@ -1,5 +1,7 @@
 package domain.administrador;
 
+import domain.exceptions.InvalidPasswordException;
+
 public class PasswordContainsUserValidator extends Validator {
   static final String ERROR_MESSAGE = "no debe contener el nombre de usuario!";
 
@@ -10,7 +12,7 @@ public class PasswordContainsUserValidator extends Validator {
   @Override
   public void ejecutarValidacion() {
     if (password.contains(user)) {
-      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
+      throw new InvalidPasswordException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

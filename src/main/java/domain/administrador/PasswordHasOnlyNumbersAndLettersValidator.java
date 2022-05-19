@@ -1,5 +1,7 @@
 package domain.administrador;
 
+import domain.exceptions.InvalidPasswordException;
+
 public class PasswordHasOnlyNumbersAndLettersValidator extends Validator {
   static final String ERROR_MESSAGE =
       "debe tener caracteres especiales (_%^&*()!@/#=+¡,;)!";
@@ -12,7 +14,7 @@ public class PasswordHasOnlyNumbersAndLettersValidator extends Validator {
   @Override
   public void ejecutarValidacion() {
     if (password.matches(ONLY_NUMBERS_AND_LETTERS_REGEX)) {
-      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
+      throw new InvalidPasswordException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

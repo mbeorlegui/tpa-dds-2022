@@ -1,5 +1,7 @@
 package domain.administrador;
 
+import domain.exceptions.InvalidPasswordException;
+
 public class PasswordHasOnlyNumbersValidator extends Validator {
   static final String ONLY_NUMBERS_REGEX = "[0-9]*";
   static final String ERROR_MESSAGE =
@@ -12,7 +14,7 @@ public class PasswordHasOnlyNumbersValidator extends Validator {
   @Override
   public void ejecutarValidacion() {
     if (password.matches(ONLY_NUMBERS_REGEX)) {
-      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
+      throw new InvalidPasswordException(PASSWORD + ERROR_MESSAGE);
     }
   }
 }

@@ -1,5 +1,7 @@
 package domain.administrador;
 
+import domain.exceptions.InvalidPasswordException;
+
 public class PasswordNullValidator extends Validator {
   static final String ERROR_MESSAGE = "no puede ser vacia!";
 
@@ -11,7 +13,7 @@ public class PasswordNullValidator extends Validator {
   @Override
   public void ejecutarValidacion() {
     if (password == null) {
-      throw new IllegalArgumentException(PASSWORD + ERROR_MESSAGE);
+      throw new InvalidPasswordException(PASSWORD + ERROR_MESSAGE);
     }
   }
 

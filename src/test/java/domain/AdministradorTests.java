@@ -1,6 +1,7 @@
 package domain;
 
 import domain.administrador.Administrador;
+import domain.exceptions.InvalidPasswordException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña vacia")
   @Test
   public void adminNoPuedeTenerPasswordVacio() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordVacio();
     });
   }
@@ -31,7 +32,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener misma contraseña que usuario")
   @Test
   public void adminNoPuedeTenerIgualPasswordYUser() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConIgualPasswordYUsuario();
     });
   }
@@ -39,7 +40,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña que contenga a usuario")
   @Test
   public void adminNoPuedeTenerUserQueContienePassword() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConUserQueContienePassword();
     });
   }
@@ -47,7 +48,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener password menor a 8 caracteres")
   @Test
   public void adminNoPuedeTenerPasswordCorto() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordCorto();
     });
   }
@@ -55,7 +56,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener password mayor a 64 caracteres")
   @Test
   public void adminNoPuedeTenerPasswordLargo() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordLargo();
     });
   }
@@ -63,7 +64,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener password con caracteres invalidos")
   @Test
   public void adminNoPuedeTenerPasswordConCaracteresInvalidos() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordConCaracteresInvalidos();
     });
   }
@@ -87,7 +88,7 @@ public class AdministradorTests {
   @DisplayName("Admin no puede tener contraseña comun")
   @Test
   public void adminNoPuedeTenerPasswordComun() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordComun();
     });
   }

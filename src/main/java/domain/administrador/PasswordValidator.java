@@ -25,8 +25,8 @@ public class PasswordValidator {
   }
 
   public void ejecutarValidaciones() {
-    for (Validator v : this.validadores) {
-      v.ejecutarValidacion();
+    for (Validator validacion : this.validadores) {
+      validacion.ejecutarValidacion();
     }
   }
 
