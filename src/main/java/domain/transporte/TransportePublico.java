@@ -6,10 +6,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TransportePublico extends Transporte {
+public class TransportePublico implements Transporte {
   private TipoDeTransportePublico tipoDeTransportePublico;
   private List<Ubicacion> paradas = new ArrayList<>();
   private String linea;
+  private TipoTransporte tipoTransporte;
+
+  public TipoTransporte getTipoTransporte() {
+    return tipoTransporte;
+  }
+
+  public void setTipoTransporte(TipoTransporte tipoTransporte) {
+    this.tipoTransporte = tipoTransporte;
+  }
+
+  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
+    return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
+  }
 
   public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea) {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
@@ -35,6 +48,10 @@ public class TransportePublico extends Transporte {
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
     return paradas.stream().anyMatch(ubicacion -> ubicacion.esMismaUbicacionQue(unaUbicacion));
+  }
+
+  public boolean esTranspportePublico() {
+    return (this.tipoTransporte.equals(TipoTransporte.PUBLICO));
   }
 
 }
