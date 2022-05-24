@@ -6,12 +6,8 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  void addSector(sector)
   void crearNuevoSector()
   bool esSectorDeLaOrganizacion(Sector)
-  int cantidadDeSectores()
-  int cantidadDeMiembros()
-  void crearNuevoSector()
 }
 
 class Ubicacion {
@@ -22,7 +18,6 @@ class Ubicacion {
 class Sector {
   miembros : List<Miembro>
   organizacion : Organizacion
-  void addMiembro(Miembro)
 }
 
 class Miembro {
@@ -32,7 +27,6 @@ class Miembro {
   tipoDocumento : Documento
   sectores : List<Sector>
   trayecto : Trayecto
-  void addSector(Sector)
 }
 ' Ponemos lista de sectores en el Miembro
 ' y que cada sector conozca su organizacion,
@@ -81,7 +75,6 @@ class TransportePublico {
   tipoDeTransportePublico : TipoDeTransportePublico
   paradas : List<Ubicacion>
   linea : String
-  void addParadas(Ubicaciones)
   bool tieneUnaParadaEn(Ubicacion)
 }
 
@@ -136,14 +129,79 @@ class Trayecto {
 class Administrador {
   user : String
   password : String
+  validador : PasswordValidator 
 }
 
 class PasswordValidator {
-  INSTANCE : Singleton
+  List<Validator> : validadores
   bool passwordEsComun(password)
-  bool passwordEsValido(password, user)
-  Singleton getIstance()
+  void validarPassword(password, user)
+  void ejecutarValidaciones()
 }
+
+class FileHandler {
+  void openFile()
+  bool palabraEstaEnArchivo(unaPalabra)
+}
+
+abstract class Validator {
+  password : String
+  user : String
+  abstract void ejecutarValidacion()
+}
+
+class PasswordMatchesInvalidCharactersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordIsCommonValidator {
+  fileReader : FileHandler
+  void ejecutarValidacion()
+}
+
+class PasswordHasOnlyLettersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordContainsUserValidator {
+  void ejecutarValidacion()
+}
+
+
+class PasswordHasOnlyNumbersAndLettersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordHasOnlyNumbersValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordMaxLengthValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordMinLengthValidator {
+  void ejecutarValidacion()
+}
+
+class PasswordNullValidator {
+  void ejecutarValidacion()
+}
+
+
+Administrador -down->"1" PasswordValidator
+PasswordValidator --> "9" Validator
+Validator <|-down- PasswordIsCommonValidator
+PasswordIsCommonValidator -down->"1" FileHandler
+Validator <|-down- PasswordHasOnlyLettersValidator
+Validator <|-down- PasswordContainsUserValidator
+Validator <|-down- PasswordHasOnlyNumbersAndLettersValidator
+Validator <|-left- PasswordHasOnlyNumbersValidator
+Validator <|-right- PasswordMaxLengthValidator
+Validator <|-left- PasswordMinLengthValidator
+Validator <|-right- PasswordNullValidator
+Validator <|-down- PasswordMatchesInvalidCharactersValidator
+
 
 Miembro "*"<-->"*" Sector
 Organizacion -up-> Tipo
@@ -169,7 +227,5 @@ Pie -up-|> Transporte
 Bicicleta -up-|> Transporte
 ServicioContratado -up-|> Transporte
 
-Administrador -right-> PasswordValidator
 
-'PasswordValidator .up.>
 @enduml
