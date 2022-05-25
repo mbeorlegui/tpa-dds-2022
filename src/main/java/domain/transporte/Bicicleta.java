@@ -14,6 +14,7 @@ public class Bicicleta implements Transporte {
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
+
   public Bicicleta() {
     setTipoTransporte(TipoTransporte.BICICLETA); 
   }

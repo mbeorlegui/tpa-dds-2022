@@ -14,6 +14,7 @@ public class Pie implements Transporte {
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
+
   public Pie() {
     setTipoTransporte(TipoTransporte.PIE);
   }

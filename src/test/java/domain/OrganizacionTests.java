@@ -27,18 +27,19 @@ public class OrganizacionTests {
     Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
     // organizacion.crearNuevoSector();
-    Sector unSectorDeRRHH = sectorDeRRHH(organizacion);
-    organizacion.crearNuevoSector();
-    organizacion.crearNuevoSector();
+    Sector unSectorDeRRHH = sectorDeRRHH();
+    organizacion.addSector(unSectorDeRRHH);
+    organizacion.addSector(new Sector());
+    organizacion.addSector(new Sector());
     Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
-    miembro.addSector(unSectorDeRRHH);
+    miembro.addSector(unSectorDeRRHH, organizacion);
 
     return organizacion;
   }
 
   @DisplayName("Instanciar: Sector de RRHH")
-  private Sector sectorDeRRHH(Organizacion organizacion) {
-    return new Sector(organizacion);
+  private Sector sectorDeRRHH() {
+    return new Sector();
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -63,13 +64,10 @@ public class OrganizacionTests {
 
   @DisplayName("La organizacion del sector RRHH es la Universidad")
   @Test
-  public void laOrganizacionDelSectorRRHHEsLaUniversidad() {
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getClasificacion(),
-        Clasificacion.UNIVERSIDAD);
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getTipo(), Tipo.
-        GUBERNAMENTAL);
-    assertEquals(sectorDeRRHH(unaUniversidadGubernamental()).getOrganizacion().getRazonSocial(),
-        "UTN");
+  public void laUtnTieneClasificacionUniversidadTipoGubernamental() {
+    assertEquals(unaUniversidadGubernamental().getClasificacion(), Clasificacion.UNIVERSIDAD);
+    assertEquals(unaUniversidadGubernamental().getTipo(), Tipo.GUBERNAMENTAL);
+    assertEquals(unaUniversidadGubernamental().getRazonSocial(),"UTN");
   }
 
   @DisplayName("La Universidad tiene 3 sectores")

@@ -1,7 +1,6 @@
 package domain.transporte;
 
 import domain.ubicacion.Ubicacion;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
