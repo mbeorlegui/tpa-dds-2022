@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MiembroTests {
   
@@ -36,9 +37,16 @@ public class MiembroTests {
     utn.addSector(unSector);
     utn.addSector(otroSector);
     org.addSector(unSectorOrgFalsa);
-    miembro1.addSector(unSector, utn);
-    miembro2.addSector(otroSector, utn);
-    miembro2.addSector(unSectorOrgFalsa,org);
+    // miembro1.addSector(unSector, utn);
+    unSector.addMiembro(miembro1);
+    utn.addSector(unSector);
+    // miembro2.addSector(otroSector, utn);
+    otroSector.addMiembro(miembro2);
+    utn.addSector(otroSector);
+    // miembro2.addSector(unSectorOrgFalsa,org);
+    unSectorOrgFalsa.addMiembro(miembro2);
+    org.addSector(unSectorOrgFalsa);
+    /*
     HashSet<Organizacion> organizaciones1 = new HashSet<>();
     organizaciones1.add(utn);
     HashSet<Organizacion> organizaciones2 = new HashSet<>();
@@ -46,6 +54,19 @@ public class MiembroTests {
     organizaciones2.add(org);
     assertEquals(miembro1.getOrganizaciones(), organizaciones1);
     assertEquals(miembro2.getOrganizaciones(), organizaciones2);
+    */
+    assertTrue(utn.esMiembro(miembro1));
+    assertTrue(utn.esMiembro(miembro2));
+    assertTrue(org.esMiembro(miembro2));
+  }
+
+  @Test
+  public void unMiembroSeCreaCorrectamente() {
+    Miembro miembro = unMiembro();
+    assertEquals(miembro.getNombre(), "Matias");
+    assertEquals(miembro.getApellido(), "Beorlegui");
+    assertEquals(miembro.getNumeroDeDocumento(), 47813065);
+    assertEquals(miembro.getTipoDeDocumento(), Documento.DNI);
   }
 
   @DisplayName("Instanciar: Miembro")

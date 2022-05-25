@@ -32,8 +32,8 @@ public class OrganizacionTests {
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
     Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
-    miembro.addSector(unSectorDeRRHH, organizacion);
-
+    //miembro.addSector(unSectorDeRRHH, organizacion);
+    unSectorDeRRHH.addMiembro(miembro);
     return organizacion;
   }
 

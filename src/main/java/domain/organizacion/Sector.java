@@ -6,9 +6,8 @@ import java.util.List;
 
 public class Sector {
   //private Organizacion organizacion;
-  /*    Hago que la organizacion conozca los sectores,
+  /*    Hago que la organizacion conozca los sectores y
       que los sectores conozcan a los miembros
-      y que los miembros conozcan las organizaciones donde trabaja
   */
   private List<Miembro> miembros;
 

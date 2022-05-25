@@ -11,7 +11,7 @@ public class Miembro {
   private Integer numeroDeDocumento;
   private Documento tipoDeDocumento;
   private Trayecto trayecto;
-  private HashSet<Organizacion> organizaciones = new HashSet<>();
+  // private HashSet<Organizacion> organizaciones = new HashSet<>();
   //Uso hashSet para que no se repitan las organizaciones
 
   public String getNombre() {
@@ -29,10 +29,11 @@ public class Miembro {
   public Documento getTipoDeDocumento() {
     return tipoDeDocumento;
   }
-
+  /*
   public HashSet<Organizacion> getOrganizaciones() {
     return organizaciones;
   }
+  */
 
   public Miembro(
       String nombre,
@@ -46,13 +47,14 @@ public class Miembro {
     this.tipoDeDocumento = tipoDeDocumento;
     this.trayecto = trayecto;
   }
-
+  /*
   public void addSector(Sector sector, Organizacion organizacion) {
     if (organizacion.tieneSectorDe(sector)) {
       sector.addMiembro(this);
       organizaciones.add(organizacion);
     }
   }
+  */
 
   public void setTrayecto(Trayecto trayecto) {
     this.trayecto = trayecto;

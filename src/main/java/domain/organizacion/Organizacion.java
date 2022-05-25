@@ -43,10 +43,11 @@ public class Organizacion {
       sectores.add(sector);
     }
   }
-
+  /*
   public void crearNuevoSector() {
     this.addSector(new Sector());
   }
+  */
 
   public List<Miembro> getMiembros() {
     return sectores
@@ -65,5 +66,9 @@ public class Organizacion {
 
   public Integer cantidadDeMiembros() {
     return this.getMiembros().size();
+  }
+
+  public Boolean esMiembro(Miembro miembro) {
+    return this.getMiembros().contains(miembro);
   }
 }
