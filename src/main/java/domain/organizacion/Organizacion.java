@@ -2,7 +2,6 @@ package domain.organizacion;
 
 import domain.miembro.Miembro;
 import domain.ubicacion.Ubicacion;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,25 +39,24 @@ public class Organizacion {
   }
 
   public void addSector(Sector sector) {
-    if (!esSectorDeLaOrganizacion(sector)) {
+    if (!tieneSectorDe(sector)) {
       sectores.add(sector);
-      sector.setOrganizacion(this);
     }
   }
-
+  /*
   public void crearNuevoSector() {
-    this.addSector(new Sector(this));
+    this.addSector(new Sector());
   }
+  */
 
   public List<Miembro> getMiembros() {
-    List<Miembro> miembros = sectores
-                              .stream()
-                              .flatMap(s -> s.getMiembros().stream())
-                              .collect(Collectors.toList());
-    return miembros;
+    return sectores
+        .stream()
+        .flatMap(s -> s.getMiembros().stream())
+        .collect(Collectors.toList());
   }
 
-  public Boolean esSectorDeLaOrganizacion(Sector sector) {
+  public Boolean tieneSectorDe(Sector sector) {
     return sectores.contains(sector);
   }
 
@@ -68,5 +66,9 @@ public class Organizacion {
 
   public Integer cantidadDeMiembros() {
     return this.getMiembros().size();
+  }
+
+  public Boolean esMiembro(Miembro miembro) {
+    return this.getMiembros().contains(miembro);
   }
 }

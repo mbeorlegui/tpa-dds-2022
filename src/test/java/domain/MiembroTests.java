@@ -16,23 +16,58 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MiembroTests {
   
   @DisplayName("Al agregar varios sectores a Miembro sin repetir")
   @Test
-  public void correctoAgregadoDeSectoresAMiembro() {
-    unMiembro().addSector(unSector());
-    unMiembro().addSector(otroSector());
-    unMiembro().addSector(otroSector());
-    otroMiembro().addSector(unSector());
-    otroMiembro().addSector(otroSector());
-    assertEquals(unMiembro().getSectores(), otroMiembro().getSectores());
+  public void correctoAgregadoDeMiembrosASectoresDeDosOrganizaciones() {
+    Miembro miembro1 = unMiembro();
+    Miembro miembro2 = otroMiembro();
+    Organizacion utn = utn();
+    Organizacion org = orgFalsa();
+    Sector unSector = unSector();
+    Sector otroSector = unSector();
+    Sector unSectorOrgFalsa = unSector();
+    utn.addSector(unSector);
+    utn.addSector(otroSector);
+    org.addSector(unSectorOrgFalsa);
+    // miembro1.addSector(unSector, utn);
+    unSector.addMiembro(miembro1);
+    utn.addSector(unSector);
+    // miembro2.addSector(otroSector, utn);
+    otroSector.addMiembro(miembro2);
+    utn.addSector(otroSector);
+    // miembro2.addSector(unSectorOrgFalsa,org);
+    unSectorOrgFalsa.addMiembro(miembro2);
+    org.addSector(unSectorOrgFalsa);
+    /*
+    HashSet<Organizacion> organizaciones1 = new HashSet<>();
+    organizaciones1.add(utn);
+    HashSet<Organizacion> organizaciones2 = new HashSet<>();
+    organizaciones2.add(utn);
+    organizaciones2.add(org);
+    assertEquals(miembro1.getOrganizaciones(), organizaciones1);
+    assertEquals(miembro2.getOrganizaciones(), organizaciones2);
+    */
+    assertTrue(utn.esMiembro(miembro1));
+    assertTrue(utn.esMiembro(miembro2));
+    assertTrue(org.esMiembro(miembro2));
   }
 
+  @Test
+  public void unMiembroSeCreaCorrectamente() {
+    Miembro miembro = unMiembro();
+    assertEquals(miembro.getNombre(), "Matias");
+    assertEquals(miembro.getApellido(), "Beorlegui");
+    assertEquals(miembro.getNumeroDeDocumento(), 47813065);
+    assertEquals(miembro.getTipoDeDocumento(), Documento.DNI);
+  }
 
   @DisplayName("Instanciar: Miembro")
   public Miembro unMiembro() {
@@ -48,24 +83,19 @@ public class MiembroTests {
 
   @DisplayName("Instanciar: Un sector")
   public Sector unSector() {
-    return new Sector(unaOrganizacion());
-  }
-
-  @DisplayName("Instanciar: Otro sector")
-  public Sector otroSector() {
-    return new Sector(otraOrganizacion());
+    return new Sector();
   }
 
   @DisplayName("Instanciar: Una organizacion")
-  public Organizacion unaOrganizacion() {
+  public Organizacion utn() {
     return new Organizacion(
-        "OrgFalsa SRL", Tipo.EMPRESA, new Ubicacion(-34.659488779869484, -58.4671460833512), Clasificacion.EMPRESA_DEL_SECTOR_SECUNDARIO);
-  }
+        "UTN FRBA", Tipo.EMPRESA, new Ubicacion(-34.659488779869484, -58.4671460833512), Clasificacion.UNIVERSIDAD);
+   }
 
   @DisplayName("Instanciar: Otra organizacion")
-  public Organizacion otraOrganizacion() {
+  public Organizacion orgFalsa() {
     return new Organizacion(
-        "OtraOrgFalsa SRL", Tipo.EMPRESA, new Ubicacion(-34.659488779869484, -58.4671460833512), Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
+        "orgFalsa SRL", Tipo.EMPRESA, new Ubicacion(-36.659488779869484, -58.4671460833512), Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
   }
 
   @DisplayName("Instanciar: Trayecto")

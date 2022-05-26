@@ -6,8 +6,10 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  void crearNuevoSector()
-  bool esSectorDeLaOrganizacion(Sector)
+  bool tieneSectorDe(Sector)
+  int cantidadDeSectores()
+  int cantidadDeMiembros()
+  bool esMiembro(Miembro miembro)
 }
 
 class Ubicacion {
@@ -17,7 +19,6 @@ class Ubicacion {
 
 class Sector {
   miembros : List<Miembro>
-  organizacion : Organizacion
 }
 
 class Miembro {
@@ -25,13 +26,8 @@ class Miembro {
   apellido : String
   nroDocumento : int
   tipoDocumento : Documento
-  sectores : List<Sector>
   trayecto : Trayecto
 }
-' Ponemos lista de sectores en el Miembro
-' y que cada sector conozca su organizacion,
-' de forma tal que el miembro pueda acceder a su
-' organizacion mediante el sector
 
 enum Documento {
   DNI,
@@ -54,7 +50,7 @@ enum Clasificacion {
 }
 
 ' Usamos strategy para los medios de transportes
-abstract class Transporte {
+interface Transporte {
   tipoTransporte : TipoTransporte
 }
 
@@ -203,11 +199,11 @@ Validator <|-right- PasswordNullValidator
 Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 
-Miembro "*"<-->"*" Sector
+Miembro "*"<-- Sector
 Organizacion -up-> Tipo
 Organizacion -up-> Clasificacion
 Organizacion --> Ubicacion
-Organizacion "1"<-->"*" Sector
+Organizacion -->"*" Sector
 Miembro -up-> Documento
 
 Trayecto --> "*" Tramo
@@ -221,11 +217,11 @@ TransportePublico --> TipoDeTransportePublico
 VehiculoParticular -down-> TipoDeVehiculo
 VehiculoParticular -up-> Combustible
 ServicioContratado -down-> TipoDeServicioContratado
-TransportePublico -up-|> Transporte
-VehiculoParticular -up-|> Transporte
-Pie -up-|> Transporte
-Bicicleta -up-|> Transporte
-ServicioContratado -up-|> Transporte
+TransportePublico .up.|> Transporte
+VehiculoParticular .up.|> Transporte
+Pie .up.|> Transporte
+Bicicleta .up.|> Transporte
+ServicioContratado .up.|> Transporte
 
 
 @enduml

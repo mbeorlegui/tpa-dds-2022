@@ -1,18 +1,18 @@
 package domain.miembro;
 
+import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.trayecto.Trayecto;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class Miembro {
   private String nombre;
   private String apellido;
   private Integer numeroDeDocumento;
   private Documento tipoDeDocumento;
-  private List<Sector> sectores = new ArrayList<>();
   private Trayecto trayecto;
+  // private HashSet<Organizacion> organizaciones = new HashSet<>();
+  //Uso hashSet para que no se repitan las organizaciones
 
   public String getNombre() {
     return nombre;
@@ -29,10 +29,11 @@ public class Miembro {
   public Documento getTipoDeDocumento() {
     return tipoDeDocumento;
   }
-
-  public List<Sector> getSectores() {
-    return sectores;
+  /*
+  public HashSet<Organizacion> getOrganizaciones() {
+    return organizaciones;
   }
+  */
 
   public Miembro(
       String nombre,
@@ -46,13 +47,14 @@ public class Miembro {
     this.tipoDeDocumento = tipoDeDocumento;
     this.trayecto = trayecto;
   }
-
-  public void addSector(Sector sector) {
-    if (!sectores.contains(sector)) {
-      sectores.add(sector);
+  /*
+  public void addSector(Sector sector, Organizacion organizacion) {
+    if (organizacion.tieneSectorDe(sector)) {
       sector.addMiembro(this);
+      organizaciones.add(organizacion);
     }
   }
+  */
 
   public void setTrayecto(Trayecto trayecto) {
     this.trayecto = trayecto;

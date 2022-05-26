@@ -2,6 +2,7 @@ package domain;
 
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
+import domain.organizacion.Sector;
 import domain.organizacion.Tipo;
 import domain.transporte.Pie;
 import domain.transporte.TipoDeTransportePublico;
@@ -46,9 +47,12 @@ public class TrayectoTests {
   private Organizacion universidadTecnologicaNacionalFRBA() {
     Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
-    organizacion.crearNuevoSector();
-    organizacion.crearNuevoSector();
-    organizacion.crearNuevoSector();
+    // organizacion.crearNuevoSector();
+    // organizacion.crearNuevoSector();
+    // organizacion.crearNuevoSector();
+    organizacion.addSector(new Sector());
+    organizacion.addSector(new Sector());
+    organizacion.addSector(new Sector());
 
     return organizacion;
   }
