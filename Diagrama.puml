@@ -1,4 +1,4 @@
-@startuml TPA-1
+@startuml TPA-2
 
 class Organizacion {
   razonSocial : String
@@ -6,15 +6,65 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
+  csvHandler : CSVHandler
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
   int cantidadDeMiembros()
   bool esMiembro(Miembro miembro)
+  List<Miembro> miembros()
+  void validarMiembrosOrg(List<Miembro>)
+  void asignarTrayectoAMiembros(Trayecto, List<Miembro>)
+  void cargarMedicion(Integer, Periodicidad, String)
+}
+' validarMiembrosOrg -> valida que en la lista de miembros todos pertenezcan a la organizacion
+' asignarTrayectoAMiembros -> llama a validarMiembrosOrg para lista de miembros,
+' y validarTrayectoCompartidoMiembrosOrg para el trayecto, si pasan las validaciones,
+' a todos los miembros de la lista se le asigna el trayecto
+
+class TipoConsumo {
+  nombre : String
+  unidad : Unidad
+  actividad : Actividad
+  alcance : Alcance
 }
 
+class Medicion {
+  tipoConsumo: TipoConsumo
+  valor: Integer
+  periodicidad: Periodicidad
+  periodoDeImputacion: String
+}
+' periodicidad puede ser un String. Solo se usa en la validacion con periodoDeImputacion
+
+enum Unidad {
+  M3,
+  LT,
+  KG,
+  KWH,
+  KM,
+}
+
+enum Actividad {
+  CombustionFija,
+  CombustionMóvil,
+  Electricidad,
+  Logística,
+}
+
+enum Alcance {
+  EmisionDirecta,
+  EmisionIndirecta,
+  OtrasEmisiones,
+}
+
+enum Periodicidad {
+  MENSUAL,
+  ANUAL,
+}
 class Ubicacion {
-  latitud : double
-  longitud : double
+  localidadId : integer
+  calle : string
+  altura : string
 }
 
 class Sector {
@@ -113,13 +163,24 @@ enum Combustible {
 }
 
 class Tramo {
-  inicioDeTramo : Ubicacion
-  finDeTramo : Ubicacion
+  origenDeTramo : Ubicacion
+  destinoDeTramo : Ubicacion
   transporteUtilizado : Transporte
+  void validarTramoCompartidoMiembrosOrg()
+  double distanciaIntermedia()
 }
+' validarTramoCompartidoMiembrosOrg -> valida que el tipo de transporte del tramo sea
+' vehículo particular o de servicio contratado
 
 class Trayecto {
   tramos : List<Tramo>
+  void validarTrayectoCompartidoMiembrosOrg()
+  double distanciaTotal()
+}
+' validarTrayectoCompartidoMiembrosOrg -> llama para cada tramo al validarTramoCompartido
+
+interface CalculadoraDeDistancia {
+  double distancia(Ubicacion origen, Ubicacion destino)
 }
 
 class Administrador {
@@ -184,6 +245,10 @@ class PasswordNullValidator {
   void ejecutarValidacion()
 }
 
+class CSVHandler {
+  void agregarMedicion()
+}
+
 
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
@@ -199,15 +264,15 @@ Validator <|-right- PasswordNullValidator
 Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 
-Miembro "*"<-- Sector
+Miembro "*"<-up- Sector
 Organizacion -up-> Tipo
 Organizacion -up-> Clasificacion
 Organizacion --> Ubicacion
-Organizacion -->"*" Sector
+Organizacion -left->"*" Sector
 Miembro -up-> Documento
 
 Trayecto --> "*" Tramo
-Trayecto <-- Miembro
+Trayecto <-left- Miembro
 Tramo --> Transporte
 Tramo -->"2" Ubicacion
 
@@ -223,5 +288,14 @@ Pie .up.|> Transporte
 Bicicleta .up.|> Transporte
 ServicioContratado .up.|> Transporte
 
+
+Organizacion ..> Trayecto
+Tramo ..> CalculadoraDeDistancia
+
+Organizacion -right-> CSVHandler
+
+TipoConsumo --> Actividad
+TipoConsumo --> Alcance
+TipoConsumo --> Unidad
 
 @enduml

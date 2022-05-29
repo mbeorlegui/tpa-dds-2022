@@ -1,0 +1,4 @@
+TipoConsumo, Valor, Periodicidad, Periodo
+CombustionFija, 100, MENSUAL, 03/2022
+CombustionFija, 50, ANUAL, 2021
+Electricidad, 60, MENSUAL, 04/2021
