@@ -1,6 +1,6 @@
 # Mi impacto ambiental
 
-La consigna completa de la primera iteración se encuentra [aquí](https://docs.google.com/document/d/1VjI_qd5L2GGb6oY8Ti2PxEbFEMvMN1yOcK_0mYn59Tg/edit).
+
 ----------
 
 
@@ -26,6 +26,8 @@ El equipo que trabajó hasta el momento en el proyecto nos envió un diagrama ge
 </p>
 
 ## Primer entrega: Modelado de Objetos Parte 1
+
+La consigna completa de la primera iteración se encuentra [aquí](https://docs.google.com/document/d/1VjI_qd5L2GGb6oY8Ti2PxEbFEMvMN1yOcK_0mYn59Tg/edit).
 
 **Alcance:**
 - Organizaciones y Miembros
@@ -99,3 +101,43 @@ Para esta entrega se deberán satisfacer los siguientes requerimientos:
 *Entregables requeridos*
 - Modelo de Objetos: diagrama de clases inicial e implementación de los requerimientos de esta entrega.
 - Implementación de un algoritmo validador de contraseñas.
+
+
+## Primer entrega: Modelado de Objetos Parte 2 e Integración
+
+
+La consigna completa de la segunda iteración se encuentra [aquí](https://docs.google.com/document/d/1PQjxMl-lHBoFaaaJZFOJodAfxpouqy1qjaPf0D1kAZc/edit)
+
+**Alcance**
+- Registro de trayectos (avanzado) para los Miembros de las Organizaciones
+- Cálculo de distancia entre tramos
+- Carga de mediciones de Organizaciones
+
+**Dominio**
+En esta segunda iteración nos encargaremos de refinar el registro de los trayectos que realizan los miembros hasta sus organizaciones, además de trabajar sobre el cálculo de la distancia entre tramos y la carga de mediciones de las Organizaciones.
+
+*Registro de Trayectos*
+Considerando únicamente los trayectos cuyo medio de transporte sean de vehículo particular o de servicio contratado, se debe tener en cuenta que los mismos pueden ser compartidos entre trabajadores de la misma Organización. 
+
+*Cálculo de distancia entre tramos*
+Para calcular la distancia entre los distintos tramos que conforman un trayecto se debe tener en cuenta que:
+- Si el medio de transporte es vehículo particular, servicio contratado o bicicleta/pie, entonces la distancia entre el punto de inicio y el punto de llegada debe ser calculado utilizando un Servicio Externo.
+- Si el medio de transporte es público entonces cada parada/estación debe conocer cuál es su distancia a la próxima. Es necesario tener en cuenta que no siempre los transportes públicos realizan los mismos recorridos a la ida y a la vuelta. La información de las paradas debe poder ser precargada por un operador del sistema y luego utilizada por cualquier usuario, sin importar su organización. 
+
+
+*Carga de mediciones de Organizaciones*
+Para poder medir correctamente la HC de cada una de las Organizaciones es necesario conocer los Datos de las Actividades (DA). Por este motivo, las Organizaciones deben cargar en el Sistema un archivo de CSV, como esta en el ejemplo.
+
+Tener en cuenta que para cada tipo de consumo se debe poder cargar un factor de emisión de carbono (FE), cuya unidad de medida debe coincidir, para poder luego calcular la huella de carbono. 
+
+*Requerimientos detallados*
+Para esta entrega deberán satisfacerse los siguientes requerimientos:
+1. Se debe permitir la carga de Trayectos compartidos entre miembros de una organización.
+2. Se debe permitir dar a conocer la distancia total de un trayecto, así como también la distancia entre sus puntos intermedios en el caso de que éstos existan.
+3. Se debe permitir la carga de mediciones por parte de una Organización, respetando la estructura del archivo mencionada. Tener en cuenta que los consumos deben estar asociados a un Tipo de Consumo existente. 
+4. Al cargar los Factores de Emisión (FE, entrega anterior), se debe validar que sus unidades coincidan con las del Tipo de Consumo (TC) asociado.
+
+
+*Entregables requeridos*
+- Modelo de Objetos: diagrama de clases que contemple las funcionalidades requeridas.
+- Implementación de requerimientos de esta entrega.
