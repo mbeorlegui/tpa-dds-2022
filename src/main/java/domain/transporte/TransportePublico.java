@@ -1,23 +1,23 @@
 package domain.transporte;
 
 import domain.ubicacion.Ubicacion;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class TransportePublico implements Transporte {
+  @Getter
   private TipoDeTransportePublico tipoDeTransportePublico;
+  @Getter
   private List<Ubicacion> paradas = new ArrayList<>();
+  @Getter
   private String linea;
+  @Getter
+  @Setter
   private TipoTransporte tipoTransporte;
-
-  public TipoTransporte getTipoTransporte() {
-    return tipoTransporte;
-  }
-
-  public void setTipoTransporte(TipoTransporte tipoTransporte) {
-    this.tipoTransporte = tipoTransporte;
-  }
 
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
@@ -27,18 +27,6 @@ public class TransportePublico implements Transporte {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
     this.linea = linea;
     setTipoTransporte(TipoTransporte.PUBLICO);
-  }
-
-  public TipoDeTransportePublico getTipoDeTransportePublico() {
-    return tipoDeTransportePublico;
-  }
-
-  public List<Ubicacion> getParadas() {
-    return paradas;
-  }
-
-  public String getLinea() {
-    return linea;
   }
 
   public void addParadas(Ubicacion... ubicaciones) {

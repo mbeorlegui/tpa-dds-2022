@@ -1,6 +1,8 @@
 package domain.organizacion;
 
 import domain.miembro.Miembro;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Sector {
   /*    Hago que la organizacion conozca los sectores y
       que los sectores conozcan a los miembros
   */
+  @Getter
   private List<Miembro> miembros;
 
   public Sector() {
@@ -21,7 +24,4 @@ public class Sector {
     }
   }
 
-  public List<Miembro> getMiembros() {
-    return miembros;
-  }
 }

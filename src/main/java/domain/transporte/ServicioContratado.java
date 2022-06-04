@@ -1,7 +1,12 @@
 package domain.transporte;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ServicioContratado implements Transporte {
   private TipoDeServicioContratado tipoDeServicioContratado;
+  @Setter
+  @Getter
   private TipoTransporte tipoTransporte;
 
   public TipoTransporte getTipoTransporte() {
@@ -24,5 +29,5 @@ public class ServicioContratado implements Transporte {
   public TipoDeServicioContratado getTipoDeServicioContratado() {
     return tipoDeServicioContratado;
   }
-  
+
 }

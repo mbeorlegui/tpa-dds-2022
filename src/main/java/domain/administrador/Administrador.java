@@ -1,9 +1,13 @@
 package domain.administrador;
 
+import lombok.Getter;
+
 import static java.util.Objects.requireNonNull;
 
 public class Administrador {
+  @Getter
   String user;
+  @Getter
   String password;
   PasswordValidator validador = new PasswordValidator();
 
@@ -13,11 +17,4 @@ public class Administrador {
     this.password = password;
   }
 
-  public String getUser() {
-    return user;
-  }
-
-  public String getPassword() {
-    return password;
-  }
 }

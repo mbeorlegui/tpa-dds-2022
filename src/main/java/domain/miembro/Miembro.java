@@ -3,32 +3,24 @@ package domain.miembro;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.trayecto.Trayecto;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 
 public class Miembro {
+  @Getter
   private String nombre;
+  @Getter
   private String apellido;
+  @Getter
   private Integer numeroDeDocumento;
+  @Getter
   private Documento tipoDeDocumento;
+  @Setter
+  @Getter
   private Trayecto trayecto;
-  // private HashSet<Organizacion> organizaciones = new HashSet<>();
-  //Uso hashSet para que no se repitan las organizaciones
 
-  public String getNombre() {
-    return nombre;
-  }
-
-  public String getApellido() {
-    return apellido;
-  }
-
-  public Integer getNumeroDeDocumento() {
-    return numeroDeDocumento;
-  }
-
-  public Documento getTipoDeDocumento() {
-    return tipoDeDocumento;
-  }
   /*
   public HashSet<Organizacion> getOrganizaciones() {
     return organizaciones;
@@ -56,11 +48,4 @@ public class Miembro {
   }
   */
 
-  public void setTrayecto(Trayecto trayecto) {
-    this.trayecto = trayecto;
-  }
-
-  public Trayecto getTrayecto() {
-    return trayecto;
-  }
 }

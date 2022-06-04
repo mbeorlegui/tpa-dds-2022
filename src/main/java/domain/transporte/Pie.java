@@ -1,22 +1,18 @@
 package domain.transporte;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Pie implements Transporte {
+  @Getter
+  @Setter
   private TipoTransporte tipoTransporte;
 
-  public TipoTransporte getTipoTransporte() {
-    return tipoTransporte;
-  }
-
-  public void setTipoTransporte(TipoTransporte tipoTransporte) {
-    this.tipoTransporte = tipoTransporte;
+  public Pie() {
+    setTipoTransporte(TipoTransporte.PIE);
   }
 
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
-
-  public Pie() {
-    setTipoTransporte(TipoTransporte.PIE);
-  }
-  
 }

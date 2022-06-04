@@ -2,16 +2,24 @@ package domain.organizacion;
 
 import domain.miembro.Miembro;
 import domain.ubicacion.Ubicacion;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
+
 public class Organizacion {
+  @Getter
   private String razonSocial;
+  @Getter
   private Tipo tipo;
+  @Getter
   private Ubicacion ubicacion;
   private List<Sector> sectores = new ArrayList<>();
+  @Getter
   private Clasificacion clasificacion;
+  private CsvHandler csvHandler;
 
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
@@ -22,32 +30,12 @@ public class Organizacion {
     this.clasificacion = clasificacion;
   }
 
-  public String getRazonSocial() {
-    return razonSocial;
-  }
-
-  public Tipo getTipo() {
-    return tipo;
-  }
-
-  public Ubicacion getUbicacion() {
-    return ubicacion;
-  }
-
-  public Clasificacion getClasificacion() {
-    return clasificacion;
-  }
 
   public void addSector(Sector sector) {
     if (!tieneSectorDe(sector)) {
       sectores.add(sector);
     }
   }
-  /*
-  public void crearNuevoSector() {
-    this.addSector(new Sector());
-  }
-  */
 
   public List<Miembro> getMiembros() {
     return sectores
