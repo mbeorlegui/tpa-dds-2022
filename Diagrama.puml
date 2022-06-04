@@ -7,6 +7,7 @@ class Organizacion {
   sectores : List<Sector>
   clasificacion : Clasificacion
   csvHandler : CSVHandler
+  mediciones : List<Medicion>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
   int cantidadDeMiembros()
@@ -294,6 +295,9 @@ Tramo ..> CalculadoraDeDistancia
 
 Organizacion -right-> CSVHandler
 
+Organizacion -right-> Medicion
+Medicion --> TipoConsumo
+Medicion --> Periodicidad
 TipoConsumo --> Actividad
 TipoConsumo --> Alcance
 TipoConsumo --> Unidad
