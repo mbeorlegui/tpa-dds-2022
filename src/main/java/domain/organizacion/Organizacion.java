@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.medicion.Medicion;
 import domain.miembro.Miembro;
 import domain.ubicacion.Ubicacion;
 
@@ -20,6 +21,8 @@ public class Organizacion {
   @Getter
   private Clasificacion clasificacion;
   private CsvHandler csvHandler;
+
+  private List<Medicion> mediciones = new ArrayList<Medicion>();
 
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
@@ -58,5 +61,9 @@ public class Organizacion {
 
   public Boolean esMiembro(Miembro miembro) {
     return this.getMiembros().contains(miembro);
+  }
+
+  public void agregarMedicion(Medicion unaMedicion) {
+    mediciones.add(unaMedicion);
   }
 }
