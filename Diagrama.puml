@@ -6,7 +6,7 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  csvHandler : CSVHandler
+  csvHandler : CsvHandler
   mediciones : List<Medicion>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
@@ -46,16 +46,16 @@ enum Unidad {
 }
 
 enum Actividad {
-  CombustionFija,
-  CombustionMóvil,
-  Electricidad,
-  Logística,
+  COMBUSTION_FIJA,
+  COMBUSTION_MOVIL,
+  ELECTRICIDAD,
+  LOGISTICA,
 }
 
 enum Alcance {
-  EmisionDirecta,
-  EmisionIndirecta,
-  OtrasEmisiones,
+  EMISION_DIRECTA,
+  EMISION_INDIRECTA,
+  OTRAS_EMISIONES,
 }
 
 enum Periodicidad {
@@ -171,7 +171,7 @@ class Tramo {
   double distanciaIntermedia()
 }
 ' validarTramoCompartidoMiembrosOrg -> valida que el tipo de transporte del tramo sea
-' vehículo particular o de servicio contratado
+' vehiculo particular o de servicio contratado
 
 class Trayecto {
   tramos : List<Tramo>
@@ -246,8 +246,8 @@ class PasswordNullValidator {
   void ejecutarValidacion()
 }
 
-class CSVHandler {
-  void agregarMedicion()
+class CsvHandler {
+  void leerMediciones()
 }
 
 
@@ -293,7 +293,7 @@ ServicioContratado .up.|> Transporte
 Organizacion ..> Trayecto
 Tramo ..> CalculadoraDeDistancia
 
-Organizacion -right-> CSVHandler
+Organizacion -right-> CsvHandler
 
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo
