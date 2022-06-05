@@ -1,10 +1,10 @@
-package domain.ApiHandler;
+package domain.services.apidistancias.entities;
 
 import lombok.Getter;
 
 public class ResultadoDistancia {
   @Getter
-  private Double valor;
+  private double valor;
   @Getter
   private String unidad;
 }

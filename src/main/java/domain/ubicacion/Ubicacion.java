@@ -8,9 +8,9 @@ public class Ubicacion {
   @Getter
   private String calle;
   @Getter
-  private String altura;
+  private Integer altura;
 
-  public Ubicacion(Integer localidadID, String calle, String altura) {
+  public Ubicacion(Integer localidadID, String calle, Integer altura) {
     this.localidadID = localidadID;
     this.calle = calle;
     this.altura = altura;

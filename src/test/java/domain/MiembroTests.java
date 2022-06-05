@@ -46,7 +46,6 @@ public class MiembroTests {
     // miembro2.addSector(unSectorOrgFalsa,org);
     unSectorOrgFalsa.addMiembro(miembro2);
     org.addSector(unSectorOrgFalsa);
-    /*
     HashSet<Organizacion> organizaciones1 = new HashSet<>();
     organizaciones1.add(utn);
     HashSet<Organizacion> organizaciones2 = new HashSet<>();
@@ -54,7 +53,8 @@ public class MiembroTests {
     organizaciones2.add(org);
     assertEquals(miembro1.getOrganizaciones(), organizaciones1);
     assertEquals(miembro2.getOrganizaciones(), organizaciones2);
-    */
+
+
     assertTrue(utn.esMiembro(miembro1));
     assertTrue(utn.esMiembro(miembro2));
     assertTrue(org.esMiembro(miembro2));

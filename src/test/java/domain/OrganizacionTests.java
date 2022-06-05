@@ -53,14 +53,14 @@ public class OrganizacionTests {
   public void unaUniversidadGubernamentalEsUnaUniversidad() {
     assertEquals(unaUniversidadGubernamental().getClasificacion(), Clasificacion.UNIVERSIDAD);
   }
-/*
+
   @DisplayName("El sector de RRHH forma parte de la Universidad")
   @Test
   public void elSectorDeRRHHFormaParteDeLaUniversidad() {
     assertTrue(unaUniversidadGubernamental().esSectorDeLaOrganizacion(sectorDeRRHH(unaUniversidadGubernamental())));
     // Como se llama a la universidad dos veces, se hace new dos veces => cada objeto de universidad es distinto
   }
-*/
+
 
   @DisplayName("La organizacion del sector RRHH es la Universidad")
   @Test
