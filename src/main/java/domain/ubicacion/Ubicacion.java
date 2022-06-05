@@ -21,8 +21,4 @@ public class Ubicacion {
         this.getAltura().equals(inicioDeTramo.getAltura()));
   }
 
-  // public boolean esMismaUbicacionQue(Ubicacion unaUbicacion) {};
-
-
-
 }
