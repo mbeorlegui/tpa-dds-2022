@@ -61,22 +61,22 @@ public class TransporteTests {
 
   @DisplayName("Instanciar: Parada1")
   private Ubicacion parada1() {
-    return new Ubicacion(15, 30);
+    return new Ubicacion(15, "mozart", "1400");
   }
 
   @DisplayName("Instanciar: Parada2")
   private Ubicacion parada2() {
-    return new Ubicacion(20, 40);
+    return new Ubicacion(20, "rivadavia", "4000");
   }
 
   @DisplayName("Instanciar: Parada3")
   private Ubicacion parada3() {
-    return new Ubicacion(30, 40);
+    return new Ubicacion(30, "medrano", "500");
   }
 
   @DisplayName("Instanciar: Parada4")
   private Ubicacion parada4() {
-    return new Ubicacion(10, 10);
+    return new Ubicacion(10, "medrano", "800");
   }
 
   @DisplayName("Instanciar: Bicicleta")

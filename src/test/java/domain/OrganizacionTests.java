@@ -24,7 +24,7 @@ public class OrganizacionTests {
 
   @DisplayName("Instanciar: Univerdidad Gubernamental")
   private Organizacion unaUniversidadGubernamental() {
-    Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
+    Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
     // organizacion.crearNuevoSector();
     Sector unSectorDeRRHH = sectorDeRRHH();
@@ -84,9 +84,9 @@ public class OrganizacionTests {
 
   @DisplayName("Instanciar: Trayecto")
   public Trayecto casaHastaUTN() {
-    Ubicacion casa = new Ubicacion(-34.615995882339334, -58.41700275360413);
-    Ubicacion paradaCasaLinea7 = new Ubicacion(-34.61908707635995, -58.41677917831219);
-    Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
+    Ubicacion casa = new Ubicacion(1,"maipu","100");
+    Ubicacion paradaCasaLinea7 = new Ubicacion(1,"maipu", "500");
+    Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
 
     Tramo casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
     Tramo paradaLinea7HastaUTN = new Tramo(paradaCasaLinea7, ubicacionUtn, colectivoLinea7());
@@ -100,8 +100,8 @@ public class OrganizacionTests {
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
     TransportePublico colectivo7 = new TransportePublico(TipoDeTransportePublico.COLECTIVO,"7");
-    colectivo7.addParadas(new Ubicacion(-34.61908707635995, -58.41677917831219),
-        new Ubicacion(-34.659488779869484, -58.4671460833512));
+    colectivo7.addParadas(new Ubicacion(457,"O'Higgins", "200"),
+                          new Ubicacion(457,"O'Higgins", "500"));
     return colectivo7;
   }
 }

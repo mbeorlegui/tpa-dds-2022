@@ -7,26 +7,26 @@ import lombok.Getter;
 
 public class Tramo {
   @Getter
-  private Ubicacion inicioDeTramo;
+  private Ubicacion origenDeTramo;
   @Getter
-  private Ubicacion finDeTramo;
+  private Ubicacion destinoDeTramo;
   @Getter
   private Transporte transporteUtilizado;
 
-  public Tramo(Ubicacion inicioDeTramo, Ubicacion finDeTramo, Transporte transporteUtilizado) {
+  public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
     if ((transporteUtilizado instanceof TransportePublico)
-        && (!((TransportePublico) transporteUtilizado).tieneUnaParadaEn(inicioDeTramo)
-        || !((TransportePublico) transporteUtilizado).tieneUnaParadaEn(finDeTramo))) {
+        && (!((TransportePublico) transporteUtilizado).tieneUnaParadaEn(origenDeTramo)
+        || !((TransportePublico) transporteUtilizado).tieneUnaParadaEn(destinoDeTramo))) {
       throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
     }
-    this.inicioDeTramo = inicioDeTramo;
-    this.finDeTramo = finDeTramo;
+    this.origenDeTramo = origenDeTramo;
+    this.destinoDeTramo = destinoDeTramo;
     this.transporteUtilizado = transporteUtilizado;
   }
 
   public boolean esMismoTramo(Tramo unTramo) {
-    return (this.inicioDeTramo.esMismaUbicacionQue(unTramo.getInicioDeTramo())
-        && this.finDeTramo.esMismaUbicacionQue(unTramo.getFinDeTramo())
+    return (this.origenDeTramo.esMismaUbicacionQue(unTramo.getorigenDeTramo())
+        && this.destinoDeTramo.esMismaUbicacionQue(unTramo.getdestinoDeTramo())
         && this.transporteUtilizado.esMismoTipoDeTransporteQue(unTramo.getTransporteUtilizado()));
   }
 }
