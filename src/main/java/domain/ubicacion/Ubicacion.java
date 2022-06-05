@@ -4,20 +4,22 @@ import lombok.Getter;
 
 public class Ubicacion {
   @Getter
-  private Integer localidadId;
+  private Integer localidadID;
   @Getter
   private String calle;
   @Getter
   private String altura;
 
-  public Ubicacion(Integer localidadId, String calle, String altura) {
-    this.localidadId = localidadId;
+  public Ubicacion(Integer localidadID, String calle, String altura) {
+    this.localidadID = localidadID;
     this.calle = calle;
     this.altura = altura;
   }
 
-
   public boolean esMismaUbicacionQue(Ubicacion unaUbicacion) {
-    return (this.localidadId==unaUbicacion.localidadId && this.calle == unaUbicacion.calle && this.altura == unaUbicacion.altura);
+    return (this.getLocalidadID().equals(unaUbicacion.getLocalidadID()) &&
+        this.getCalle().equals(unaUbicacion.getCalle()) &&
+        this.getAltura().equals(unaUbicacion.getAltura()));
   }
+
 }

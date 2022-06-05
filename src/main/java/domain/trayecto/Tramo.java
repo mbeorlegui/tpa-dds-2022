@@ -25,8 +25,17 @@ public class Tramo {
   }
 
   public boolean esMismoTramo(Tramo unTramo) {
-    return (this.origenDeTramo.esMismaUbicacionQue(unTramo.getorigenDeTramo())
-        && this.destinoDeTramo.esMismaUbicacionQue(unTramo.getdestinoDeTramo())
+    return (this.origenDeTramo.esMismaUbicacionQue(unTramo.getOrigenDeTramo())
+        && this.destinoDeTramo.esMismaUbicacionQue(unTramo.getDestinoDeTramo())
         && this.transporteUtilizado.esMismoTipoDeTransporteQue(unTramo.getTransporteUtilizado()));
+  }
+
+  void validarTramoCompartidoMiembrosOrg(){
+
+  }
+
+  double distanciaIntermedia(){
+
+    return 0;
   }
 }
