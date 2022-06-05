@@ -29,4 +29,13 @@ public class Tramo {
         && this.finDeTramo.esMismaUbicacionQue(unTramo.getFinDeTramo())
         && this.transporteUtilizado.esMismoTipoDeTransporteQue(unTramo.getTransporteUtilizado()));
   }
+
+  void validarTramoCompartidoMiembrosOrg(){
+
+  }
+
+  double distanciaIntermedia(){
+
+    return 0;
+  }
 }
