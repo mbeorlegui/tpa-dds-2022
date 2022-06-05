@@ -188,6 +188,7 @@ class Administrador {
   user : String
   password : String
   validador : PasswordValidator 
+  FactorDeEmision generarNuevoFactorDeEmision(factor, tipoFactor)
 }
 
 class PasswordValidator {
@@ -250,6 +251,11 @@ class CsvHandler {
   void leerMediciones()
 }
 
+class FactorDeEmision {
+  factor : Integer
+  tipoConsumo : TipoConsumo
+}
+
 
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
@@ -301,5 +307,8 @@ Medicion --> Periodicidad
 TipoConsumo --> Actividad
 TipoConsumo --> Alcance
 TipoConsumo --> Unidad
+
+Administrador ..> FactorDeEmision
+FactorDeEmision --> TipoConsumo
 
 @enduml
