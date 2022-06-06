@@ -22,12 +22,18 @@ class Organizacion {
 ' y validarTrayectoCompartidoMiembrosOrg para el trayecto, si pasan las validaciones,
 ' a todos los miembros de la lista se le asigna el trayecto
 
-class TipoConsumo {
-  nombre : String
-  unidad : Unidad
-  actividad : Actividad
-  alcance : Alcance
+enum TipoConsumo {
+  GAS_NATURAL,
+  DIESEL_GASOIL,
+  NAFTA,
+  CARBON,
+  CC_GASOIL,
+  CC_NAFTA,
+  ELECTRICIDAD,
+  MEDIO_DE_TRANSPORTE,
+  DISTANCIA_MEDIA_RECORRIDA,
 }
+
 
 class Medicion {
   tipoConsumo: TipoConsumo
@@ -36,27 +42,6 @@ class Medicion {
   periodoDeImputacion: String
 }
 ' periodicidad puede ser un String. Solo se usa en la validacion con periodoDeImputacion
-
-enum Unidad {
-  M3,
-  LT,
-  KG,
-  KWH,
-  KM,
-}
-
-enum Actividad {
-  COMBUSTION_FIJA,
-  COMBUSTION_MOVIL,
-  ELECTRICIDAD,
-  LOGISTICA,
-}
-
-enum Alcance {
-  EMISION_DIRECTA,
-  EMISION_INDIRECTA,
-  OTRAS_EMISIONES,
-}
 
 enum Periodicidad {
   MENSUAL,
@@ -304,9 +289,6 @@ Organizacion -right-> CsvHandler
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo
 Medicion --> Periodicidad
-TipoConsumo --> Actividad
-TipoConsumo --> Alcance
-TipoConsumo --> Unidad
 
 Administrador ..> FactorDeEmision
 FactorDeEmision --> TipoConsumo
