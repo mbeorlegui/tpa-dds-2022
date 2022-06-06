@@ -1,5 +1,7 @@
 package domain.trayecto;
 
+import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
+
 import java.util.List;
 
 public class Trayecto {
@@ -11,5 +13,17 @@ public class Trayecto {
 
   public List<Tramo> getTramos() {
     return tramos;
+  }
+
+  public void verificarQuePuedaSerAsignadoAMiembros() {
+    if (!this.tramosPuedenSerCompartidos()) {
+      throw new NoPuedeSerTrayectoCompartidoException("No puede ser trayecto compartido");
+    }
+  }
+
+  private boolean tramosPuedenSerCompartidos() {
+    return this.getTramos().stream().allMatch(tramo -> {
+      return tramo.puedeSerCompartido();
+    });
   }
 }

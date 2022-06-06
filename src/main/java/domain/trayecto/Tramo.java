@@ -1,5 +1,7 @@
 package domain.trayecto;
 
+import domain.transporte.ServicioContratado;
+import domain.transporte.TipoTransporte;
 import domain.transporte.Transporte;
 import domain.transporte.TransportePublico;
 import domain.ubicacion.Ubicacion;
@@ -27,6 +29,11 @@ public class Tramo {
   public boolean esMismoTramo(Tramo unTramo) {
     return (this.inicioDeTramo.esMismaUbicacionQue(unTramo.getInicioDeTramo())
         && this.finDeTramo.esMismaUbicacionQue(unTramo.getFinDeTramo())
-        && this.transporteUtilizado.esMismoTipoDeTransporteQue(unTramo.getTransporteUtilizado()));
+        && this.transporteUtilizado.esDeTipo(unTramo.getTransporteUtilizado().getTipoTransporte()));
+  }
+
+  public boolean puedeSerCompartido() {
+    return this.transporteUtilizado.esDeTipo(TipoTransporte.PARTICULAR)
+        || this.transporteUtilizado.esDeTipo(TipoTransporte.CONTRATADO);
   }
 }

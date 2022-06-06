@@ -1,14 +1,14 @@
 package domain;
 
+import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
+import domain.exceptions.NonMemberException;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.organizacion.Tipo;
-import domain.transporte.Pie;
-import domain.transporte.TipoDeTransportePublico;
-import domain.transporte.TransportePublico;
+import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OrganizacionTests {
 
@@ -103,5 +104,105 @@ public class OrganizacionTests {
     colectivo7.addParadas(new Ubicacion(-34.61908707635995, -58.41677917831219),
         new Ubicacion(-34.659488779869484, -58.4671460833512));
     return colectivo7;
+  }
+
+  @DisplayName("A miembros de la misma organizacion se les puede asignar el mismo trayecto")
+  @Test
+  public void aMiembrosDeLaMismaOrganizacionSeLesPuedeAsignarElMismoTrayecto() {
+    Miembro miembro1 = unMiembro();
+    Miembro miembro2 = otroMiembro();
+    Sector unSector = unSector();
+    unSector.addMiembro(miembro1);
+    Sector otroSector = unSector();
+    otroSector.addMiembro(miembro2);
+
+    Organizacion unaOrg = orgFalsa();
+    unaOrg.addSector(unSector);
+    unaOrg.addSector(otroSector);
+
+    Trayecto trayectoCompartido = trajectoConServicioContratadoYVehiculoParticular(unaOrg);
+
+    unaOrg.asignarTrayectoA(trayectoCompartido, miembro1, miembro2);
+    assertEquals(miembro1.getTrayecto(), trayectoCompartido);
+    assertEquals(miembro2.getTrayecto(), trayectoCompartido);
+  }
+
+  @DisplayName("A miembros que no son de la misma organizacion NO se les puede asignar el mismo trayecto")
+  @Test
+  public void aMiembrosQueNoSonDeLaMismaOrganizacionNoSeLesPuedeAsignarElMismoTrayecto() {
+    Miembro miembro1 = unMiembro();
+    Miembro miembro2 = otroMiembro();
+    Sector unSector = unSector();
+    unSector.addMiembro(miembro1);
+    Sector otroSector = unSector();
+
+    Organizacion unaOrg = orgFalsa();
+    unaOrg.addSector(unSector);
+    unaOrg.addSector(otroSector);
+
+    Trayecto trayectoCompartido = trajectoConServicioContratadoYVehiculoParticular(unaOrg);
+
+    assertThrows(NonMemberException.class, () -> {
+      unaOrg.asignarTrayectoA(trayectoCompartido, miembro1, miembro2);
+    });
+  }
+
+  @DisplayName("A miembros de la misma organizacion NO se les puede asignar un trayecto en colectivo")
+  @Test
+  public void aMiembrosDeLaMismaOrganizacionNoSeLesPuedeAsignarUnTrayectoEnColectivo() {
+    Miembro miembro1 = unMiembro();
+    Miembro miembro2 = otroMiembro();
+    Sector unSector = unSector();
+    unSector.addMiembro(miembro1);
+    Sector otroSector = unSector();
+    otroSector.addMiembro(miembro2);
+
+    Organizacion unaOrg = orgFalsa();
+    unaOrg.addSector(unSector);
+    unaOrg.addSector(otroSector);
+
+    Trayecto trayectoCompartido = casaHastaUTN();
+
+    assertThrows(NoPuedeSerTrayectoCompartidoException.class, () -> {
+      unaOrg.asignarTrayectoA(trayectoCompartido, miembro1, miembro2);
+    });
+  }
+
+  @DisplayName("Instanciar: Miembro")
+  public Miembro unMiembro() {
+    return new Miembro(
+        "Matias", "Beorlegui", 47813065, Documento.DNI, casaHastaUTN());
+  }
+
+  @DisplayName("Instanciar: Otro miembro")
+  public Miembro otroMiembro() {
+    return new Miembro(
+        "Alejo", "Goltzman", 43978123, Documento.DNI, casaHastaUTN());
+  }
+
+  @DisplayName("Instanciar: Un sector")
+  public Sector unSector() {
+    return new Sector();
+  }
+
+  @DisplayName("Instanciar: Otra organizacion")
+  public Organizacion orgFalsa() {
+    return new Organizacion(
+        "orgFalsa SRL", Tipo.EMPRESA, new Ubicacion(-36.659488779869484, -58.4671460833512), Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
+  }
+
+  @DisplayName("Instanciar: Trayecto con servicio contratado y vehiculo particular")
+  private Trayecto trajectoConServicioContratadoYVehiculoParticular(Organizacion organizacion) {
+    Ubicacion casa = new Ubicacion(-34.615995882339334, -58.41700275360413);
+    Ubicacion estacionamiento = new Ubicacion(-34.61908707635995, -58.41677917831219);
+
+    Tramo primerTramo = new Tramo(casa, estacionamiento, new ServicioContratado(TipoDeServicioContratado.TAXI));
+    Tramo segundoTramo = new Tramo(estacionamiento, organizacion.getUbicacion(), new VehiculoParticular(TipoDeVehiculo.AUTO, Combustible.NAFTA));
+
+    List<Tramo> tramos = new ArrayList<>();
+    tramos.add(primerTramo);
+    tramos.add(segundoTramo);
+
+    return new Trayecto(tramos);
   }
 }
