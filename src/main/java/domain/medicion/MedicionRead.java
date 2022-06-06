@@ -13,9 +13,9 @@ public class MedicionRead {
 
   @Override
   public String toString() {
-    return "Medicion [Tipo de consumo: " + tipoConsumo
+    return "Medicion Read [Tipo de consumo: " + tipoConsumo
         + ", Valor: " + valor + ", Periodicidad: " + periodicidad
         + ", Periodo de imputacion: " + periodoDeImputacion + "]";
   }
-  // TODO: Agregar al diagramna de clases
+  // TODO: Agregar al diagrama de clases
 }

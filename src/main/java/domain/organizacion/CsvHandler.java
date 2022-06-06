@@ -2,29 +2,39 @@ package domain.organizacion;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.exceptions.CsvValidationException;
 import domain.medicion.Medicion;
+import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+
 public class CsvHandler {
   static final String FILE_PATH = "data/Mediciones.csv";
+  // TODO: Analizar refactor de Path segun instancias de Organizacion
+  //  Podria tomarse el path concatenado al nombre de la organizacion
+  
 
-  private List<Medicion> getMediciones() {
-    // TODO: Completar definicion
-    return null;
+  public List<Medicion> getMediciones() throws IOException {
+    MedicionAdapter medicionAdapter = new MedicionAdapter();
+    List<Medicion> mediciones = new ArrayList<>();
+    List<MedicionRead> medicionesLeidas = this.getMedicionesRead();
+
+    for (MedicionRead m : medicionesLeidas) {
+      mediciones.add(medicionAdapter.adaptarMedicion(m));
+    }
+    return mediciones;
   }
 
   private Medicion leerMedicion() {
     return null;
   }
 
-  private List<MedicionRead> getMedicionesRead(String FILE_PATH) throws IOException {
-    CSVReader csvReader = openFile(FILE_PATH);
+  private List<MedicionRead> getMedicionesRead() throws IOException {
+    CSVReader csvReader = openFile();
     return getParse(csvReader);
   }
 
@@ -38,7 +48,7 @@ public class CsvHandler {
         .parse();
   }
 
-  private CSVReader openFile(String FILE_PATH) throws FileNotFoundException {
+  private CSVReader openFile() throws FileNotFoundException {
     FileReader file = new FileReader(FILE_PATH);
     return new CSVReader(file);
   }

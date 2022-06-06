@@ -17,4 +17,10 @@ public class Medicion {
     this.periodicidad = periodicidad;
     this.periodoDeImputacion = periodoDeImputacion;
   }
+
+  public String toString() {
+    return "Medicion [Tipo de consumo: " + tipoConsumo
+        + ", Valor: " + valor + ", Periodicidad: " + periodicidad
+        + ", Periodo de imputacion: " + periodoDeImputacion + "]";
+  }
 }

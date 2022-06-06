@@ -29,10 +29,8 @@ public class MedicionAdapter {
   }
 
   public TipoConsumo adaptarTipoConsumo(MedicionRead unaMedicion) {
-    /*
-      TODO: Ver como realizamos el matcheo, quizas convenga hacer un Strategy para esto
-    */
-    return null;
+    return TipoConsumo.valueOf(unaMedicion.getTipoConsumo());
+    // TODO: en caso de hacer el refactor en TipoConsumo habria que cambiar este adapter
   }
 
 }
