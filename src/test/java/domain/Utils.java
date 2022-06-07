@@ -68,17 +68,16 @@ public class Utils {
     unaMedicion.setTipoConsumo("GAS_NATURAL");
     unaMedicion.setValor("100");
     unaMedicion.setPeriodoDeImputacion("03/2022");
-    System.out.println(unaMedicion);
     return unaMedicion;
   }
 
   @DisplayName("Instanciar: Medicion de lectura 2")
   static MedicionRead otraMedicionDeLectura() {
     MedicionRead unaMedicion = new MedicionRead();
-    unaMedicion.setPeriodicidad("ANUAL");
+    unaMedicion.setPeriodicidad("MENSUAL");
     unaMedicion.setTipoConsumo("ELECTRICIDAD");
     unaMedicion.setValor("6000");
-    unaMedicion.setPeriodoDeImputacion("2020");
+    unaMedicion.setPeriodoDeImputacion("04/2021");
     return unaMedicion;
   }
 
@@ -87,8 +86,8 @@ public class Utils {
     MedicionRead unaMedicion = new MedicionRead();
     unaMedicion.setPeriodicidad("ANUAL");
     unaMedicion.setTipoConsumo("DIESEL_GASOIL");
-    unaMedicion.setValor("1");
-    unaMedicion.setPeriodoDeImputacion("1999");
+    unaMedicion.setValor("50");
+    unaMedicion.setPeriodoDeImputacion("2021");
     return unaMedicion;
   }
 

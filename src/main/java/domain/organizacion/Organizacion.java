@@ -1,7 +1,6 @@
 package domain.organizacion;
 
 import domain.medicion.Medicion;
-import domain.medicion.MedicionRead;
 import domain.miembro.Miembro;
 import domain.ubicacion.Ubicacion;
 
@@ -76,4 +75,13 @@ public class Organizacion {
       this.agregarMedicion(m);
     }
   }
+
+  public boolean existeMedicion(Medicion unaMedicion) {
+    return mediciones.contains(unaMedicion);
+  }
+
+  public boolean contieneMedicionIdentica(Medicion unaMedicion) {
+    return mediciones.stream().anyMatch(m -> m.esMedicionIdentica(unaMedicion));
+  }
+
 }

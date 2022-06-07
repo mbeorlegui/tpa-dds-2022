@@ -23,4 +23,12 @@ public class Medicion {
         + ", Valor: " + valor + ", Periodicidad: " + periodicidad
         + ", Periodo de imputacion: " + periodoDeImputacion + "]";
   }
+
+  public boolean esMedicionIdentica(Medicion unaMedicion) {
+    return (this.tipoConsumo == unaMedicion.getTipoConsumo() &&
+        this.valor.equals(unaMedicion.getValor()) &&
+        this.periodicidad == unaMedicion.getPeriodicidad() &&
+        this.periodoDeImputacion.equals(unaMedicion.getPeriodoDeImputacion()));
+  }
+
 }
