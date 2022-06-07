@@ -2,10 +2,12 @@ package domain.organizacion;
 
 import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
+import domain.medicion.MedicionRead;
 import domain.miembro.Miembro;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +25,9 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   @Getter
   private Clasificacion clasificacion;
-  private CsvHandler csvHandler;
+  CsvHandler csvHandler = new CsvHandler();
 
+  @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
 
@@ -88,5 +91,12 @@ public class Organizacion {
 
   public void agregarMedicion(Medicion unaMedicion) {
     mediciones.add(unaMedicion);
+  }
+
+  public void agregarMediciones() throws IOException {
+    List<Medicion> mediciones = csvHandler.getMediciones();
+    for (Medicion m : mediciones) {
+      this.agregarMedicion(m);
+    }
   }
 }
