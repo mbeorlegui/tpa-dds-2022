@@ -89,7 +89,7 @@ public class MiembroTests {
   @DisplayName("Instanciar: Una organizacion")
   public Organizacion utn() {
     return new Organizacion(
-        "UTN FRBA", Tipo.EMPRESA, new Ubicacion(457,"O'Higgins", "200");, Clasificacion.UNIVERSIDAD);
+        "UTN FRBA", Tipo.EMPRESA, new Ubicacion(457,"O'Higgins", "200"), Clasificacion.UNIVERSIDAD);
    }
 
   @DisplayName("Instanciar: Otra organizacion")

@@ -8,8 +8,8 @@ public class ServicioGeoref {
   private static final String urlAPI = "https://ddstpa.com.ar/api/";
   private Retrofit retrofit;
 
-  private ServicioGeoref(){
-    this.retrofit = new Retrofit.Builder().baseUrl(urlAPI).addConverterFactory(GsonConverterFactory.create()).build();
-
-  }
+//  private ServicioGeoref(){
+//    this.retrofit = new Retrofit.Builder().baseUrl(urlAPI).addConverterFactory(GsonConverterFactory.create()).build();
+//
+//  }
 }
