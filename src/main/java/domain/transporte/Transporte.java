@@ -6,5 +6,7 @@ public interface Transporte {
 
   public void setTipoTransporte(TipoTransporte tipoTransporte);
 
-  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte);
+  // public boolean esMismoTipoDeTransporteQue(Transporte unTransporte);
+
+  public boolean esDeTipo(TipoTransporte tipoTransporte);
 }

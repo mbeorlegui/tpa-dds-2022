@@ -20,12 +20,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TrayectoTests {
-  public Trayecto casaHastaUTN;
-  public TransportePublico colectivoLinea7;
-  public Organizacion utn;
-  public Ubicacion casa;
-  public Ubicacion paradaCasaLinea7;
-  public Tramo casaHastaParadaLinea7;
+  private Trayecto casaHastaUTN;
+  private TransportePublico colectivoLinea7;
+  private Organizacion utn;
+  private Ubicacion casa;
+  private Ubicacion paradaCasaLinea7;
+  private Tramo casaHastaParadaLinea7;
 
   @BeforeEach
   private void init(){

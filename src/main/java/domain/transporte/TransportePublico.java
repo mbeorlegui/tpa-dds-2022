@@ -19,10 +19,11 @@ public class TransportePublico implements Transporte {
   @Setter
   private TipoTransporte tipoTransporte;
 
+  /*
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
-
+  */
   public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea) {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
     this.linea = linea;
@@ -41,4 +42,7 @@ public class TransportePublico implements Transporte {
     return (this.tipoTransporte.equals(TipoTransporte.PUBLICO));
   }
 
+  public boolean esDeTipo(TipoTransporte tipoTransporte) {
+    return this.tipoTransporte.equals(tipoTransporte);
+  }
 }

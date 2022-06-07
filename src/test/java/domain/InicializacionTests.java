@@ -20,6 +20,7 @@ import java.util.List;
 @Getter
 public class InicializacionTests {
   private Organizacion utn;
+  private Organizacion orgFalsa;
   private Trayecto casaHastaUTN;
   private TransportePublico colectivoLinea7;
   private TransportePublico colectivoLinea157;
@@ -27,9 +28,15 @@ public class InicializacionTests {
   private Bicicleta bicicleta;
   private ServicioContratado taxi;
   private VehiculoParticular motoNafta;
+  private Miembro unMiembro;
+  private Miembro otroMiembro;
+  private Trayecto servicioContratadoYVehiculoParticular;
 
   public InicializacionTests() {
+    this.unMiembro = unMiembro();
+    this.otroMiembro = otroMiembro();
     this.utn = unaUniversidadGubernamental();
+    this.orgFalsa = orgFalsa();
     this.casaHastaUTN = casaHastaUTN();
     this.colectivoLinea7 = colectivoLinea7();
     this.colectivoLinea157 = colectivoLinea157();
@@ -37,6 +44,7 @@ public class InicializacionTests {
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
+    this.servicioContratadoYVehiculoParticular = trayectoConServicioContratadoYVehiculoParticular();
   }
 
   /*
@@ -51,15 +59,62 @@ public class InicializacionTests {
     organizacion.addSector(unSectorDeRRHH);
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
-    Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
+    //Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
     //miembro.addSector(unSectorDeRRHH, organizacion);
-    unSectorDeRRHH.addMiembro(miembro);
+    unSectorDeRRHH.addMiembro(otroMiembro);
     return organizacion;
+  }
+
+  @DisplayName("Instanciar: Un sector")
+  public Sector unSector() {
+    return new Sector();
   }
 
   @DisplayName("Instanciar: Sector de RRHH")
   private Sector sectorDeRRHH() {
     return new Sector();
+  }
+
+  @DisplayName("Instanciar: Miembro")
+  public Miembro unMiembro() {
+    return new Miembro(
+        "Matias", "Beorlegui", 47813065, Documento.DNI, casaHastaUTN);
+  }
+
+  @DisplayName("Instanciar: Otro miembro")
+  public Miembro otroMiembro() {
+    return new Miembro(
+        "Alejo", "Goltzman", 43978123, Documento.DNI, casaHastaUTN);
+  }
+
+  @DisplayName("Instanciar: Otra organizacion")
+  public Organizacion orgFalsa() {
+    Sector unSector = unSector();
+    unSector.addMiembro(unMiembro);
+    Sector otroSector = unSector();
+    otroSector.addMiembro(otroMiembro);
+
+    Organizacion organizacion = new Organizacion(
+        "orgFalsa SRL", Tipo.EMPRESA, new Ubicacion(10, "medrano", "720"),
+        Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);;
+    organizacion.addSector(unSector);
+    organizacion.addSector(otroSector);
+    return organizacion;
+  }
+
+  @DisplayName("Instanciar: Trayecto con servicio contratado y vehiculo particular")
+  private Trayecto trayectoConServicioContratadoYVehiculoParticular() {
+    Ubicacion casa = new Ubicacion(1,"maipu","100");
+    Ubicacion estacionamiento = new Ubicacion(1,"maipu","2250");
+
+    Tramo primerTramo = new Tramo(casa, estacionamiento, new ServicioContratado(TipoDeServicioContratado.TAXI));
+    Tramo segundoTramo = new Tramo(estacionamiento, orgFalsa.getUbicacion(), new VehiculoParticular(TipoDeVehiculo.AUTO, Combustible.NAFTA));
+
+    List<Tramo> tramos = new ArrayList<>();
+    tramos.add(primerTramo);
+    tramos.add(segundoTramo);
+
+    return new Trayecto(tramos);
   }
 
   /*
@@ -123,7 +178,7 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Parada3")
   private Ubicacion parada3() {
-    return new Ubicacion(30, "medrano", "500");
+    return new Ubicacion(10, "medrano", "500");
   }
 
   @DisplayName("Instanciar: Parada4")

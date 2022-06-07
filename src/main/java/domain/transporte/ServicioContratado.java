@@ -17,10 +17,11 @@ public class ServicioContratado implements Transporte {
     this.tipoTransporte = tipoTransporte;
   }
 
+  /*
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
-
+  */
   public ServicioContratado(TipoDeServicioContratado tipoDeServicioContratado) {
     this.tipoDeServicioContratado = tipoDeServicioContratado;
     setTipoTransporte(TipoTransporte.CONTRATADO);
@@ -30,4 +31,7 @@ public class ServicioContratado implements Transporte {
     return tipoDeServicioContratado;
   }
 
+  public boolean esDeTipo(TipoTransporte tipoTransporte) {
+    return this.tipoTransporte.equals(tipoTransporte);
+  }
 }

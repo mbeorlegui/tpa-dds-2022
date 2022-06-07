@@ -1,10 +1,13 @@
 package domain.organizacion;
 
+import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
 import domain.miembro.Miembro;
+import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +64,26 @@ public class Organizacion {
 
   public Boolean esMiembro(Miembro miembro) {
     return this.getMiembros().contains(miembro);
+  }
+
+  public void asignarTrayectoA(Trayecto trayecto, Miembro... miembros) {
+    this.verificarQueSeanMiembros(miembros);
+    trayecto.verificarQuePuedaSerAsignadoAMiembros();
+    Arrays.stream(miembros).forEach(miembro -> {
+      miembro.setTrayecto(trayecto);
+    });
+  }
+
+  private void verificarQueSeanMiembros(Miembro[] miembros) {
+    if (!this.todosSonMiembros(miembros)) {
+      throw new NonMemberException("Una de las personas no es miembro");
+    }
+  }
+
+  private boolean todosSonMiembros(Miembro[] miembros) {
+    return Arrays.stream(miembros).allMatch(miembro -> {
+      return this.esMiembro(miembro);
+    });
   }
 
   public void agregarMedicion(Medicion unaMedicion) {

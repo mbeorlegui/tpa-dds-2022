@@ -25,15 +25,16 @@ public class TransporteTests {
   @BeforeEach
   private void init(){
     InicializacionTests inicializador = new InicializacionTests();
+    parada1 = new Ubicacion(15, "mozart", "1400");
+    parada2 = new Ubicacion(20, "rivadavia", "4000");
+    parada3 = new Ubicacion(10, "medrano", "500");
+    parada4 = new Ubicacion(10, "medrano", "800");
     bicicleta = inicializador.getBicicleta();
     colectivoLinea157 = inicializador.getColectivoLinea157();
     taxi = inicializador.getTaxi();
     motoNafta = inicializador.getMotoNafta();
     subteX = inicializador.getSubteX();
-    parada1 = new Ubicacion(15, "mozart", "1400");
-    parada2 = new Ubicacion(20, "rivadavia", "4000");
-    parada3 = new Ubicacion(30, "medrano", "500");
-    parada4 = new Ubicacion(10, "medrano", "800");
+
   }
 
   @DisplayName("El tipo de Bicicleta es BICICLETA")

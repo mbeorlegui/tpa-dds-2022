@@ -11,10 +11,11 @@ public class VehiculoParticular implements Transporte {
   @Setter
   @Getter
   private TipoTransporte tipoTransporte;
-
+  /*
   public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
     return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
   }
+  */
 
   public VehiculoParticular(TipoDeVehiculo tipoDeVehiculo, Combustible combustible) {
     this.tipoDeVehiculo = tipoDeVehiculo;
@@ -22,4 +23,7 @@ public class VehiculoParticular implements Transporte {
     setTipoTransporte(TipoTransporte.PARTICULAR);
   }
 
+  public boolean esDeTipo(TipoTransporte tipoTransporte) {
+    return this.tipoTransporte.equals(tipoTransporte);
+  }
 }
