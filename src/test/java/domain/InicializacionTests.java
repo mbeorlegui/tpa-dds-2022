@@ -31,10 +31,12 @@ public class InicializacionTests {
   private Miembro unMiembro;
   private Miembro otroMiembro;
   private Trayecto servicioContratadoYVehiculoParticular;
+  private Sector sectorDeRRHH;
 
   public InicializacionTests() {
     this.unMiembro = unMiembro();
     this.otroMiembro = otroMiembro();
+    this.sectorDeRRHH = sectorDeRRHH();
     this.utn = unaUniversidadGubernamental();
     this.orgFalsa = orgFalsa();
     this.casaHastaUTN = casaHastaUTN();
@@ -55,13 +57,12 @@ public class InicializacionTests {
     Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
     // organizacion.crearNuevoSector();
-    Sector unSectorDeRRHH = sectorDeRRHH();
-    organizacion.addSector(unSectorDeRRHH);
+    organizacion.addSector(sectorDeRRHH);
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
     //Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
     //miembro.addSector(unSectorDeRRHH, organizacion);
-    unSectorDeRRHH.addMiembro(otroMiembro);
+    sectorDeRRHH.addMiembro(otroMiembro);
     return organizacion;
   }
 

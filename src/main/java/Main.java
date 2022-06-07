@@ -48,7 +48,7 @@ public class Main {
       System.out.println(m);
     }
 
-    Ubicacion ubicacionUtn = new Ubicacion(-34.659488779869484, -58.4671460833512);
+    Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
     System.out.println(organizacion.getMediciones());
     organizacion.agregarMediciones();

@@ -9,6 +9,7 @@ public class Ubicacion {
   private String calle;
   @Getter
   private String altura;
+  //private Integer altura; En la API la altura aparece como string
 
   public Ubicacion(Integer localidadID, String calle, String altura) {
     this.localidadID = localidadID;

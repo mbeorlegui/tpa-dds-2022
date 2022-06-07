@@ -17,12 +17,12 @@ import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OrganizacionTests {
   private Organizacion utn;
   private Organizacion orgFalsa;
+  private Sector sectorRRHH;
   private Miembro miembro1;
   private Miembro miembro2;
   private Miembro miembro3;
@@ -34,6 +34,7 @@ public class OrganizacionTests {
   private void init(){
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
+    sectorRRHH = inicializador.getSectorDeRRHH();
     orgFalsa = inicializador.getOrgFalsa();
     miembro1 = inicializador.getUnMiembro();
     miembro2 = inicializador.getOtroMiembro();
@@ -52,6 +53,12 @@ public class OrganizacionTests {
   @Test
   public void unaUniversidadGubernamentalEsUnaUniversidad() {
     assertEquals(utn.getClasificacion(), Clasificacion.UNIVERSIDAD);
+  }
+
+  @DisplayName("El sector de RRHH forma parte de la Universidad")
+  @Test
+  public void elSectorDeRRHHFormaParteDeLaUniversidad() {
+    assertTrue(utn.tieneSectorDe(sectorRRHH));
   }
 
   @DisplayName("La organizacion del sector RRHH es la Universidad")
