@@ -2,6 +2,7 @@ package domain.medicion;
 
 import lombok.Getter;
 import lombok.Setter;
+
 public class MedicionRead {
   @Getter
   @Setter
