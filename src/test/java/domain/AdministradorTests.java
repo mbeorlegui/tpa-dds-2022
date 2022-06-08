@@ -1,12 +1,13 @@
 package domain;
 
 import domain.administrador.Administrador;
+import domain.administrador.FactorDeEmision;
 import domain.exceptions.InvalidPasswordException;
+import domain.medicion.TipoConsumo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AdministradorTests {
   static final String LARGE_TEXT =
@@ -91,6 +92,13 @@ public class AdministradorTests {
     assertThrows(InvalidPasswordException.class, () -> {
       adminConPasswordComun();
     });
+  }
+
+  @Test
+  public void adminConPasswordCompletoGeneraNuevoFactorDeEmision() {
+    FactorDeEmision factorDeEmision = adminConPasswordCompleto().generarNuevoFactorDeEmision(120, TipoConsumo.ELECTRICIDAD);
+    assertEquals(factorDeEmision.getFactor(), 120);
+    assertEquals(factorDeEmision.getTipoConsumo(), TipoConsumo.ELECTRICIDAD);
   }
 
 
