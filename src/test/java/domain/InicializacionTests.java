@@ -38,6 +38,11 @@ public class InicializacionTests {
   private MedicionRead medicionDeLectura2;
   private MedicionRead medicionDeLectura3;
   private MedicionAdapter unAdapterDeMedicion;
+  private Ubicacion casa;
+  private Ubicacion linea7;
+  private Ubicacion ubicacionUtn;
+  private Tramo casaHastaLinea7;
+  private Tramo linea7HastaUTN;
 
   public InicializacionTests() {
     this.unMiembro = unMiembro();
@@ -57,6 +62,11 @@ public class InicializacionTests {
     this.medicionDeLectura2 = medicionDeLectura2();
     this.medicionDeLectura3 = medicionDeLectura3();
     this.unAdapterDeMedicion = unAdapterDeMedicion();
+    this.casa = casa();
+    this.linea7 = linea7();
+    this.ubicacionUtn = ubicacionUtn();
+    this.casaHastaLinea7 = casaHastaLinea7();
+    this.linea7HastaUTN = linea7HastaUTN();
   }
 
   /*
@@ -64,9 +74,9 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Univerdidad Gubernamental")
   private Organizacion unaUniversidadGubernamental() {
-    Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
+    Ubicacion ubicacionUtn = new Ubicacion(457, "O'Higgins", "200");
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL,
-                                                  ubicacionUtn, Clasificacion.UNIVERSIDAD);
+        ubicacionUtn, Clasificacion.UNIVERSIDAD);
     organizacion.addSector(sectorDeRRHH);
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
@@ -113,8 +123,8 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Trayecto con servicio contratado y vehiculo particular")
   private Trayecto trayectoConServicioContratadoYVehiculoParticular() {
-    Ubicacion casa = new Ubicacion(1,"maipu","100");
-    Ubicacion estacionamiento = new Ubicacion(1,"maipu","2250");
+    Ubicacion casa = new Ubicacion(1, "maipu", "100");
+    Ubicacion estacionamiento = new Ubicacion(1, "maipu", "2250");
 
     Tramo primerTramo = new Tramo(casa, estacionamiento, new ServicioContratado(TipoDeServicioContratado.TAXI));
     Tramo segundoTramo = new Tramo(estacionamiento, orgFalsa.getUbicacion(), new VehiculoParticular(TipoDeVehiculo.AUTO, Combustible.NAFTA));
@@ -131,9 +141,9 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Trayecto")
   public Trayecto casaHastaUTN() {
-    Ubicacion casa = new Ubicacion(1,"maipu","100");
-    Ubicacion paradaCasaLinea7 = new Ubicacion(1,"maipu", "500");
-    Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
+    Ubicacion casa = new Ubicacion(1, "maipu", "100");
+    Ubicacion paradaCasaLinea7 = new Ubicacion(1, "maipu", "500");
+    Ubicacion ubicacionUtn = new Ubicacion(457, "O'Higgins", "200");
 
     Tramo casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
     Tramo paradaLinea7HastaUTN = new Tramo(paradaCasaLinea7, ubicacionUtn, colectivoLinea7);
@@ -149,9 +159,9 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
-    TransportePublico colectivo7 = new TransportePublico(TipoDeTransportePublico.COLECTIVO,"7");
-    colectivo7.addParadas(new Ubicacion(457,"O'Higgins", "200"),
-                          new Ubicacion(1,"maipu", "500"));
+    TransportePublico colectivo7 = new TransportePublico(TipoDeTransportePublico.COLECTIVO, "7");
+    colectivo7.addParadas(new Ubicacion(457, "O'Higgins", "200"),
+        new Ubicacion(1, "maipu", "500"));
     return colectivo7;
   }
 
@@ -161,7 +171,7 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX() {
     TransportePublico subte = new TransportePublico(TipoDeTransportePublico.SUBTE, "X");
-    subte.addParadas(parada1(),parada2());
+    subte.addParadas(parada1(), parada2());
     return subte;
   }
 
@@ -181,7 +191,7 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Colectivo linea 157")
   private TransportePublico colectivoLinea157() {
     TransportePublico bondi = new TransportePublico(TipoDeTransportePublico.COLECTIVO, "157");
-    bondi.addParadas(parada3(),parada4());
+    bondi.addParadas(parada3(), parada4());
     return bondi;
   }
 
@@ -255,5 +265,31 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Un adapter de Medicion")
   static MedicionAdapter unAdapterDeMedicion() {
     return new MedicionAdapter();
+  }
+
+
+  @DisplayName("Instanciar: Ubicacion")
+  public Ubicacion casa() {
+    return new Ubicacion(1, "maipu", "100");
+  }
+
+  @DisplayName("Instanciar: Ubicacion")
+  public Ubicacion linea7() {
+    return new Ubicacion(457, "O'Higgins", "200");
+  }
+
+  @DisplayName("Instanciar: Ubicacion")
+  public Ubicacion ubicacionUtn() {
+    return new Ubicacion(168, "Florida", "150");
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  public Tramo casaHastaLinea7() {
+    return new Tramo(casa(), linea7(), new Pie());
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  public Tramo linea7HastaUTN() {
+    return new Tramo(linea7(), ubicacionUtn(), new Pie());
   }
 }
