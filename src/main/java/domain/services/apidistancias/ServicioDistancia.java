@@ -13,7 +13,7 @@ public class ServicioDistancia {
   private static final String urlAPI = "https://ddstpa.com.ar/api/";
   private Retrofit retrofit;
 
-  private ServicioDistancia(){
+  private ServicioDistancia() {
     this.retrofit = new Retrofit.Builder()
         .baseUrl(urlAPI)
         .addConverterFactory(GsonConverterFactory.create())
@@ -21,7 +21,7 @@ public class ServicioDistancia {
   }
 
   public static ServicioDistancia getInstancia() {
-    if(instancia == null) {
+    if (instancia == null) {
       instancia = new ServicioDistancia();
     }
     return instancia;
@@ -40,7 +40,8 @@ public class ServicioDistancia {
         localidadDestinoId,
         calleDestino,
         alturaDestino,
-        "Bearer AKTjssyxUH0yI/Hf6UfllCUKt5sZ2RrNN3QvaRsLvZ8="); // Hardcodeado pero bueno, es lo que hay jeje
+        // Hardcodeado pero bueno, es lo que hay jeje
+        "Bearer AKTjssyxUH0yI/Hf6UfllCUKt5sZ2RrNN3QvaRsLvZ8=");
     Response<ResultadoDistancia> responseDistancia =  requestDistancia.execute();
     return responseDistancia.body();
   }
