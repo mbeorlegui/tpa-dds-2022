@@ -7,9 +7,11 @@ import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class CsvHandler {
 
   private List<MedicionRead> getMedicionesRead() throws IOException {
     CSVReader csvReader = new CSVReader(
-        new InputStreamReader(new FileInputStream(FILE_PATH), "UTF-8"));
+        new InputStreamReader(Files.newInputStream(Paths.get(FILE_PATH)), StandardCharsets.UTF_8));
     return getParse(csvReader);
   }
 
