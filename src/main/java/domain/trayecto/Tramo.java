@@ -46,10 +46,6 @@ public class Tramo {
         || this.transporteUtilizado.esDeTipo(TipoTransporte.CONTRATADO);
   }
 
-  void validarTramoCompartidoMiembrosOrg(){
-
-  }
-
   public double distanciaIntermedia() {
     return this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
   }
