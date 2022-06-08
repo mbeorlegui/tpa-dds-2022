@@ -17,14 +17,14 @@ public class MiembroTests {
   private Miembro miembro2;
 
   @BeforeEach
-  void init(){
+  void init() {
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
     orgFalsa = inicializador.getOrgFalsa();
     miembro1 = inicializador.getUnMiembro();
     miembro2 = inicializador.getOtroMiembro();
   }
-  
+
   @DisplayName("Al agregar varios sectores a Miembro sin repetir")
   @Test
   public void correctoAgregadoDeMiembrosASectoresDeDosOrganizaciones() {
@@ -33,6 +33,7 @@ public class MiembroTests {
     assertTrue(orgFalsa.esMiembro(miembro2));
   }
 
+  @DisplayName("Un miembro se crea correctamente")
   @Test
   public void unMiembroSeCreaCorrectamente() {
     assertEquals(miembro1.getNombre(), "Matias");

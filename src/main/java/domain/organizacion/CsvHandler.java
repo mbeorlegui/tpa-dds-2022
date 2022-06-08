@@ -6,9 +6,10 @@ import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class CsvHandler {
 
 
   private List<MedicionRead> getMedicionesRead() throws IOException {
-    CSVReader csvReader = openFile();
+    CSVReader csvReader = new CSVReader(
+        new InputStreamReader(new FileInputStream(FILE_PATH), "UTF-8"));
     return getParse(csvReader);
   }
 
@@ -45,8 +47,4 @@ public class CsvHandler {
         .parse();
   }
 
-  private CSVReader openFile() throws FileNotFoundException {
-    FileReader file = new FileReader(FILE_PATH);
-    return new CSVReader(file);
-  }
 }
