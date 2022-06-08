@@ -1,7 +1,6 @@
 package domain;
 
 import domain.transporte.*;
-import domain.trayecto.Tramo;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +22,7 @@ public class TransporteTests {
   public Ubicacion parada4;
 
   @BeforeEach
-  private void init(){
+  void init(){
     InicializacionTests inicializador = new InicializacionTests();
     parada1 = new Ubicacion(15, "mozart", "1400");
     parada2 = new Ubicacion(20, "rivadavia", "4000");

@@ -14,7 +14,7 @@ public class Trayecto {
   }
 
   public Double distanciaTotal() {
-    return this.tramos.stream().mapToDouble( tramo -> tramo.distanciaIntermedia()).sum();
+    return this.tramos.stream().mapToDouble(tramo -> tramo.distanciaIntermedia()).sum();
   }
 
   public void verificarQuePuedaSerAsignadoAMiembros() {

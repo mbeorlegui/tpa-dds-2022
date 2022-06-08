@@ -1,6 +1,7 @@
 package domain.medicion;
 
 import lombok.Getter;
+
 public class Medicion {
   @Getter
   private TipoConsumo tipoConsumo;
@@ -11,7 +12,10 @@ public class Medicion {
   @Getter
   private String periodoDeImputacion;
 
-  public Medicion(TipoConsumo tipoConsumo, Integer valor, Periodicidad periodicidad, String periodoDeImputacion) {
+  public Medicion(TipoConsumo tipoConsumo,
+                  Integer valor,
+                  Periodicidad periodicidad,
+                  String periodoDeImputacion) {
     this.tipoConsumo = tipoConsumo;
     this.valor = valor;
     this.periodicidad = periodicidad;
@@ -23,4 +27,12 @@ public class Medicion {
         + ", Valor: " + valor + ", Periodicidad: " + periodicidad
         + ", Periodo de imputacion: " + periodoDeImputacion + "]";
   }
+
+  public boolean esMedicionIdentica(Medicion unaMedicion) {
+    return (this.tipoConsumo == unaMedicion.getTipoConsumo()
+        && this.valor.equals(unaMedicion.getValor())
+        && this.periodicidad == unaMedicion.getPeriodicidad()
+        && this.periodoDeImputacion.equals(unaMedicion.getPeriodoDeImputacion()));
+  }
+
 }

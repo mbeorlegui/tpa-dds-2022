@@ -1,34 +1,23 @@
 package domain;
 
-import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
-import domain.organizacion.Sector;
-import domain.organizacion.Tipo;
 import domain.transporte.Pie;
-import domain.transporte.TipoDeTransportePublico;
-import domain.transporte.TransportePublico;
-import domain.trayecto.Tramo;
-import domain.trayecto.Trayecto;
+import domain.trayecto.*;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TrayectoTests {
   private Trayecto casaHastaUTN;
-  private TransportePublico colectivoLinea7;
   private Organizacion utn;
   private Ubicacion casa;
   private Ubicacion paradaCasaLinea7;
   private Tramo casaHastaParadaLinea7;
 
   @BeforeEach
-  private void init(){
+  void init(){
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
     casaHastaUTN = inicializador.casaHastaUTN();

@@ -18,9 +18,9 @@ public class Ubicacion {
   }
 
   public boolean esMismaUbicacionQue(Ubicacion unaUbicacion) {
-    return (this.getLocalidadID().equals(unaUbicacion.getLocalidadID()) &&
-        this.getCalle().equals(unaUbicacion.getCalle()) &&
-        this.getAltura().equals(unaUbicacion.getAltura()));
+    return (this.getLocalidadID().equals(unaUbicacion.getLocalidadID())
+        && this.getCalle().equals(unaUbicacion.getCalle())
+        && this.getAltura().equals(unaUbicacion.getAltura()));
   }
 
 }

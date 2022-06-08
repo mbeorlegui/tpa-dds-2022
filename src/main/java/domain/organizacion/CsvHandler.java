@@ -16,7 +16,7 @@ public class CsvHandler {
   static final String FILE_PATH = "data/Mediciones.csv";
   // TODO: Analizar refactor de Path segun instancias de Organizacion
   //  Podria tomarse el path concatenado al nombre de la organizacion
-  
+
 
   public List<Medicion> getMediciones() throws IOException {
     MedicionAdapter medicionAdapter = new MedicionAdapter();
@@ -29,9 +29,6 @@ public class CsvHandler {
     return mediciones;
   }
 
-  private Medicion leerMedicion() {
-    return null;
-  }
 
   private List<MedicionRead> getMedicionesRead() throws IOException {
     CSVReader csvReader = openFile();

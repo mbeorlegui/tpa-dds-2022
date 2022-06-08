@@ -1,5 +1,7 @@
 package domain;
 
+import domain.medicion.MedicionAdapter;
+import domain.medicion.MedicionRead;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
@@ -32,6 +34,10 @@ public class InicializacionTests {
   private Miembro otroMiembro;
   private Trayecto servicioContratadoYVehiculoParticular;
   private Sector sectorDeRRHH;
+  private MedicionRead medicionDeLectura1;
+  private MedicionRead medicionDeLectura2;
+  private MedicionRead medicionDeLectura3;
+  private MedicionAdapter unAdapterDeMedicion;
 
   public InicializacionTests() {
     this.unMiembro = unMiembro();
@@ -47,6 +53,10 @@ public class InicializacionTests {
     this.taxi = taxi();
     this.motoNafta = motoNafta();
     this.servicioContratadoYVehiculoParticular = trayectoConServicioContratadoYVehiculoParticular();
+    this.medicionDeLectura1 = medicionDeLectura1();
+    this.medicionDeLectura2 = medicionDeLectura2();
+    this.medicionDeLectura3 = medicionDeLectura3();
+    this.unAdapterDeMedicion = unAdapterDeMedicion();
   }
 
   /*
@@ -55,13 +65,11 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Univerdidad Gubernamental")
   private Organizacion unaUniversidadGubernamental() {
     Ubicacion ubicacionUtn = new Ubicacion(457,"O'Higgins", "200");
-    Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL, ubicacionUtn, Clasificacion.UNIVERSIDAD);
-    // organizacion.crearNuevoSector();
+    Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL,
+                                                  ubicacionUtn, Clasificacion.UNIVERSIDAD);
     organizacion.addSector(sectorDeRRHH);
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
-    //Miembro miembro = new Miembro("Alejo", "Goltzman", 43994311, Documento.DNI, casaHastaUTN());
-    //miembro.addSector(unSectorDeRRHH, organizacion);
     sectorDeRRHH.addMiembro(otroMiembro);
     return organizacion;
   }
@@ -97,7 +105,7 @@ public class InicializacionTests {
 
     Organizacion organizacion = new Organizacion(
         "orgFalsa SRL", Tipo.EMPRESA, new Ubicacion(10, "medrano", "720"),
-        Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);;
+        Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
     organizacion.addSector(unSector);
     organizacion.addSector(otroSector);
     return organizacion;
@@ -209,5 +217,43 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Moto que usa nafta")
   private VehiculoParticular motoNafta() {
     return new VehiculoParticular(TipoDeVehiculo.MOTO, Combustible.NAFTA);
+  }
+
+  /*
+    Instancias de Mediciones
+   */
+  @DisplayName("Instanciar: Medicion de lectura 1")
+  static MedicionRead medicionDeLectura1() {
+    MedicionRead unaMedicion = new MedicionRead();
+    unaMedicion.setPeriodicidad("MENSUAL");
+    unaMedicion.setTipoConsumo("GAS_NATURAL");
+    unaMedicion.setValor("100");
+    unaMedicion.setPeriodoDeImputacion("03/2022");
+    return unaMedicion;
+  }
+
+  @DisplayName("Instanciar: Medicion de lectura 2")
+  static MedicionRead medicionDeLectura2() {
+    MedicionRead unaMedicion = new MedicionRead();
+    unaMedicion.setPeriodicidad("MENSUAL");
+    unaMedicion.setTipoConsumo("ELECTRICIDAD");
+    unaMedicion.setValor("6000");
+    unaMedicion.setPeriodoDeImputacion("04/2021");
+    return unaMedicion;
+  }
+
+  @DisplayName("Instanciar: Medicion de lectura 3")
+  static MedicionRead medicionDeLectura3() {
+    MedicionRead unaMedicion = new MedicionRead();
+    unaMedicion.setPeriodicidad("ANUAL");
+    unaMedicion.setTipoConsumo("DIESEL_GASOIL");
+    unaMedicion.setValor("50");
+    unaMedicion.setPeriodoDeImputacion("2021");
+    return unaMedicion;
+  }
+
+  @DisplayName("Instanciar: Un adapter de Medicion")
+  static MedicionAdapter unAdapterDeMedicion() {
+    return new MedicionAdapter();
   }
 }

@@ -7,17 +7,13 @@ import domain.exceptions.NonMemberException;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
-import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.organizacion.Tipo;
-import domain.transporte.*;
-import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
-import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrganizacionTests {
   private Organizacion utn;
@@ -29,9 +25,8 @@ public class OrganizacionTests {
   private Trayecto trayectoConServicioContratadoYVehiculoParticular;
   private Trayecto casaHastaUTN;
 
-
   @BeforeEach
-  private void init(){
+  void init(){
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
     sectorRRHH = inicializador.getSectorDeRRHH();
