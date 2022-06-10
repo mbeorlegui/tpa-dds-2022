@@ -6,7 +6,7 @@ import domain.ubicacion.Ubicacion;
 
 import java.io.IOException;
 
-public class AdapterCalculadoraDeDistanciaRetrofit implements AdapterCalculadoraDeDistancia {
+public class CalculadoraDeDistanciaRetrofit implements CalculadoraDeDistancia {
 
   @Override
   public double distancia(Ubicacion origen, Ubicacion destino) {

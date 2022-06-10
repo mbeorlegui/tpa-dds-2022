@@ -1,13 +1,16 @@
 package domain;
 
-import domain.services.apidistancias.AdapterCalculadoraDeDistancia;
-import domain.services.apidistancias.AdapterCalculadoraDeDistanciaRetrofit;
+import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.trayecto.Tramo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.awt.geom.Arc2D;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TramoTests {
@@ -22,11 +25,11 @@ public class TramoTests {
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    AdapterCalculadoraDeDistancia adapterMock = mock(AdapterCalculadoraDeDistanciaRetrofit.class);
-    casaHastaLinea7.setCalculadoraDeDistancia(adapterMock);
-    when(casaHastaLinea7.distanciaIntermedia()).thenReturn(50.0);
+    CalculadoraDeDistancia calculadoraMock = mock(CalculadoraDeDistancia.class);
+    casaHastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
+    when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
+        .thenReturn(50.0);
 
     assertEquals(50, casaHastaLinea7.distanciaIntermedia());
   }
-
 }
