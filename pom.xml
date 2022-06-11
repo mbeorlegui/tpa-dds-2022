@@ -52,7 +52,6 @@
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>

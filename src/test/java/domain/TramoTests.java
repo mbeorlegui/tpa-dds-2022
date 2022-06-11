@@ -1,14 +1,10 @@
 package domain;
 
 import domain.services.apidistancias.CalculadoraDeDistancia;
-import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.trayecto.Tramo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.awt.geom.Arc2D;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
