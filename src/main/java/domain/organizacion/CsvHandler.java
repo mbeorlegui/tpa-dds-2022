@@ -26,9 +26,8 @@ public class CsvHandler {
     List<Medicion> mediciones = new ArrayList<>();
     List<MedicionRead> medicionesLeidas = this.getMedicionesRead();
 
-    for (MedicionRead m : medicionesLeidas) {
-      mediciones.add(medicionAdapter.adaptarMedicion(m));
-    }
+    medicionesLeidas.forEach(m -> mediciones.add(medicionAdapter.adaptarMedicion(m)));
+    
     return mediciones;
   }
 

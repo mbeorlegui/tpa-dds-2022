@@ -83,9 +83,7 @@ public class Organizacion {
   }
 
   private boolean todosSonMiembros(Miembro[] miembros) {
-    return Arrays.stream(miembros).allMatch(miembro -> {
-      return this.esMiembro(miembro);
-    });
+    return Arrays.stream(miembros).allMatch(this::esMiembro);
   }
 
   public void agregarMedicion(Medicion unaMedicion) {
@@ -94,9 +92,7 @@ public class Organizacion {
 
   public void agregarMediciones() throws IOException {
     List<Medicion> mediciones = csvHandler.getMediciones();
-    for (Medicion m : mediciones) {
-      this.agregarMedicion(m);
-    }
+    mediciones.forEach(this::agregarMedicion);
   }
 
   public boolean existeMedicion(Medicion unaMedicion) {
