@@ -20,11 +20,7 @@ public class Tramo {
   private CalculadoraDeDistancia calculadoraDeDistancia;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
-    if ((transporteUtilizado instanceof TransportePublico)
-        && (!((TransportePublico) transporteUtilizado).tieneUnaParadaEn(origenDeTramo)
-        || !((TransportePublico) transporteUtilizado).tieneUnaParadaEn(destinoDeTramo))) {
-      throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
-    }
+    transporteUtilizado.verificarParadas(origenDeTramo, destinoDeTramo);
     this.origenDeTramo = origenDeTramo;
     this.destinoDeTramo = destinoDeTramo;
     this.transporteUtilizado = transporteUtilizado;

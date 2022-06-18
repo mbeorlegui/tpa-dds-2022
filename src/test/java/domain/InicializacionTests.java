@@ -50,13 +50,13 @@ public class InicializacionTests {
     this.sectorDeRRHH = sectorDeRRHH();
     this.utn = unaUniversidadGubernamental();
     this.orgFalsa = orgFalsa();
-    this.casaHastaUTN = casaHastaUTN();
     this.colectivoLinea7 = colectivoLinea7();
     this.colectivoLinea157 = colectivoLinea157();
     this.subteX = subteX();
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
+    this.casaHastaUTN = casaHastaUTN();
     this.servicioContratadoYVehiculoParticular = trayectoConServicioContratadoYVehiculoParticular();
     this.medicionDeLectura1 = medicionDeLectura1();
     this.medicionDeLectura2 = medicionDeLectura2();

@@ -1,5 +1,6 @@
 package domain.transporte;
 
+import domain.ubicacion.Ubicacion;
 import lombok.Setter;
 
 public class Bicicleta implements Transporte {
@@ -13,11 +14,11 @@ public class Bicicleta implements Transporte {
   public TipoTransporte getTipoTransporte() {
     return tipoTransporte;
   }
-  /*
-  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
-    return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
+
+  @Override
+  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
+
   }
-  */
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {
     return this.tipoTransporte.equals(tipoTransporte);
