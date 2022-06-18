@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ServicioDistancia {
   private static ServicioDistancia instancia = null;
-  private static final String urlAPI = "https://ddstpa.com.ar/api/";
+  private static String urlAPI = "https://ddstpa.com.ar/api/";
   private Retrofit retrofit;
 
   private ServicioDistancia() {
