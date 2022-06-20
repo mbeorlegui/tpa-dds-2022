@@ -2,6 +2,7 @@ package domain;
 
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
+import domain.organizacion.CsvHandler;
 import domain.organizacion.Organizacion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,7 @@ public class MedicionTest {
   private Medicion unaMedicionAdaptada;
   private Medicion otraMedicionAdaptada;
   private Medicion otraMedicionAdaptadaMas;
+  private CsvHandler csvHandler;
 
   @BeforeEach
   void initOrganizacion() {
@@ -28,6 +30,7 @@ public class MedicionTest {
     unaMedicionAdaptada = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura1());
     otraMedicionAdaptada = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura2());
     otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura3());
+    csvHandler = inicializador.csvHandler();
   }
 
   @DisplayName("Creo una medicion, la transformo y la agrego a la organizacion")
@@ -57,7 +60,7 @@ public class MedicionTest {
     organizacion.agregarMedicion(unaMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptadaMas);
-    otraOrganizacion.agregarMediciones();
+    otraOrganizacion.agregarMediciones(csvHandler.getMediciones());
     assertTrue(organizacion.contieneMedicionIdentica(unaMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));

@@ -4,10 +4,7 @@ import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
-import domain.organizacion.Clasificacion;
-import domain.organizacion.Organizacion;
-import domain.organizacion.Sector;
-import domain.organizacion.Tipo;
+import domain.organizacion.*;
 import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
@@ -43,6 +40,7 @@ public class InicializacionTests {
   private Ubicacion ubicacionUtn;
   private Tramo casaHastaLinea7;
   private Tramo linea7HastaUTN;
+  private CsvHandler csvHandler;
 
   public InicializacionTests() {
     this.unMiembro = unMiembro();
@@ -67,6 +65,7 @@ public class InicializacionTests {
     this.ubicacionUtn = ubicacionUtn();
     this.casaHastaLinea7 = casaHastaLinea7();
     this.linea7HastaUTN = linea7HastaUTN();
+    this.csvHandler = csvHandler();
   }
 
   /*
@@ -291,5 +290,10 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Tramo")
   public Tramo linea7HastaUTN() {
     return new Tramo(linea7(), ubicacionUtn(), new Pie());
+  }
+
+  @DisplayName("Instanciar: Csv Handler")
+  public CsvHandler csvHandler() {
+    return new CsvHandler();
   }
 }

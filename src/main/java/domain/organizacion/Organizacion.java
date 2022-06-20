@@ -24,7 +24,7 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   @Getter
   private Clasificacion clasificacion;
-  CsvHandler csvHandler = new CsvHandler();
+  // CsvHandler csvHandler = new CsvHandler();
 
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
@@ -90,9 +90,10 @@ public class Organizacion {
     mediciones.add(unaMedicion);
   }
 
-  public void agregarMediciones() throws IOException {
-    List<Medicion> mediciones = csvHandler.getMediciones();
-    mediciones.forEach(this::agregarMedicion);
+  public void agregarMediciones(List<Medicion> mediciones) {
+    // Se implementa:
+    // unaOrganizacion.agregarMediciones(csvHandler.getMediciones());
+    this.mediciones.addAll(mediciones);
   }
 
   public boolean existeMedicion(Medicion unaMedicion) {
