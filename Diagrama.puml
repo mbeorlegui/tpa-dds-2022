@@ -6,7 +6,6 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  csvHandler : CsvHandler
   mediciones : List<Medicion>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
@@ -270,7 +269,7 @@ Miembro -up-> Documento
 Trayecto --> "*" Tramo
 Trayecto <-left- Miembro
 Tramo --> Transporte
-Tramo -right->"2" Ubicacion
+Tramo -right-> Ubicacion
 
 Transporte -up-> TipoTransporte
 TransportePublico -up->"*" Ubicacion
@@ -288,15 +287,14 @@ ServicioContratado .up.|> Transporte
 Organizacion ..> Trayecto
 Tramo --> AdapterCalculadoraDeDistancia
 AdapterCalculadoraDeDistanciaRetrofit -up-|> AdapterCalculadoraDeDistancia
-AdapterCalculadoraDeDistancia ..> "2" Ubicacion
+AdapterCalculadoraDeDistancia ..> Ubicacion
 
-Organizacion -right-> CsvHandler
 
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo
 Medicion --> Periodicidad
 
-Administrador ..> FactorDeEmision
+Administrador .down.> FactorDeEmision
 FactorDeEmision --> TipoConsumo
 
 @enduml
