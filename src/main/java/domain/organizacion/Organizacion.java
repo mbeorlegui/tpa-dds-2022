@@ -24,7 +24,6 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   @Getter
   private Clasificacion clasificacion;
-  // CsvHandler csvHandler = new CsvHandler();
 
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
