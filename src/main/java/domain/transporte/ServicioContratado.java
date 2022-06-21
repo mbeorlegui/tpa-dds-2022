@@ -10,14 +10,6 @@ public class ServicioContratado implements Transporte {
   @Getter
   private TipoTransporte tipoTransporte;
 
-  public TipoTransporte getTipoTransporte() {
-    return tipoTransporte;
-  }
-
-  public void setTipoTransporte(TipoTransporte tipoTransporte) {
-    this.tipoTransporte = tipoTransporte;
-  }
-
   @Override
   public void verificarParadas(Ubicacion origen, Ubicacion destino) {
 
