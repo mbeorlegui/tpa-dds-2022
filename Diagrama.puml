@@ -270,7 +270,8 @@ Miembro -up-> Documento
 Trayecto --> "*" Tramo
 Trayecto <-left- Miembro
 Tramo --> Transporte
-Tramo -right->"2" Ubicacion
+Tramo -right-> Ubicacion
+Tramo -right-> Ubicacion
 
 Transporte -up-> TipoTransporte
 TransportePublico -up->"*" Ubicacion
@@ -286,9 +287,11 @@ ServicioContratado .up.|> Transporte
 
 
 Organizacion ..> Trayecto
-Tramo --> CalculadoraDeDistancia
+Tramo -left-> CalculadoraDeDistancia
 CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
-CalculadoraDeDistancia ..> "2" Ubicacion
+' CalculadoraDeDistancia ..> Ubicacion
+' CalculadoraDeDistancia ..> Ubicacion
+' Al poner el tipo de los parametros no hace falta agregar una relacion
 
 Organizacion -right-> CsvHandler
 
