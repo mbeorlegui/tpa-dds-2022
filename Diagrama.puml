@@ -6,7 +6,6 @@ class Organizacion {
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
-  csvHandler : CsvHandler
   mediciones : List<Medicion>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
@@ -293,13 +292,11 @@ CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 ' CalculadoraDeDistancia ..> Ubicacion
 ' Al poner el tipo de los parametros no hace falta agregar una relacion
 
-Organizacion -right-> CsvHandler
-
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo
 Medicion --> Periodicidad
 
-Administrador ..> FactorDeEmision
+Administrador .down.> FactorDeEmision
 FactorDeEmision --> TipoConsumo
 
 @enduml
