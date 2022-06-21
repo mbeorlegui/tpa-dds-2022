@@ -1,5 +1,6 @@
 package domain.transporte;
 
+import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,16 +12,16 @@ public class VehiculoParticular implements Transporte {
   @Setter
   @Getter
   private TipoTransporte tipoTransporte;
-  /*
-  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
-    return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
-  }
-  */
 
   public VehiculoParticular(TipoDeVehiculo tipoDeVehiculo, Combustible combustible) {
     this.tipoDeVehiculo = tipoDeVehiculo;
     this.combustible = combustible;
     setTipoTransporte(TipoTransporte.PARTICULAR);
+  }
+
+  @Override
+  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
+
   }
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {

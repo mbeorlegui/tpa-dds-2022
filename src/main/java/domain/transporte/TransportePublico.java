@@ -19,11 +19,6 @@ public class TransportePublico implements Transporte {
   @Setter
   private TipoTransporte tipoTransporte;
 
-  /*
-  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
-    return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
-  }
-  */
   public TransportePublico(TipoDeTransportePublico tipoDeTransportePublico, String linea) {
     this.tipoDeTransportePublico = tipoDeTransportePublico;
     this.linea = linea;
@@ -40,6 +35,13 @@ public class TransportePublico implements Transporte {
 
   public boolean esTranspportePublico() {
     return (this.tipoTransporte.equals(TipoTransporte.PUBLICO));
+  }
+
+  @Override
+  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
+    if (!this.tieneUnaParadaEn(origen) || !this.tieneUnaParadaEn(destino)) {
+      throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
+    }
   }
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {

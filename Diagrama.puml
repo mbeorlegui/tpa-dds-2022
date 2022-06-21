@@ -152,7 +152,7 @@ class Tramo {
   origenDeTramo : Ubicacion
   destinoDeTramo : Ubicacion
   transporteUtilizado : Transporte
-  calculadoraDeDistancia : AdapterCalculadoraDeDistancia
+  calculadoraDeDistancia : CalculadoraDeDistancia
   boolean puedeSerCompartido()
   double distanciaIntermedia()
 }
@@ -166,11 +166,11 @@ class Trayecto {
 }
 ' verificarQuePuedaSerAsignadoAMiembros -> llama para cada tramo al validarTramoCompartido
 
-interface AdapterCalculadoraDeDistancia {
+interface CalculadoraDeDistancia {
   double distancia(Ubicacion origen, Ubicacion destino)
 }
 
-class AdapterCalculadoraDeDistanciaRetrofit {
+class CalculadoraDeDistanciaRetrofit {
 
 }
 
@@ -286,11 +286,11 @@ ServicioContratado .up.|> Transporte
 
 
 Organizacion ..> Trayecto
-Tramo --> AdapterCalculadoraDeDistancia
-AdapterCalculadoraDeDistanciaRetrofit -up-|> AdapterCalculadoraDeDistancia
-AdapterCalculadoraDeDistancia ..> Ubicacion
-AdapterCalculadoraDeDistancia ..> Ubicacion
-
+Tramo -left-> CalculadoraDeDistancia
+CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
+' CalculadoraDeDistancia ..> Ubicacion
+' CalculadoraDeDistancia ..> Ubicacion
+' Al poner el tipo de los parametros no hace falta agregar una relacion
 
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo

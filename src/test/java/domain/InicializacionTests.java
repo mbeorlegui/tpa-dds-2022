@@ -43,26 +43,26 @@ public class InicializacionTests {
   private CsvHandler csvHandler;
 
   public InicializacionTests() {
+    this.casa = casa();
+    this.linea7 = linea7();
+    this.ubicacionUtn = ubicacionUtn();
     this.unMiembro = unMiembro();
     this.otroMiembro = otroMiembro();
     this.sectorDeRRHH = sectorDeRRHH();
     this.utn = unaUniversidadGubernamental();
     this.orgFalsa = orgFalsa();
-    this.casaHastaUTN = casaHastaUTN();
     this.colectivoLinea7 = colectivoLinea7();
     this.colectivoLinea157 = colectivoLinea157();
     this.subteX = subteX();
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
+    this.casaHastaUTN = casaHastaUTN();
     this.servicioContratadoYVehiculoParticular = trayectoConServicioContratadoYVehiculoParticular();
     this.medicionDeLectura1 = medicionDeLectura1();
     this.medicionDeLectura2 = medicionDeLectura2();
     this.medicionDeLectura3 = medicionDeLectura3();
     this.unAdapterDeMedicion = unAdapterDeMedicion();
-    this.casa = casa();
-    this.linea7 = linea7();
-    this.ubicacionUtn = ubicacionUtn();
     this.casaHastaLinea7 = casaHastaLinea7();
     this.linea7HastaUTN = linea7HastaUTN();
     this.csvHandler = csvHandler();
@@ -73,7 +73,6 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Univerdidad Gubernamental")
   private Organizacion unaUniversidadGubernamental() {
-    Ubicacion ubicacionUtn = new Ubicacion(457, "O'Higgins", "200");
     Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL,
         ubicacionUtn, Clasificacion.UNIVERSIDAD);
     organizacion.addSector(sectorDeRRHH);
@@ -142,7 +141,6 @@ public class InicializacionTests {
   public Trayecto casaHastaUTN() {
     Ubicacion casa = new Ubicacion(1, "maipu", "100");
     Ubicacion paradaCasaLinea7 = new Ubicacion(1, "maipu", "500");
-    Ubicacion ubicacionUtn = new Ubicacion(457, "O'Higgins", "200");
 
     Tramo casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
     Tramo paradaLinea7HastaUTN = new Tramo(paradaCasaLinea7, ubicacionUtn, colectivoLinea7);
@@ -279,17 +277,17 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Ubicacion")
   public Ubicacion ubicacionUtn() {
-    return new Ubicacion(168, "Florida", "150");
+    return  new Ubicacion(457, "O'Higgins", "200");
   }
 
   @DisplayName("Instanciar: Tramo")
   public Tramo casaHastaLinea7() {
-    return new Tramo(casa(), linea7(), new Pie());
+    return new Tramo(casa(), linea7, new Pie());
   }
 
   @DisplayName("Instanciar: Tramo")
   public Tramo linea7HastaUTN() {
-    return new Tramo(linea7(), ubicacionUtn(), new Pie());
+    return new Tramo(linea7, ubicacionUtn, new Pie());
   }
 
   @DisplayName("Instanciar: Csv Handler")

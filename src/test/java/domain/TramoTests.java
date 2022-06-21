@@ -1,6 +1,8 @@
 package domain;
 
 import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.ServicioDistancia;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.trayecto.Tramo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,21 +13,38 @@ import static org.mockito.Mockito.*;
 
 public class TramoTests {
   private Tramo casaHastaLinea7;
+  private Tramo linea7HastaUTN;
+  private ResultadoDistancia resultadoDistancia1;
+  private ResultadoDistancia resultadoDistancia2;
+  private CalculadoraDeDistancia calculadoraMock;
+  private ServicioDistancia servicioDistancia;
 
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
     casaHastaLinea7 = inicializador.casaHastaLinea7();
+    linea7HastaUTN = inicializador.linea7HastaUTN();
+    resultadoDistancia1 = new ResultadoDistancia(50, "m");
+    resultadoDistancia2 = new ResultadoDistancia(10, "km");
+    calculadoraMock = mock(CalculadoraDeDistancia.class);
+    casaHastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
+    linea7HastaUTN.setCalculadoraDeDistancia(calculadoraMock);
+    servicioDistancia = ServicioDistancia.getInstancia();
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    CalculadoraDeDistancia calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casaHastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
     when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
-        .thenReturn(50.0);
+        .thenReturn(resultadoDistancia1.getValor());
+    assertEquals(50, resultadoDistancia1.getValor());
+    assertEquals(resultadoDistancia1.getValor(), casaHastaLinea7.distanciaIntermedia());
+  }
 
-    assertEquals(50, casaHastaLinea7.distanciaIntermedia());
+  @DisplayName("Se crea correctamente la instancia de SerivicioDistancia")
+  @Test
+  public void seCreaInstanciaDeSerivicioDistancia(){
+    assertEquals(ServicioDistancia.class,servicioDistancia.getClass());
+    assertNotNull(servicioDistancia);
   }
 }

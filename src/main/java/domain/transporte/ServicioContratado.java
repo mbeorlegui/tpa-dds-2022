@@ -1,5 +1,6 @@
 package domain.transporte;
 
+import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,19 +10,11 @@ public class ServicioContratado implements Transporte {
   @Getter
   private TipoTransporte tipoTransporte;
 
-  public TipoTransporte getTipoTransporte() {
-    return tipoTransporte;
+  @Override
+  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
+
   }
 
-  public void setTipoTransporte(TipoTransporte tipoTransporte) {
-    this.tipoTransporte = tipoTransporte;
-  }
-
-  /*
-  public boolean esMismoTipoDeTransporteQue(Transporte unTransporte) {
-    return (this.tipoTransporte.equals(unTransporte.getTipoTransporte()));
-  }
-  */
   public ServicioContratado(TipoDeServicioContratado tipoDeServicioContratado) {
     this.tipoDeServicioContratado = tipoDeServicioContratado;
     setTipoTransporte(TipoTransporte.CONTRATADO);

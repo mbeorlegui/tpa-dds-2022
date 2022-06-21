@@ -8,4 +8,9 @@ public class ResultadoDistancia {
   private double valor;
   @Getter @Setter
   private String unidad;
+
+  public ResultadoDistancia(double valor, String unidad) {
+    this.valor = valor;
+    this.unidad = unidad;
+  }
 }
