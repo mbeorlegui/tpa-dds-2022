@@ -270,6 +270,7 @@ Trayecto --> "*" Tramo
 Trayecto <-left- Miembro
 Tramo --> Transporte
 Tramo -right-> Ubicacion
+Tramo -right-> Ubicacion
 
 Transporte -up-> TipoTransporte
 TransportePublico -up->"*" Ubicacion
@@ -287,6 +288,7 @@ ServicioContratado .up.|> Transporte
 Organizacion ..> Trayecto
 Tramo --> AdapterCalculadoraDeDistancia
 AdapterCalculadoraDeDistanciaRetrofit -up-|> AdapterCalculadoraDeDistancia
+AdapterCalculadoraDeDistancia ..> Ubicacion
 AdapterCalculadoraDeDistancia ..> Ubicacion
 
 
