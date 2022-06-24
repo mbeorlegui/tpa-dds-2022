@@ -16,22 +16,59 @@ class Organizacion {
   void asignarTrayectoA(Trayecto, List<Miembro>)
   void agregarMediciones()
   boolean contieneMedicionIdentica(Medicion)
+  Set<Trayecto> getTrayectos()
 }
 ' verificarQueSeanMiembros -> valida que en la lista de miembros todos pertenezcan a la organizacion
 ' asignarTrayectoA -> llama a verificarQueSeanMiembros para lista de miembros,
 ' y verificarQuePuedaSerAsignadoAMiembros para el trayecto, si pasan las validaciones,
 ' a todos los miembros de la lista se le asigna el trayecto
 
-enum TipoConsumo {
-  GAS_NATURAL,
-  DIESEL_GASOIL,
-  NAFTA,
-  CARBON,
-  CC_GASOIL,
-  CC_NAFTA,
-  ELECTRICIDAD,
-  MEDIO_DE_TRANSPORTE,
-  DISTANCIA_MEDIA_RECORRIDA,
+class TiposConsumos {
+  consumos : List<TipoConsumo>
+}
+
+' TiposConsumos.getInstance().getConsumos().get(0)
+' TipoConsumo gasNatural = new TipoConsumo(
+'   Actividad.COMBUSTION_FIJA,
+'   Alcance.EMISION_DIRECTA,
+'   Unidad.M3,
+'   500
+' );
+
+' TiposConsumos es singleton (repositorio de objetos)
+TiposConsumos -->"*" TipoConsumo
+TipoConsumo --> Actividad
+TipoConsumo --> Alcance
+TipoConsumo --> Unidad
+
+class TipoConsumo {
+  actividad : Actividad
+  alcance : Alcance
+  unidad : Unidad
+  factorDeEmision : Double
+}
+
+enum Actividad {
+  COMBUSTION_FIJA,
+  COMBUSTION_MOVIL,
+  ELECTRICIDAD_ADQ_CONS,
+  LOGISTICA_PROD_RESID,
+}
+
+enum Alcance {
+  EMISIONES_DIRECTAS,
+  EMISIONES_INDIRECTAS,
+  OTRAS_EMISIONES,
+}
+
+enum Unidad {
+  M3,
+  LT,
+  KGS,
+  LTS,
+  KWH,
+  KM,
+  SIN_UNIDAD,
 }
 
 
@@ -86,7 +123,9 @@ enum Clasificacion {
 }
 
 ' Usamos strategy para los medios de transportes
-interface Transporte {
+abstract Transporte {
+  combustible : TipoConsumo
+  combustiblePorKm : Double
   tipoTransporte : TipoTransporte
 }
 
@@ -100,7 +139,6 @@ enum TipoTransporte {
 
 class VehiculoParticular {
   tipoDeVehiculo : TipoDeVehiculo
-  combustible : Combustible
 }
 
 class TransportePublico {
@@ -141,13 +179,6 @@ enum TipoDeServicioContratado{
   REMIS,
 }
 
-enum Combustible {
-  GNC,
-  NAFTA,
-  ELECTRICO,
-  GASOIL,
-}
-
 class Tramo {
   origenDeTramo : Ubicacion
   destinoDeTramo : Ubicacion
@@ -178,7 +209,7 @@ class Administrador {
   user : String
   password : String
   validador : PasswordValidator 
-  FactorDeEmision generarNuevoFactorDeEmision(factor, tipoFactor)
+  void generarNuevoFactorDeEmision(factor, tipoFactor)
 }
 
 class PasswordValidator {
@@ -239,12 +270,7 @@ class CsvHandler {
   List<Medicion> getMediciones()
 }
 
-class FactorDeEmision {
-  factor : Integer
-  tipoConsumo : TipoConsumo
-}
-
-
+Administrador ..> TiposConsumos
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
 Validator <|-down- PasswordIsCommonValidator
@@ -276,14 +302,14 @@ Transporte -up-> TipoTransporte
 TransportePublico -up->"*" Ubicacion
 TransportePublico --> TipoDeTransportePublico
 VehiculoParticular -down-> TipoDeVehiculo
-VehiculoParticular -up-> Combustible
 ServicioContratado -down-> TipoDeServicioContratado
-TransportePublico .up.|> Transporte
-VehiculoParticular .up.|> Transporte
-Pie .up.|> Transporte
-Bicicleta .up.|> Transporte
-ServicioContratado .up.|> Transporte
+TransportePublico -up-|> Transporte
+VehiculoParticular -up-|> Transporte
+Pie -up-|> Transporte
+Bicicleta -up-|> Transporte
+ServicioContratado -up-|> Transporte
 
+Transporte -up-> TipoConsumo
 
 Organizacion ..> Trayecto
 Tramo -left-> CalculadoraDeDistancia
@@ -296,7 +322,5 @@ Organizacion -right-> Medicion
 Medicion --> TipoConsumo
 Medicion --> Periodicidad
 
-Administrador .down.> FactorDeEmision
-FactorDeEmision --> TipoConsumo
 
 @enduml
