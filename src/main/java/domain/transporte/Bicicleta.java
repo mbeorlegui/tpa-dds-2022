@@ -1,18 +1,13 @@
 package domain.transporte;
 
+import domain.medicion.TipoConsumo;
 import domain.ubicacion.Ubicacion;
-import lombok.Setter;
 
-public class Bicicleta implements Transporte {
-  @Setter
-  private TipoTransporte tipoTransporte;
+public class Bicicleta extends Transporte {
 
   public Bicicleta() {
+    super(null, null);
     setTipoTransporte(TipoTransporte.BICICLETA);
-  }
-
-  public TipoTransporte getTipoTransporte() {
-    return tipoTransporte;
   }
 
   @Override
@@ -20,7 +15,4 @@ public class Bicicleta implements Transporte {
 
   }
 
-  public boolean esDeTipo(TipoTransporte tipoTransporte) {
-    return this.tipoTransporte.equals(tipoTransporte);
-  }
 }

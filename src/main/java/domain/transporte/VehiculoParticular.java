@@ -1,21 +1,18 @@
 package domain.transporte;
 
+import domain.medicion.TipoConsumo;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
-import lombok.Setter;
 
-public class VehiculoParticular implements Transporte {
+public class VehiculoParticular extends Transporte {
   @Getter
   private TipoDeVehiculo tipoDeVehiculo;
-  @Getter
-  private Combustible combustible;
-  @Setter
-  @Getter
-  private TipoTransporte tipoTransporte;
 
-  public VehiculoParticular(TipoDeVehiculo tipoDeVehiculo, Combustible combustible) {
+
+  public VehiculoParticular(TipoConsumo combustible, Double combustiblePorKm,
+                            TipoDeVehiculo tipoDeVehiculo) {
+    super(combustible, combustiblePorKm);
     this.tipoDeVehiculo = tipoDeVehiculo;
-    this.combustible = combustible;
     setTipoTransporte(TipoTransporte.PARTICULAR);
   }
 
@@ -24,7 +21,4 @@ public class VehiculoParticular implements Transporte {
 
   }
 
-  public boolean esDeTipo(TipoTransporte tipoTransporte) {
-    return this.tipoTransporte.equals(tipoTransporte);
-  }
 }

@@ -2,6 +2,7 @@ package domain;
 
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
+import domain.medicion.TiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
@@ -124,8 +125,8 @@ public class InicializacionTests {
     Ubicacion casa = new Ubicacion(1, "maipu", "100");
     Ubicacion estacionamiento = new Ubicacion(1, "maipu", "2250");
 
-    Tramo primerTramo = new Tramo(casa, estacionamiento, new ServicioContratado(TipoDeServicioContratado.TAXI));
-    Tramo segundoTramo = new Tramo(estacionamiento, orgFalsa.getUbicacion(), new VehiculoParticular(TipoDeVehiculo.AUTO, Combustible.NAFTA));
+    Tramo primerTramo = new Tramo(casa, estacionamiento, new ServicioContratado(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeServicioContratado.TAXI));
+    Tramo segundoTramo = new Tramo(estacionamiento, orgFalsa.getUbicacion(), new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeVehiculo.AUTO));
 
     List<Tramo> tramos = new ArrayList<>();
     tramos.add(primerTramo);
@@ -156,7 +157,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
-    TransportePublico colectivo7 = new TransportePublico(TipoDeTransportePublico.COLECTIVO, "7");
+    TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "7");
     colectivo7.addParadas(new Ubicacion(457, "O'Higgins", "200"),
         new Ubicacion(1, "maipu", "500"));
     return colectivo7;
@@ -167,7 +168,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX() {
-    TransportePublico subte = new TransportePublico(TipoDeTransportePublico.SUBTE, "X");
+    TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.SUBTE, "X");
     subte.addParadas(parada1(), parada2());
     return subte;
   }
@@ -187,7 +188,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Colectivo linea 157")
   private TransportePublico colectivoLinea157() {
-    TransportePublico bondi = new TransportePublico(TipoDeTransportePublico.COLECTIVO, "157");
+    TransportePublico bondi = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "157");
     bondi.addParadas(parada3(), parada4());
     return bondi;
   }
@@ -215,7 +216,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Taxi")
   private ServicioContratado taxi() {
-    return new ServicioContratado(TipoDeServicioContratado.TAXI);
+    return new ServicioContratado(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeServicioContratado.TAXI);
   }
 
   /*
@@ -223,7 +224,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Moto que usa nafta")
   private VehiculoParticular motoNafta() {
-    return new VehiculoParticular(TipoDeVehiculo.MOTO, Combustible.NAFTA);
+    return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeVehiculo.MOTO);
   }
 
   /*
@@ -277,7 +278,7 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Ubicacion")
   public Ubicacion ubicacionUtn() {
-    return  new Ubicacion(457, "O'Higgins", "200");
+    return new Ubicacion(457, "O'Higgins", "200");
   }
 
   @DisplayName("Instanciar: Tramo")
