@@ -68,7 +68,7 @@ public class MedicionTest {
     assertTrue(otraOrganizacion.contieneMedicionIdentica(unaMedicionAdaptada));
     assertTrue(otraOrganizacion.contieneMedicionIdentica(otraMedicionAdaptada));
     assertTrue(otraOrganizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));
-    assertEquals(otraOrganizacion.getMediciones().size(), 3);
+    assertEquals(otraOrganizacion.getMediciones().size(), 4);
   }
 
 
