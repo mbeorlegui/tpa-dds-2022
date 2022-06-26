@@ -1,18 +1,34 @@
 package domain.medicion;
 
-public enum TipoConsumo {
-  GAS_NATURAL,
-  DIESEL_GASOIL,
-  NAFTA,
-  CARBON,
-  CC_GASOIL,
-  CC_NAFTA,
-  ELECTRICIDAD,
-  MEDIO_DE_TRANSPORTE,
-  DISTANCIA_MEDIA_RECORRIDA,
+import lombok.Getter;
+import lombok.Setter;
+
+public class TipoConsumo {
+  @Getter
+  public Actividad actividad;
+  @Getter
+  public Alcance alcance;
+  @Getter
+  public Unidad unidad;
+  @Getter
+  @Setter
+  public double factorDeEmision;
+  @Getter
+  public String nombre;
+
+  public TipoConsumo(Actividad actividad, Alcance alcance, Unidad unidad,
+                     double factorDeEmision, String nombre) {
+    this.actividad = actividad;
+    this.alcance = alcance;
+    this.unidad = unidad;
+    this.factorDeEmision = factorDeEmision;
+    this.nombre = nombre;
+  }
+
+  // TODO: Analizar otros refactors
+
+  @Override
+  public String toString() {
+    return nombre;
+  }
 }
-
-// TODO: Analizar refactor futuro para realizar el calculo de huella de carbono
-//  utilizando varias unidades. Quizas convenga utilizar un strategy y que cada
-//  medicion sepa su consumo en una unidad determinada
-

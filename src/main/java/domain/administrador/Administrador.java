@@ -1,6 +1,11 @@
 package domain.administrador;
 
+import domain.medicion.Actividad;
+import domain.medicion.Alcance;
+import domain.medicion.TiposConsumos;
 import domain.medicion.TipoConsumo;
+import domain.medicion.Unidad;
+
 import lombok.Getter;
 
 import static java.util.Objects.requireNonNull;
@@ -18,8 +23,14 @@ public class Administrador {
     this.password = password;
   }
 
-  public FactorDeEmision generarNuevoFactorDeEmision(Integer factor, TipoConsumo tipoConsumo) {
-    return new FactorDeEmision(factor, tipoConsumo);
+  public void generarNuevoFactorDeEmision(Actividad actividad,
+                                          Alcance alcance,
+                                          Unidad unidad,
+                                          double factorDeEmision,
+                                          String nombreTipoDeConsumo) {
+    TiposConsumos.getInstance().agregarTipoDeConsumo(
+        new TipoConsumo(actividad, alcance, unidad, factorDeEmision, nombreTipoDeConsumo)
+    );
   }
 
 }

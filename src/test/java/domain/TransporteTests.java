@@ -22,7 +22,7 @@ public class TransporteTests {
   public Ubicacion parada4;
 
   @BeforeEach
-  void init(){
+  void init() {
     InicializacionTests inicializador = new InicializacionTests();
     parada1 = new Ubicacion(15, "mozart", "1400");
     parada2 = new Ubicacion(20, "rivadavia", "4000");
@@ -59,10 +59,9 @@ public class TransporteTests {
 
   @DisplayName("Una moto que usa nafta es un transporte particular de tipo moto y su combustible es nafta")
   @Test
-  public void unaMotoQueUsaNaftaEsParticularDeTipoMotoYSuCombustibleEsNafta()  {
+  public void unaMotoQueUsaNaftaEsParticularDeTipoMotoYSuCombustibleEsNafta() {
     assertEquals(motoNafta.getTipoTransporte(), TipoTransporte.PARTICULAR);
     assertEquals(motoNafta.getTipoDeVehiculo(), TipoDeVehiculo.MOTO);
-    assertEquals(motoNafta.getCombustible(), Combustible.NAFTA);
   }
 
   @DisplayName("Puedo agregar 2 paradas a un colectivo")

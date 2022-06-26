@@ -1,21 +1,19 @@
 package domain.transporte;
 
+import domain.medicion.TipoConsumo;
 import domain.ubicacion.Ubicacion;
-import lombok.Getter;
-import lombok.Setter;
 
-public class ServicioContratado implements Transporte {
+public class ServicioContratado extends Transporte {
   private TipoDeServicioContratado tipoDeServicioContratado;
-  @Setter
-  @Getter
-  private TipoTransporte tipoTransporte;
 
   @Override
   public void verificarParadas(Ubicacion origen, Ubicacion destino) {
 
   }
 
-  public ServicioContratado(TipoDeServicioContratado tipoDeServicioContratado) {
+  public ServicioContratado(TipoConsumo combustible, Double combustiblePorKm,
+                            TipoDeServicioContratado tipoDeServicioContratado) {
+    super(combustible, combustiblePorKm);
     this.tipoDeServicioContratado = tipoDeServicioContratado;
     setTipoTransporte(TipoTransporte.CONTRATADO);
   }
@@ -24,7 +22,4 @@ public class ServicioContratado implements Transporte {
     return tipoDeServicioContratado;
   }
 
-  public boolean esDeTipo(TipoTransporte tipoTransporte) {
-    return this.tipoTransporte.equals(tipoTransporte);
-  }
 }

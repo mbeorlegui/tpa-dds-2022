@@ -3,7 +3,7 @@ package domain;
 import domain.administrador.Administrador;
 import domain.administrador.FactorDeEmision;
 import domain.exceptions.InvalidPasswordException;
-import domain.medicion.TipoConsumo;
+import domain.medicion.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -96,9 +96,10 @@ public class AdministradorTests {
 
   @Test
   public void adminConPasswordCompletoGeneraNuevoFactorDeEmision() {
-    FactorDeEmision factorDeEmision = adminConPasswordCompleto().generarNuevoFactorDeEmision(120, TipoConsumo.ELECTRICIDAD);
-    assertEquals(factorDeEmision.getFactor(), 120);
-    assertEquals(factorDeEmision.getTipoConsumo(), TipoConsumo.ELECTRICIDAD);
+    adminConPasswordCompleto().generarNuevoFactorDeEmision(
+        Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, 120,
+        "factorDeEmisionDePrueba");
+    assertTrue(TiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
   }
 
 

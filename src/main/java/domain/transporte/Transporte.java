@@ -1,14 +1,30 @@
 package domain.transporte;
 
+import domain.medicion.TipoConsumo;
 import domain.ubicacion.Ubicacion;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface Transporte {
+public abstract class Transporte {
+  @Getter
+  public TipoConsumo combustible;
+  @Getter
+  public Double combustiblePorKm;
+  @Getter
+  @Setter
+  public TipoTransporte tipoTransporte;
 
-  public TipoTransporte getTipoTransporte();
+  public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
+    this.combustible = combustible;
+    this.combustiblePorKm = combustiblePorKm;
+  }
 
-  public void setTipoTransporte(TipoTransporte tipoTransporte);
+  public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
 
-  public void verificarParadas(Ubicacion origen, Ubicacion destino);
 
-  public boolean esDeTipo(TipoTransporte tipoTransporte);
+  public boolean esDeTipo(TipoTransporte tipoTransporte) {
+    return this.tipoTransporte.equals(tipoTransporte);
+  }
 }
+
+// TODO: verificar

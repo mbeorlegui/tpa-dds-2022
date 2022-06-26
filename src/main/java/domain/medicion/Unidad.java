@@ -6,4 +6,5 @@ public enum Unidad {
   KG,
   KWH,
   KM,
+  SIN_UNIDAD,
 }
