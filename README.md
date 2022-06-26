@@ -143,7 +143,7 @@ ejemplo.
 Tener en cuenta que para cada tipo de consumo se debe poder cargar un factor de emisión de carbono (FE), cuya unidad de
 medida debe coincidir, para poder luego calcular la huella de carbono.
 
-*Requerimientos detallados*
+**Requerimientos detallados**
 Para esta entrega deberán satisfacerse los siguientes requerimientos:
 
 1. Se debe permitir la carga de Trayectos compartidos entre miembros de una organización.
@@ -154,7 +154,78 @@ Para esta entrega deberán satisfacerse los siguientes requerimientos:
 4. Al cargar los Factores de Emisión (FE, entrega anterior), se debe validar que sus unidades coincidan con las del Tipo
    de Consumo (TC) asociado.
 
-*Entregables requeridos*
+**Entregables requeridos**
+
+- Modelo de Objetos: diagrama de clases que contemple las funcionalidades requeridas.
+- Implementación de requerimientos de esta entrega.
+
+
+## Tercera entrega: Modelado en Objetos parte III
+
+
+La consigna completa de la segunda iteración se
+encuentra [aquí](https://docs.google.com/document/d/1PjtfCoAExroNMmW5SJcM2wR0wzjPC5SxQ995iX0_noQ/edit#)
+
+**Alcance**
+- Cálculo de Huella de Carbono
+- Agentes sectoriales
+- Envío de sugerencias y notificaciones
+
+
+**Dominio**
+En esta tercera iteración nos encargaremos de diseñar y desarrollar el cálculo de la Huella de Carbono. Además, también trabajaremos sobre el envío de sugerencias y notificaciones a las distintas Organizaciones que se encuentren dadas de alta en la plataforma.
+
+*Cálculo de Huella de Carbono*
+
+Teniendo en cuenta el cálculo detallado en la sección de introducción, donde se explica que:
+
+> Huella de carbono(actividad) = Dato Actividad (DA) x Factor Emisión (FE) 
+
+Es importante prestar atención a las unidades de medición de los datos recopilados y su congruencia con los FE para evitar posibles errores en el cálculo.
+
+Los resultados pueden ser expresados en gramo equivalente carbono – gCO2eq, o sus múltiplos, kilogramo equivalente de carbono – kgCO2eq o tonelada equivalente – tnCO2eq.
+
+Para realizar el cálculo se debe tener en cuenta que los valores de los FE (dependientes del tipo de consumo) pueden variar, por lo que se debe posibilitar su edición. La tabla de “Actividades y tipos de consumo a considerar” de la Entrega 2 puede servir a modo orientación.
+
+Tomando como base esta ecuación, necesitamos calcular la HC total de cada una de las Organizaciones, de forma mensual y anual, que estén dadas de alta en el Sistema:
+
+> HCtotal= HCactividades
+
+Por otra parte, es necesario considerar la actividad de “Traslado de Miembros de la Organización”, perteneciente al Alcance n°3. Para ello se deberá tomar como DA los datos de los trayectos ingresados por los miembros de las Organizaciones, teniendo en cuenta que si los trayectos fueron compartidos entre personas de la misma Organización no debe sumarse dos veces el valor de la HC implicada. 
+
+También es necesario considerar que la cantidad de combustible consumido por km, en cada trayecto, depende del medio de transporte. Esta información no ha sido contemplada previamente y deberá ser incorporada. 
+
+*Agentes sectoriales*
+Los agentes sectoriales son personas que velan por propiciar una reducción gradual de la HC total del sector territorial al cual pertenecen. 
+
+Cada agente pertenece a un solo sector territorial, los cuales pueden ser Departamentos (o Municipios) o Provincias.
+
+Se debe considerar que la HC total de un sector territorial es el resultado de la sumatoria de las HC totales de cada Organización que se encuentre dentro de ese sector.
+
+*Sugerencias y Notificaciones*
+
+Como plan de concientización a nivel Nacional, se le debe enviar, cada cierto periodo, una guía de Recomendaciones a todas las Organizaciones. La guía de Recomendaciones debe ser una página web estática, ubicada dentro del Sitio donde estará alojado nuestro Sistema.
+
+El envío de esta guía debe realizarse por email y WhatsApp a los contactos definidos por la organización.
+
+*Requerimientos detallados*
+1. Se debe permitir ejecutar el cálculo de HC a cada una de las Organizaciones y a cada uno de los Miembros de ellas. En este último caso, debe mostrarse el resultado personal y el impacto que éste genera sobre el total de la organización.
+2. Se debe permitir la visualización de un indicador de HC / Cantidad de miembros por cada uno de los sectores/áreas de las organizaciones.
+3. Se debe permitir el cambio de los valores de FE con facilidad.
+4. Se debe permitir la carga de contactos de la organización para recibir las notificaciones.
+5. El Sistema debe enviar el link a la guía de recomendaciones a los contactos de las organizaciones por email y WhatsApp. Tener en cuenta que en el futuro los medios de comunicación podrían cambiar.
+6. Se debe configurar una tarea calendarizada, que se encargue del envío de las notificaciones.
+7. Se debe permitir la creación de sectores para su gestión de los agentes sectoriales.
+ada una de las Organizaciones y a cada uno de los Miembros de ellas. En este último caso, debe mostrarse el resultado personal y el impacto que éste genera sobre el total de la organización.
+2. Se debe permitir la visualización de un indicador de HC / Cantidad de miembros por cada uno de los sectores/áreas de las organizaciones.
+3. Se debe permitir el cambio de los valores de FE con facilidad.
+4. Se debe permitir la carga de contactos de la organización para recibir las notificaciones.
+5. El Sistema debe enviar el link a la guía de recomendaciones a los contactos de las organizaciones por email y WhatsApp. Tener en cuenta que en el futuro los medios de comunicación podrían cambiar.
+6. Se debe configurar una tarea calendarizada, que se encargue del envío de las notificaciones.
+7. Se debe permitir la creación de sectores para su gestión de los agentes sectoriales.
+
+
+**Entregables requeridos**
 
 - Modelo de Objetos: diagrama de clases que contemple las funcionalidades requeridas.
 - Implementación de requerimientos de esta entrega.
