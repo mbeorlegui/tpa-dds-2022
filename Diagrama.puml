@@ -7,6 +7,7 @@ class Organizacion {
   sectores : List<Sector>
   clasificacion : Clasificacion
   mediciones : List<Medicion>
+  contactos : List<Contacto>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
   int cantidadDeMiembros()
@@ -15,13 +16,55 @@ class Organizacion {
   void verificarQueSeanMiembros(Miembro[])
   void asignarTrayectoA(Trayecto, List<Miembro>)
   void agregarMediciones()
+  void agregarContacto(Contacto)
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
+  int huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
+  int impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
+  int indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
 }
+' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
 ' verificarQueSeanMiembros -> valida que en la lista de miembros todos pertenezcan a la organizacion
 ' asignarTrayectoA -> llama a verificarQueSeanMiembros para lista de miembros,
 ' y verificarQuePuedaSerAsignadoAMiembros para el trayecto, si pasan las validaciones,
 ' a todos los miembros de la lista se le asigna el trayecto
+
+class Contacto {
+  nombre : String
+  eMail : String
+  numeroDeWhatsapp : Integer
+}
+
+class Organizaciones {
+  organizaciones : List<Organizacion>
+  mediosDeComunicacion : List<MediosDeComunicacion>
+}
+
+Organizacion -->"*" Contacto
+Organizaciones -->"*" Organizacion
+Organizaciones -up->"*" MediosDeComunicacion
+
+interface MediosDeComunicacion {
+  void enviarNotificacion() 
+  ' Se ejecuta con tarea programada
+}
+
+class WhatsApp {
+  
+}
+
+class Email {
+  
+}
+
+MediosDeComunicacion <|-up- WhatsApp
+MediosDeComunicacion <|-up- Email
+
+class SectorTerritorial {
+  organizaciones : List<Organizacion>
+}
+
+SectorTerritorial -->"*" Organizacion
 
 class TiposConsumos {
   consumos : List<TipoConsumo>
@@ -47,6 +90,7 @@ class TipoConsumo {
   unidad : Unidad
   factorDeEmision : Double
 }
+' void setFactorDeEmision(double)
 
 enum Actividad {
   COMBUSTION_FIJA,
@@ -85,13 +129,14 @@ enum Periodicidad {
   ANUAL,
 }
 class Ubicacion {
-  localidadId : integer
+  localidadId : Integer
   calle : string
   altura : string
 }
 
 class Sector {
   miembros : List<Miembro>
+  int calcularHuellaDeCarbono(Periodicidad)
 }
 
 class Miembro {
@@ -100,6 +145,7 @@ class Miembro {
   numeroDeDocumento : int
   tipoDeDocumento : Documento
   trayecto : Trayecto
+  int calcularHuellaDeCarbono(Periodicidad)
 }
 
 enum Documento {
@@ -209,7 +255,7 @@ class Administrador {
   user : String
   password : String
   validador : PasswordValidator 
-  void generarNuevoFactorDeEmision(factor, tipoFactor)
+  void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, double factorDeEmision, String nombreTipoDeConsumo)
 }
 
 class PasswordValidator {
