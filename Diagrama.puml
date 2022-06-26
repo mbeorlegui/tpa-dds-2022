@@ -1,4 +1,4 @@
-@startuml TPA-2
+@startuml TPA-3
 
 class Organizacion {
   razonSocial : String
