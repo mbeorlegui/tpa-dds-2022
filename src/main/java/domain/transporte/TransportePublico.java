@@ -57,15 +57,23 @@ public class TransportePublico extends Transporte {
 
   private boolean distanciaValida(Parada nuevaParada, Ubicacion ubicacion) {
     Parada parada = obtenerParada(ubicacion);
-    if (paradas.indexOf(parada) == paradas.size() - 1) {
-      // es la ultima parada permite distanciaSiguiente igual 0
+    if (esUltimaParada(parada)) {  // es la ultima parada permite distanciaSiguiente igual 0
       return nuevaParada.getDistanciaSiguienteParada() == 0;
-    } else if (paradas.indexOf(parada) == 0) { //es la primer parada distancia debe ser mayor a 0
+    } else if (esPrimerParada(parada)) {  //es la primer parada distancia debe ser mayor a 0
       return nuevaParada.getDistanciaSiguienteParada() > 0;
     } else {
       return nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada();
     }
   }
+
+  private boolean esPrimerParada(Parada parada) {
+    return paradas.indexOf(parada) == 0;
+  }
+
+  private boolean esUltimaParada(Parada parada) {
+    return paradas.indexOf(parada) == paradas.size() - 1;
+  }
+
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
     return paradas.stream().anyMatch(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
