@@ -29,6 +29,15 @@ public class TransportePublico extends Transporte {
     Collections.addAll(this.paradas, paradas);
   }
 
+  public void agregarParadaLuegoDe(Parada nuevaParada, Ubicacion ubicacion) {
+    if(tieneUnaParadaEn(ubicacion)){
+      int indiceParada = obtenerIndiceParada(ubicacion);
+      paradas.add(indiceParada+1,nuevaParada);
+    } else {
+      throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
+    }
+  }
+
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
     return paradas.stream().anyMatch(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
   }
@@ -45,8 +54,9 @@ public class TransportePublico extends Transporte {
   }
 
   public Double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
-    List<Parada> paradasTramo = obtenerParadasTramo(origenDeTramo, destinoDeTramo);
-    return paradasTramo.stream().mapToDouble(p->p.getDistanciaSiguienteParada().getValor()).sum();
+    this.verificarParadas(origenDeTramo,destinoDeTramo);
+    List<Parada> paradasTramo = this.obtenerParadasTramo(origenDeTramo, destinoDeTramo);
+    return paradasTramo.stream().mapToDouble(p->p.getDistanciaSiguienteParada()).sum();
   }
 
   public List<Parada> obtenerParadasTramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo){
@@ -64,5 +74,14 @@ public class TransportePublico extends Transporte {
       }
     }
     return paradasTramo;
+  }
+
+  public int obtenerIndiceParada(Ubicacion ubicacion){
+    for (int i=0;i<paradas.size();i++){
+      if(this.paradas.get(i).getUbicacion().esMismaUbicacionQue(ubicacion)){
+        return i;
+      }
+    }
+    return -1;
   }
 }

@@ -13,4 +13,9 @@ public class ResultadoDistancia {
     this.valor = valor;
     this.unidad = unidad;
   }
+
+  public double obtenerMetros() {
+    //TODO: dependiendo de la unidad pasar a metros
+    return valor;
+  }
 }
