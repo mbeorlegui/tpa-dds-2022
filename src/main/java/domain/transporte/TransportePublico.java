@@ -31,35 +31,38 @@ public class TransportePublico extends Transporte {
   }
 
   public void agregarParadaLuegoDe(Parada nuevaParada, Ubicacion ubicacion) {
-    if(this.tieneUnaParadaEn(ubicacion)&&this.distanciaValida(nuevaParada, ubicacion)){
+    if (this.tieneUnaParadaEn(ubicacion) && this.distanciaValida(nuevaParada, ubicacion)) {
       Parada parada = this.obtenerParada(ubicacion);
       int indiceParada = paradas.indexOf(parada);
-      paradas.add(indiceParada+1,nuevaParada);
-      ResultadoDistancia nuevaDistacia =new ResultadoDistancia(
-          parada.getDistanciaSiguienteParada()-nuevaParada.getDistanciaSiguienteParada(),
+      paradas.add(indiceParada + 1, nuevaParada);
+      ResultadoDistancia nuevaDistacia = new ResultadoDistancia(
+          parada.getDistanciaSiguienteParada() - nuevaParada.getDistanciaSiguienteParada(),
           parada.getUnidadDistancia());
       parada.setDistanciaSiguienteParada(nuevaDistacia);
     } else {
-      throw new IllegalArgumentException(); // la ubicacion no es valida o la distancia es mayor a la permitida
+      throw new IllegalArgumentException(
+          "La ubicacion no es valida o la distancia es mayor a la permitida");
     }
   }
 
-  public void agregarParadaFinal(Parada nuevaParada, Ubicacion ubicacion, ResultadoDistancia nuevaDistancia) {
+  public void agregarParadaFinal(
+      Parada nuevaParada, Ubicacion ubicacion, ResultadoDistancia nuevaDistancia) {
     this.agregarParadaLuegoDe(nuevaParada, ubicacion);
     obtenerParada(ubicacion).setDistanciaSiguienteParada(nuevaDistancia);
   }
 
   public void agregarParadaInicial(Parada nuevaParada) {
-    paradas.add(0,nuevaParada);
+    paradas.add(0, nuevaParada);
   }
 
   private boolean distanciaValida(Parada nuevaParada, Ubicacion ubicacion) {
     Parada parada = obtenerParada(ubicacion);
-    if(paradas.indexOf(parada)==paradas.size()-1){ //es la ultima parada permite distanciaSiguiente igual 0
-      return nuevaParada.getDistanciaSiguienteParada()==0;
-    } else if (paradas.indexOf(parada)==0) { //es la primer parada distancia debe ser mayor a 0
-      return nuevaParada.getDistanciaSiguienteParada()>0;
-    }else {
+    if (paradas.indexOf(parada) == paradas.size() - 1) {
+      // es la ultima parada permite distanciaSiguiente igual 0
+      return nuevaParada.getDistanciaSiguienteParada() == 0;
+    } else if (paradas.indexOf(parada) == 0) { //es la primer parada distancia debe ser mayor a 0
+      return nuevaParada.getDistanciaSiguienteParada() > 0;
+    } else {
       return nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada();
     }
   }
@@ -68,9 +71,9 @@ public class TransportePublico extends Transporte {
     return paradas.stream().anyMatch(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
   }
 
-//  public Parada paradaEn(Ubicacion unaUbicacion) {
-//    return paradas.stream().findFirst(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
-//  }
+  //  public Parada paradaEn(Ubicacion unaUbicacion) {
+  //    return paradas.stream().findFirst(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
+  //  }
 
   @Override
   public void verificarParadas(Ubicacion origen, Ubicacion destino) {
@@ -80,31 +83,31 @@ public class TransportePublico extends Transporte {
   }
 
   public Double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
-    this.verificarParadas(origenDeTramo,destinoDeTramo);
+    this.verificarParadas(origenDeTramo, destinoDeTramo);
     List<Parada> paradasTramo = this.obtenerParadasTramo(origenDeTramo, destinoDeTramo);
-    return paradasTramo.stream().mapToDouble(p->p.getDistanciaSiguienteParada()).sum();
+    return paradasTramo.stream().mapToDouble(p -> p.getDistanciaSiguienteParada()).sum();
   }
 
-  public List<Parada> obtenerParadasTramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo){
+  public List<Parada> obtenerParadasTramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
     List<Parada> paradasTramo = new ArrayList<>();
-    boolean recorriendoTramo=false;
+    boolean recorriendoTramo = false;
 
-    for (int i=0;i<paradas.size();i++){
-      if(this.paradas.get(i).getUbicacion().esMismaUbicacionQue(origenDeTramo)){
+    for (int i = 0; i < paradas.size(); i++) {
+      if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(origenDeTramo)) {
         recorriendoTramo = true;
       } else if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(destinoDeTramo)) {
         recorriendoTramo = false;
       }
-      if (recorriendoTramo==true) {
+      if (recorriendoTramo == true) {
         paradasTramo.add(this.paradas.get(i)); //la ultima parada no se agrega
       }
     }
     return paradasTramo;
   }
 
-  public Parada obtenerParada(Ubicacion ubicacion){
-    for (int i=0;i<paradas.size();i++){
-      if(this.paradas.get(i).getUbicacion().esMismaUbicacionQue(ubicacion)){
+  public Parada obtenerParada(Ubicacion ubicacion) {
+    for (int i = 0; i < paradas.size(); i++) {
+      if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(ubicacion)) {
         return paradas.get(i);
       }
     }
