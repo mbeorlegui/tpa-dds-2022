@@ -85,7 +85,7 @@ public class TransportePublico extends Transporte {
   @Override
   public void verificarParadas(Ubicacion origen, Ubicacion destino) {
     if (!this.tieneUnaParadaEn(origen) || !this.tieneUnaParadaEn(destino)) {
-      throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
+      throw new IllegalArgumentException("Los tramos no coinciden con las paradas");
     }
   }
 
