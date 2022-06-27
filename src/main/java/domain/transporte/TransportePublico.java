@@ -1,6 +1,7 @@
 package domain.transporte;
 
 import domain.medicion.TipoConsumo;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 
@@ -31,8 +32,13 @@ public class TransportePublico extends Transporte {
 
   public void agregarParadaLuegoDe(Parada nuevaParada, Ubicacion ubicacion) {
     if(tieneUnaParadaEn(ubicacion)){
-      int indiceParada = obtenerIndiceParada(ubicacion);
+      Parada parada = this.obtenerParada(ubicacion);
+      int indiceParada = paradas.indexOf(parada);
       paradas.add(indiceParada+1,nuevaParada);
+      ResultadoDistancia nuevaDistacia =new ResultadoDistancia(
+          parada.getDistanciaSiguienteParada()-nuevaParada.getDistanciaSiguienteParada(),
+          parada.getUnidadDistancia());
+      parada.setDistanciaSiguienteParada(nuevaDistacia);
     } else {
       throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
     }
@@ -76,12 +82,12 @@ public class TransportePublico extends Transporte {
     return paradasTramo;
   }
 
-  public int obtenerIndiceParada(Ubicacion ubicacion){
+  public Parada obtenerParada(Ubicacion ubicacion){
     for (int i=0;i<paradas.size();i++){
       if(this.paradas.get(i).getUbicacion().esMismaUbicacionQue(ubicacion)){
-        return i;
+        return paradas.get(i);
       }
     }
-    return -1;
+    return null;
   }
 }
