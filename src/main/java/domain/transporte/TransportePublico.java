@@ -44,8 +44,24 @@ public class TransportePublico extends Transporte {
     }
   }
 
+  public void agregarParadaFinal(Parada nuevaParada, Ubicacion ubicacion, ResultadoDistancia nuevaDistancia) {
+    this.agregarParadaLuegoDe(nuevaParada, ubicacion);
+    obtenerParada(ubicacion).setDistanciaSiguienteParada(nuevaDistancia);
+  }
+
+  public void agregarParadaInicial(Parada nuevaParada) {
+    paradas.add(0,nuevaParada);
+  }
+
   private boolean distanciaValida(Parada nuevaParada, Ubicacion ubicacion) {
-    return nuevaParada.getDistanciaSiguienteParada() < obtenerParada(ubicacion).getDistanciaSiguienteParada();
+    Parada parada = obtenerParada(ubicacion);
+    if(paradas.indexOf(parada)==paradas.size()-1){ //es la ultima parada permite distanciaSiguiente igual 0
+      return nuevaParada.getDistanciaSiguienteParada()==0;
+    } else if (paradas.indexOf(parada)==0) { //es la primer parada distancia debe ser mayor a 0
+      return nuevaParada.getDistanciaSiguienteParada()>0;
+    }else {
+      return nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada();
+    }
   }
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {

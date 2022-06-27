@@ -183,7 +183,7 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX() {
     TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.SUBTE, "X");
-    subte.addParadas(parada1(), parada2());
+    subte.addParadas(parada1(), parada2(),parada6());
     return subte;
   }
 

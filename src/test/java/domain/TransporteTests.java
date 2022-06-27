@@ -1,5 +1,6 @@
 package domain;
 
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,5 +82,28 @@ public class TransporteTests {
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
     assertEquals(300, colectivoLinea157.calcularDistancia(parada3,parada4));
+  }
+
+  @DisplayName("Calculo de distancia intermedia de un tramo")
+  @Test
+  public void seAgregaUnaParadaIntermedia() {
+    colectivoLinea157.agregarParadaLuegoDe(new Parada(parada2,new ResultadoDistancia(120,"M")),parada3);
+    assertEquals(180, colectivoLinea157.calcularDistancia(parada3,parada2));
+  }
+
+  @DisplayName("Verifico que se agregue al final nueva parada")
+  @Test
+  public void seAgregaUnaParadaFinal() {
+    colectivoLinea157.agregarParadaFinal(new Parada(parada1, new ResultadoDistancia(0,"M")),
+        parada4,
+        new ResultadoDistancia(450,"M"));
+    assertTrue(colectivoLinea157.tieneUnaParadaEn(parada1));
+  }
+
+  @DisplayName("Verifico que se agregue al final nueva parada")
+  @Test
+  public void seAgregaUnaParadaInicial() {
+    colectivoLinea157.agregarParadaInicial(new Parada(parada2, new ResultadoDistancia(450,"M")));
+    assertEquals(parada2, colectivoLinea157.getParadas().get(0).getUbicacion());
   }
 }
