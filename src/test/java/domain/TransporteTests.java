@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 //import java.io.FileNotFoundException; para que era FileNotFoundException? estaba en todos los metodos
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class TransporteTests {
   public Bicicleta bicicleta;
@@ -76,5 +77,9 @@ public class TransporteTests {
     assertTrue(subteX.tieneUnaParadaEn(parada1));
   }
 
-
+  @DisplayName("Calculo de distancia intermedia de un tramo")
+  @Test
+  public void seCalculaCorrectamenteLaDistanciaIntermedia() {
+    assertEquals(300, colectivoLinea157.calcularDistancia(parada3,parada4));
+  }
 }
