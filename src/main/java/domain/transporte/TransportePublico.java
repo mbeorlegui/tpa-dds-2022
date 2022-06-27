@@ -12,7 +12,7 @@ public class TransportePublico extends Transporte {
   @Getter
   private TipoDeTransportePublico tipoDeTransportePublico;
   @Getter
-  private List<Ubicacion> paradas = new ArrayList<>();
+  private List<Parada> paradas = new ArrayList<>();
   @Getter
   private String linea;
 
@@ -24,12 +24,12 @@ public class TransportePublico extends Transporte {
     setTipoTransporte(TipoTransporte.PUBLICO);
   }
 
-  public void addParadas(Ubicacion... ubicaciones) {
-    Collections.addAll(this.paradas, ubicaciones);
+  public void addParadas(Parada... paradas) {
+    Collections.addAll(this.paradas, paradas);
   }
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
-    return paradas.stream().anyMatch(ubicacion -> ubicacion.esMismaUbicacionQue(unaUbicacion));
+    return paradas.stream().anyMatch(parada -> parada.getUbicacion().esMismaUbicacionQue(unaUbicacion));
   }
 
   public boolean esTranspportePublico() {
