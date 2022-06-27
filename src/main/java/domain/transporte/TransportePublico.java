@@ -8,7 +8,6 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransportePublico extends Transporte {
   @Getter
@@ -93,30 +92,30 @@ public class TransportePublico extends Transporte {
   public Double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
     this.verificarParadas(origenDeTramo, destinoDeTramo);
     List<Parada> paradasTramo = this.obtenerParadasTramo(origenDeTramo, destinoDeTramo);
-    return paradasTramo.stream().mapToDouble(p -> p.getDistanciaSiguienteParada()).sum();
+    return paradasTramo.stream().mapToDouble(Parada::getDistanciaSiguienteParada).sum();
   }
 
   public List<Parada> obtenerParadasTramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
     List<Parada> paradasTramo = new ArrayList<>();
     boolean recorriendoTramo = false;
 
-    for (int i = 0; i < paradas.size(); i++) {
-      if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(origenDeTramo)) {
+    for (Parada parada : paradas) {
+      if (parada.getUbicacion().esMismaUbicacionQue(origenDeTramo)) {
         recorriendoTramo = true;
-      } else if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(destinoDeTramo)) {
+      } else if (parada.getUbicacion().esMismaUbicacionQue(destinoDeTramo)) {
         recorriendoTramo = false;
       }
-      if (recorriendoTramo == true) {
-        paradasTramo.add(this.paradas.get(i)); //la ultima parada no se agrega
+      if (recorriendoTramo) {
+        paradasTramo.add(parada); //la ultima parada no se agrega
       }
     }
     return paradasTramo;
   }
 
   public Parada obtenerParada(Ubicacion ubicacion) {
-    for (int i = 0; i < paradas.size(); i++) {
-      if (this.paradas.get(i).getUbicacion().esMismaUbicacionQue(ubicacion)) {
-        return paradas.get(i);
+    for (Parada parada : paradas) {
+      if (parada.getUbicacion().esMismaUbicacionQue(ubicacion)) {
+        return parada;
       }
     }
     return null;
