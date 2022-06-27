@@ -31,7 +31,7 @@ public class TransportePublico extends Transporte {
   }
 
   public void agregarParadaLuegoDe(Parada nuevaParada, Ubicacion ubicacion) {
-    if(tieneUnaParadaEn(ubicacion)){
+    if(this.tieneUnaParadaEn(ubicacion)&&this.distanciaValida(nuevaParada, ubicacion)){
       Parada parada = this.obtenerParada(ubicacion);
       int indiceParada = paradas.indexOf(parada);
       paradas.add(indiceParada+1,nuevaParada);
@@ -40,8 +40,12 @@ public class TransportePublico extends Transporte {
           parada.getUnidadDistancia());
       parada.setDistanciaSiguienteParada(nuevaDistacia);
     } else {
-      throw new IllegalArgumentException(); // los tramos no coinciden con las paradas
+      throw new IllegalArgumentException(); // la ubicacion no es valida o la distancia es mayor a la permitida
     }
+  }
+
+  private boolean distanciaValida(Parada nuevaParada, Ubicacion ubicacion) {
+    return nuevaParada.getDistanciaSiguienteParada() < obtenerParada(ubicacion).getDistanciaSiguienteParada();
   }
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
