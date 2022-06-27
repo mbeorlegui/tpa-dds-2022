@@ -29,11 +29,7 @@ public class TransportePublico extends Transporte {
   }
 
   public boolean tieneUnaParadaEn(Ubicacion unaUbicacion) {
-    return paradas.stream().anyMatch(parada -> parada.getUbicacion().esMismaUbicacionQue(unaUbicacion));
-  }
-
-  public boolean esTranspportePublico() {
-    return (this.tipoTransporte.equals(TipoTransporte.PUBLICO));
+    return paradas.stream().anyMatch(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
   }
 
   @Override

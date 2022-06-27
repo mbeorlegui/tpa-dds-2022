@@ -6,6 +6,7 @@ import domain.medicion.TiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
@@ -158,9 +159,22 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
     TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "7");
-    colectivo7.addParadas(new Ubicacion(457, "O'Higgins", "200"),
-        new Ubicacion(1, "maipu", "500"));
+    colectivo7.addParadas(parada5(),parada6());
     return colectivo7;
+  }
+
+  @DisplayName("Instanciar: Parada5")
+  private Parada parada5() {
+    Ubicacion ubicacion = new Ubicacion(457, "O'Higgins", "200");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(4200,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
+  }
+
+  @DisplayName("Instanciar: Parada6")
+  private Parada parada6() {
+    Ubicacion ubicacion = new Ubicacion(1, "maipu", "500");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
 
   /*
@@ -174,15 +188,18 @@ public class InicializacionTests {
   }
 
   @DisplayName("Instanciar: Parada1")
-  private Ubicacion parada1() {
-    return new Ubicacion(15, "mozart", "1400");
+  private Parada parada1() {
+    Ubicacion ubicacion = new Ubicacion(15, "mozart", "1400");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(3000,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
 
   @DisplayName("Instanciar: Parada2")
-  private Ubicacion parada2() {
-    return new Ubicacion(20, "rivadavia", "4000");
+  private Parada parada2() {
+    Ubicacion ubicacion = new Ubicacion(20, "rivadavia", "4000");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   /*
     Instancia de TransportePublico colectivo linea 157
    */
@@ -194,15 +211,17 @@ public class InicializacionTests {
   }
 
   @DisplayName("Instanciar: Parada3")
-  private Ubicacion parada3() {
-    return new Ubicacion(10, "medrano", "500");
+  private Parada parada3() {
+    Ubicacion ubicacion = new Ubicacion(10, "medrano", "500");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(300,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   @DisplayName("Instanciar: Parada4")
-  private Ubicacion parada4() {
-    return new Ubicacion(10, "medrano", "800");
+  private Parada parada4() {
+    Ubicacion ubicacion = new Ubicacion(10, "medrano", "800");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   /*
     Instancia de Transporte bicicleta
    */

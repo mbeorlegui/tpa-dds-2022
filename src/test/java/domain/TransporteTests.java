@@ -67,8 +67,8 @@ public class TransporteTests {
   @DisplayName("Puedo agregar 2 paradas a un colectivo")
   @Test
   public void puedoAgregarDosParadasAUnColectivo() {
-    assertTrue(colectivoLinea157.getParadas().get(0).esMismaUbicacionQue(parada3));
-    assertTrue(colectivoLinea157.getParadas().get(1).esMismaUbicacionQue(parada4));
+    assertTrue(colectivoLinea157.getParadas().get(0).getUbicacion().esMismaUbicacionQue(parada3));
+    assertTrue(colectivoLinea157.getParadas().get(1).getUbicacion().esMismaUbicacionQue(parada4));
   }
 
   @Test
