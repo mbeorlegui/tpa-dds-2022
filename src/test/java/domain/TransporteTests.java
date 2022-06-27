@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 //import java.io.FileNotFoundException; para que era FileNotFoundException? estaba en todos los metodos
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 public class TransporteTests {
   public Bicicleta bicicleta;

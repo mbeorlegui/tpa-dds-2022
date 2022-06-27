@@ -24,4 +24,11 @@ public class Parada {
   public String getUnidadDistancia() {
     return distanciaSiguienteParada.getUnidad();
   }
+
+  public void modificarDistanciaSiguienteParada(Parada nuevaParada) {
+    ResultadoDistancia nuevaDistacia = new ResultadoDistancia(
+        this.getDistanciaSiguienteParada() - nuevaParada.getDistanciaSiguienteParada(),
+        this.getUnidadDistancia());
+    this.setDistanciaSiguienteParada(nuevaDistacia);
+  }
 }
