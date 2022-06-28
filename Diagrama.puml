@@ -189,9 +189,14 @@ class VehiculoParticular {
 
 class TransportePublico {
   tipoDeTransportePublico : TipoDeTransportePublico
-  paradas : List<Ubicacion>
+  paradas : List<Parada>
   linea : String
   bool tieneUnaParadaEn(Ubicacion)
+  void agregarParadaInicial(Parada)
+  void agregarParadaLuegoDe(Parada, Ubicacion)
+  void agregarParadaFinal(Parada, Ubicacion, ResultadoDistancia)
+  boolean distanciaValida(Parada, Ubicacion)
+  boolean tieneUnaParadaEn(Ubicacion)
 }
 
 class ServicioContratado {
@@ -255,6 +260,12 @@ class ResultadoDistancia {
   double valor
   String unidad
   double obtenerMetros()
+}
+
+class Parada {
+  Ubicacion ubicacion
+  ResultadoDistancia distanciaSiguienteParada
+  void modificarDistanciaSiguienteParada(Parada)
 }
 
 class Administrador {
