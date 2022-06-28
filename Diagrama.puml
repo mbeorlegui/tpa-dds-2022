@@ -251,6 +251,12 @@ class CalculadoraDeDistanciaRetrofit {
 
 }
 
+class ResultadoDistancia {
+  double valor
+  String unidad
+  double obtenerMetros()
+}
+
 class Administrador {
   user : String
   password : String
