@@ -8,6 +8,7 @@ class Organizacion {
   clasificacion : Clasificacion
   mediciones : List<Medicion>
   contactos : List<Contacto>
+  mediosDeComunicacion : List<MediosDeComunicacion>
   bool tieneSectorDe(Sector)
   int cantidadDeSectores()
   int cantidadDeMiembros()
@@ -22,6 +23,7 @@ class Organizacion {
   int huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
   int impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
   int indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
+  void enviarGuiaDeRecomendaciones(String link)
 }
 ' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
 ' verificarQueSeanMiembros -> valida que en la lista de miembros todos pertenezcan a la organizacion
@@ -37,15 +39,17 @@ class Contacto {
 
 class Organizaciones {
   organizaciones : List<Organizacion>
-  mediosDeComunicacion : List<MediosDeComunicacion>
+  void enviarGuiaDeRecomendaciones(String link)
 }
+' Singleton
 
 Organizacion -up->"*" Contacto
 Organizaciones -->"*" Organizacion
+Organizaciones --> Organizaciones
 Organizaciones -up->"*" MediosDeComunicacion
 
 interface MediosDeComunicacion {
-  void enviarNotificacion() 
+  void enviarNotificacion(String link) 
   ' Se ejecuta con tarea programada
 }
 
@@ -351,7 +355,7 @@ Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 Miembro "*"<-up- Sector
 Organizacion -up-> Tipo
-Organizacion -up-> Clasificacion
+Organizacion -right-> Clasificacion
 Organizacion -down-> Ubicacion
 Organizacion -up->"*" Sector
 Miembro -up-> Documento
@@ -382,7 +386,7 @@ CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 ' CalculadoraDeDistancia ..> Ubicacion
 ' Al poner el tipo de los parametros no hace falta agregar una relacion
 
-Organizacion -right-> Medicion
+Organizacion -down-> Medicion
 Medicion --> TipoConsumo
 Medicion -right-> Periodicidad
 
