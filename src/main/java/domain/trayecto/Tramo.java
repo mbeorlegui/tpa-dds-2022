@@ -4,7 +4,6 @@ package domain.trayecto;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.transporte.TipoTransporte;
 import domain.transporte.Transporte;
-import domain.transporte.TransportePublico;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +36,13 @@ public class Tramo {
         || this.transporteUtilizado.esDeTipo(TipoTransporte.CONTRATADO);
   }
 
-  public Double distanciaIntermedia() {
-    return this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
+  public double distanciaIntermedia() {
+    double resultado;
+    if (calculadoraDeDistancia != null) {
+      resultado = this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
+    } else {
+      resultado = this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo);
+    }
+    return resultado;
   }
 }

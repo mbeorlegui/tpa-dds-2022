@@ -6,6 +6,7 @@ import domain.medicion.TiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
@@ -22,6 +23,7 @@ public class InicializacionTests {
   private Organizacion utn;
   private Organizacion orgFalsa;
   private Trayecto casaHastaUTN;
+  private Trayecto casa2HastaUTN;
   private TransportePublico colectivoLinea7;
   private TransportePublico colectivoLinea157;
   private TransportePublico subteX;
@@ -37,14 +39,17 @@ public class InicializacionTests {
   private MedicionRead medicionDeLectura3;
   private MedicionAdapter unAdapterDeMedicion;
   private Ubicacion casa;
+  private Ubicacion casa2;
   private Ubicacion linea7;
   private Ubicacion ubicacionUtn;
   private Tramo casaHastaLinea7;
+  private Tramo casa2HastaLinea7;
   private Tramo linea7HastaUTN;
   private CsvHandler csvHandler;
 
   public InicializacionTests() {
     this.casa = casa();
+    this.casa = casa2();
     this.linea7 = linea7();
     this.ubicacionUtn = ubicacionUtn();
     this.unMiembro = unMiembro();
@@ -58,14 +63,16 @@ public class InicializacionTests {
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
-    this.casaHastaUTN = casaHastaUTN();
     this.servicioContratadoYVehiculoParticular = trayectoConServicioContratadoYVehiculoParticular();
     this.medicionDeLectura1 = medicionDeLectura1();
     this.medicionDeLectura2 = medicionDeLectura2();
     this.medicionDeLectura3 = medicionDeLectura3();
     this.unAdapterDeMedicion = unAdapterDeMedicion();
     this.casaHastaLinea7 = casaHastaLinea7();
+    this.casa2HastaLinea7 = casa2HastaLinea7();
     this.linea7HastaUTN = linea7HastaUTN();
+    this.casaHastaUTN = casaHastaUTN();
+    this.casa2HastaUTN = casa2HastaUTN();
     this.csvHandler = csvHandler();
   }
 
@@ -158,9 +165,22 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
     TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "7");
-    colectivo7.addParadas(new Ubicacion(457, "O'Higgins", "200"),
-        new Ubicacion(1, "maipu", "500"));
+    colectivo7.addParadas(parada3(),parada1(),parada6(),parada5());
     return colectivo7;
+  }
+
+  @DisplayName("Instanciar: Parada5")
+  private Parada parada5() {
+    Ubicacion ubicacion = new Ubicacion(457, "O'Higgins", "200");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
+  }
+
+  @DisplayName("Instanciar: Parada6")
+  private Parada parada6() {
+    Ubicacion ubicacion = new Ubicacion(1, "maipu", "500");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(4200,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
 
   /*
@@ -169,20 +189,23 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX() {
     TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.SUBTE, "X");
-    subte.addParadas(parada1(), parada2());
+    subte.addParadas(parada1(), parada3(), parada6(), parada2());
     return subte;
   }
 
   @DisplayName("Instanciar: Parada1")
-  private Ubicacion parada1() {
-    return new Ubicacion(15, "mozart", "1400");
+  private Parada parada1() {
+    Ubicacion ubicacion = new Ubicacion(15, "mozart", "1400");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(3000,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
 
   @DisplayName("Instanciar: Parada2")
-  private Ubicacion parada2() {
-    return new Ubicacion(20, "rivadavia", "4000");
+  private Parada parada2() {
+    Ubicacion ubicacion = new Ubicacion(20, "rivadavia", "4000");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   /*
     Instancia de TransportePublico colectivo linea 157
    */
@@ -194,15 +217,17 @@ public class InicializacionTests {
   }
 
   @DisplayName("Instanciar: Parada3")
-  private Ubicacion parada3() {
-    return new Ubicacion(10, "medrano", "500");
+  private Parada parada3() {
+    Ubicacion ubicacion = new Ubicacion(10, "medrano", "500");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(300,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   @DisplayName("Instanciar: Parada4")
-  private Ubicacion parada4() {
-    return new Ubicacion(10, "medrano", "800");
+  private Parada parada4() {
+    Ubicacion ubicacion = new Ubicacion(10, "medrano", "800");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    return new Parada(ubicacion,distanciaSiguienteParada);
   }
-
   /*
     Instancia de Transporte bicicleta
    */
@@ -272,8 +297,13 @@ public class InicializacionTests {
   }
 
   @DisplayName("Instanciar: Ubicacion")
+  public Ubicacion casa2() {
+    return new Ubicacion(1, "rivadavia", "2000");
+  }
+
+  @DisplayName("Instanciar: Ubicacion")
   public Ubicacion linea7() {
-    return new Ubicacion(457, "O'Higgins", "200");
+    return new Ubicacion(1, "maipu", "500");
   }
 
   @DisplayName("Instanciar: Ubicacion")
@@ -283,12 +313,25 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Tramo")
   public Tramo casaHastaLinea7() {
-    return new Tramo(casa(), linea7, new Pie());
+    return new Tramo(casa, linea7, new Pie());
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  public Tramo casa2HastaLinea7() {
+    return new Tramo(casa2, linea7, taxi);
+  }
+
+  @DisplayName("Instanciar: Trayecto")
+  public Trayecto casa2HastaUTN() {
+    List<Tramo> tramos = new ArrayList<>();
+    tramos.add(casa2HastaLinea7);
+    tramos.add(linea7HastaUTN);
+    return new Trayecto(tramos);
   }
 
   @DisplayName("Instanciar: Tramo")
   public Tramo linea7HastaUTN() {
-    return new Tramo(linea7, ubicacionUtn, new Pie());
+    return new Tramo(linea7, ubicacionUtn, colectivoLinea7);
   }
 
   @DisplayName("Instanciar: Csv Handler")

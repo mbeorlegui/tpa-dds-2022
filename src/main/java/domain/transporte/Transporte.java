@@ -5,6 +5,7 @@ import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
+
 public abstract class Transporte {
   @Getter
   public TipoConsumo combustible;
@@ -21,6 +22,9 @@ public abstract class Transporte {
 
   public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
 
+  public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
+    return 0;
+  }
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {
     return this.tipoTransporte.equals(tipoTransporte);

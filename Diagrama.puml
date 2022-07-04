@@ -40,7 +40,7 @@ class Organizaciones {
   mediosDeComunicacion : List<MediosDeComunicacion>
 }
 
-Organizacion -->"*" Contacto
+Organizacion -up->"*" Contacto
 Organizaciones -->"*" Organizacion
 Organizaciones -up->"*" MediosDeComunicacion
 
@@ -79,7 +79,7 @@ class TiposConsumos {
 ' );
 
 ' TiposConsumos es singleton (repositorio de objetos)
-TiposConsumos -->"*" TipoConsumo
+TiposConsumos -left->"*" TipoConsumo
 TipoConsumo --> Actividad
 TipoConsumo --> Alcance
 TipoConsumo --> Unidad
@@ -189,9 +189,15 @@ class VehiculoParticular {
 
 class TransportePublico {
   tipoDeTransportePublico : TipoDeTransportePublico
-  paradas : List<Ubicacion>
+  paradas : List<Parada>
   linea : String
   bool tieneUnaParadaEn(Ubicacion)
+  void agregarParadaInicial(Parada)
+  void agregarParadaLuegoDe(Parada, Ubicacion)
+  void agregarParadaFinal(Parada, Ubicacion, ResultadoDistancia)
+  boolean distanciaValida(Parada, Ubicacion)
+  boolean tieneUnaParadaEn(Ubicacion)
+  double calcularDistancia(Ubicacion, Ubicacion)
 }
 
 class ServicioContratado {
@@ -249,6 +255,18 @@ interface CalculadoraDeDistancia {
 
 class CalculadoraDeDistanciaRetrofit {
 
+}
+
+class ResultadoDistancia {
+  double valor
+  String unidad
+  double obtenerMetros()
+}
+
+class Parada {
+  Ubicacion ubicacion
+  ResultadoDistancia distanciaSiguienteParada
+  void modificarDistanciaSiguienteParada(Parada)
 }
 
 class Administrador {
@@ -316,7 +334,7 @@ class CsvHandler {
   List<Medicion> getMediciones()
 }
 
-Administrador ..> TiposConsumos
+Administrador .left.> TiposConsumos
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
 Validator <|-down- PasswordIsCommonValidator
@@ -334,8 +352,8 @@ Validator <|-down- PasswordMatchesInvalidCharactersValidator
 Miembro "*"<-up- Sector
 Organizacion -up-> Tipo
 Organizacion -up-> Clasificacion
-Organizacion --> Ubicacion
-Organizacion -left->"*" Sector
+Organizacion -down-> Ubicacion
+Organizacion -up->"*" Sector
 Miembro -up-> Documento
 
 Trayecto --> "*" Tramo
@@ -344,9 +362,9 @@ Tramo --> Transporte
 Tramo -right-> Ubicacion
 Tramo -right-> Ubicacion
 
-Transporte -up-> TipoTransporte
-TransportePublico -up->"*" Ubicacion
-TransportePublico --> TipoDeTransportePublico
+Transporte -right-> TipoTransporte
+TransportePublico -left->"*" Parada
+TransportePublico -right-> TipoDeTransportePublico
 VehiculoParticular -down-> TipoDeVehiculo
 ServicioContratado -down-> TipoDeServicioContratado
 TransportePublico -up-|> Transporte
@@ -358,7 +376,7 @@ ServicioContratado -up-|> Transporte
 Transporte -up-> TipoConsumo
 
 Organizacion ..> Trayecto
-Tramo -left-> CalculadoraDeDistancia
+Tramo --> CalculadoraDeDistancia
 CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 ' CalculadoraDeDistancia ..> Ubicacion
 ' CalculadoraDeDistancia ..> Ubicacion
@@ -366,7 +384,11 @@ CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 
 Organizacion -right-> Medicion
 Medicion --> TipoConsumo
-Medicion --> Periodicidad
+Medicion -right-> Periodicidad
+
+Parada --> ResultadoDistancia
+Parada -up-> Ubicacion
+
 
 
 @enduml
