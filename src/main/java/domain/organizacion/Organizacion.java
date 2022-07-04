@@ -103,4 +103,8 @@ public class Organizacion {
     return mediciones.stream().anyMatch(m -> m.esMedicionIdentica(unaMedicion));
   }
 
+  public static void enviarNotificacion() {
+    System.out.println("Notificacion enviada!!");
+  }
+
 }
