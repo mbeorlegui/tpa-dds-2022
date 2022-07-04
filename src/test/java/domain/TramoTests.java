@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class TramoTests {
   private Tramo casaHastaLinea7;
+  private Tramo casa2HastaLinea7;
   private Tramo linea7HastaUTN;
   private ResultadoDistancia resultadoDistancia1;
   private ResultadoDistancia resultadoDistancia2;
@@ -23,22 +24,28 @@ public class TramoTests {
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
     casaHastaLinea7 = inicializador.casaHastaLinea7();
+    casa2HastaLinea7 = inicializador.casa2HastaLinea7();
     linea7HastaUTN = inicializador.linea7HastaUTN();
     resultadoDistancia1 = new ResultadoDistancia(50, "m");
     resultadoDistancia2 = new ResultadoDistancia(10, "km");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casaHastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
-    linea7HastaUTN.setCalculadoraDeDistancia(calculadoraMock);
+    casa2HastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
     servicioDistancia = ServicioDistancia.getInstancia();
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
-  public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
+  public void seCalculaLaDistanciaIntermediaColectivoLinea7() {
+    assertEquals(4200, linea7HastaUTN.distanciaIntermedia());
+  }
+
+  @DisplayName("Calculo de distancia intermedia de un tramo")
+  @Test
+  public void seCalculaCorrectamenteLaDistanciaIntermediaServicioContratado() {
+    when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
         .thenReturn(resultadoDistancia1.getValor());
     assertEquals(50, resultadoDistancia1.getValor());
-    assertEquals(resultadoDistancia1.getValor(), casaHastaLinea7.distanciaIntermedia());
+    assertEquals(resultadoDistancia1.getValor(), casa2HastaLinea7.distanciaIntermedia());
   }
 
   @DisplayName("Se crea correctamente la instancia de SerivicioDistancia")
