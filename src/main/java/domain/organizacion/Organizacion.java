@@ -2,11 +2,12 @@ package domain.organizacion;
 
 import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
+import domain.medicion.Periodicidad;
+import domain.medios.Contacto;
 import domain.miembro.Miembro;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Organizacion {
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
+  private List<Contacto> contactos;
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
                       Clasificacion clasificacion) {
@@ -101,6 +103,32 @@ public class Organizacion {
 
   public boolean contieneMedicionIdentica(Medicion unaMedicion) {
     return mediciones.stream().anyMatch(m -> m.esMedicionIdentica(unaMedicion));
+  }
+
+  public void agregarContacto(Contacto contacto) {
+    // TODO
+  }
+
+  public int huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+    // TODO
+    return 0;
+  }
+
+  public int impactoMiembroSobreHC(Miembro miembro,
+                                   Periodicidad periodicidad,
+                                   String periodoDeImputacion) {
+    // TODO
+    // llamo a huellaDeCarbonoEnPeriodo,
+    // y calcularHuellaDeCarbono de Miembro,
+    // y divido el resultado para obtener el porcentaje
+    return 0;
+  }
+
+  public int indiceSectorSobreHC(Sector sector,
+                                 Periodicidad periodicidad,
+                                 String periodoDeImputacion) {
+    // TODO
+    return 0;
   }
 
 }

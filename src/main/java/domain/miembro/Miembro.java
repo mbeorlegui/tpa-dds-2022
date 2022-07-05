@@ -1,5 +1,6 @@
 package domain.miembro;
 
+import domain.medicion.Periodicidad;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.trayecto.Trayecto;
@@ -38,6 +39,10 @@ public class Miembro {
     this.numeroDeDocumento = numeroDeDocumento;
     this.tipoDeDocumento = tipoDeDocumento;
     this.trayecto = trayecto;
+  }
+
+  public int calcularHuellaDeCarbono(Periodicidad periodicidad) {
+    return 0;
   }
   /*
   public void addSector(Sector sector, Organizacion organizacion) {
