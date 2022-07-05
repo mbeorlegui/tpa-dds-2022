@@ -35,7 +35,7 @@ public class TrayectoTests {
     resultadoDistancia1 = new ResultadoDistancia(8000, "m");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
     casa2HastaLinea7 = inicializador.getCasa2HastaLinea7();
-    casa2HastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
+    casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
     casa2HastaUTN = inicializador.getCasa2HastaUTN();
   }
 

@@ -95,11 +95,8 @@ public class TransportePublico extends Transporte {
   }
 
   public Parada obtenerParada(Ubicacion ubicacion) {
-    for (Parada parada : paradas) {
-      if (parada.getUbicacion().esMismaUbicacionQue(ubicacion)) {
-        return parada;
-      }
-    }
-    return null;
+    return paradas.stream().
+        filter(p->p.getUbicacion().esMismaUbicacionQue(ubicacion)).
+        findFirst().orElse(null);
   }
 }
