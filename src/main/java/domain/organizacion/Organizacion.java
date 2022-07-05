@@ -4,6 +4,7 @@ import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
 import domain.medios.Contacto;
+import domain.medios.MediosDeComunicacion;
 import domain.miembro.Miembro;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
@@ -30,6 +31,7 @@ public class Organizacion {
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
   private List<Contacto> contactos;
+  private List<MediosDeComunicacion> mediosDeComunicacion;
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
                       Clasificacion clasificacion) {
