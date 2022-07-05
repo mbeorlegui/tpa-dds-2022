@@ -6,7 +6,7 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 
-public class QuartzTest {
+public class JobScheduler {
 
   public static void main(String[] args) {
 
