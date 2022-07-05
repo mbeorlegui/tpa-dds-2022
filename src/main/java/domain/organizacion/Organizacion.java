@@ -108,7 +108,7 @@ public class Organizacion {
   }
 
   public void agregarContacto(Contacto contacto) {
-    // TODO
+    contactos.add(contacto);
   }
 
   public int huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
@@ -119,18 +119,21 @@ public class Organizacion {
   public int impactoMiembroSobreHC(Miembro miembro,
                                    Periodicidad periodicidad,
                                    String periodoDeImputacion) {
-    // TODO
-    // llamo a huellaDeCarbonoEnPeriodo,
-    // y calcularHuellaDeCarbono de Miembro,
-    // y divido el resultado para obtener el porcentaje
-    return 0;
+    // TODO: revisar que este bien.
+    //  En este caso lo mostramos como porcentaje
+    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion) /
+        miembro.calcularHuellaDeCarbono(periodicidad);
   }
 
   public int indiceSectorSobreHC(Sector sector,
                                  Periodicidad periodicidad,
                                  String periodoDeImputacion) {
-    // TODO
-    return 0;
+    // TODO: revisar
+    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion) /
+        sector.calcularHuellaDeCarbono(periodicidad);
   }
 
+  public void enviarGuiaDeRecomendaciones(String link) {
+    // TODO
+  }
 }

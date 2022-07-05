@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.medicion.Periodicidad;
 import domain.miembro.Miembro;
 import lombok.Getter;
 
@@ -22,6 +23,12 @@ public class Sector {
     if (!miembros.contains(miembro)) {
       miembros.add(miembro);
     }
+  }
+
+  public int calcularHuellaDeCarbono(Periodicidad periodicidad) {
+    // TODO: La huella de carbono del sector deberia ser la sumatoria
+    //  de la huella de carbono de cada miembro
+    return 0;
   }
 
 }
