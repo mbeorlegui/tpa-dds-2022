@@ -29,9 +29,9 @@ public class TrayectoTests {
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
     casaHastaUTN = inicializador.casaHastaUTN();
-    casa = new Ubicacion(1,"maipu","100");
-    paradaCasaLinea7 = new Ubicacion(1,"maipu", "500");
-    casaHastaParadaLinea7 = new Tramo(casa, paradaCasaLinea7, new Pie());
+    casa = inicializador.getCasa();
+    paradaCasaLinea7 = inicializador.getLinea7();
+    casaHastaParadaLinea7 = inicializador.getCasaHastaLinea7();
     resultadoDistancia1 = new ResultadoDistancia(8000, "m");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
     casa2HastaLinea7 = inicializador.getCasa2HastaLinea7();

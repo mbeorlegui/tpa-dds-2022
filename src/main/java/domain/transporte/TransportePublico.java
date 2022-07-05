@@ -29,7 +29,8 @@ public class TransportePublico extends Transporte {
   }
 
   public void agregarParadaLuegoDe(Parada nuevaParada, Ubicacion ubicacion) {
-    if (this.tieneUnaParadaEn(ubicacion) && this.distanciaValida(nuevaParada, ubicacion)) {
+    if (this.tieneUnaParadaEn(ubicacion)) {
+      this.validarDistancia(nuevaParada, ubicacion);
       Parada parada = this.obtenerParada(ubicacion);
       int indiceParada = paradas.indexOf(parada);
       paradas.add(indiceParada + 1, nuevaParada);
@@ -50,14 +51,18 @@ public class TransportePublico extends Transporte {
     paradas.add(0, nuevaParada);
   }
 
-  private boolean distanciaValida(Parada nuevaParada, Ubicacion ubicacion) {
+  private void validarDistancia(Parada nuevaParada, Ubicacion ubicacion) {
     Parada parada = obtenerParada(ubicacion);
-    if (esUltimaParada(parada)) {  // es la ultima parada permite distanciaSiguiente igual 0
-      return nuevaParada.getDistanciaSiguienteParada() == 0;
-    } else if (esPrimerParada(parada)) {  //es la primer parada distancia debe ser mayor a 0
-      return nuevaParada.getDistanciaSiguienteParada() > 0;
-    } else {
-      return nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada();
+    if (esUltimaParada(parada) && !(nuevaParada.getDistanciaSiguienteParada() == 0)) {
+      throw new IllegalArgumentException(
+          "La distancia a la ultima parada debe ser 0");
+    } else if (esPrimerParada(parada) && !(nuevaParada.getDistanciaSiguienteParada() > 0)) {
+      throw new IllegalArgumentException(
+          "La distancia de la primer parada debe ser mayor a 0");
+    } else if (!(esUltimaParada(parada) || esPrimerParada(parada)) &&
+        !(nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada())){
+      throw new IllegalArgumentException(
+          "La distancia de la nueva parada no puede ser mayor que la anterior");
     }
   }
 
@@ -66,7 +71,7 @@ public class TransportePublico extends Transporte {
   }
 
   private boolean esUltimaParada(Parada parada) {
-    return paradas.indexOf(parada) == paradas.size() - 1;
+    return paradas.indexOf(parada) == (paradas.size() - 1);
   }
 
 
