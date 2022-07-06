@@ -18,18 +18,18 @@ public class TransporteTests {
   public ServicioContratado taxi;
   public VehiculoParticular motoNafta;
   public TransportePublico subteX;
-  public Ubicacion parada1;
-  public Ubicacion parada2;
-  public Ubicacion parada3;
-  public Ubicacion parada4;
+  public Parada parada1;
+  public Parada parada2;
+  public Parada parada3;
+  public Parada parada4;
 
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    parada1 = new Ubicacion(15, "mozart", "1400");
-    parada2 = new Ubicacion(20, "rivadavia", "4000");
-    parada3 = new Ubicacion(10, "medrano", "500");
-    parada4 = new Ubicacion(10, "medrano", "800");
+    parada1 = inicializador.getParada1();
+    parada2 = inicializador.getParada2();
+    parada3 = inicializador.getParada3();
+    parada4 = inicializador.getParada4();
     bicicleta = inicializador.getBicicleta();
     colectivoLinea157 = inicializador.getColectivoLinea157();
     taxi = inicializador.getTaxi();
@@ -69,41 +69,42 @@ public class TransporteTests {
   @DisplayName("Puedo agregar 2 paradas a un colectivo")
   @Test
   public void puedoAgregarDosParadasAUnColectivo() {
-    assertTrue(colectivoLinea157.getParadas().get(0).getUbicacion().esMismaUbicacionQue(parada3));
-    assertTrue(colectivoLinea157.getParadas().get(1).getUbicacion().esMismaUbicacionQue(parada4));
+    assertTrue(colectivoLinea157.getParadas().get(0).getUbicacion().esMismaUbicacionQue(parada3.getUbicacion()));
+    assertTrue(colectivoLinea157.getParadas().get(1).getUbicacion().esMismaUbicacionQue(parada4.getUbicacion()));
   }
 
   @Test
   public void subteXTieneParadaEnParada1() {
-    assertTrue(subteX.tieneUnaParadaEn(parada1));
+    assertTrue(subteX.tieneUnaParadaEn(parada1.getUbicacion()));
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    assertEquals(300, colectivoLinea157.calcularDistancia(parada3, parada4, new CalculadoraDeDistanciaRetrofit()));
+    assertEquals(300, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada4.getUbicacion()));
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seAgregaUnaParadaIntermedia() {
-    colectivoLinea157.agregarParadaLuegoDe(new Parada(parada2,new ResultadoDistancia(120,"M")),parada3);
-    assertEquals(180, colectivoLinea157.calcularDistancia(parada3, parada2, new CalculadoraDeDistanciaRetrofit()));
+    colectivoLinea157.agregarParadaLuegoDe(new Parada(parada2.getUbicacion(),
+        new ResultadoDistancia(120,"M")),parada3.getUbicacion());
+    assertEquals(180, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada2.getUbicacion()));
   }
 
   @DisplayName("Verifico que se agregue al final nueva parada")
   @Test
   public void seAgregaUnaParadaFinal() {
-    colectivoLinea157.agregarParadaFinal(new Parada(parada1, new ResultadoDistancia(0,"M")),
-        parada4,
+    colectivoLinea157.agregarParadaFinal(new Parada(parada1.getUbicacion(), new ResultadoDistancia(0,"M")),
+        parada4.getUbicacion(),
         new ResultadoDistancia(450,"M"));
-    assertTrue(colectivoLinea157.tieneUnaParadaEn(parada1));
+    assertTrue(colectivoLinea157.tieneUnaParadaEn(parada1.getUbicacion()));
   }
 
   @DisplayName("Verifico que se agregue al final nueva parada")
   @Test
   public void seAgregaUnaParadaInicial() {
-    colectivoLinea157.agregarParadaInicial(new Parada(parada2, new ResultadoDistancia(450,"M")));
-    assertEquals(parada2, colectivoLinea157.getParadas().get(0).getUbicacion());
+    colectivoLinea157.agregarParadaInicial(new Parada(parada2.getUbicacion(), new ResultadoDistancia(450,"M")));
+    assertEquals(parada2.getUbicacion(), colectivoLinea157.getParadas().get(0).getUbicacion());
   }
 }

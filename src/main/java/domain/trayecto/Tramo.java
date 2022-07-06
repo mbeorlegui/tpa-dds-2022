@@ -15,8 +15,6 @@ public class Tramo {
   private Ubicacion destinoDeTramo;
   @Getter
   private Transporte transporteUtilizado;
-  @Getter @Setter
-  private CalculadoraDeDistancia calculadoraDeDistancia;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
     transporteUtilizado.verificarParadas(origenDeTramo, destinoDeTramo);
@@ -37,18 +35,7 @@ public class Tramo {
   }
 
   public double distanciaIntermedia() {
-    /*
-    double resultado;
-    if (calculadoraDeDistancia != null) {
-      resultado = this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
-    } else {
-      resultado = this.getTransporteUtilizado()
-                      .calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
-    }
-    return resultado;
-     */
-    return this.getTransporteUtilizado()
-        .calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
+    return this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo);
   }
 
   public double huellaDeCarbono() {

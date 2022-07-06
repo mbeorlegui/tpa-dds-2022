@@ -29,7 +29,7 @@ public class TramoTests {
     resultadoDistancia1 = new ResultadoDistancia(50, "m");
     resultadoDistancia2 = new ResultadoDistancia(10, "km");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casa2HastaLinea7.setCalculadoraDeDistancia(calculadoraMock);
+    casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
     servicioDistancia = ServicioDistancia.getInstancia();
   }
 
