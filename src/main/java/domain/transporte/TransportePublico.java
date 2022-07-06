@@ -1,6 +1,7 @@
 package domain.transporte;
 
 import domain.medicion.TipoConsumo;
+import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.ubicacion.Ubicacion;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class TransportePublico extends Transporte {
   }
 
   @Override
-  public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
+  public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, CalculadoraDeDistancia calculadoraDeDistancia) {
     this.verificarParadas(origenDeTramo, destinoDeTramo);
     List<Parada> paradasTramo = this.obtenerParadasTramo(origenDeTramo, destinoDeTramo);
     return paradasTramo.stream().mapToDouble(Parada::getDistanciaSiguienteParada).sum();

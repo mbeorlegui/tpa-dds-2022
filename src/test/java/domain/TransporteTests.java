@@ -1,5 +1,6 @@
 package domain;
 
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
 import domain.ubicacion.Ubicacion;
@@ -80,14 +81,14 @@ public class TransporteTests {
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    assertEquals(300, colectivoLinea157.calcularDistancia(parada3,parada4));
+    assertEquals(300, colectivoLinea157.calcularDistancia(parada3, parada4, new CalculadoraDeDistanciaRetrofit()));
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seAgregaUnaParadaIntermedia() {
     colectivoLinea157.agregarParadaLuegoDe(new Parada(parada2,new ResultadoDistancia(120,"M")),parada3);
-    assertEquals(180, colectivoLinea157.calcularDistancia(parada3,parada2));
+    assertEquals(180, colectivoLinea157.calcularDistancia(parada3, parada2, new CalculadoraDeDistanciaRetrofit()));
   }
 
   @DisplayName("Verifico que se agregue al final nueva parada")

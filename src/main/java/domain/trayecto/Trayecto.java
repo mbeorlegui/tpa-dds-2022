@@ -1,6 +1,7 @@
 package domain.trayecto;
 
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
+import domain.medicion.Periodicidad;
 import lombok.Getter;
 import java.io.IOException;
 import java.util.List;
@@ -27,5 +28,16 @@ public class Trayecto {
     return this.getTramos().stream().allMatch(tramo -> {
       return tramo.puedeSerCompartido();
     });
+  }
+
+  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad) {
+    return periodicidad.diasTrabajados() * this.hcTramos();
+  }
+
+  private double hcTramos() {
+    return this.tramos
+        .stream()
+        .mapToDouble(tramo -> tramo.huellaDeCarbono())
+        .sum();
   }
 }

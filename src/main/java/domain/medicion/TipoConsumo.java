@@ -31,4 +31,8 @@ public class TipoConsumo {
   public String toString() {
     return nombre;
   }
+
+  public double calcularHuellaDeCarbono(double medicion) {
+    return medicion * this.factorDeEmision;
+  }
 }

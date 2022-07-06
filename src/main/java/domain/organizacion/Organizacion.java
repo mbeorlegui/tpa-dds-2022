@@ -12,6 +12,7 @@ import domain.ubicacion.Ubicacion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
@@ -111,12 +112,44 @@ public class Organizacion {
     contactos.add(contacto);
   }
 
-  public int huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
-    // TODO
-    return 0;
+
+  // Cambiado a double
+  // TODO: Cambiar en diagrama
+  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+    return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion) + hcTrayectosMiembros(periodicidad);
   }
 
-  public int impactoMiembroSobreHC(Miembro miembro,
+  private double hcTrayectosMiembros(Periodicidad periodicidad) {
+    return this.getTrayectos()
+        .stream()
+        .mapToDouble(trayecto -> trayecto.huellaDeCarbonoEnPeriodo(periodicidad))
+        .sum();
+  }
+
+  private double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+    return this.medicionesEnPeriodo(periodicidad, periodoDeImputacion)
+        .stream()
+        .mapToDouble(medicion -> medicion.huellaDeCarbono())
+        .sum();
+  }
+
+  private List<Medicion> medicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+    return mediciones
+        .stream()
+        .filter(medicion -> medicion.esDePeriodo(periodicidad, periodoDeImputacion))
+        .collect(Collectors.toList());
+  }
+
+  private Set<Trayecto> getTrayectos() {
+    return this.getMiembros()
+        .stream()
+        .map(miembro -> miembro.getTrayecto())
+        .collect(Collectors.toSet());
+  }
+
+  // Cambiado a double
+  // TODO: Cambiar en diagrama
+  public double impactoMiembroSobreHC(Miembro miembro,
                                    Periodicidad periodicidad,
                                    String periodoDeImputacion) {
     // TODO: revisar que este bien.
@@ -125,7 +158,9 @@ public class Organizacion {
         miembro.calcularHuellaDeCarbono(periodicidad);
   }
 
-  public int indiceSectorSobreHC(Sector sector,
+  // Cambiado a double
+  // TODO: Cambiar en diagrama
+  public double indiceSectorSobreHC(Sector sector,
                                  Periodicidad periodicidad,
                                  String periodoDeImputacion) {
     // TODO: revisar

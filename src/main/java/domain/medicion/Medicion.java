@@ -35,4 +35,11 @@ public class Medicion {
         && this.periodoDeImputacion.equals(unaMedicion.getPeriodoDeImputacion()));
   }
 
+  public boolean esDePeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+    return this.periodicidad.equals(periodicidad) && this.periodoDeImputacion.equals(periodoDeImputacion);
+  }
+
+  public double huellaDeCarbono() {
+    return this.tipoConsumo.calcularHuellaDeCarbono(this.valor);
+  }
 }
