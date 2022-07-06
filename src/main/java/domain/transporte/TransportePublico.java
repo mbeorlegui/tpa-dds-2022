@@ -3,9 +3,11 @@ package domain.transporte;
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.ubicacion.Ubicacion;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.Getter;
 
 public class TransportePublico extends Transporte {
@@ -53,14 +55,15 @@ public class TransportePublico extends Transporte {
 
   private void validarDistancia(Parada nuevaParada, Ubicacion ubicacion) {
     Parada parada = obtenerParada(ubicacion);
+
     if (esUltimaParada(parada) && !(nuevaParada.getDistanciaSiguienteParada() == 0)) {
       throw new IllegalArgumentException(
           "La distancia a la ultima parada debe ser 0");
     } else if (esPrimerParada(parada) && !(nuevaParada.getDistanciaSiguienteParada() > 0)) {
       throw new IllegalArgumentException(
           "La distancia de la primer parada debe ser mayor a 0");
-    } else if (!(esUltimaParada(parada) || esPrimerParada(parada)) &&
-        !(nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada())){
+    } else if (!(esUltimaParada(parada) || esPrimerParada(parada))
+        && !(nuevaParada.getDistanciaSiguienteParada() < parada.getDistanciaSiguienteParada())) {
       throw new IllegalArgumentException(
           "La distancia de la nueva parada no puede ser mayor que la anterior");
     }
@@ -100,8 +103,8 @@ public class TransportePublico extends Transporte {
   }
 
   public Parada obtenerParada(Ubicacion ubicacion) {
-    return paradas.stream().
-        filter(p->p.getUbicacion().esMismaUbicacionQue(ubicacion)).
-        findFirst().orElse(null);
+    return paradas.stream()
+        .filter(p -> p.getUbicacion().esMismaUbicacionQue(ubicacion))
+        .findFirst().orElse(null);
   }
 }
