@@ -25,10 +25,13 @@ public class Sector {
     }
   }
 
-  public int calcularHuellaDeCarbono(Periodicidad periodicidad) {
-    // TODO: La huella de carbono del sector deberia ser la sumatoria
-    //  de la huella de carbono de cada miembro
-    return 0;
+  // Cambiado a double
+  // TODO: Cambiar en diagrama
+  public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
+    return miembros
+        .stream()
+        .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad))
+        .sum();
   }
 
 }
