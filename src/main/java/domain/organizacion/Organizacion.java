@@ -4,7 +4,7 @@ import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
 import domain.medios.Contacto;
-import domain.medios.MediosDeComunicacion;
+import domain.medios.MedioDeComunicacion;
 import domain.miembro.Miembro;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
@@ -31,8 +31,8 @@ public class Organizacion {
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
-  private List<Contacto> contactos;
-  private List<MediosDeComunicacion> mediosDeComunicacion;
+  private List<Contacto> contactos = new ArrayList<>();
+  private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
   public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
                       Clasificacion clasificacion) {
@@ -112,11 +112,16 @@ public class Organizacion {
     contactos.add(contacto);
   }
 
+  public void agregarMedioDeComunicacion(MedioDeComunicacion medioDeComunicacion) {
+    mediosDeComunicacion.add(medioDeComunicacion);
+  }
+
 
   // Cambiado a double
   // TODO: Cambiar en diagrama
   public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
-    return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion) + hcTrayectosMiembros(periodicidad);
+    return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion)
+        + hcTrayectosMiembros(periodicidad);
   }
 
   private double hcTrayectosMiembros(Periodicidad periodicidad) {
@@ -133,7 +138,8 @@ public class Organizacion {
         .sum();
   }
 
-  private List<Medicion> medicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+  private List<Medicion> medicionesEnPeriodo(Periodicidad periodicidad,
+                                             String periodoDeImputacion) {
     return mediciones
         .stream()
         .filter(medicion -> medicion.esDePeriodo(periodicidad, periodoDeImputacion))
@@ -154,8 +160,8 @@ public class Organizacion {
                                    String periodoDeImputacion) {
     // TODO: revisar que este bien.
     //  En este caso lo mostramos como porcentaje
-    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion) /
-        miembro.calcularHuellaDeCarbono(periodicidad);
+    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
+        / miembro.calcularHuellaDeCarbono(periodicidad);
   }
 
   // Cambiado a double
@@ -164,8 +170,8 @@ public class Organizacion {
                                  Periodicidad periodicidad,
                                  String periodoDeImputacion) {
     // TODO: revisar
-    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion) /
-        sector.calcularHuellaDeCarbono(periodicidad);
+    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
+        / sector.calcularHuellaDeCarbono(periodicidad);
   }
 
   public void enviarGuiaDeRecomendaciones(String link) {

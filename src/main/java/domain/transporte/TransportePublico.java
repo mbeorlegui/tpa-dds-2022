@@ -83,7 +83,9 @@ public class TransportePublico extends Transporte {
   }
 
   @Override
-  public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, CalculadoraDeDistancia calculadoraDeDistancia) {
+  public double calcularDistancia(Ubicacion origenDeTramo,
+                                  Ubicacion destinoDeTramo,
+                                  CalculadoraDeDistancia calculadoraDeDistancia) {
     this.verificarParadas(origenDeTramo, destinoDeTramo);
     List<Parada> paradasTramo = this.obtenerParadasTramo(origenDeTramo, destinoDeTramo);
     return paradasTramo.stream().mapToDouble(Parada::getDistanciaSiguienteParada).sum();

@@ -42,14 +42,17 @@ public class Tramo {
     if (calculadoraDeDistancia != null) {
       resultado = this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
     } else {
-      resultado = this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
+      resultado = this.getTransporteUtilizado()
+                      .calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
     }
     return resultado;
      */
-    return this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
+    return this.getTransporteUtilizado()
+        .calcularDistancia(origenDeTramo, destinoDeTramo, calculadoraDeDistancia);
   }
 
   public double huellaDeCarbono() {
-    return this.transporteUtilizado.huellaDeCarbonoDeDistancia(this.distanciaIntermedia());
+    return this.transporteUtilizado
+        .huellaDeCarbonoDeDistancia(this.distanciaIntermedia());
   }
 }

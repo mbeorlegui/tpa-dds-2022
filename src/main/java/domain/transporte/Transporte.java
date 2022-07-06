@@ -23,7 +23,9 @@ public abstract class Transporte {
 
   public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
 
-  public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, CalculadoraDeDistancia calculadoraDeDistancia) {
+  public double calcularDistancia(Ubicacion origenDeTramo,
+                                  Ubicacion destinoDeTramo,
+                                  CalculadoraDeDistancia calculadoraDeDistancia) {
     return calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
   }
 

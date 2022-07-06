@@ -36,7 +36,8 @@ public class Medicion {
   }
 
   public boolean esDePeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
-    return this.periodicidad.equals(periodicidad) && this.periodoDeImputacion.equals(periodoDeImputacion);
+    return this.periodicidad.equals(periodicidad)
+        && this.periodoDeImputacion.equals(periodoDeImputacion);
   }
 
   public double huellaDeCarbono() {
