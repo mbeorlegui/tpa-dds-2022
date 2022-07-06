@@ -25,8 +25,6 @@ public class Sector {
     }
   }
 
-  // Cambiado a double
-  // TODO: Cambiar en diagrama
   public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
     return miembros
         .stream()

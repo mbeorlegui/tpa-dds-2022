@@ -140,7 +140,7 @@ class Ubicacion {
 
 class Sector {
   miembros : List<Miembro>
-  int calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad)
 }
 
 class Miembro {
@@ -149,7 +149,7 @@ class Miembro {
   numeroDeDocumento : int
   tipoDeDocumento : Documento
   trayecto : Trayecto
-  int calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad)
 }
 
 enum Documento {
@@ -263,7 +263,7 @@ class CalculadoraDeDistanciaRetrofit {
 
 class ResultadoDistancia {
   double valor
-  String unidad
+  Unidad unidad
   double obtenerMetros()
 }
 

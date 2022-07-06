@@ -41,8 +41,6 @@ public class Miembro {
     this.trayecto = trayecto;
   }
 
-  // Cambiado a double
-  // TODO: Cambiar en diagrama
   public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
     return trayecto.huellaDeCarbonoEnPeriodo(periodicidad);
   }
