@@ -200,6 +200,7 @@ enum Combustible {
   ELECTRICO,
   GASOIL
 }
+' Para que usamos este enum?
 
 class VehiculoParticular {
   tipoDeVehiculo : TipoDeVehiculo
@@ -372,7 +373,7 @@ Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 
 Miembro "*"<-up- Sector
-Organizacion -up-> Tipo
+Organizacion -up-> TipoOrganizacion
 Organizacion -right-> Clasificacion
 Organizacion -down-> Ubicacion
 Organizacion -up->"*" Sector
