@@ -21,7 +21,7 @@ public class Organizacion {
   @Getter
   private String razonSocial;
   @Getter
-  private Tipo tipo;
+  private TipoOrganizacion tipoOrganizacion;
   @Getter
   private Ubicacion ubicacion;
   private List<Sector> sectores = new ArrayList<>();
@@ -34,10 +34,10 @@ public class Organizacion {
   private List<Contacto> contactos = new ArrayList<>();
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
-  public Organizacion(String razonSocial, Tipo tipo, Ubicacion ubicacion,
+  public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Ubicacion ubicacion,
                       Clasificacion clasificacion) {
     this.razonSocial = razonSocial;
-    this.tipo = tipo;
+    this.tipoOrganizacion = tipoOrganizacion;
     this.ubicacion = ubicacion;
     this.clasificacion = clasificacion;
   }

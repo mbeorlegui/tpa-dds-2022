@@ -15,5 +15,9 @@ public class Organizaciones {
     // Inicializar
   }
 
+  public void enviarGuiaDeRecomendaciones(String link){
+
+  }
+
   // Lo llamamos con Organizaciones.getInstance()
 }

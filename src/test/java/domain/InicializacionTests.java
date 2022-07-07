@@ -93,7 +93,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Univerdidad Gubernamental")
   private Organizacion unaUniversidadGubernamental() {
-    Organizacion organizacion = new Organizacion("UTN", Tipo.GUBERNAMENTAL,
+    Organizacion organizacion = new Organizacion("UTN", TipoOrganizacion.GUBERNAMENTAL,
         ubicacionUtn, Clasificacion.UNIVERSIDAD);
     organizacion.addSector(sectorDeRRHH);
     organizacion.addSector(new Sector());
@@ -132,7 +132,7 @@ public class InicializacionTests {
     otroSector.addMiembro(otroMiembro);
 
     Organizacion organizacion = new Organizacion(
-        "orgFalsa SRL", Tipo.EMPRESA, new Ubicacion(10, "medrano", "720"),
+        "orgFalsa SRL", TipoOrganizacion.EMPRESA, new Ubicacion(10, "medrano", "720"),
         Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
     organizacion.addSector(unSector);
     organizacion.addSector(otroSector);

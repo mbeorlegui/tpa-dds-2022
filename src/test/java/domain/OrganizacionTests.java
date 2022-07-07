@@ -8,7 +8,7 @@ import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Sector;
-import domain.organizacion.Tipo;
+import domain.organizacion.TipoOrganizacion;
 import domain.trayecto.Trayecto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ public class OrganizacionTests {
   @DisplayName("La Universidad es de Tipo Gubernamental")
   @Test
   public void unaUniversidadGubernamentalEsDeTipoGubernamental() {
-    assertEquals(utn.getTipo(), Tipo.GUBERNAMENTAL);
+    assertEquals(utn.getTipoOrganizacion(), TipoOrganizacion.GUBERNAMENTAL);
   }
 
   @DisplayName("La Universidad es una Universidad")
@@ -60,7 +60,7 @@ public class OrganizacionTests {
   @Test
   public void laUtnTieneClasificacionUniversidadTipoGubernamental() {
     assertEquals(utn.getClasificacion(), Clasificacion.UNIVERSIDAD);
-    assertEquals(utn.getTipo(), Tipo.GUBERNAMENTAL);
+    assertEquals(utn.getTipoOrganizacion(), TipoOrganizacion.GUBERNAMENTAL);
     assertEquals(utn.getRazonSocial(),"UTN");
   }
 
