@@ -72,6 +72,10 @@ public class Organizacion {
     return this.getMiembros().contains(miembro);
   }
 
+  public Boolean esSector(Sector sector) {
+    return this.sectores.contains(sector);
+  }
+
   public void asignarTrayectoA(Trayecto trayecto, Miembro... miembros) {
     this.verificarQueSeanMiembros(miembros);
     trayecto.verificarQuePuedaSerAsignadoAMiembros();
@@ -83,6 +87,18 @@ public class Organizacion {
   private void verificarQueSeanMiembros(Miembro[] miembros) {
     if (!this.todosSonMiembros(miembros)) {
       throw new NonMemberException("Una de las personas no es miembro");
+    }
+  }
+
+  private void verificarQueSeaMiembro(Miembro miembro) {
+    if (!this.esMiembro(miembro)) {
+      throw new NonMemberException("Esta persona no es un miembro");
+    }
+  }
+
+  private void verificarQueSeaSector(Sector sector) {
+    if (!this.esSector(sector)) {
+      throw new NonMemberException("Este sector no forma parte de la organizacion");
     }
   }
 
@@ -159,6 +175,7 @@ public class Organizacion {
                                    Periodicidad periodicidad,
                                    String periodoDeImputacion) {
     // TODO: revisar que este bien.
+    this.verificarQueSeaMiembro(miembro);
     //  En este caso lo mostramos como porcentaje
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / miembro.calcularHuellaDeCarbono(periodicidad);
@@ -170,6 +187,7 @@ public class Organizacion {
                                  Periodicidad periodicidad,
                                  String periodoDeImputacion) {
     // TODO: revisar
+    this.verificarQueSeaSector(sector);
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / sector.calcularHuellaDeCarbono(periodicidad);
   }
