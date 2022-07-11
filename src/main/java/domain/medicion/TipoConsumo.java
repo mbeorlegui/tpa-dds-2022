@@ -25,8 +25,6 @@ public class TipoConsumo {
     this.nombre = nombre;
   }
 
-  // TODO: Analizar otros refactors
-
   @Override
   public String toString() {
     return nombre;

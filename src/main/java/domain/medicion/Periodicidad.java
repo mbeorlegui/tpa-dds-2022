@@ -18,5 +18,3 @@ public enum Periodicidad {
     return 0;
   }
 }
-// TODO: Analizar refactor para el calculo de huella de carbono -> Strategy
-// TODO: Agregar metodo a  diagrama

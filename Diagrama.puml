@@ -20,9 +20,9 @@ class Organizacion {
   void agregarContacto(Contacto)
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
-  int huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
-  int impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
-  int indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
+  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
+  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
+  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
   void enviarGuiaDeRecomendaciones(String link)
 }
 ' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
@@ -194,14 +194,6 @@ enum TipoTransporte {
   PIE,
 }
 
-enum Combustible {
-  GNC,
-  NAFTA,
-  ELECTRICO,
-  GASOIL
-}
-' Para que usamos este enum?
-
 class VehiculoParticular {
   tipoDeVehiculo : TipoDeVehiculo
 }
@@ -356,6 +348,8 @@ class PasswordNullValidator {
 class CsvHandler {
   List<Medicion> getMediciones()
 }
+
+CsvHandler --> Medicion
 
 Administrador .left.> TiposConsumos
 Administrador -down->"1" PasswordValidator

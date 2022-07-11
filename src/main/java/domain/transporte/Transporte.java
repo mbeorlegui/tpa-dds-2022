@@ -38,5 +38,3 @@ public abstract class Transporte {
     return combustible.calcularHuellaDeCarbono(distanciaRecorrida * combustiblePorKm);
   }
 }
-
-// TODO: verificar

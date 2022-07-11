@@ -132,9 +132,6 @@ public class Organizacion {
     mediosDeComunicacion.add(medioDeComunicacion);
   }
 
-
-  // Cambiado a double
-  // TODO: Cambiar en diagrama
   public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
     return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion)
         + hcTrayectosMiembros(periodicidad);
@@ -169,24 +166,17 @@ public class Organizacion {
         .collect(Collectors.toSet());
   }
 
-  // Cambiado a double
-  // TODO: Cambiar en diagrama
   public double impactoMiembroSobreHC(Miembro miembro,
                                    Periodicidad periodicidad,
                                    String periodoDeImputacion) {
-    // TODO: revisar que este bien.
     this.verificarQueSeaMiembro(miembro);
-    //  En este caso lo mostramos como porcentaje
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / miembro.calcularHuellaDeCarbono(periodicidad);
   }
 
-  // Cambiado a double
-  // TODO: Cambiar en diagrama
   public double indiceSectorSobreHC(Sector sector,
                                  Periodicidad periodicidad,
                                  String periodoDeImputacion) {
-    // TODO: revisar
     this.verificarQueSeaSector(sector);
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / sector.calcularHuellaDeCarbono(periodicidad);
