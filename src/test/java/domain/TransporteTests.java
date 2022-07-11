@@ -1,5 +1,6 @@
 package domain;
 
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
 import domain.ubicacion.Ubicacion;

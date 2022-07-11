@@ -25,10 +25,12 @@ public class TipoConsumo {
     this.nombre = nombre;
   }
 
-  // TODO: Analizar otros refactors
-
   @Override
   public String toString() {
     return nombre;
+  }
+
+  public double calcularHuellaDeCarbono(double medicion) {
+    return medicion * this.factorDeEmision;
   }
 }

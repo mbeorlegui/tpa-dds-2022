@@ -8,10 +8,11 @@ import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Sector;
-import domain.organizacion.Tipo;
+import domain.organizacion.TipoOrganizacion;
 import domain.trayecto.Trayecto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,14 +27,14 @@ public class OrganizacionTests {
   private Trayecto casaHastaUTN;
 
   @BeforeEach
-  void init(){
+  void init() {
     InicializacionTests inicializador = new InicializacionTests();
     utn = inicializador.getUtn();
     sectorRRHH = inicializador.getSectorDeRRHH();
     orgFalsa = inicializador.getOrgFalsa();
     miembro1 = inicializador.getUnMiembro();
     miembro2 = inicializador.getOtroMiembro();
-    miembro3 = new Miembro("Alejo","Sandrini",43987654, Documento.DNI, casaHastaUTN);
+    miembro3 = new Miembro("Alejo", "Sandrini", 43987654, Documento.DNI, casaHastaUTN);
     trayectoConServicioContratadoYVehiculoParticular = inicializador.getServicioContratadoYVehiculoParticular();
     casaHastaUTN = inicializador.getCasaHastaUTN();
   }
@@ -41,7 +42,7 @@ public class OrganizacionTests {
   @DisplayName("La Universidad es de Tipo Gubernamental")
   @Test
   public void unaUniversidadGubernamentalEsDeTipoGubernamental() {
-    assertEquals(utn.getTipo(), Tipo.GUBERNAMENTAL);
+    assertEquals(utn.getTipoOrganizacion(), TipoOrganizacion.GUBERNAMENTAL);
   }
 
   @DisplayName("La Universidad es una Universidad")
@@ -60,8 +61,8 @@ public class OrganizacionTests {
   @Test
   public void laUtnTieneClasificacionUniversidadTipoGubernamental() {
     assertEquals(utn.getClasificacion(), Clasificacion.UNIVERSIDAD);
-    assertEquals(utn.getTipo(), Tipo.GUBERNAMENTAL);
-    assertEquals(utn.getRazonSocial(),"UTN");
+    assertEquals(utn.getTipoOrganizacion(), TipoOrganizacion.GUBERNAMENTAL);
+    assertEquals(utn.getRazonSocial(), "UTN");
   }
 
   @DisplayName("La Universidad tiene 3 sectores")

@@ -24,5 +24,4 @@ public class MedicionRead {
         + ", Valor: " + valor + ", Periodicidad: " + periodicidad
         + ", Periodo de imputacion: " + periodoDeImputacion + "]";
   }
-  // TODO: Agregar al diagrama de clases
 }

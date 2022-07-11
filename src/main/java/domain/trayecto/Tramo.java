@@ -37,4 +37,9 @@ public class Tramo {
   public double distanciaIntermedia() {
     return this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo);
   }
+
+  public double huellaDeCarbono() {
+    return this.transporteUtilizado
+        .huellaDeCarbonoDeDistancia(this.distanciaIntermedia());
+  }
 }

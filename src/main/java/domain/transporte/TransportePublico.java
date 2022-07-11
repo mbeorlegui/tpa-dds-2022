@@ -1,6 +1,7 @@
 package domain.transporte;
 
 import domain.medicion.TipoConsumo;
+import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.ubicacion.Ubicacion;
 

@@ -1,6 +1,6 @@
 package domain.organizacion;
 
-public enum Tipo {
+public enum TipoOrganizacion {
   GUBERNAMENTAL,
   ONG,
   EMPRESA,

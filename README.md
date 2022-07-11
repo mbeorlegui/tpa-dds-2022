@@ -41,7 +41,7 @@ En esta primera iteración trabajaremos con la definición de las Organizaciones
 el Registro de trayectos que realizan estos últimos y el Registro para la autenticación de usuario Administrador.
 
 **Organizaciones y Miembros:**
-De las Organizaciones interesa conocer su Razón Social, su tipo (Gubernamental, ONG, Empresa, Institución), su ubicación
+De las Organizaciones interesa conocer su Razón Social, su tipoOrganizacion (Gubernamental, ONG, Empresa, Institución), su ubicación
 geográfica, los sectores o áreas que la componen y sus miembros. Además, es necesario conocer la clasificación de la
 Organización (Ministerio, Universidad, Escuela, Empresa del sector primario, Empresa del sector secundario, etc.).
 De cada miembro de una Organización interesa su nombre, apellido, tipo y número de documento y las Organizaciones en

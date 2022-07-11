@@ -22,9 +22,6 @@ public class MedicionAdapter {
   }
 
   public String adaptarPeriodo(MedicionRead unaMedicion) {
-    /*
-      TODO: Analizar si conviene modelarlo como String y en caso de que no, adaptarlo aca
-    */
     return unaMedicion.getPeriodoDeImputacion();
   }
 

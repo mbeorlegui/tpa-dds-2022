@@ -2,7 +2,7 @@
 
 class Organizacion {
   razonSocial : String
-  tipo : Tipo
+  tipoOrganizacion : TipoOrganizacion
   ubicacion : Ubicacion
   sectores : List<Sector>
   clasificacion : Clasificacion
@@ -20,9 +20,9 @@ class Organizacion {
   void agregarContacto(Contacto)
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
-  int huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
-  int impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
-  int indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
+  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
+  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
+  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
   void enviarGuiaDeRecomendaciones(String link)
 }
 ' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
@@ -93,14 +93,16 @@ class TipoConsumo {
   alcance : Alcance
   unidad : Unidad
   factorDeEmision : Double
+  'nombre : String --> es necesario?
+  double calcularHuellaDeCarbono()
 }
 ' void setFactorDeEmision(double)
 
 enum Actividad {
   COMBUSTION_FIJA,
   COMBUSTION_MOVIL,
-  ELECTRICIDAD_ADQ_CONS,
-  LOGISTICA_PROD_RESID,
+  ELECTRICIDAD,
+  LOGISTICA,
 }
 
 enum Alcance {
@@ -125,6 +127,7 @@ class Medicion {
   valor: Integer
   periodicidad: Periodicidad
   periodoDeImputacion: String
+  double huellaDeCarbono()
 }
 ' periodicidad puede ser un String. Solo se usa en la validacion con periodoDeImputacion
 
@@ -134,22 +137,22 @@ enum Periodicidad {
 }
 class Ubicacion {
   localidadId : Integer
-  calle : string
-  altura : string
+  calle : String
+  altura : String
 }
 
 class Sector {
   miembros : List<Miembro>
-  int calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad)
 }
 
 class Miembro {
   nombre : String
   apellido : String
-  numeroDeDocumento : int
+  numeroDeDocumento : Integer
   tipoDeDocumento : Documento
   trayecto : Trayecto
-  int calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad)
 }
 
 enum Documento {
@@ -157,7 +160,7 @@ enum Documento {
   LIBRETA,
 }
 
-enum Tipo {
+enum TipoOrganizacion {
   GUBERNAMENTAL,
   ONG,
   EMPRESA,
@@ -177,6 +180,10 @@ abstract Transporte {
   combustible : TipoConsumo
   combustiblePorKm : Double
   tipoTransporte : TipoTransporte
+  calculadoraDeDistancia : CalculadoraDeDistancia
+  void verificarParadas(Ubicacion, Ubicacion)
+  double calcularDistancia(Ubicacion, Ubicacion)
+  double huellaDeCarbonoDeDistancia(double)
 }
 
 enum TipoTransporte {
@@ -199,7 +206,7 @@ class TransportePublico {
   void agregarParadaInicial(Parada)
   void agregarParadaLuegoDe(Parada, Ubicacion)
   void agregarParadaFinal(Parada, Ubicacion, ResultadoDistancia)
-  boolean distanciaValida(Parada, Ubicacion)
+  void validarDistancia(Parada, Ubicacion)
   boolean tieneUnaParadaEn(Ubicacion)
   double calcularDistancia(Ubicacion, Ubicacion)
 }
@@ -239,9 +246,9 @@ class Tramo {
   origenDeTramo : Ubicacion
   destinoDeTramo : Ubicacion
   transporteUtilizado : Transporte
-  calculadoraDeDistancia : CalculadoraDeDistancia
   boolean puedeSerCompartido()
   double distanciaIntermedia()
+  double huellaDeCarbono()
 }
 ' puedeSerCompartido -> valida que el tipo de transporte del tramo sea
 ' vehiculo particular o de servicio contratado
@@ -250,6 +257,9 @@ class Trayecto {
   tramos : List<Tramo>
   void verificarQuePuedaSerAsignadoAMiembros()
   double distanciaTotal()
+  boolean tramosPuedenSerCompartidos()
+  double huellaDeCarbonoEnPeriodo(Periodicidad)
+  double hcTramos()
 }
 ' verificarQuePuedaSerAsignadoAMiembros -> llama para cada tramo al validarTramoCompartido
 
@@ -262,10 +272,11 @@ class CalculadoraDeDistanciaRetrofit {
 }
 
 class ResultadoDistancia {
-  double valor
-  String unidad
-  double obtenerMetros()
+  double : valor
+  Unidad : unidad
+  double obtenerKilometros()
 }
+'Todavia falta cambiar la unidad a tipo Unidad, por ahora es String
 
 class Parada {
   Ubicacion ubicacion
@@ -338,6 +349,8 @@ class CsvHandler {
   List<Medicion> getMediciones()
 }
 
+CsvHandler --> Medicion
+
 Administrador .left.> TiposConsumos
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
@@ -354,7 +367,7 @@ Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 
 Miembro "*"<-up- Sector
-Organizacion -up-> Tipo
+Organizacion -up-> TipoOrganizacion
 Organizacion -right-> Clasificacion
 Organizacion -down-> Ubicacion
 Organizacion -up->"*" Sector
