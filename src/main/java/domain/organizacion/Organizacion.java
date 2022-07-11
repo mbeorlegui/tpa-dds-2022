@@ -167,22 +167,26 @@ public class Organizacion {
   }
 
   public double impactoMiembroSobreHC(Miembro miembro,
-                                   Periodicidad periodicidad,
-                                   String periodoDeImputacion) {
+                                      Periodicidad periodicidad,
+                                      String periodoDeImputacion) {
     this.verificarQueSeaMiembro(miembro);
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / miembro.calcularHuellaDeCarbono(periodicidad);
   }
 
   public double indiceSectorSobreHC(Sector sector,
-                                 Periodicidad periodicidad,
-                                 String periodoDeImputacion) {
+                                    Periodicidad periodicidad,
+                                    String periodoDeImputacion) {
     this.verificarQueSeaSector(sector);
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / sector.calcularHuellaDeCarbono(periodicidad);
   }
 
   public void enviarGuiaDeRecomendaciones(String link) {
-    // TODO
+    contactos.forEach(
+        contacto -> mediosDeComunicacion.forEach(
+            medio -> medio.enviarNotificacion(link, contacto)
+        )
+    );
   }
 }

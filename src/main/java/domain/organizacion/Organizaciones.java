@@ -15,8 +15,11 @@ public class Organizaciones {
     // Inicializar
   }
 
-  public void enviarGuiaDeRecomendaciones(String link){
-
+  // Se ejecuta con tarea programada
+  public void enviarGuiaDeRecomendaciones(String link) {
+    organizaciones.forEach(
+        org -> org.enviarGuiaDeRecomendaciones(link)
+    );
   }
 
   // Lo llamamos con Organizaciones.getInstance()
