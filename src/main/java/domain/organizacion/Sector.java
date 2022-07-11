@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.medicion.Periodicidad;
 import domain.miembro.Miembro;
 import lombok.Getter;
 
@@ -22,6 +23,13 @@ public class Sector {
     if (!miembros.contains(miembro)) {
       miembros.add(miembro);
     }
+  }
+
+  public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
+    return miembros
+        .stream()
+        .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad))
+        .sum();
   }
 
 }

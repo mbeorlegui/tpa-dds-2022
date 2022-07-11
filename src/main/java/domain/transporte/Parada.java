@@ -18,7 +18,7 @@ public class Parada {
   }
 
   public double getDistanciaSiguienteParada() {
-    return distanciaSiguienteParada.obtenerMetros();
+    return distanciaSiguienteParada.obtenerKilometros();
   }
 
   public String getUnidadDistancia() {

@@ -8,14 +8,15 @@ public class ResultadoDistancia {
   private double valor;
   @Getter @Setter
   private String unidad;
+  //TODO: cambiar a tipo UnidadDistancia
 
   public ResultadoDistancia(double valor, String unidad) {
     this.valor = valor;
     this.unidad = unidad;
   }
 
-  public double obtenerMetros() {
-    //TODO: dependiendo de la unidad pasar a metros
+  public double obtenerKilometros() {
+    //TODO: dependiendo de la unidad pasar a kilometros
     return valor;
   }
 }
