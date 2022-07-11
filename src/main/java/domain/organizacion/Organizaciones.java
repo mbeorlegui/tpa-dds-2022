@@ -22,5 +22,8 @@ public class Organizaciones {
     );
   }
 
+  public static Organizaciones getInstance() {
+    return INSTANCE;
+  }
   // Lo llamamos con Organizaciones.getInstance()
 }

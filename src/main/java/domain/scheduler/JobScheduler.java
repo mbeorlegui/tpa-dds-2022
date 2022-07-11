@@ -1,10 +1,18 @@
-import domain.organizacion.Organizacion;
-import org.quartz.*;
+package domain.scheduler;
+
+import domain.organizacion.Organizaciones;
+
+import org.quartz.CronTrigger;
+import org.quartz.JobDetail;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
-import static org.quartz.JobBuilder.*;
-import static org.quartz.TriggerBuilder.*;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 public class JobScheduler {
 
@@ -37,11 +45,11 @@ public class JobScheduler {
   }
 
   public static class OrganizacionJob implements Job {
-    final String LINK = "https://www.google.com/";
+    private final String LINK_TO_SEND = "https://www.google.com/";
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
-      Organizaciones.getInstance().enviarGuiaDeRecomendaciones(LINK);
+      Organizaciones.getInstance().enviarGuiaDeRecomendaciones(LINK_TO_SEND);
     }
   }
 }

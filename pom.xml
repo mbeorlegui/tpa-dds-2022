@@ -84,6 +84,8 @@
                     <configLocation>google_checks.xml</configLocation>
                     <violationSeverity>warning</violationSeverity>
                     <violationIgnore>
+                        AbbreviationAsWordInName,
+                        MemberName,
                         MissingJavadocMethod,
                         MissingJavadocPackage,
                         MissingJavadocType,
@@ -137,6 +139,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>domain/services/apidistancias/</exclude>
+                                <exclude>domain/scheduler/</exclude>
                             </excludes>
                             <rules>
                                 <rule>
