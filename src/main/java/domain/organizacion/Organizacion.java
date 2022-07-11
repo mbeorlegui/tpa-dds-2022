@@ -102,9 +102,5 @@ public class Organizacion {
   public boolean contieneMedicionIdentica(Medicion unaMedicion) {
     return mediciones.stream().anyMatch(m -> m.esMedicionIdentica(unaMedicion));
   }
-
-  public static void enviarNotificacion() {
-    System.out.println("Notificacion enviada!!");
-  }
-
+  
 }

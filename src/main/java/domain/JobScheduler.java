@@ -37,9 +37,11 @@ public class JobScheduler {
   }
 
   public static class OrganizacionJob implements Job {
+    final String LINK = "https://www.google.com/";
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
-      Organizacion.enviarNotificacion();
+      Organizaciones.getInstance().enviarGuiaDeRecomendaciones(LINK);
     }
   }
 }
