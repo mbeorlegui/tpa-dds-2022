@@ -57,6 +57,16 @@
             <artifactId>opencsv</artifactId>
             <version>5.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -74,6 +84,8 @@
                     <configLocation>google_checks.xml</configLocation>
                     <violationSeverity>warning</violationSeverity>
                     <violationIgnore>
+                        AbbreviationAsWordInName,
+                        MemberName,
                         MissingJavadocMethod,
                         MissingJavadocPackage,
                         MissingJavadocType,
@@ -127,6 +139,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>domain/services/apidistancias/</exclude>
+                                <exclude>domain/scheduler/</exclude>
                             </excludes>
                             <rules>
                                 <rule>
