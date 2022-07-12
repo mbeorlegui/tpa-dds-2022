@@ -1,5 +1,6 @@
 package domain;
 
+import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.medicion.TiposConsumos;
@@ -55,6 +56,8 @@ public class InicializacionTests {
   private CsvHandler csvHandler;
   private Contacto contacto1;
 
+  private Medicion medicionEstandar;
+
   public InicializacionTests() {
     this.casa = casa();
     this.casa = casa2();
@@ -89,6 +92,7 @@ public class InicializacionTests {
     this.casa2HastaUTN = casa2HastaUTN();
     this.csvHandler = csvHandler();
     this.contacto1 = contacto1();
+    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(medicionDeLectura1);
   }
 
   /*
@@ -102,6 +106,7 @@ public class InicializacionTests {
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
     sectorDeRRHH.addMiembro(otroMiembro);
+    organizacion.agregarContacto(contacto1);
     return organizacion;
   }
 
@@ -296,6 +301,7 @@ public class InicializacionTests {
     unaMedicion.setPeriodoDeImputacion("2021");
     return unaMedicion;
   }
+
 
   @DisplayName("Instanciar: Un adapter de Medicion")
   static MedicionAdapter unAdapterDeMedicion() {

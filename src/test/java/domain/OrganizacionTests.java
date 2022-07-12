@@ -1,5 +1,8 @@
 package domain;
 
+import domain.medicion.Medicion;
+import domain.medicion.MedicionAdapter;
+import domain.medicion.Periodicidad;
 import domain.organizacion.*;
 import org.junit.jupiter.api.BeforeEach;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
@@ -25,6 +28,8 @@ public class OrganizacionTests {
   private Miembro miembro3;
   private Trayecto trayectoConServicioContratadoYVehiculoParticular;
   private Trayecto casaHastaUTN;
+  private MedicionAdapter medicionAdapter;
+  private Medicion unaMedicion;
 
   @BeforeEach
   void init() {
@@ -37,6 +42,8 @@ public class OrganizacionTests {
     miembro3 = new Miembro("Alejo", "Sandrini", 43987654, Documento.DNI, casaHastaUTN);
     trayectoConServicioContratadoYVehiculoParticular = inicializador.getServicioContratadoYVehiculoParticular();
     casaHastaUTN = inicializador.getCasaHastaUTN();
+    medicionAdapter = inicializador.getUnAdapterDeMedicion();
+    unaMedicion = inicializador.getMedicionEstandar();
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -75,6 +82,42 @@ public class OrganizacionTests {
   @Test
   public void laUniversidadTieneUnEmpleado() {
     assertEquals(utn.cantidadDeMiembros(), 1);
+  }
+
+  @DisplayName("La Universidad tiene 1 contacto")
+  @Test
+  public void laUniversidadTieneUnContacto() {
+    assertEquals(utn.getContactos().size(), 1);
+  }
+
+  @DisplayName("El impacto de un miembro sobre la huella de carbono cuando emitio la unica medicion es 1")
+  @Test
+  public void miembroUnicoTieneImpactoSobreHC1() {
+    utn.agregarMedicion(unaMedicion);
+    utn.asignarTrayectoA(trayectoConServicioContratadoYVehiculoParticular, utn.getMiembros().get(0));
+    assertEquals(utn.impactoMiembroSobreHC(miembro2, Periodicidad.MENSUAL, "03/2022"), 1);
+  } //Hay que mockear este resultado pues da numeros al azar y es imposible determinar. Puse de valor 1 como placeholder.
+
+  @DisplayName("miembro2 es un miembro de la UTN")
+  @Test
+  public void utnTieneMiembro2() {
+    assertTrue(utn.esMiembro(miembro2));
+  }
+
+  @DisplayName("la medicion que agrego es del periodo correcto ")
+  @Test
+  public void utnTieneMedicionDePeriodoCorrecto() {
+    utn.agregarMedicion(unaMedicion);
+    assertTrue(utn.getMediciones().get(0).esDePeriodo(Periodicidad.MENSUAL, "03/2022"));
+  }
+
+  @DisplayName("Puedo agregar una medicion a la UTN")
+  @Test
+  public void utnTieneUnaMedicion() {
+    utn.agregarMedicion(unaMedicion);
+    assertEquals(utn.getMediciones().size(), 1);
+    assertNotNull(utn.getMediciones().get(0));
+    assertEquals(utn.getMediciones().get(0), unaMedicion);
   }
 
   @DisplayName("A miembros de la misma organizacion se les puede asignar el mismo trayecto")

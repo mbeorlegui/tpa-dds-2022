@@ -31,6 +31,7 @@ public class Organizacion {
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
+  @Getter
   private List<Contacto> contactos = new ArrayList<>();
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 

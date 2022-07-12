@@ -2,6 +2,7 @@ package domain.transporte;
 
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,16 +19,20 @@ public abstract class Transporte {
   @Getter @Setter
   private CalculadoraDeDistancia calculadoraDeDistancia;
 
+  @Getter @Setter
+  private CalculadoraDeDistanciaRetrofit calculadoraDeDistanciaRetrofit;
+
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;
     this.combustiblePorKm = combustiblePorKm;
+    this.calculadoraDeDistanciaRetrofit = new CalculadoraDeDistanciaRetrofit();
   }
 
   public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
 
 
   public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
-    return this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
+    return this.calculadoraDeDistanciaRetrofit.distancia(origenDeTramo, destinoDeTramo);
   }
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {
