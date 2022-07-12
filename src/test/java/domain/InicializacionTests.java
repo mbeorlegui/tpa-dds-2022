@@ -11,6 +11,7 @@ import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
+import domain.medios.*;
 import lombok.Getter;
 import org.junit.jupiter.api.DisplayName;
 
@@ -52,6 +53,7 @@ public class InicializacionTests {
   private Parada parada5;
   private Parada parada6;
   private CsvHandler csvHandler;
+  private Contacto contacto1;
 
   public InicializacionTests() {
     this.casa = casa();
@@ -86,6 +88,7 @@ public class InicializacionTests {
     this.casaHastaUTN = casaHastaUTN();
     this.casa2HastaUTN = casa2HastaUTN();
     this.csvHandler = csvHandler();
+    this.contacto1 = contacto1();
   }
 
   /*
@@ -347,4 +350,10 @@ public class InicializacionTests {
   public CsvHandler csvHandler() {
     return new CsvHandler();
   }
+
+  @DisplayName("Instanciar: Contacto1")
+  public Contacto contacto1() {
+    return new Contacto("unNombre", "unEmail@falso.com", 123456789);
+  }
 }
+
