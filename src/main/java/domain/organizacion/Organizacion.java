@@ -171,8 +171,8 @@ public class Organizacion {
                                       Periodicidad periodicidad,
                                       String periodoDeImputacion) {
     this.verificarQueSeaMiembro(miembro);
-    return miembro.calcularHuellaDeCarbono(periodicidad) /
-        huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
+    return miembro.calcularHuellaDeCarbono(periodicidad)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
   }
 
   public double indiceSectorSobreHC(Sector sector,
