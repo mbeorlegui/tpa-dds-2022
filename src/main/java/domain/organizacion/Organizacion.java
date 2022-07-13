@@ -31,6 +31,7 @@ public class Organizacion {
   @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
 
+  @Getter
   private List<Contacto> contactos = new ArrayList<>();
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
@@ -159,7 +160,7 @@ public class Organizacion {
         .collect(Collectors.toList());
   }
 
-  private Set<Trayecto> getTrayectos() {
+  public Set<Trayecto> getTrayectos() {
     return this.getMiembros()
         .stream()
         .map(miembro -> miembro.getTrayecto())
@@ -170,8 +171,8 @@ public class Organizacion {
                                       Periodicidad periodicidad,
                                       String periodoDeImputacion) {
     this.verificarQueSeaMiembro(miembro);
-    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
-        / miembro.calcularHuellaDeCarbono(periodicidad);
+    return miembro.calcularHuellaDeCarbono(periodicidad)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
   }
 
   public double indiceSectorSobreHC(Sector sector,

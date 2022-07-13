@@ -2,6 +2,7 @@ package domain.transporte;
 
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,9 @@ public abstract class Transporte {
   public TipoTransporte tipoTransporte;
   @Getter @Setter
   private CalculadoraDeDistancia calculadoraDeDistancia;
+
+  @Getter @Setter
+  private CalculadoraDeDistanciaRetrofit calculadoraDeDistanciaRetrofit;
 
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;

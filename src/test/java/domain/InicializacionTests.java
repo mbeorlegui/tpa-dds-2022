@@ -1,5 +1,6 @@
 package domain;
 
+import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.medicion.TiposConsumos;
@@ -11,6 +12,7 @@ import domain.transporte.*;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
+import domain.medios.*;
 import lombok.Getter;
 import org.junit.jupiter.api.DisplayName;
 
@@ -52,6 +54,9 @@ public class InicializacionTests {
   private Parada parada5;
   private Parada parada6;
   private CsvHandler csvHandler;
+  private Contacto contacto1;
+
+  private Medicion medicionEstandar;
 
   public InicializacionTests() {
     this.casa = casa();
@@ -86,6 +91,8 @@ public class InicializacionTests {
     this.casaHastaUTN = casaHastaUTN();
     this.casa2HastaUTN = casa2HastaUTN();
     this.csvHandler = csvHandler();
+    this.contacto1 = contacto1();
+    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(medicionDeLectura1);
   }
 
   /*
@@ -99,6 +106,7 @@ public class InicializacionTests {
     organizacion.addSector(new Sector());
     organizacion.addSector(new Sector());
     sectorDeRRHH.addMiembro(otroMiembro);
+    organizacion.agregarContacto(contacto1);
     return organizacion;
   }
 
@@ -294,6 +302,7 @@ public class InicializacionTests {
     return unaMedicion;
   }
 
+
   @DisplayName("Instanciar: Un adapter de Medicion")
   static MedicionAdapter unAdapterDeMedicion() {
     return new MedicionAdapter();
@@ -347,4 +356,10 @@ public class InicializacionTests {
   public CsvHandler csvHandler() {
     return new CsvHandler();
   }
+
+  @DisplayName("Instanciar: Contacto1")
+  public Contacto contacto1() {
+    return new Contacto("unNombre", "unEmail@falso.com", 123456789);
+  }
 }
+

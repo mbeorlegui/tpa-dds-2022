@@ -1,6 +1,11 @@
 package domain;
 
+import domain.medicion.Medicion;
+import domain.medicion.MedicionAdapter;
+import domain.medicion.Periodicidad;
 import domain.organizacion.*;
+import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import org.junit.jupiter.api.BeforeEach;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.exceptions.NonMemberException;
@@ -15,6 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class OrganizacionTests {
   private Organizacion utn;
@@ -25,6 +32,11 @@ public class OrganizacionTests {
   private Miembro miembro3;
   private Trayecto trayectoConServicioContratadoYVehiculoParticular;
   private Trayecto casaHastaUTN;
+  private MedicionAdapter medicionAdapter;
+  private Medicion unaMedicion;
+
+  private CalculadoraDeDistancia calculadoraMock;
+  private ResultadoDistancia resultadoDistancia1;
 
   @BeforeEach
   void init() {
@@ -37,6 +49,9 @@ public class OrganizacionTests {
     miembro3 = new Miembro("Alejo", "Sandrini", 43987654, Documento.DNI, casaHastaUTN);
     trayectoConServicioContratadoYVehiculoParticular = inicializador.getServicioContratadoYVehiculoParticular();
     casaHastaUTN = inicializador.getCasaHastaUTN();
+    medicionAdapter = inicializador.getUnAdapterDeMedicion();
+    unaMedicion = inicializador.getMedicionEstandar();
+    resultadoDistancia1 = new ResultadoDistancia(3000, "m");
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -75,6 +90,41 @@ public class OrganizacionTests {
   @Test
   public void laUniversidadTieneUnEmpleado() {
     assertEquals(utn.cantidadDeMiembros(), 1);
+  }
+
+  @DisplayName("La Universidad tiene 1 contacto")
+  @Test
+  public void laUniversidadTieneUnContacto() {
+    assertEquals(utn.getContactos().size(), 1);
+  }
+
+  @DisplayName("La utn tiene 1 trayecto")
+  @Test
+  public void laUtnTieneUnTrayecto() {
+    assertEquals(utn.getTrayectos().size(), 1);
+  }
+
+
+  @DisplayName("miembro2 es un miembro de la UTN")
+  @Test
+  public void utnTieneMiembro2() {
+    assertTrue(utn.esMiembro(miembro2));
+  }
+
+  @DisplayName("la medicion que agrego es del periodo correcto ")
+  @Test
+  public void utnTieneMedicionDePeriodoCorrecto() {
+    utn.agregarMedicion(unaMedicion);
+    assertTrue(utn.getMediciones().get(0).esDePeriodo(Periodicidad.MENSUAL, "03/2022"));
+  }
+
+  @DisplayName("Puedo agregar una medicion a la UTN")
+  @Test
+  public void utnTieneUnaMedicion() {
+    utn.agregarMedicion(unaMedicion);
+    assertEquals(utn.getMediciones().size(), 1);
+    assertNotNull(utn.getMediciones().get(0));
+    assertEquals(utn.getMediciones().get(0), unaMedicion);
   }
 
   @DisplayName("A miembros de la misma organizacion se les puede asignar el mismo trayecto")
