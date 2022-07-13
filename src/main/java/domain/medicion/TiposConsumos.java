@@ -1,6 +1,7 @@
 package domain.medicion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TiposConsumos {
@@ -30,20 +31,14 @@ public class TiposConsumos {
   // TODO: chequear factor de emision, por ahora definido en 500
 
   private TiposConsumos() {
-    agregarTipoDeConsumo(gasNatural);
-    agregarTipoDeConsumo(dieselGasoil);
-    agregarTipoDeConsumo(nafta);
-    agregarTipoDeConsumo(carbon);
-    agregarTipoDeConsumo(ccGasoil);
-    agregarTipoDeConsumo(ccNafta);
-    agregarTipoDeConsumo(electricidad);
-    agregarTipoDeConsumo(medioDeTransporte);
-    agregarTipoDeConsumo(distanciaMedia);
+    agregarTiposDeConsumo(gasNatural, dieselGasoil, nafta,
+                          carbon, ccGasoil, ccNafta, electricidad, 
+                          medioDeTransporte, distanciaMedia);
   }
   // TODO: Mejorar el init que está feo
 
-  public void agregarTipoDeConsumo(TipoConsumo unTipoConsumo) {
-    consumos.add(unTipoConsumo);
+  public void agregarTiposDeConsumo(TipoConsumo... tiposConsumo){
+    this.consumos.addAll(Arrays.asList(tiposConsumo));
   }
 
   public static TiposConsumos getInstance() {

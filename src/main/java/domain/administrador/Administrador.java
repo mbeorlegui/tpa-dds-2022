@@ -28,7 +28,7 @@ public class Administrador {
                                           Unidad unidad,
                                           double factorDeEmision,
                                           String nombreTipoDeConsumo) {
-    TiposConsumos.getInstance().agregarTipoDeConsumo(
+    TiposConsumos.getInstance().agregarTiposDeConsumo(
         new TipoConsumo(actividad, alcance, unidad, factorDeEmision, nombreTipoDeConsumo)
     );
   }
