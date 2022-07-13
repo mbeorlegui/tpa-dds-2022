@@ -2,8 +2,10 @@ name: GitHub Classroom Workflow
 
 on:
   push:
+    braches:
+      - main
     tags:
-      - entrega-final
+      - entrega-*
 
 jobs:
   build:
