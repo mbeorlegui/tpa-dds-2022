@@ -25,14 +25,13 @@ public abstract class Transporte {
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;
     this.combustiblePorKm = combustiblePorKm;
-    this.calculadoraDeDistanciaRetrofit = new CalculadoraDeDistanciaRetrofit();
   }
 
   public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
 
 
   public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
-    return this.calculadoraDeDistanciaRetrofit.distancia(origenDeTramo, destinoDeTramo);
+    return this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);
   }
 
   public boolean esDeTipo(TipoTransporte tipoTransporte) {

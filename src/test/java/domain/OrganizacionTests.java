@@ -4,6 +4,8 @@ import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.Periodicidad;
 import domain.organizacion.*;
+import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import org.junit.jupiter.api.BeforeEach;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.exceptions.NonMemberException;
@@ -18,6 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class OrganizacionTests {
   private Organizacion utn;
@@ -30,6 +34,9 @@ public class OrganizacionTests {
   private Trayecto casaHastaUTN;
   private MedicionAdapter medicionAdapter;
   private Medicion unaMedicion;
+
+  private CalculadoraDeDistancia calculadoraMock;
+  private ResultadoDistancia resultadoDistancia1;
 
   @BeforeEach
   void init() {
@@ -44,6 +51,7 @@ public class OrganizacionTests {
     casaHastaUTN = inicializador.getCasaHastaUTN();
     medicionAdapter = inicializador.getUnAdapterDeMedicion();
     unaMedicion = inicializador.getMedicionEstandar();
+    resultadoDistancia1 = new ResultadoDistancia(3000, "m");
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -90,13 +98,12 @@ public class OrganizacionTests {
     assertEquals(utn.getContactos().size(), 1);
   }
 
-  @DisplayName("El impacto de un miembro sobre la huella de carbono cuando emitio la unica medicion es 1")
+  @DisplayName("La utn tiene 1 trayecto")
   @Test
-  public void miembroUnicoTieneImpactoSobreHC1() {
-    utn.agregarMedicion(unaMedicion);
-    utn.asignarTrayectoA(trayectoConServicioContratadoYVehiculoParticular, utn.getMiembros().get(0));
-    assertEquals(utn.impactoMiembroSobreHC(miembro2, Periodicidad.MENSUAL, "03/2022"), 1);
-  } //Hay que mockear este resultado pues da numeros al azar y es imposible determinar. Puse de valor 1 como placeholder.
+  public void laUtnTieneUnTrayecto() {
+    assertEquals(utn.getTrayectos().size(), 1);
+  }
+
 
   @DisplayName("miembro2 es un miembro de la UTN")
   @Test
