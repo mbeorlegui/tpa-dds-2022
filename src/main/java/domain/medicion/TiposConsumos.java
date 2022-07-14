@@ -37,7 +37,7 @@ public class TiposConsumos {
   }
   // TODO: Mejorar el init que está feo
 
-  public void agregarTiposDeConsumo(TipoConsumo... tiposConsumo){
+  public void agregarTiposDeConsumo(TipoConsumo... tiposConsumo) {
     this.consumos.addAll(Arrays.asList(tiposConsumo));
   }
 

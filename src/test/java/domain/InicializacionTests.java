@@ -26,6 +26,7 @@ public class InicializacionTests {
   private Organizacion orgFalsa;
   private Trayecto casaHastaUTN;
   private Trayecto casa2HastaUTN;
+  private Trayecto orgFalsaHastaCasa2;
   private TransportePublico colectivoLinea7;
   private TransportePublico colectivoLinea157;
   private TransportePublico subteX;
@@ -42,11 +43,15 @@ public class InicializacionTests {
   private MedicionAdapter unAdapterDeMedicion;
   private Ubicacion casa;
   private Ubicacion casa2;
+  private Ubicacion uba;
   private Ubicacion linea7;
   private Ubicacion ubicacionUtn;
+  private Ubicacion ubicacionOrgFalsa;
   private Tramo casaHastaLinea7;
   private Tramo casa2HastaLinea7;
   private Tramo linea7HastaUTN;
+  private Tramo ubaHastaCasa2;
+  private Tramo orgFalsaHastaUba;
   private Parada parada1;
   private Parada parada2;
   private Parada parada3;
@@ -60,9 +65,11 @@ public class InicializacionTests {
 
   public InicializacionTests() {
     this.casa = casa();
-    this.casa = casa2();
+    this.casa2 = casa2();
+    this.uba = uba();
     this.linea7 = linea7();
     this.ubicacionUtn = ubicacionUtn();
+    this.ubicacionOrgFalsa = ubicacionOrgFalsa();
     this.parada1 = parada1();
     this.parada2 = parada2();
     this.parada3 = parada3();
@@ -71,6 +78,7 @@ public class InicializacionTests {
     this.parada6 = parada6();
     this.unMiembro = unMiembro();
     this.otroMiembro = otroMiembro();
+    this.contacto1 = contacto1();
     this.sectorDeRRHH = sectorDeRRHH();
     this.utn = unaUniversidadGubernamental();
     this.orgFalsa = orgFalsa();
@@ -88,10 +96,12 @@ public class InicializacionTests {
     this.casaHastaLinea7 = casaHastaLinea7();
     this.casa2HastaLinea7 = casa2HastaLinea7();
     this.linea7HastaUTN = linea7HastaUTN();
+    this.ubaHastaCasa2 = ubaHastaCasa2();
+    this.orgFalsaHastaUba = orgFalsaHastaUba();
+    this.orgFalsaHastaCasa2 = orgFalsaHastaCasa2();
     this.casaHastaUTN = casaHastaUTN();
     this.casa2HastaUTN = casa2HastaUTN();
     this.csvHandler = csvHandler();
-    this.contacto1 = contacto1();
     this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(medicionDeLectura1);
   }
 
@@ -140,7 +150,7 @@ public class InicializacionTests {
     otroSector.addMiembro(otroMiembro);
 
     Organizacion organizacion = new Organizacion(
-        "orgFalsa SRL", TipoOrganizacion.EMPRESA, new Ubicacion(10, "medrano", "720"),
+        "orgFalsa SRL", TipoOrganizacion.EMPRESA, new Ubicacion(10, "medrano", "500"),
         Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
     organizacion.addSector(unSector);
     organizacion.addSector(otroSector);
@@ -206,7 +216,7 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX() {
     TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.SUBTE, "X");
-    subte.addParadas(parada1, parada3, parada6, parada2);
+    subte.addParadas(parada1, parada3, parada6, parada2, parada5);
     return subte;
   }
 
@@ -219,8 +229,8 @@ public class InicializacionTests {
 
   @DisplayName("Instanciar: Parada2")
   private Parada parada2() {
-    Ubicacion ubicacion = new Ubicacion(20, "rivadavia", "4000");
-    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    Ubicacion ubicacion = new Ubicacion(1, "rivadavia", "2000");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(1000,"M");
     return new Parada(ubicacion,distanciaSiguienteParada);
   }
   /*
@@ -320,6 +330,16 @@ public class InicializacionTests {
   }
 
   @DisplayName("Instanciar: Ubicacion")
+  public Ubicacion uba() {
+    return new Ubicacion(1, "maipu", "500");
+  }
+
+  @DisplayName("Instanciar: Ubicacion OrgFalsa")
+  private  Ubicacion ubicacionOrgFalsa(){
+    return new Ubicacion(10, "medrano", "500");
+  }
+
+  @DisplayName("Instanciar: Ubicacion")
   public Ubicacion linea7() {
     return new Ubicacion(1, "maipu", "500");
   }
@@ -350,6 +370,24 @@ public class InicializacionTests {
   @DisplayName("Instanciar: Tramo")
   public Tramo linea7HastaUTN() {
     return new Tramo(linea7, ubicacionUtn, colectivoLinea7);
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  public Tramo ubaHastaCasa2(){
+    return new Tramo(uba, casa2, subteX);
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  public Tramo orgFalsaHastaUba(){
+    return new Tramo(ubicacionOrgFalsa, uba, colectivoLinea7);
+  }
+
+  @DisplayName("Instanciar: Trayecto")
+  public Trayecto orgFalsaHastaCasa2() {
+    List<Tramo> tramos = new ArrayList<>();
+    tramos.add(orgFalsaHastaUba);
+    tramos.add(ubaHastaCasa2);
+    return new Trayecto(tramos);
   }
 
   @DisplayName("Instanciar: Csv Handler")

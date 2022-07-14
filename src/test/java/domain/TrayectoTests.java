@@ -17,12 +17,12 @@ public class TrayectoTests {
   private Trayecto casaHastaUTN;
   private Organizacion utn;
   private Ubicacion casa;
-  private Ubicacion paradaCasaLinea7;
   private Tramo casaHastaParadaLinea7;
   private ResultadoDistancia resultadoDistancia1;
   private CalculadoraDeDistancia calculadoraMock;
   private Tramo casa2HastaLinea7;
   private Trayecto casa2HastaUTN;
+  private Trayecto orgFalsaHastaCasa2;
 
   @BeforeEach
   void init(){
@@ -30,13 +30,13 @@ public class TrayectoTests {
     utn = inicializador.getUtn();
     casaHastaUTN = inicializador.casaHastaUTN();
     casa = inicializador.getCasa();
-    paradaCasaLinea7 = inicializador.getLinea7();
     casaHastaParadaLinea7 = inicializador.getCasaHastaLinea7();
-    resultadoDistancia1 = new ResultadoDistancia(8000, "m");
+    resultadoDistancia1 = new ResultadoDistancia(8000, "M");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
     casa2HastaLinea7 = inicializador.getCasa2HastaLinea7();
     casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
     casa2HastaUTN = inicializador.getCasa2HastaUTN();
+    orgFalsaHastaCasa2 = inicializador.getOrgFalsaHastaCasa2();
   }
 
   @Test
@@ -52,6 +52,11 @@ public class TrayectoTests {
   @Test
   public void finalDelTrayectoEsUniversidadTecnologicaNacionalFRBA() {
     assertTrue(casaHastaUTN.getTramos().get(1).getDestinoDeTramo().esMismaUbicacionQue(utn.getUbicacion()));
+  }
+
+  @Test
+  public void calculoDeDistanciaDelTrayectoConDosTransportePublico(){
+    assertEquals(7500,orgFalsaHastaCasa2.distanciaTotal());
   }
 
   @Test
