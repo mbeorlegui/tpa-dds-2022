@@ -35,6 +35,7 @@ public class InicializacionTests {
   private VehiculoParticular motoNafta;
   private Miembro unMiembro;
   private Miembro otroMiembro;
+  private Miembro tercerMiembro;
   private Trayecto servicioContratadoYVehiculoParticular;
   private Sector sectorDeRRHH;
   private MedicionRead medicionDeLectura1;
@@ -76,15 +77,16 @@ public class InicializacionTests {
     this.parada4 = parada4();
     this.parada5 = parada5();
     this.parada6 = parada6();
+    this.colectivoLinea7 = colectivoLinea7();
+    this.colectivoLinea157 = colectivoLinea157();
+    this.subteX = subteX();
     this.unMiembro = unMiembro();
     this.otroMiembro = otroMiembro();
+    this.tercerMiembro = tercerMiembro();
     this.contacto1 = contacto1();
     this.sectorDeRRHH = sectorDeRRHH();
     this.utn = unaUniversidadGubernamental();
     this.orgFalsa = orgFalsa();
-    this.colectivoLinea7 = colectivoLinea7();
-    this.colectivoLinea157 = colectivoLinea157();
-    this.subteX = subteX();
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
@@ -142,6 +144,12 @@ public class InicializacionTests {
         "Alejo", "Goltzman", 43978123, Documento.DNI, casaHastaUTN);
   }
 
+  @DisplayName("Instanciar: Otro miembro")
+  public Miembro tercerMiembro() {
+    return new Miembro(
+        "Pepe", "Argento", 18978321, Documento.DNI, casa2HastaUTN);
+  }
+
   @DisplayName("Instanciar: Otra organizacion")
   public Organizacion orgFalsa() {
     Sector unSector = unSector();
@@ -177,12 +185,9 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Trayecto")
   public Trayecto casaHastaUTN() {
-    Tramo casaHastaParadaLinea7 = new Tramo(casa, linea7, new Pie());
-    Tramo paradaLinea7HastaUTN = new Tramo(linea7, ubicacionUtn, colectivoLinea7);
-
     List<Tramo> tramos = new ArrayList<>();
-    tramos.add(casaHastaParadaLinea7);
-    tramos.add(paradaLinea7HastaUTN);
+    tramos.add(casaHastaLinea7);
+    tramos.add(linea7HastaUTN);
     return new Trayecto(tramos);
   }
 
@@ -191,7 +196,7 @@ public class InicializacionTests {
    */
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7() {
-    TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "7");
+    TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"), 0.12, TipoDeTransportePublico.COLECTIVO, "7");
     colectivo7.addParadas(parada3,parada1,parada6,parada5);
     return colectivo7;
   }
