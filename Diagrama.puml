@@ -401,18 +401,9 @@ Medicion -right-> Periodicidad
 Parada --> ResultadoDistancia
 Parada -up-> Ubicacion
 
-class JobScheduler
-
-class OrganizacionJob {
-  void execute()
-}
-
-note left of OrganizacionJob
-  Ejecuta el envio de notificaciones de lunes a viernes a las 17hs
+note top of Organizaciones
+  Ejecuta el envio de notificaciones de lunes a viernes a las 17hs con crontab
 end note
-
-JobScheduler --> OrganizacionJob
-OrganizacionJob --> Organizaciones
 
 
 @enduml
