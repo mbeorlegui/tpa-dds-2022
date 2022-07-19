@@ -2,7 +2,9 @@ package domain.organizacion;
 
 import lombok.Getter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,7 +26,13 @@ public class OrganizacionesRepositorio {
   }
 
   public static void main(String[] args) {
-    System.out.println("Guia de recomendaciones enviada a contactos - Link: " + args[0]);
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date date = new Date(System.currentTimeMillis());
+    String currentDate = formatter.format(date);
+    System.out.println(
+        "[" + currentDate + "] - INFO - Guia de recomendaciones enviada a contactos - Link: "
+            + args[0]
+    );
     enviarGuiaDeRecomendaciones(args[0]);
   }
   // Correr con:
