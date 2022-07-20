@@ -20,15 +20,15 @@ public class InstanciasMiembro {
   @DisplayName("Instanciar: Miembro")
   private Miembro miembro1() {
     return new Miembro("Matias", "Beorlegui", 47813065, Documento.DNI, null);
-  } //agregar trayecto casa hasta utn
+  } //TODO: agregar trayecto casa hasta utn
 
   @DisplayName("Instanciar: Otro miembro")
   private Miembro miembro2() {
     return new Miembro("Alejo", "Goltzman", 43978123, Documento.DNI, null);
-  } //agregar trayecto casa hasta utn
+  } //TODO: agregar trayecto casa hasta utn
 
   @DisplayName("Instanciar: Otro miembro")
   private Miembro miembro3() {
     return new Miembro("Alejo", "Sandrini", 43987654, Documento.DNI, null);
-  } //agregar trayecto casa hasta utn
+  } //TODO: agregar trayecto casa hasta utn
 }

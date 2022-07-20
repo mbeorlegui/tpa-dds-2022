@@ -12,6 +12,7 @@ public class InstanciasUbicacion {
   private Ubicacion ubicacionParadaLinea7;
   private Ubicacion ubicacionUtn;
   private Ubicacion ubicacionOrgFalsa;
+  private Ubicacion estacionamiento;
 
   public InstanciasUbicacion() {
     this.casa = casa();
@@ -20,6 +21,7 @@ public class InstanciasUbicacion {
     this.ubicacionParadaLinea7 = ubicacionParadaLinea7();
     this.ubicacionUtn = ubicacionUtn();
     this.ubicacionOrgFalsa = ubicacionOrgFalsa();
+    this.estacionamiento = estacionamiento();
   }
 
   @DisplayName("Instanciar: Ubicacion")
@@ -50,5 +52,10 @@ public class InstanciasUbicacion {
   @DisplayName("Instanciar: Ubicacion")
   private Ubicacion ubicacionUtn() {
     return new Ubicacion(457, "O'Higgins", "200");
+  }
+
+  @DisplayName("Instanciar: Ubicacion")
+  private Ubicacion estacionamiento() {
+    return new Ubicacion(1, "maipu", "2250");
   }
 }
