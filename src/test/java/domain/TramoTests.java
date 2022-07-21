@@ -23,9 +23,9 @@ public class TramoTests {
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    casaHastaLinea7 = inicializador.casaHastaLinea7();
-    casa2HastaLinea7 = inicializador.casa2HastaLinea7();
-    linea7HastaUTN = inicializador.linea7HastaUTN();
+    casaHastaLinea7 = inicializador.getTramos().getCasaHastaParadaLinea7();
+    casa2HastaLinea7 = inicializador.getTramos().getCasa2HastaParadaLinea7();
+    linea7HastaUTN = inicializador.getTramos().getParadaLinea7HastaUTN();
     resultadoDistancia1 = new ResultadoDistancia(50, "m");
     resultadoDistancia2 = new ResultadoDistancia(10, "km");
     calculadoraMock = mock(CalculadoraDeDistancia.class);

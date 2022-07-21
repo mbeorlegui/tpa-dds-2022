@@ -13,10 +13,10 @@ public class InstanciasTransporte {
   private Bicicleta bicicleta;
   private ServicioContratado taxi;
   private VehiculoParticular motoNafta;
+  private VehiculoParticular auto;
   private Pie pie;
 
-  public InstanciasTransporte() {
-    InstanciasParada paradas = new InstanciasParada();
+  public InstanciasTransporte(InstanciasParada paradas) {
     this.colectivoLinea7 = colectivoLinea7(paradas.getParada3(),paradas.getParada1(),
         paradas.getParada6(),paradas.getParada5());
     this.colectivoLinea157 = colectivoLinea157(paradas.getParada3(), paradas.getParada4());
@@ -25,6 +25,7 @@ public class InstanciasTransporte {
     this.bicicleta = bicicleta();
     this.taxi = taxi();
     this.motoNafta = motoNafta();
+    this.auto = auto();
     this.pie = pie();
   }
 
@@ -61,6 +62,12 @@ public class InstanciasTransporte {
   private VehiculoParticular motoNafta() {
     return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
         100.0, TipoDeVehiculo.MOTO);
+  }
+
+  @DisplayName("Instanciar: Auto")
+  private VehiculoParticular auto() {
+    return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
+        100.0, TipoDeVehiculo.AUTO);
   }
 
   @DisplayName("Instanciar: Bicicleta")

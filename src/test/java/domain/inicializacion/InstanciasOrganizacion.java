@@ -16,14 +16,11 @@ public class InstanciasOrganizacion {
   private Organizacion utn;
   private Organizacion orgFalsa;
 
-  public InstanciasOrganizacion() {
-    InstanciasUbicacion ubicaciones = new InstanciasUbicacion();
-    InstanciasMiembro miembros = new InstanciasMiembro();
-    InstanciasContacto contactos = new InstanciasContacto();
+  public InstanciasOrganizacion(InstanciasUbicacion ubicaciones, InstanciasMiembro miembros, InstanciasContacto contactos) {
     this.sectorDeRRHH = unSector(miembros.getMiembro2());
     this.sectorDesarrollo = unSector(miembros.getMiembro1());
     this.utn = unaUniversidadGubernamental(ubicaciones.getUbicacionUtn());
-    this.utn.addSectores(sectorDeRRHH);
+    this.utn.addSectores(sectorDeRRHH, new Sector(), new Sector());
     this.utn.agregarContactos(contactos.getContacto1());
     this.orgFalsa = unaEmpresaSectorPrimario(ubicaciones.getUbicacionOrgFalsa());
     this.orgFalsa.addSectores(sectorDesarrollo, sectorDeRRHH);

@@ -12,8 +12,7 @@ public class InstanciasTrayecto {
   private Trayecto casa2HastaUTN;
   private Trayecto servicioContratadoYVehiculoParticular;
 
-  public InstanciasTrayecto() {
-    InstanciasTramo tramos = new InstanciasTramo();
+  public InstanciasTrayecto(InstanciasTramo tramos) {
     this.casaHastaUTN = casaHastaUTN(tramos.getCasaHastaParadaLinea7(),
         tramos.getParadaLinea7HastaUTN());
     this.casa2HastaUTN = casa2HastaUTN(tramos.getCasa2HastaParadaLinea7(),

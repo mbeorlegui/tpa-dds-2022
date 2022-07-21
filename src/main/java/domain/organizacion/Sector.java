@@ -27,7 +27,7 @@ public class Sector {
   }
 
   public void addMiembros(Miembro... miembros) {
-    Arrays.stream(miembros).forEach(miembro -> addMiembros(miembro));
+    Arrays.stream(miembros).forEach(this::addMiembro);
   }
 
   public double calcularHuellaDeCarbono(Periodicidad periodicidad) {

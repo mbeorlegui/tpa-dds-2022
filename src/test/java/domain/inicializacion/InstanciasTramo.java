@@ -14,43 +14,42 @@ public class InstanciasTramo {
   private Tramo casaHastaEstacionamiento;
   private Tramo estacionamientoHastaOrgFalsa;
 
-  public InstanciasTramo() {
-    InstanciasUbicacion ubicaciones = new InstanciasUbicacion();
+  public InstanciasTramo(InstanciasUbicacion ubicaciones, InstanciasTransporte transportes) {
     this.casaHastaParadaLinea7 = casaHastaParadaLinea7(ubicaciones.getCasa(),
-        ubicaciones.getUbicacionParadaLinea7());
+        ubicaciones.getUbicacionParadaLinea7(), transportes.getPie());
     this.casa2HastaParadaLinea7 = casa2HastaParadaLinea7(ubicaciones.getCasa2(),
-        ubicaciones.getUbicacionParadaLinea7());
+        ubicaciones.getUbicacionParadaLinea7(), transportes.getTaxi());
     this.paradaLinea7HastaUTN = paradaLinea7HastaUTN(ubicaciones.getUbicacionParadaLinea7(),
-        ubicaciones.getUbicacionUtn());
+        ubicaciones.getUbicacionUtn(), transportes.getColectivoLinea7());
     this.casaHastaEstacionamiento = casaHastaEstacionamiento(ubicaciones.getCasa(),
-        ubicaciones.getEstacionamiento());
+        ubicaciones.getEstacionamiento(), transportes.getTaxi());
     this.estacionamientoHastaOrgFalsa = estacionamientoHastaOrgFalsa(
         ubicaciones.getEstacionamiento(),
-        ubicaciones.getUbicacionOrgFalsa());
+        ubicaciones.getUbicacionOrgFalsa(), transportes.getAuto());
   }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo casaHastaParadaLinea7(Ubicacion casa, Ubicacion linea7) {
-    return new Tramo(casa, linea7, new Pie());
+  private Tramo casaHastaParadaLinea7(Ubicacion casa, Ubicacion linea7, Transporte transporte) {
+    return new Tramo(casa, linea7, transporte);
   }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo casaHastaEstacionamiento(Ubicacion casa, Ubicacion estacionamiento) {
-    return new Tramo(casa, estacionamiento, new Pie());
-  } //TODO: cambiar transporte a taxi
+  private Tramo casaHastaEstacionamiento(Ubicacion casa, Ubicacion estacionamiento, Transporte transporte) {
+    return new Tramo(casa, estacionamiento, transporte);
+  }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo estacionamientoHastaOrgFalsa(Ubicacion estacionamiento, Ubicacion orgFalsa) {
-    return new Tramo(estacionamiento, orgFalsa, new Pie());
-  } //TODO: cambiar transporte a auto
+  private Tramo estacionamientoHastaOrgFalsa(Ubicacion estacionamiento, Ubicacion orgFalsa, Transporte transporte) {
+    return new Tramo(estacionamiento, orgFalsa, transporte);
+  }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo casa2HastaParadaLinea7(Ubicacion casa2, Ubicacion linea7) {
-    return new Tramo(casa2, linea7, new Pie());
-  } //TODO: cambiar transporte a taxi
+  private Tramo casa2HastaParadaLinea7(Ubicacion casa2, Ubicacion linea7, Transporte transporte) {
+    return new Tramo(casa2, linea7, transporte);
+  }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo paradaLinea7HastaUTN(Ubicacion linea7, Ubicacion ubicacionUtn) {
-    return new Tramo(linea7, ubicacionUtn, new Pie());
-  } //TODO: cambiar transporte a colectivo 7
+  private Tramo paradaLinea7HastaUTN(Ubicacion linea7, Ubicacion ubicacionUtn, Transporte transporte) {
+    return new Tramo(linea7, ubicacionUtn, transporte);
+  }
 }

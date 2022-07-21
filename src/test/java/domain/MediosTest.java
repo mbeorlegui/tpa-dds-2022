@@ -1,7 +1,5 @@
 package domain;
 
-import static org.mockito.Mockito.*;
-
 import domain.medios.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +15,7 @@ public class MediosTest {
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    contacto1 = inicializador.getContacto1();
+    contacto1 = inicializador.getContactos().getContacto1();
   }
 
   @DisplayName("Contacto tiene nombre correcto")
