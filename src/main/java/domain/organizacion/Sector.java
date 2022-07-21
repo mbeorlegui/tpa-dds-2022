@@ -5,6 +5,7 @@ import domain.miembro.Miembro;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Sector {
@@ -23,6 +24,10 @@ public class Sector {
     if (!miembros.contains(miembro)) {
       miembros.add(miembro);
     }
+  }
+
+  public void addMiembros(Miembro... miembros) {
+    Arrays.stream(miembros).forEach(miembro -> addMiembros(miembro));
   }
 
   public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
