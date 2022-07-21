@@ -57,7 +57,7 @@ public class InicializacionTests {
   private Contacto contacto1;
   private Medicion medicionEstandar;
   //TODO: Separar (Medicion, MedicionAdapter, MedicionRead, CsvHandler), Contacto,
-  // (Sector, Organizacion), Transportes
+  // (Sector, Organizacion)
 
   public InicializacionTests() {
     this.casa = casa();
