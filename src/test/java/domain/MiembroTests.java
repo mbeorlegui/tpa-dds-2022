@@ -19,10 +19,10 @@ public class MiembroTests {
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    utn = inicializador.getUtn();
-    orgFalsa = inicializador.getOrgFalsa();
-    miembro1 = inicializador.getUnMiembro();
-    miembro2 = inicializador.getOtroMiembro();
+    utn = inicializador.getOrganizaciones().getUtn();
+    orgFalsa = inicializador.getOrganizaciones().getOrgFalsa();
+    miembro1 = inicializador.getMiembros().getMiembro1();
+    miembro2 = inicializador.getMiembros().getMiembro2();
   }
 
   @DisplayName("Al agregar varios sectores a Miembro sin repetir")

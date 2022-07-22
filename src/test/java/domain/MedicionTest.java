@@ -24,13 +24,16 @@ public class MedicionTest {
   @BeforeEach
   void initOrganizacion() {
     InicializacionTests inicializador = new InicializacionTests();
-    organizacion = inicializador.getUtn();
-    otraOrganizacion = inicializador.getOrgFalsa();
-    MedicionAdapter medicionAdapter = inicializador.getUnAdapterDeMedicion();
-    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura1());
-    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura2());
-    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(inicializador.getMedicionDeLectura3());
-    csvHandler = inicializador.csvHandler();
+    organizacion = inicializador.getOrganizaciones().getUtn();
+    otraOrganizacion = inicializador.getOrganizaciones().getOrgFalsa();
+    MedicionAdapter medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
+    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(
+        inicializador.getMediciones().getMedicionDeLectura1());
+    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(
+        inicializador.getMediciones().getMedicionDeLectura2());
+    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(
+        inicializador.getMediciones().getMedicionDeLectura3());
+    csvHandler = inicializador.getMediciones().csvHandler();
   }
 
   @DisplayName("Creo una medicion, la transformo y la agrego a la organizacion")

@@ -9,7 +9,6 @@ import domain.services.apidistancias.entities.ResultadoDistancia;
 import org.junit.jupiter.api.BeforeEach;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.exceptions.NonMemberException;
-import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Sector;
@@ -20,8 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class OrganizacionTests {
   private Organizacion utn;
@@ -41,16 +38,17 @@ public class OrganizacionTests {
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    utn = inicializador.getUtn();
-    sectorRRHH = inicializador.getSectorDeRRHH();
-    orgFalsa = inicializador.getOrgFalsa();
-    miembro1 = inicializador.getUnMiembro();
-    miembro2 = inicializador.getOtroMiembro();
-    miembro3 = new Miembro("Alejo", "Sandrini", 43987654, Documento.DNI, casaHastaUTN);
-    trayectoConServicioContratadoYVehiculoParticular = inicializador.getServicioContratadoYVehiculoParticular();
-    casaHastaUTN = inicializador.getCasaHastaUTN();
-    medicionAdapter = inicializador.getUnAdapterDeMedicion();
-    unaMedicion = inicializador.getMedicionEstandar();
+    utn = inicializador.getOrganizaciones().getUtn();
+    sectorRRHH = inicializador.getOrganizaciones().getSectorDeRRHH();
+    orgFalsa = inicializador.getOrganizaciones().getOrgFalsa();
+    miembro1 = inicializador.getMiembros().getMiembro1();
+    miembro2 = inicializador.getMiembros().getMiembro2();
+    miembro3 = inicializador.getMiembros().getMiembro3();
+    trayectoConServicioContratadoYVehiculoParticular = inicializador.getTrayectos()
+        .getServicioContratadoYVehiculoParticular();
+    casaHastaUTN = inicializador.getTrayectos().getCasaHastaUTN();
+    medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
+    unaMedicion = inicializador.getMediciones().getMedicionEstandar();
     resultadoDistancia1 = new ResultadoDistancia(3000, "m");
   }
 
@@ -138,16 +136,12 @@ public class OrganizacionTests {
   @DisplayName("A miembros que no son de la misma organizacion NO se les puede asignar el mismo trayecto")
   @Test
   public void aMiembrosQueNoSonDeLaMismaOrganizacionNoSeLesPuedeAsignarElMismoTrayecto() {
-    assertThrows(NonMemberException.class, () -> {
-      orgFalsa.asignarTrayectoA(trayectoConServicioContratadoYVehiculoParticular, miembro1, miembro3);
-    });
+    assertThrows(NonMemberException.class, () -> orgFalsa.asignarTrayectoA(trayectoConServicioContratadoYVehiculoParticular, miembro1, miembro3));
   }
 
   @DisplayName("A miembros de la misma organizacion NO se les puede asignar un trayecto en colectivo")
   @Test
   public void aMiembrosDeLaMismaOrganizacionNoSeLesPuedeAsignarUnTrayectoEnColectivo() {
-    assertThrows(NoPuedeSerTrayectoCompartidoException.class, () -> {
-      orgFalsa.asignarTrayectoA(casaHastaUTN, miembro1, miembro2);
-    });
+    assertThrows(NoPuedeSerTrayectoCompartidoException.class, () -> orgFalsa.asignarTrayectoA(casaHastaUTN, miembro1, miembro2));
   }
 }
