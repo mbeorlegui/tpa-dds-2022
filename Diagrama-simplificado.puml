@@ -1,4 +1,4 @@
-@startuml TPA-3
+@startuml TPA-3-Simplificado
 
 class Organizacion {
   razonSocial : String
@@ -9,15 +9,6 @@ class Organizacion {
   mediciones : List<Medicion>
   contactos : List<Contacto>
   mediosDeComunicacion : List<MediosDeComunicacion>
-  bool tieneSectorDe(Sector)
-  int cantidadDeSectores()
-  int cantidadDeMiembros()
-  bool esMiembro(Miembro miembro)
-  List<Miembro> getMiembros()
-  void verificarQueSeanMiembros(Miembro[])
-  void asignarTrayectoA(Trayecto, List<Miembro>)
-  void agregarMediciones()
-  void agregarContacto(Contacto)
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
   double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
@@ -25,7 +16,8 @@ class Organizacion {
   double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
   void enviarGuiaDeRecomendaciones(String link)
 }
-' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
+' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro,
+' y divido el resultado para obtener el porcentaje 
 ' verificarQueSeanMiembros -> valida que en la lista de miembros todos pertenezcan a la organizacion
 ' asignarTrayectoA -> llama a verificarQueSeanMiembros para lista de miembros,
 ' y verificarQuePuedaSerAsignadoAMiembros para el trayecto, si pasan las validaciones,
@@ -41,24 +33,15 @@ class Organizaciones <<(S,#FF7700) Singleton>> {
   organizaciones : List<Organizacion>
   void enviarGuiaDeRecomendaciones(String link)
 }
-' Singleton
 
-Organizacion -up->"*" Contacto
+Organizacion -right->"*" Contacto
 Organizaciones -->"*" Organizacion
-Organizaciones -up->"*" MediosDeComunicacion
+Organizaciones -right->"*" MediosDeComunicacion
 
 interface MediosDeComunicacion {
   void enviarNotificacion(String link) 
-  ' Se ejecuta con tarea programada
 }
 
-class WhatsApp {
-  
-}
-
-class Email {
-  
-}
 
 MediosDeComunicacion <|-up- WhatsApp
 MediosDeComunicacion <|-up- Email
@@ -67,58 +50,23 @@ class SectorTerritorial {
   organizaciones : List<Organizacion>
 }
 
-SectorTerritorial -->"*" Organizacion
+SectorTerritorial -left->"*" Organizacion
 
 class TiposConsumos <<(S,#FF7700) Singleton>> {
   consumos : List<TipoConsumo>
 }
 
-' TiposConsumos.getInstance().getConsumos().get(0)
-' TipoConsumo gasNatural = new TipoConsumo(
-'   Actividad.COMBUSTION_FIJA,
-'   Alcance.EMISION_DIRECTA,
-'   Unidad.M3,
-'   500
-' );
-
 ' TiposConsumos es singleton (repositorio de objetos)
 TiposConsumos -left->"*" TipoConsumo
-TipoConsumo --> Actividad
-TipoConsumo --> Alcance
-TipoConsumo --> Unidad
 
 class TipoConsumo {
   actividad : Actividad
   alcance : Alcance
   unidad : Unidad
   factorDeEmision : Double
-  'nombre : String --> es necesario?
   double calcularHuellaDeCarbono()
 }
 ' void setFactorDeEmision(double)
-
-enum Actividad {
-  COMBUSTION_FIJA,
-  COMBUSTION_MOVIL,
-  ELECTRICIDAD,
-  LOGISTICA,
-}
-
-enum Alcance {
-  EMISIONES_DIRECTAS,
-  EMISIONES_INDIRECTAS,
-  OTRAS_EMISIONES,
-}
-
-enum Unidad {
-  M3,
-  LT,
-  KGS,
-  LTS,
-  KWH,
-  KM,
-  SIN_UNIDAD,
-}
 
 
 class Medicion {
@@ -129,11 +77,6 @@ class Medicion {
   double huellaDeCarbono()
 }
 
-
-enum Periodicidad {
-  MENSUAL,
-  ANUAL,
-}
 class Ubicacion {
   localidadId : Integer
   calle : String
@@ -154,26 +97,6 @@ class Miembro {
   double calcularHuellaDeCarbono(Periodicidad)
 }
 
-enum Documento {
-  DNI,
-  LIBRETA,
-}
-
-enum TipoOrganizacion {
-  GUBERNAMENTAL,
-  ONG,
-  EMPRESA,
-  INSTITUCION,
-}
-
-enum Clasificacion {
-  MINISTERIO,
-  UNIVERSIDAD,
-  ESCUELA,
-  EMPRESA_DEL_SECTOR_PRIMARIO,
-  EMPRESA_DEL_SECTOR_SECUNDARIO,
-}
-
 ' Usamos strategy para los medios de transportes
 abstract Transporte {
   combustible : TipoConsumo
@@ -185,13 +108,6 @@ abstract Transporte {
   double huellaDeCarbonoDeDistancia(double)
 }
 
-enum TipoTransporte {
-  PUBLICO,
-  PARTICULAR,
-  CONTRATADO,
-  BICICLETA,
-  PIE,
-}
 
 class VehiculoParticular {
   tipoDeVehiculo : TipoDeVehiculo
@@ -223,23 +139,6 @@ class Bicicleta {
 
 }
 
-
-enum TipoDeTransportePublico {
-  SUBTE,
-  TREN,
-  COLECTIVO,
-}
-
-enum TipoDeVehiculo {
-  AUTO,
-  MOTO,
-  CAMIONETA,
-}
-
-enum TipoDeServicioContratado{
-  TAXI,
-  REMIS,
-}
 
 class Tramo {
   origenDeTramo : Ubicacion
@@ -295,52 +194,11 @@ class PasswordValidator {
   void ejecutarValidaciones()
 }
 
-class FileHandler {
-  bool palabraEstaEnArchivo(unaPalabra)
-}
 
 abstract class Validator {
   password : String
   user : String
   abstract void ejecutarValidacion()
-}
-
-class PasswordMatchesInvalidCharactersValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordIsCommonValidator {
-  fileReader : FileHandler
-  void ejecutarValidacion()
-}
-
-class PasswordHasOnlyLettersValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordContainsUserValidator {
-  void ejecutarValidacion()
-}
-
-
-class PasswordHasOnlyNumbersAndLettersValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordHasOnlyNumbersValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordMaxLengthValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordMinLengthValidator {
-  void ejecutarValidacion()
-}
-
-class PasswordNullValidator {
-  void ejecutarValidacion()
 }
 
 class CsvHandler {
@@ -352,21 +210,9 @@ CsvHandler --> Medicion
 Administrador .left.> TiposConsumos
 Administrador -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
-Validator <|-down- PasswordIsCommonValidator
-PasswordIsCommonValidator -down->"1" FileHandler
-Validator <|-down- PasswordHasOnlyLettersValidator
-Validator <|-down- PasswordContainsUserValidator
-Validator <|-down- PasswordHasOnlyNumbersAndLettersValidator
-Validator <|-left- PasswordHasOnlyNumbersValidator
-Validator <|-right- PasswordMaxLengthValidator
-Validator <|-left- PasswordMinLengthValidator
-Validator <|-right- PasswordNullValidator
-Validator <|-down- PasswordMatchesInvalidCharactersValidator
 
 
 Miembro "*"<-up- Sector
-Organizacion -up-> TipoOrganizacion
-Organizacion -right-> Clasificacion
 Organizacion -down-> Ubicacion
 Organizacion -up->"*" Sector
 Miembro -up-> Documento
@@ -377,11 +223,7 @@ Tramo --> Transporte
 Tramo -right-> Ubicacion
 Tramo -right-> Ubicacion
 
-Transporte -right-> TipoTransporte
 TransportePublico -left->"*" Parada
-TransportePublico -right-> TipoDeTransportePublico
-VehiculoParticular -down-> TipoDeVehiculo
-ServicioContratado -down-> TipoDeServicioContratado
 TransportePublico -up-|> Transporte
 VehiculoParticular -up-|> Transporte
 Pie -up-|> Transporte
@@ -392,18 +234,17 @@ Transporte -up-> TipoConsumo
 
 Organizacion ..> Trayecto
 Tramo --> CalculadoraDeDistancia
-CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
+CalculadoraDeDistanciaRetrofit .down.|> CalculadoraDeDistancia
 
 Organizacion -down-> Medicion
 Medicion --> TipoConsumo
 Medicion -right-> Periodicidad
 
-Parada --> ResultadoDistancia
+Parada -left-> ResultadoDistancia
 Parada -up-> Ubicacion
 
 note top of Organizaciones
   Ejecuta el envio de notificaciones de lunes a viernes a las 17hs con crontab
 end note
-
 
 @enduml

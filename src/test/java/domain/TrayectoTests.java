@@ -3,7 +3,6 @@ package domain;
 import domain.organizacion.Organizacion;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.entities.ResultadoDistancia;
-import domain.transporte.Pie;
 import domain.trayecto.*;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,16 +26,16 @@ public class TrayectoTests {
   @BeforeEach
   void init(){
     InicializacionTests inicializador = new InicializacionTests();
-    utn = inicializador.getUtn();
-    casaHastaUTN = inicializador.casaHastaUTN();
-    casa = inicializador.getCasa();
-    casaHastaParadaLinea7 = inicializador.getCasaHastaLinea7();
-    resultadoDistancia1 = new ResultadoDistancia(8000, "M");
+    utn = inicializador.getOrganizaciones().getUtn();
+    casaHastaUTN = inicializador.getTrayectos().getCasaHastaUTN();
+    casa = inicializador.getUbicaciones().getCasa();
+    casaHastaParadaLinea7 = inicializador.getTramos().getCasaHastaParadaLinea7();
+    resultadoDistancia1 = new ResultadoDistancia(8000, "m");
     calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casa2HastaLinea7 = inicializador.getCasa2HastaLinea7();
+    casa2HastaLinea7 = inicializador.getTramos().getCasa2HastaParadaLinea7();
     casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
-    casa2HastaUTN = inicializador.getCasa2HastaUTN();
-    orgFalsaHastaCasa2 = inicializador.getOrgFalsaHastaCasa2();
+    casa2HastaUTN = inicializador.getTrayectos().getCasa2HastaUTN();
+    orgFalsaHastaCasa2 = inicializador.getTrayectos().getOrgFalsaHastaCasa2();
   }
 
   @Test

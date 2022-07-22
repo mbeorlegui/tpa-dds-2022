@@ -1,14 +1,10 @@
 package domain;
 
-import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.*;
-import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-//import java.io.FileNotFoundException; para que era FileNotFoundException? estaba en todos los metodos
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,15 +22,15 @@ public class TransporteTests {
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
-    parada1 = inicializador.getParada1();
-    parada2 = inicializador.getParada2();
-    parada3 = inicializador.getParada3();
-    parada4 = inicializador.getParada4();
-    bicicleta = inicializador.getBicicleta();
-    colectivoLinea157 = inicializador.getColectivoLinea157();
-    taxi = inicializador.getTaxi();
-    motoNafta = inicializador.getMotoNafta();
-    subteX = inicializador.getSubteX();
+    parada1 = inicializador.getParadas().getParada1();
+    parada2 = inicializador.getParadas().getParada2();
+    parada3 = inicializador.getParadas().getParada3();
+    parada4 = inicializador.getParadas().getParada4();
+    bicicleta = inicializador.getTransportes().getBicicleta();
+    colectivoLinea157 = inicializador.getTransportes().getColectivoLinea157();
+    taxi = inicializador.getTransportes().getTaxi();
+    motoNafta = inicializador.getTransportes().getMotoNafta();
+    subteX = inicializador.getTransportes().getSubteX();
 
   }
 

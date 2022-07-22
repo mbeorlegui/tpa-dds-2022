@@ -43,11 +43,14 @@ public class Organizacion {
     this.clasificacion = clasificacion;
   }
 
-
   public void addSector(Sector sector) {
     if (!tieneSectorDe(sector)) {
       sectores.add(sector);
     }
+  }
+
+  public void addSectores(Sector... sectores) {
+    Arrays.stream(sectores).forEach(sector -> addSector(sector));
   }
 
   public List<Miembro> getMiembros() {
@@ -127,6 +130,11 @@ public class Organizacion {
 
   public void agregarContacto(Contacto contacto) {
     contactos.add(contacto);
+    //TODO: verificar que tenga contacto antes de agregar
+  }
+
+  public void agregarContactos(Contacto... contactos) {
+    Arrays.stream(contactos).forEach(contacto -> agregarContacto(contacto));
   }
 
   public void agregarMedioDeComunicacion(MedioDeComunicacion medioDeComunicacion) {
