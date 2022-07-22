@@ -1,6 +1,6 @@
 package domain.transporte;
 
-import domain.medicion.*;
+import domain.medicion.TiposConsumos;
 import domain.ubicacion.Ubicacion;
 
 public class Pie extends Transporte {

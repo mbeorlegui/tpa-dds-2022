@@ -1,6 +1,5 @@
 package domain.services.apidistancias.entities;
 
-import domain.medicion.Unidad;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,13 +18,13 @@ public class ResultadoDistancia {
   public double obtenerKilometros() {
     //TODO: dependiendo de la unidad pasar a kilometros, rehacer y ver hacer enum de Unidad
     double valorEnKm = valor;
-    if(esUnidadEnMetros()){
+    if (esUnidadEnMetros()) {
       valorEnKm = valorEnKm / 1000.0;
     }
     return valorEnKm;
   }
 
-  public boolean esUnidadEnMetros(){
+  public boolean esUnidadEnMetros() {
     return this.unidad.equals("M") || this.unidad.equals("m");
   }
 }
