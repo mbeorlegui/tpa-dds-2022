@@ -13,14 +13,16 @@ import org.junit.jupiter.api.DisplayName;
 public class InstanciasOrganizacion {
   private Sector sectorDeRRHH;
   private Sector sectorDesarrollo;
+  private Sector sectorFinanzas;
   private Organizacion utn;
   private Organizacion orgFalsa;
 
   public InstanciasOrganizacion(InstanciasUbicacion ubicaciones, InstanciasMiembro miembros, InstanciasContacto contactos) {
     this.sectorDeRRHH = unSector(miembros.getMiembro2());
     this.sectorDesarrollo = unSector(miembros.getMiembro1());
+    this.sectorFinanzas = unSector(miembros.getMiembro6());
     this.utn = unaUniversidadGubernamental(ubicaciones.getUbicacionUtn());
-    this.utn.addSectores(sectorDeRRHH, new Sector(), new Sector());
+    this.utn.addSectores(sectorDeRRHH, sectorFinanzas, new Sector());
     this.utn.agregarContactos(contactos.getContacto1());
     this.orgFalsa = unaEmpresaSectorPrimario(ubicaciones.getUbicacionOrgFalsa());
     this.orgFalsa.addSectores(sectorDesarrollo, sectorDeRRHH);

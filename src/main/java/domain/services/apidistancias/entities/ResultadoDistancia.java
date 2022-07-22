@@ -19,9 +19,9 @@ public class ResultadoDistancia {
   public double obtenerKilometros() {
     //TODO: dependiendo de la unidad pasar a kilometros, rehacer y ver hacer enum de Unidad
     double valorEnKm = valor;
-//    if(esUnidadEnMetros()){
-//      valorEnKm = valorEnKm / 1000.0;
-//    }
+    if(esUnidadEnMetros()){
+      valorEnKm = valorEnKm / 1000.0;
+    }
     return valorEnKm;
   }
 

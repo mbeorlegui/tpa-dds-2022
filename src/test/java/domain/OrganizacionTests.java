@@ -41,7 +41,7 @@ public class OrganizacionTests {
   private Tramo casa2HastaLinea7;
   private Tramo casaHastaLinea7;
   private Trayecto casa2HastaUTN;
-  private Medicion unaMedicionAdaptada;
+  private Medicion medicionAdaptada2;
 
   @BeforeEach
   void init() {
@@ -64,9 +64,13 @@ public class OrganizacionTests {
     casaHastaLinea7 = inicializador.getTramos().getCasaHastaParadaLinea7();
     casa2HastaLinea7 = inicializador.getTramos().getCasa2HastaParadaLinea7();
     casa2HastaUTN = inicializador.getTrayectos().getCasa2HastaUTN();
-    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(
-        inicializador.getMediciones().getMedicionDeLectura1());
-    utn.agregarMedicion(unaMedicionAdaptada);
+    medicionAdaptada2 = medicionAdapter.adaptarMedicion(
+        inicializador.getMediciones().getMedicionDeLectura2());
+    utn.agregarMedicion(medicionAdaptada2);
+    utn.agregarMedicion(unaMedicion);
+    calculadoraMock = mock(CalculadoraDeDistancia.class);
+    casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
+    casaHastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -103,8 +107,8 @@ public class OrganizacionTests {
 
   @DisplayName("La Universidad tiene 1 miembro")
   @Test
-  public void laUniversidadTieneUnEmpleado() {
-    assertEquals(utn.cantidadDeMiembros(), 1);
+  public void laUniversidadTieneDosEmpleados() {
+    assertEquals(utn.cantidadDeMiembros(), 2);
   }
 
   @DisplayName("La Universidad tiene 1 contacto")
@@ -115,8 +119,8 @@ public class OrganizacionTests {
 
   @DisplayName("La utn tiene 1 trayecto")
   @Test
-  public void laUtnTieneUnTrayecto() {
-    assertEquals(utn.getTrayectos().size(), 1);
+  public void laUtnTieneDosTrayectos() {
+    assertEquals(utn.getTrayectos().size(), 2);
   }
 
 
@@ -129,14 +133,12 @@ public class OrganizacionTests {
   @DisplayName("la medicion que agrego es del periodo correcto ")
   @Test
   public void utnTieneMedicionDePeriodoCorrecto() {
-    utn.agregarMedicion(unaMedicion);
-    assertTrue(utn.getMediciones().get(0).esDePeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertTrue(utn.getMediciones().get(1).esDePeriodo(Periodicidad.MENSUAL, "03/2022"));
   }
 
   @DisplayName("Puedo agregar una medicion a la UTN")
   @Test
   public void utnTieneUnaMedicion() {
-    utn.agregarMedicion(unaMedicion);
     assertEquals(utn.getMediciones().size(), 2);
     assertNotNull(utn.getMediciones().get(0));
     assertEquals(utn.getMediciones().get(1), unaMedicion);
@@ -167,24 +169,18 @@ public class OrganizacionTests {
   @DisplayName("la medicion que agrego es del periodo correcto ")
   @Test
   public void impactoMiembro6SobreHuellaCarbonoDeUTN() {
-    Sector nuevoSector = new Sector();
-    nuevoSector.addMiembro(miembro6);
-    utn.addSector(nuevoSector);
-    utn.getMiembros().get(1).setTrayecto(casa2HastaUTN);
-    calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
-    casaHastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
     when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
         .thenReturn(resultadoDistancia2.getValor());
     when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
         .thenReturn(0.0);
-    //hc del miembro6 = 652000 * 20 (dias trabajados mensual)= 13040000
-    //hc del miembro1 = 252000 * 20 = 5040000
-    //la suma de ambos es 18080000
-    double impactoMiembro6 = 13040000.0 / 18130000.0; // es igual a 0.71924986210
-    assertEquals(13040000, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL));
-    //assertEquals(18080000, utn.hcTrayectosMiembros(Periodicidad.MENSUAL));
-    assertEquals(18130000, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    //hc del miembro6 = 32.18 * 20 (dias trabajados mensual)= 643.6
+    //hc del miembro1 = 28.98 * 20 = 579.6
+    //la suma de ambos es 1223.2 = hc Trayectos
+    double impactoMiembro6 = 643.6 / 3643.2; // es igual a 0.17665788317
+    assertEquals(643.6, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL));
+    assertEquals(1223.2, utn.hcTrayectosMiembros(Periodicidad.MENSUAL));
+    assertEquals(2420.0, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
     assertEquals(impactoMiembro6, utn.impactoMiembroSobreHC(miembro6,Periodicidad.MENSUAL,"03/2022"));
   }
 }

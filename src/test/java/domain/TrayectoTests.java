@@ -55,14 +55,14 @@ public class TrayectoTests {
 
   @Test
   public void calculoDeDistanciaDelTrayectoConDosTransportePublico(){
-    assertEquals(7500,orgFalsaHastaCasa2.distanciaTotal());
+    assertEquals(7.5,orgFalsaHastaCasa2.distanciaTotal());
   }
 
   @Test
   public void calculoDeDistanciaDelTrayectoConDosTransportes(){
     when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
         .thenReturn(resultadoDistancia1.getValor());
-    assertEquals(12200,casa2HastaUTN.distanciaTotal());
+    assertEquals(8004.2,casa2HastaUTN.distanciaTotal());
   }
 
 }

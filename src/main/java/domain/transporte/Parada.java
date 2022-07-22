@@ -28,7 +28,7 @@ public class Parada {
   public void modificarDistanciaSiguienteParada(Parada nuevaParada) {
     ResultadoDistancia nuevaDistacia = new ResultadoDistancia(
         this.getDistanciaSiguienteParada() - nuevaParada.getDistanciaSiguienteParada(),
-        this.getUnidadDistancia());
+        "KM");
     this.setDistanciaSiguienteParada(nuevaDistacia);
   }
 }

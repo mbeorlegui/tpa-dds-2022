@@ -32,7 +32,7 @@ public class InstanciasTransporte {
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7(Parada... paradas) {
     TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
-        "GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "7");
+        "NAFTA"), 3.0, TipoDeTransportePublico.COLECTIVO, "7");
     colectivo7.addParadas(paradas);
     return colectivo7;
   }
@@ -40,7 +40,7 @@ public class InstanciasTransporte {
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX(Parada... paradas) {
     TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
-        "GAS_NATURAL"), 100.0, TipoDeTransportePublico.SUBTE, "X");
+        "DIESEL_GASOIL"), 0.5, TipoDeTransportePublico.SUBTE, "X");
     subte.addParadas(paradas);
     return subte;
   }
@@ -48,7 +48,7 @@ public class InstanciasTransporte {
   @DisplayName("Instanciar: Colectivo linea 157")
   private TransportePublico colectivoLinea157(Parada... paradas) {
     TransportePublico bondi = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
-        "GAS_NATURAL"), 100.0, TipoDeTransportePublico.COLECTIVO, "157");
+        "NAFTA"), 3.0, TipoDeTransportePublico.COLECTIVO, "157");
     bondi.addParadas(paradas);
     return bondi;
   }
@@ -56,18 +56,18 @@ public class InstanciasTransporte {
   @DisplayName("Instanciar: Taxi")
   private ServicioContratado taxi() {
     return new ServicioContratado(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
-        100.0, TipoDeServicioContratado.TAXI);
+        2.0, TipoDeServicioContratado.TAXI);
   }
   @DisplayName("Instanciar: Moto que usa nafta")
   private VehiculoParticular motoNafta() {
     return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
-        100.0, TipoDeVehiculo.MOTO);
+        1.2, TipoDeVehiculo.MOTO);
   }
 
   @DisplayName("Instanciar: Auto")
   private VehiculoParticular auto() {
-    return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
-        100.0, TipoDeVehiculo.AUTO);
+    return new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("DIESEL_GASOIL"),
+        2.5, TipoDeVehiculo.AUTO);
   }
 
   @DisplayName("Instanciar: Bicicleta")

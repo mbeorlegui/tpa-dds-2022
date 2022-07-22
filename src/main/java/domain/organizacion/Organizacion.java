@@ -146,14 +146,14 @@ public class Organizacion {
         + hcTrayectosMiembros(periodicidad);
   }
 
-  private double hcTrayectosMiembros(Periodicidad periodicidad) {
+  public double hcTrayectosMiembros(Periodicidad periodicidad) {
     return this.getTrayectos()
         .stream()
         .mapToDouble(trayecto -> trayecto.huellaDeCarbonoEnPeriodo(periodicidad))
         .sum();
   }
 
-  private double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+  public double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
     return this.medicionesEnPeriodo(periodicidad, periodoDeImputacion)
         .stream()
         .mapToDouble(medicion -> medicion.huellaDeCarbono())
