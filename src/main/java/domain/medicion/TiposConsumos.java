@@ -9,7 +9,7 @@ public class TiposConsumos {
   private TipoConsumo gasNatural = new TipoConsumo(Actividad.COMBUSTION_FIJA,
       Alcance.EMISION_DIRECTA, Unidad.M3, 0.2, "GAS_NATURAL");
   private TipoConsumo dieselGasoil = new TipoConsumo(Actividad.COMBUSTION_FIJA,
-      Alcance.EMISION_DIRECTA, Unidad.LT, 2.6, "DIESEL_GASOIL");
+      Alcance.EMISION_DIRECTA, Unidad.LT, 2.5, "DIESEL_GASOIL");
   private TipoConsumo nafta = new TipoConsumo(Actividad.COMBUSTION_FIJA,
       Alcance.EMISION_DIRECTA, Unidad.LT, 2.3, "NAFTA");
   private TipoConsumo carbon = new TipoConsumo(Actividad.COMBUSTION_FIJA,

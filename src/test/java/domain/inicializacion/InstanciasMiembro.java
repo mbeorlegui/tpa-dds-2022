@@ -12,12 +12,14 @@ public class InstanciasMiembro {
   private Miembro miembro2;
   private Miembro miembro3;
   private Miembro miembro6;
+  private Miembro miembro7;
 
   public InstanciasMiembro(InstanciasTrayecto trayectos) {
     this.miembro1 = miembro1(trayectos.getCasaHastaUTN());
     this.miembro2 = miembro2(trayectos.getCasaHastaUTN());
     this.miembro3 = miembro3(trayectos.getCasaHastaUTN());
     this.miembro6 = miembro6(trayectos.getCasa2HastaUTN());
+    this.miembro7 = miembro7(trayectos.getOrgFalsaHastaCasa2());
   }
 
   @DisplayName("Instanciar: Miembro")
@@ -38,5 +40,10 @@ public class InstanciasMiembro {
   @DisplayName("Instanciar: Otro miembro")
   public Miembro miembro6(Trayecto trayecto) {
     return new Miembro("Pepe", "Argento", 18978321, Documento.DNI, trayecto);
+  }
+
+  @DisplayName("Instanciar: Otro miembro")
+  public Miembro miembro7(Trayecto trayecto) {
+    return new Miembro("Rene", "Argento", 12358321, Documento.LIBRETA, trayecto);
   }
 }

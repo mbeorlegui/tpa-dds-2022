@@ -55,7 +55,7 @@ public class TrayectoTests {
 
   @Test
   public void calculoDeDistanciaDelTrayectoConDosTransportePublico(){
-    assertEquals(7.5,orgFalsaHastaCasa2.distanciaTotal());
+    assertEquals(7.7,orgFalsaHastaCasa2.distanciaTotal());
   }
 
   @Test

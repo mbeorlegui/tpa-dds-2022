@@ -17,21 +17,14 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+@Getter
 public class Organizacion {
-  @Getter
   private String razonSocial;
-  @Getter
   private TipoOrganizacion tipoOrganizacion;
-  @Getter
   private Ubicacion ubicacion;
   private List<Sector> sectores = new ArrayList<>();
-  @Getter
   private Clasificacion clasificacion;
-
-  @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
-
-  @Getter
   private List<Contacto> contactos = new ArrayList<>();
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
@@ -189,6 +182,7 @@ public class Organizacion {
     this.verificarQueSeaSector(sector);
     return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
         / sector.calcularHuellaDeCarbono(periodicidad);
+    //TODO: pregutar como calcular el indice del sector
   }
 
   public void enviarGuiaDeRecomendaciones(String link) {
@@ -197,5 +191,11 @@ public class Organizacion {
             medio -> medio.enviarNotificacion(link, contacto)
         )
     );
+  }
+
+  public boolean tieneMenorHcQue(Organizacion otraOrganizacion,
+                                 Periodicidad periodicidad, String periodo) {
+    return this.huellaDeCarbonoEnPeriodo(periodicidad, periodo)
+        < otraOrganizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodo);
   }
 }

@@ -30,6 +30,7 @@ public class OrganizacionTests {
   private Miembro miembro2;
   private Miembro miembro3;
   private Miembro miembro6;
+  private Miembro miembro7;
   private Trayecto trayectoConServicioContratadoYVehiculoParticular;
   private Trayecto casaHastaUTN;
   private MedicionAdapter medicionAdapter;
@@ -53,6 +54,7 @@ public class OrganizacionTests {
     miembro2 = inicializador.getMiembros().getMiembro2();
     miembro3 = inicializador.getMiembros().getMiembro3();
     miembro6 = inicializador.getMiembros().getMiembro6();
+    miembro7 = inicializador.getMiembros().getMiembro7();
     trayectoConServicioContratadoYVehiculoParticular = inicializador.getTrayectos()
         .getServicioContratadoYVehiculoParticular();
     casaHastaUTN = inicializador.getTrayectos().getCasaHastaUTN();
@@ -68,9 +70,8 @@ public class OrganizacionTests {
         inicializador.getMediciones().getMedicionDeLectura2());
     utn.agregarMedicion(medicionAdaptada2);
     utn.agregarMedicion(unaMedicion);
-    calculadoraMock = mock(CalculadoraDeDistancia.class);
-    casa2HastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
-    casaHastaLinea7.getTransporteUtilizado().setCalculadoraDeDistancia(calculadoraMock);
+    orgFalsa.agregarMedicion(medicionAdaptada2);
+    calculadoraMock = inicializador.getTransportes().getCalculadoraMock();
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -156,7 +157,7 @@ public class OrganizacionTests {
   @Test
   public void aMiembrosQueNoSonDeLaMismaOrganizacionNoSeLesPuedeAsignarElMismoTrayecto() {
     assertThrows(NonMemberException.class, () -> orgFalsa.asignarTrayectoA(
-        trayectoConServicioContratadoYVehiculoParticular, miembro1, miembro3));
+        trayectoConServicioContratadoYVehiculoParticular, miembro1, miembro6));
   }
 
   @DisplayName("A miembros de la misma organizacion NO se les puede asignar un trayecto en colectivo")
@@ -172,7 +173,7 @@ public class OrganizacionTests {
     when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
         .thenReturn(resultadoDistancia2.getValor());
     when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
-        .thenReturn(0.0);
+        .thenReturn(1.0);
     //hc del miembro6 = 32.18 * 20 (dias trabajados mensual)= 643.6
     //hc del miembro1 = 28.98 * 20 = 579.6
     //la suma de ambos es 1223.2 = hc Trayectos
@@ -182,5 +183,50 @@ public class OrganizacionTests {
     assertEquals(2420.0, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
     assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
     assertEquals(impactoMiembro6, utn.impactoMiembroSobreHC(miembro6,Periodicidad.MENSUAL,"03/2022"));
+  }
+
+  @DisplayName("la medicion que agrego es del periodo correcto ")
+  @Test
+  public void huellaCarbonoOrgFalsa() {
+    when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
+        .thenReturn(resultadoDistancia2.getValor());
+    when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
+        .thenReturn(0.0);
+    //hc del miembro1, miembro2, miembro3 = 579.6
+    //hc del miembro7 = 588.0
+    assertEquals(1167.6, orgFalsa.hcTrayectosMiembros(Periodicidad.MENSUAL));
+    assertEquals(2400.0, orgFalsa.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+  }
+
+  @DisplayName("la medicion que agrego es del periodo correcto ")
+  @Test
+  public void huellaCarbonoOrgFalsaEsMenorQueHuellaCarbonoUtn() {
+    when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
+        .thenReturn(resultadoDistancia2.getValor());
+    when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
+        .thenReturn(0.0);
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertTrue(orgFalsa.tieneMenorHcQue(utn, Periodicidad.MENSUAL, "03/2022"));
+  }
+
+  @DisplayName("la medicion que agrego es del periodo correcto ")
+  @Test
+  public void huellaCarbonoOrgFalsaEntreSectores() {
+    when(calculadoraMock.distancia(casa2HastaLinea7.getOrigenDeTramo(), casa2HastaLinea7.getDestinoDeTramo()))
+        .thenReturn(resultadoDistancia2.getValor());
+    when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
+        .thenReturn(0.0);
+    //hc del miembro1, miembro2 = 579.6
+    //hc del miembro7 + miembro3 = 588.0 + 579.6 = 1167.6
+    Sector sectorDeRRHH = orgFalsa.getSectores().get(0);
+    Sector sectorDesarrollo = orgFalsa.getSectores().get(1);
+    Sector sectorProduccion = orgFalsa.getSectores().get(2);
+    double indice = 3567.6 / 1167.6;
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(indice, orgFalsa.indiceSectorSobreHC(sectorProduccion, Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(orgFalsa.indiceSectorSobreHC(sectorDeRRHH, Periodicidad.MENSUAL, "03/2022"),
+        orgFalsa.indiceSectorSobreHC(sectorDesarrollo, Periodicidad.MENSUAL, "03/2022"));
   }
 }

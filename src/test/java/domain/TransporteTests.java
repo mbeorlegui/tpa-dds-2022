@@ -77,7 +77,7 @@ public class TransporteTests {
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaCorrectamenteLaDistanciaIntermedia() {
-    assertEquals(0.3, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada4.getUbicacion()));
+    assertEquals(0.5, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada4.getUbicacion()));
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")
@@ -85,7 +85,7 @@ public class TransporteTests {
   public void seAgregaUnaParadaIntermedia() {
     colectivoLinea157.agregarParadaLuegoDe(new Parada(parada2.getUbicacion(),
         new ResultadoDistancia(120,"M")),parada3.getUbicacion());
-    assertEquals(0.18, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada2.getUbicacion()));
+    assertEquals(0.38, colectivoLinea157.calcularDistancia(parada3.getUbicacion(),parada2.getUbicacion()));
   }
 
   @DisplayName("Verifico que se agregue al final nueva parada")

@@ -41,7 +41,7 @@ public class InstanciasParada {
   @DisplayName("Instanciar: Parada3")
   private Parada parada3() {
     Ubicacion ubicacion = new Ubicacion(10, "medrano", "500");
-    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(300,"M");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(500,"M");
     return new Parada(ubicacion,distanciaSiguienteParada);
   }
   @DisplayName("Instanciar: Parada4")

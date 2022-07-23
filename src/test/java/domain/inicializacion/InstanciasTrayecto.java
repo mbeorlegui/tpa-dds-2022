@@ -20,7 +20,7 @@ public class InstanciasTrayecto {
         tramos.getParadaLinea7HastaUTN());
     this.servicioContratadoYVehiculoParticular = servicioContratadoYVehiculoParticular(
         tramos.getCasaHastaEstacionamiento(), tramos.getEstacionamientoHastaOrgFalsa());
-    this.orgFalsaHastaCasa2 = orgFalsaHastaCasa2(tramos.orgFalsaHastaUba,
+    this.orgFalsaHastaCasa2 = orgFalsaHastaCasa2(tramos.getOrgFalsaHastaUba(),
         tramos.getUbaHastaCasa2());
   }
 
