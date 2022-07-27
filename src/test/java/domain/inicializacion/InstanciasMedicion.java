@@ -41,7 +41,7 @@ public class InstanciasMedicion {
     unaMedicion.setPeriodicidad("MENSUAL");
     unaMedicion.setTipoConsumo("ELECTRICIDAD");
     unaMedicion.setValor("6000");
-    unaMedicion.setPeriodoDeImputacion("04/2021");
+    unaMedicion.setPeriodoDeImputacion("03/2022");
     return unaMedicion;
   }
 

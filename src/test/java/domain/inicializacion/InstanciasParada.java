@@ -33,15 +33,15 @@ public class InstanciasParada {
 
   @DisplayName("Instanciar: Parada2")
   private Parada parada2() {
-    Ubicacion ubicacion = new Ubicacion(20, "rivadavia", "4000");
-    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(0,"M");
+    Ubicacion ubicacion = new Ubicacion(1, "rivadavia", "2000");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(1000,"M");
     return new Parada(ubicacion,distanciaSiguienteParada);
   }
 
   @DisplayName("Instanciar: Parada3")
   private Parada parada3() {
     Ubicacion ubicacion = new Ubicacion(10, "medrano", "500");
-    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(300,"M");
+    ResultadoDistancia distanciaSiguienteParada = new ResultadoDistancia(500,"M");
     return new Parada(ubicacion,distanciaSiguienteParada);
   }
   @DisplayName("Instanciar: Parada4")

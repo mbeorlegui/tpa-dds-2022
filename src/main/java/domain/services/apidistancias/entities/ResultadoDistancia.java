@@ -16,7 +16,15 @@ public class ResultadoDistancia {
   }
 
   public double obtenerKilometros() {
-    //TODO: dependiendo de la unidad pasar a kilometros
-    return valor;
+    //TODO: dependiendo de la unidad pasar a kilometros, rehacer y ver hacer enum de Unidad
+    double valorEnKm = valor;
+    if (esUnidadEnMetros()) {
+      valorEnKm = valorEnKm / 1000.0;
+    }
+    return valorEnKm;
+  }
+
+  public boolean esUnidadEnMetros() {
+    return this.unidad.equals("M") || this.unidad.equals("m");
   }
 }

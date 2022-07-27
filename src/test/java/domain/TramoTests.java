@@ -36,7 +36,7 @@ public class TramoTests {
   @DisplayName("Calculo de distancia intermedia de un tramo")
   @Test
   public void seCalculaLaDistanciaIntermediaColectivoLinea7() {
-    assertEquals(4200, linea7HastaUTN.distanciaIntermedia());
+    assertEquals(4.2, linea7HastaUTN.distanciaIntermedia());
   }
 
   @DisplayName("Calculo de distancia intermedia de un tramo")

@@ -17,21 +17,14 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+@Getter
 public class Organizacion {
-  @Getter
   private String razonSocial;
-  @Getter
   private TipoOrganizacion tipoOrganizacion;
-  @Getter
   private Ubicacion ubicacion;
   private List<Sector> sectores = new ArrayList<>();
-  @Getter
   private Clasificacion clasificacion;
-
-  @Getter
   private List<Medicion> mediciones = new ArrayList<Medicion>();
-
-  @Getter
   private List<Contacto> contactos = new ArrayList<>();
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
@@ -146,14 +139,14 @@ public class Organizacion {
         + hcTrayectosMiembros(periodicidad);
   }
 
-  private double hcTrayectosMiembros(Periodicidad periodicidad) {
+  public double hcTrayectosMiembros(Periodicidad periodicidad) {
     return this.getTrayectos()
         .stream()
         .mapToDouble(trayecto -> trayecto.huellaDeCarbonoEnPeriodo(periodicidad))
         .sum();
   }
 
-  private double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+  public double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
     return this.medicionesEnPeriodo(periodicidad, periodoDeImputacion)
         .stream()
         .mapToDouble(medicion -> medicion.huellaDeCarbono())
@@ -187,9 +180,10 @@ public class Organizacion {
                                     Periodicidad periodicidad,
                                     String periodoDeImputacion) {
     this.verificarQueSeaSector(sector);
-    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
-        / sector.calcularHuellaDeCarbono(periodicidad);
+    return sector.calcularHuellaDeCarbono(periodicidad)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
   }
+
 
   public void enviarGuiaDeRecomendaciones(String link) {
     contactos.forEach(
@@ -197,5 +191,11 @@ public class Organizacion {
             medio -> medio.enviarNotificacion(link, contacto)
         )
     );
+  }
+
+  public boolean tieneMenorHcQue(Organizacion otraOrganizacion,
+                                 Periodicidad periodicidad, String periodo) {
+    return this.huellaDeCarbonoEnPeriodo(periodicidad, periodo)
+        < otraOrganizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodo);
   }
 }

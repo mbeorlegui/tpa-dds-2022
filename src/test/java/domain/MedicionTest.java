@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MedicionTest {
   private Organizacion organizacion;
@@ -30,9 +29,9 @@ public class MedicionTest {
     unaMedicionAdaptada = medicionAdapter.adaptarMedicion(
         inicializador.getMediciones().getMedicionDeLectura1());
     otraMedicionAdaptada = medicionAdapter.adaptarMedicion(
-        inicializador.getMediciones().getMedicionDeLectura2());
+        inicializador.getMediciones().getMedicionDeLectura1());
     otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(
-        inicializador.getMediciones().getMedicionDeLectura3());
+        inicializador.getMediciones().getMedicionDeLectura2());
     csvHandler = inicializador.getMediciones().csvHandler();
   }
 
@@ -70,7 +69,7 @@ public class MedicionTest {
     assertEquals(organizacion.getMediciones().size(), 3);
     assertTrue(otraOrganizacion.contieneMedicionIdentica(unaMedicionAdaptada));
     assertTrue(otraOrganizacion.contieneMedicionIdentica(otraMedicionAdaptada));
-    assertTrue(otraOrganizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));
+    assertFalse(otraOrganizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));
     assertEquals(otraOrganizacion.getMediciones().size(), 3);
   }
 

@@ -13,6 +13,8 @@ public class InstanciasTramo {
   private Tramo paradaLinea7HastaUTN;
   private Tramo casaHastaEstacionamiento;
   private Tramo estacionamientoHastaOrgFalsa;
+  private Tramo ubaHastaCasa2;
+  public Tramo orgFalsaHastaUba;
 
   public InstanciasTramo(InstanciasUbicacion ubicaciones, InstanciasTransporte transportes) {
     this.casaHastaParadaLinea7 = casaHastaParadaLinea7(ubicaciones.getCasa(),
@@ -26,6 +28,10 @@ public class InstanciasTramo {
     this.estacionamientoHastaOrgFalsa = estacionamientoHastaOrgFalsa(
         ubicaciones.getEstacionamiento(),
         ubicaciones.getUbicacionOrgFalsa(), transportes.getAuto());
+    this.ubaHastaCasa2 = ubaHastaCasa2(ubicaciones.getUbicacionUba(), ubicaciones.getCasa2(),
+        transportes.getSubteX());
+    this.orgFalsaHastaUba = orgFalsaHastaUba(ubicaciones.getUbicacionOrgFalsa(),
+        ubicaciones.getUbicacionUba(), transportes.getColectivoLinea7());
   }
 
   @DisplayName("Instanciar: Tramo")
@@ -34,12 +40,14 @@ public class InstanciasTramo {
   }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo casaHastaEstacionamiento(Ubicacion casa, Ubicacion estacionamiento, Transporte transporte) {
+  private Tramo casaHastaEstacionamiento(Ubicacion casa, Ubicacion estacionamiento,
+                                         Transporte transporte) {
     return new Tramo(casa, estacionamiento, transporte);
   }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo estacionamientoHastaOrgFalsa(Ubicacion estacionamiento, Ubicacion orgFalsa, Transporte transporte) {
+  private Tramo estacionamientoHastaOrgFalsa(Ubicacion estacionamiento, Ubicacion orgFalsa,
+                                             Transporte transporte) {
     return new Tramo(estacionamiento, orgFalsa, transporte);
   }
 
@@ -49,7 +57,20 @@ public class InstanciasTramo {
   }
 
   @DisplayName("Instanciar: Tramo")
-  private Tramo paradaLinea7HastaUTN(Ubicacion linea7, Ubicacion ubicacionUtn, Transporte transporte) {
+  private Tramo paradaLinea7HastaUTN(Ubicacion linea7, Ubicacion ubicacionUtn,
+                                     Transporte transporte) {
     return new Tramo(linea7, ubicacionUtn, transporte);
   }
+
+  @DisplayName("Instanciar: Tramo")
+  private Tramo ubaHastaCasa2(Ubicacion uba, Ubicacion casa2, Transporte subteX) {
+    return new Tramo(uba, casa2, subteX);
+  }
+
+  @DisplayName("Instanciar: Tramo")
+  private Tramo orgFalsaHastaUba(Ubicacion ubicacionOrgFalsa, Ubicacion uba,
+                                Transporte colectivoLinea7) {
+    return new Tramo(ubicacionOrgFalsa, uba, colectivoLinea7);
+  }
+
 }

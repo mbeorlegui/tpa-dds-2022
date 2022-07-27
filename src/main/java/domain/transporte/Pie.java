@@ -1,11 +1,11 @@
 package domain.transporte;
 
-import domain.medicion.TipoConsumo;
+import domain.medicion.TiposConsumos;
 import domain.ubicacion.Ubicacion;
 
 public class Pie extends Transporte {
   public Pie() {
-    super(null, null);
+    super(TiposConsumos.getInstance().hayarTipo("MEDIO_DE_TRANSPORTE"), 0.0);
     setTipoTransporte(TipoTransporte.PIE);
   }
 
