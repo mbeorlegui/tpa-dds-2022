@@ -180,10 +180,10 @@ public class Organizacion {
                                     Periodicidad periodicidad,
                                     String periodoDeImputacion) {
     this.verificarQueSeaSector(sector);
-    return huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion)
-        / sector.calcularHuellaDeCarbono(periodicidad);
-    //TODO: pregutar como calcular el indice del sector
+    return sector.calcularHuellaDeCarbono(periodicidad)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
   }
+
 
   public void enviarGuiaDeRecomendaciones(String link) {
     contactos.forEach(

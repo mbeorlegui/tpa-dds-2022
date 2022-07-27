@@ -223,10 +223,15 @@ public class OrganizacionTests {
     Sector sectorDeRRHH = orgFalsa.getSectores().get(0);
     Sector sectorDesarrollo = orgFalsa.getSectores().get(1);
     Sector sectorProduccion = orgFalsa.getSectores().get(2);
-    double indice = 3567.6 / 1167.6;
+    double indiceSectorProduccion = 1167.6 / 3567.6; // es igual 0.32727884291
     assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(indice, orgFalsa.indiceSectorSobreHC(sectorProduccion, Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(indiceSectorProduccion,
+        orgFalsa.indiceSectorSobreHC(sectorProduccion, Periodicidad.MENSUAL, "03/2022"));
     assertEquals(orgFalsa.indiceSectorSobreHC(sectorDeRRHH, Periodicidad.MENSUAL, "03/2022"),
         orgFalsa.indiceSectorSobreHC(sectorDesarrollo, Periodicidad.MENSUAL, "03/2022"));
+    assertTrue(orgFalsa.indiceSectorSobreHC(
+        sectorProduccion, Periodicidad.MENSUAL, "03/2022") > 0.3);
+    assertFalse(orgFalsa.indiceSectorSobreHC(
+        sectorDesarrollo, Periodicidad.MENSUAL, "03/2022") > 0.3);
   }
 }
