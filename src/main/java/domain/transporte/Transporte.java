@@ -1,5 +1,6 @@
 package domain.transporte;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
@@ -38,7 +39,9 @@ public abstract class Transporte {
     return this.tipoTransporte.equals(tipoTransporte);
   }
 
-  public double huellaDeCarbonoDeDistancia(double distanciaRecorrida) {
-    return combustible.calcularHuellaDeCarbono(distanciaRecorrida * combustiblePorKm);
+  public double huellaDeCarbonoDeDistancia(double distanciaRecorrida,
+                                           UnidadEquivalenteCarbono unidadDeseada) {
+    return combustible.calcularHuellaDeCarbono(
+        distanciaRecorrida * combustiblePorKm, unidadDeseada);
   }
 }

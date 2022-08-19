@@ -1,5 +1,6 @@
 package domain.miembro;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
@@ -41,8 +42,9 @@ public class Miembro {
     this.trayecto = trayecto;
   }
 
-  public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
-    return trayecto.huellaDeCarbonoEnPeriodo(periodicidad);
+  public double calcularHuellaDeCarbono(Periodicidad periodicidad,
+                                        UnidadEquivalenteCarbono unidadDeseada) {
+    return trayecto.huellaDeCarbonoEnPeriodo(periodicidad, unidadDeseada);
   }
   /*
   public void addSector(Sector sector, Organizacion organizacion) {

@@ -5,11 +5,17 @@ import lombok.Getter;
 
 @Getter
 public class FactorDeEmision {
-  Integer factor;
-  TipoConsumo tipoConsumo;
+  Double factor;
+  UnidadEquivalenteCarbono unidadEqivalenteCarbono;
 
-  public FactorDeEmision(Integer factor, TipoConsumo tipoConsumo) {
+  public FactorDeEmision(Double factor, UnidadEquivalenteCarbono unidadEqivalenteCarbono) {
     this.factor = factor;
-    this.tipoConsumo = tipoConsumo;
+    this.unidadEqivalenteCarbono = unidadEqivalenteCarbono;
   }
+
+  public void pasajeA(UnidadEquivalenteCarbono unidadDestino) {
+    this.factor = this.unidadEqivalenteCarbono.equivalenciaA(this.factor, unidadDestino);
+    this.unidadEqivalenteCarbono = unidadDestino;
+  }
+
 }

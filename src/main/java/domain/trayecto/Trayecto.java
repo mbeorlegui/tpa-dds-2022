@@ -1,5 +1,6 @@
 package domain.trayecto;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.medicion.Periodicidad;
 import lombok.Getter;
@@ -30,14 +31,15 @@ public class Trayecto {
     });
   }
 
-  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad) {
-    return periodicidad.diasTrabajados() * this.hcTramos();
+  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad,
+                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return periodicidad.diasTrabajados() * this.hcTramos(unidadDeseada);
   }
 
-  private double hcTramos() {
+  private double hcTramos(UnidadEquivalenteCarbono unidadDeseada) {
     return this.tramos
         .stream()
-        .mapToDouble(tramo -> tramo.huellaDeCarbono())
+        .mapToDouble(tramo -> tramo.huellaDeCarbono(unidadDeseada))
         .sum();
   }
 }

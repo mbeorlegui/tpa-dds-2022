@@ -1,5 +1,6 @@
 package domain.medicion;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import lombok.Getter;
 
 public class Medicion {
@@ -40,7 +41,7 @@ public class Medicion {
         && this.periodoDeImputacion.equals(periodoDeImputacion);
   }
 
-  public double huellaDeCarbono() {
-    return this.tipoConsumo.calcularHuellaDeCarbono(this.valor);
+  public double huellaDeCarbono(UnidadEquivalenteCarbono unidadDeseada) {
+    return this.tipoConsumo.calcularHuellaDeCarbono(this.valor, unidadDeseada);
   }
 }

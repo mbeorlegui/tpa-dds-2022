@@ -1,5 +1,7 @@
 package domain.medicion;
 
+import domain.administrador.FactorDeEmision;
+import domain.administrador.UnidadEquivalenteCarbono;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +14,12 @@ public class TipoConsumo {
   public Unidad unidad;
   @Getter
   @Setter
-  public double factorDeEmision;
+  public FactorDeEmision factorDeEmision;
   @Getter
   public String nombre;
 
   public TipoConsumo(Actividad actividad, Alcance alcance, Unidad unidad,
-                     double factorDeEmision, String nombre) {
+                     FactorDeEmision factorDeEmision, String nombre) {
     this.actividad = actividad;
     this.alcance = alcance;
     this.unidad = unidad;
@@ -30,7 +32,8 @@ public class TipoConsumo {
     return nombre;
   }
 
-  public double calcularHuellaDeCarbono(double medicion) {
-    return medicion * this.factorDeEmision;
+  public double calcularHuellaDeCarbono(double medicion, UnidadEquivalenteCarbono unidadDeseada) {
+    this.factorDeEmision.pasajeA(unidadDeseada);
+    return medicion * this.factorDeEmision.getFactor();
   }
 }

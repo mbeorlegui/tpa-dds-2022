@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
 import domain.miembro.Miembro;
 import lombok.Getter;
@@ -30,10 +31,11 @@ public class Sector {
     Arrays.stream(miembros).forEach(this::addMiembro);
   }
 
-  public double calcularHuellaDeCarbono(Periodicidad periodicidad) {
+  public double calcularHuellaDeCarbono(Periodicidad periodicidad,
+                                        UnidadEquivalenteCarbono unidadDeseada) {
     return miembros
         .stream()
-        .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad))
+        .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad, unidadDeseada))
         .sum();
   }
 
