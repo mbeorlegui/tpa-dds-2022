@@ -33,7 +33,6 @@ public class TipoConsumo {
   }
 
   public double calcularHuellaDeCarbono(double medicion, UnidadEquivalenteCarbono unidadDeseada) {
-    this.factorDeEmision.pasajeA(unidadDeseada);
-    return medicion * this.factorDeEmision.getFactor();
+    return medicion * this.factorDeEmision.getFactor(unidadDeseada);
   }
 }
