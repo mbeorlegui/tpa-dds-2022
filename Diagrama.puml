@@ -130,14 +130,12 @@ class FactorDeEmision {
   factor : Double
   unidadEquivalenteCarbono : UnidadEquivalenteCarbono
   Double getFactor(UnidadEquivalenteCarbono)
-  void setUnidadEquivalenteCarbono(UnidadEquivalenteCarbono)
 }
 
 enum UnidadEquivalenteCarbono {
-  GRAMO(0),
-  KILOGRAMO(3),
-  TONELADA(6);
-  potencia10: Integer
+  GRAMO,
+  KILOGRAMO,
+  TONELADA;
   Double equivalenciaA(Double factor, UnidadEquivalenteCarbono)
 }
 
