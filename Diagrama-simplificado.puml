@@ -11,9 +11,9 @@ class Organizacion {
   mediosDeComunicacion : List<MediosDeComunicacion>
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
-  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
-  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
-  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
+  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
   void enviarGuiaDeRecomendaciones(String link)
 }
 ' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro,
@@ -63,11 +63,17 @@ class TipoConsumo {
   actividad : Actividad
   alcance : Alcance
   unidad : Unidad
-  factorDeEmision : Double
-  double calcularHuellaDeCarbono()
+  factorDeEmision : FactorDeEmision
+  nombre : String
+  double calcularHuellaDeCarbono(double medicion, UnidadEquivalenteCarbono)
 }
 ' void setFactorDeEmision(double)
 
+class FactorDeEmision {
+  factor : Double
+  unidadEquivalenteCarbono : UnidadEquivalenteCarbono
+  Double getFactor(UnidadEquivalenteCarbono)
+}
 
 class Medicion {
   tipoConsumo: TipoConsumo
@@ -85,7 +91,7 @@ class Ubicacion {
 
 class Sector {
   miembros : List<Miembro>
-  double calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad, UnidadEquivalenteCarbono)
 }
 
 class Miembro {
@@ -94,7 +100,7 @@ class Miembro {
   numeroDeDocumento : Integer
   tipoDeDocumento : Documento
   trayecto : Trayecto
-  double calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad, UnidadEquivalenteCarbono)
 }
 
 ' Usamos strategy para los medios de transportes
@@ -105,7 +111,7 @@ abstract Transporte {
   calculadoraDeDistancia : CalculadoraDeDistancia
   void verificarParadas(Ubicacion, Ubicacion)
   double calcularDistancia(Ubicacion, Ubicacion)
-  double huellaDeCarbonoDeDistancia(double)
+  double huellaDeCarbonoDeDistancia(double, UnidadEquivalenteCarbono)
 }
 
 
@@ -146,7 +152,7 @@ class Tramo {
   transporteUtilizado : Transporte
   boolean puedeSerCompartido()
   double distanciaIntermedia()
-  double huellaDeCarbono()
+  double huellaDeCarbono(UnidadEquivalenteCarbono)
 }
 ' puedeSerCompartido -> valida que el tipo de transporte del tramo sea
 ' vehiculo particular o de servicio contratado
@@ -156,8 +162,8 @@ class Trayecto {
   void verificarQuePuedaSerAsignadoAMiembros()
   double distanciaTotal()
   boolean tramosPuedenSerCompartidos()
-  double huellaDeCarbonoEnPeriodo(Periodicidad)
-  double hcTramos()
+  double huellaDeCarbonoEnPeriodo(Periodicida, UnidadEquivalenteCarbonod)
+  double hcTramos(UnidadEquivalenteCarbono)
 }
 ' verificarQuePuedaSerAsignadoAMiembros -> llama para cada tramo al validarTramoCompartido
 
@@ -185,7 +191,7 @@ class Administrador {
   user : String
   password : String
   validador : PasswordValidator 
-  void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, double factorDeEmision, String nombreTipoDeConsumo)
+  void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, FactorDeEmision, String nombreTipoDeConsumo)
 }
 
 class PasswordValidator {
@@ -231,6 +237,7 @@ Bicicleta -up-|> Transporte
 ServicioContratado -up-|> Transporte
 
 Transporte -up-> TipoConsumo
+TipoConsumo -down-> FactorDeEmision
 
 Organizacion ..> Trayecto
 Tramo --> CalculadoraDeDistancia

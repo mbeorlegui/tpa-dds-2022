@@ -1,6 +1,7 @@
 package domain.trayecto;
 
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.transporte.TipoTransporte;
 import domain.transporte.Transporte;
@@ -38,8 +39,8 @@ public class Tramo {
     return this.getTransporteUtilizado().calcularDistancia(origenDeTramo, destinoDeTramo);
   }
 
-  public double huellaDeCarbono() {
+  public double huellaDeCarbono(UnidadEquivalenteCarbono unidadDeseada) {
     return this.transporteUtilizado
-        .huellaDeCarbonoDeDistancia(this.distanciaIntermedia());
+        .huellaDeCarbonoDeDistancia(this.distanciaIntermedia(), unidadDeseada);
   }
 }

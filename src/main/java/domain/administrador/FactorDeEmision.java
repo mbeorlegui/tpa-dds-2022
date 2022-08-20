@@ -3,13 +3,18 @@ package domain.administrador;
 import domain.medicion.TipoConsumo;
 import lombok.Getter;
 
-@Getter
-public class FactorDeEmision {
-  Integer factor;
-  TipoConsumo tipoConsumo;
 
-  public FactorDeEmision(Integer factor, TipoConsumo tipoConsumo) {
+public class FactorDeEmision {
+  Double factor;
+  @Getter
+  UnidadEquivalenteCarbono unidadEqivalenteCarbono;
+
+  public FactorDeEmision(Double factor, UnidadEquivalenteCarbono unidadEqivalenteCarbono) {
     this.factor = factor;
-    this.tipoConsumo = tipoConsumo;
+    this.unidadEqivalenteCarbono = unidadEqivalenteCarbono;
+  }
+
+  public Double getFactor(UnidadEquivalenteCarbono unidadDestino) {
+    return this.unidadEqivalenteCarbono.equivalenciaA(this.factor, unidadDestino);
   }
 }

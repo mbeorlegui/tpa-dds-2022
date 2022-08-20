@@ -1,5 +1,6 @@
 package domain;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.Periodicidad;
@@ -44,6 +45,8 @@ public class OrganizacionTests {
   private Trayecto casa2HastaUTN;
   private Medicion medicionAdaptada2;
 
+  private Double deltaError;
+
   @BeforeEach
   void init() {
     InicializacionTests inicializador = new InicializacionTests();
@@ -72,6 +75,7 @@ public class OrganizacionTests {
     utn.agregarMedicion(unaMedicion);
     orgFalsa.agregarMedicion(medicionAdaptada2);
     calculadoraMock = inicializador.getTransportes().getCalculadoraMock();
+    deltaError = 10E-6;
   }
 
   @DisplayName("La Universidad es de Tipo Gubernamental")
@@ -178,11 +182,29 @@ public class OrganizacionTests {
     //hc del miembro1 = 28.98 * 20 = 579.6
     //la suma de ambos es 1223.2 = hc Trayectos
     double impactoMiembro6 = 643.6 / 3643.2; // es igual a 0.17665788317
-    assertEquals(643.6, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL));
-    assertEquals(1223.2, utn.hcTrayectosMiembros(Periodicidad.MENSUAL));
-    assertEquals(2420.0, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(impactoMiembro6, utn.impactoMiembroSobreHC(miembro6,Periodicidad.MENSUAL,"03/2022"));
+    assertEquals(643.6, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.GRAMO),
+        deltaError);
+    assertEquals(0.6436, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL,
+        UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0006436, miembro6.calcularHuellaDeCarbono(Periodicidad.MENSUAL,
+        UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(1223.2, utn.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.GRAMO),
+        deltaError);
+    assertEquals(1.2232, utn.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.KILOGRAMO),
+        deltaError);
+    assertEquals(0.0012232, utn.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.TONELADA),
+        deltaError);
+
+    assertEquals(2420.0, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(2.4200, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0024200, utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(3.6432, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0036432, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(impactoMiembro6, utn.impactoMiembroSobreHC(miembro6,Periodicidad.MENSUAL,"03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
   }
 
   @DisplayName("la medicion que agrego es del periodo correcto ")
@@ -194,9 +216,17 @@ public class OrganizacionTests {
         .thenReturn(0.0);
     //hc del miembro1, miembro2, miembro3 = 579.6
     //hc del miembro7 = 588.0
-    assertEquals(1167.6, orgFalsa.hcTrayectosMiembros(Periodicidad.MENSUAL));
-    assertEquals(2400.0, orgFalsa.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(1167.6, orgFalsa.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(1.1676, orgFalsa.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0011676, orgFalsa.hcTrayectosMiembros(Periodicidad.MENSUAL, UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(2400.0, orgFalsa.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(2.4000, orgFalsa.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0024000, orgFalsa.hcMedicionesEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(3.5676, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0035676, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
   }
 
   @DisplayName("la medicion que agrego es del periodo correcto ")
@@ -206,9 +236,17 @@ public class OrganizacionTests {
         .thenReturn(resultadoDistancia2.getValor());
     when(calculadoraMock.distancia(casaHastaLinea7.getOrigenDeTramo(), casaHastaLinea7.getDestinoDeTramo()))
         .thenReturn(0.0);
-    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
-    assertTrue(orgFalsa.tieneMenorHcQue(utn, Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(3.5676, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0035676, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertEquals(3643.2, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO), deltaError);
+    assertEquals(3.6432, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO), deltaError);
+    assertEquals(0.0036432, utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA), deltaError);
+
+    assertTrue(orgFalsa.tieneMenorHcQue(utn, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO));
+    assertTrue(orgFalsa.tieneMenorHcQue(utn, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO));
+    assertTrue(orgFalsa.tieneMenorHcQue(utn, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.TONELADA));
   }
 
   @DisplayName("la medicion que agrego es del periodo correcto ")
@@ -224,14 +262,14 @@ public class OrganizacionTests {
     Sector sectorDesarrollo = orgFalsa.getSectores().get(1);
     Sector sectorProduccion = orgFalsa.getSectores().get(2);
     double indiceSectorProduccion = 1167.6 / 3567.6; // es igual 0.32727884291
-    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022"));
+    assertEquals(3567.6, orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO));
     assertEquals(indiceSectorProduccion,
-        orgFalsa.indiceSectorSobreHC(sectorProduccion, Periodicidad.MENSUAL, "03/2022"));
-    assertEquals(orgFalsa.indiceSectorSobreHC(sectorDeRRHH, Periodicidad.MENSUAL, "03/2022"),
-        orgFalsa.indiceSectorSobreHC(sectorDesarrollo, Periodicidad.MENSUAL, "03/2022"));
+        orgFalsa.indiceSectorSobreHC(sectorProduccion, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO));
+    assertEquals(orgFalsa.indiceSectorSobreHC(sectorDeRRHH, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO),
+        orgFalsa.indiceSectorSobreHC(sectorDesarrollo, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO));
     assertTrue(orgFalsa.indiceSectorSobreHC(
-        sectorProduccion, Periodicidad.MENSUAL, "03/2022") > 0.3);
+        sectorProduccion, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO) > 0.3);
     assertFalse(orgFalsa.indiceSectorSobreHC(
-        sectorDesarrollo, Periodicidad.MENSUAL, "03/2022") > 0.3);
+        sectorDesarrollo, Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.GRAMO) > 0.3);
   }
 }
