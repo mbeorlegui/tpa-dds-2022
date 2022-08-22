@@ -162,7 +162,7 @@ class Trayecto {
   void verificarQuePuedaSerAsignadoAMiembros()
   double distanciaTotal()
   boolean tramosPuedenSerCompartidos()
-  double huellaDeCarbonoEnPeriodo(Periodicida, UnidadEquivalenteCarbonod)
+  double huellaDeCarbonoEnPeriodo(Periodicidad, UnidadEquivalenteCarbono)
   double hcTramos(UnidadEquivalenteCarbono)
 }
 ' verificarQuePuedaSerAsignadoAMiembros -> llama para cada tramo al validarTramoCompartido
