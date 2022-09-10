@@ -2,14 +2,26 @@ package domain.ubicacion;
 
 import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+@Entity
 public class Ubicacion {
+  @Id
+  @GeneratedValue
+  private long id;
   @Getter
   private Integer localidadID;
   @Getter
   private String calle;
   @Getter
   private String altura;
+
   //private Integer altura; En la API la altura aparece como string
+  public Ubicacion() {
+  }
 
   public Ubicacion(Integer localidadID, String calle, String altura) {
     this.localidadID = localidadID;
