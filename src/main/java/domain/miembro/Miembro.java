@@ -2,13 +2,15 @@ package domain.miembro;
 
 import domain.medicion.Periodicidad;
 
-import javax.persistence.*;
-
 import domain.trayecto.Trayecto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 
 @Entity
 public class Miembro {
