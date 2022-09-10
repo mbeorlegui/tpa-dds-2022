@@ -1,15 +1,20 @@
 package domain.miembro;
 
 import domain.medicion.Periodicidad;
-import domain.organizacion.Organizacion;
-import domain.organizacion.Sector;
+
+import javax.persistence.*;
+
 import domain.trayecto.Trayecto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
 
+@Entity
 public class Miembro {
+  @Id
+  @GeneratedValue
+  private long id;
   @Getter
   private String nombre;
   @Getter
@@ -17,9 +22,11 @@ public class Miembro {
   @Getter
   private Integer numeroDeDocumento;
   @Getter
+  @Transient
   private Documento tipoDeDocumento;
   @Setter
   @Getter
+  @Transient
   private Trayecto trayecto;
 
   /*
@@ -27,6 +34,8 @@ public class Miembro {
     return organizaciones;
   }
   */
+  public Miembro() {
+  }
 
   public Miembro(
       String nombre,
