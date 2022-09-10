@@ -1,0 +1,139 @@
+@startuml DER
+
+hide circle
+skinparam linetype ortho
+
+entity Organizacion {
+  organizacion_id : number <<generated>>
+  --
+  razon_social : text
+  tipo_organizacion : number <<enum>>
+  clasificacion : number <<enum>>
+  ubicacion_id : number <<FK>>
+  sector_territorial_id : number <<FK>>
+}
+
+entity Contacto {
+  contacto_id : number <<generated>>
+  --
+  nombre : text
+  email : text
+  numero_de_whatsapp : number
+}
+
+entity SectorTerritorial {
+  sector_territorial_id : number <<generated>>
+  --
+}
+
+entity TipoConsumo {
+  tipo_consumo_id : number <<generated>>
+  --
+  actividad : number <<enum>>
+  alcance : number <<enum>>
+  unidad : number <<enum>>
+  ' factor y unidad son embebidos
+  factor : number
+  unidad_equivalente_carbono : number <<enum>>
+}
+
+entity Medicion {
+  medicion_id : number <<generated>>
+  --
+  organizacion_id : number <<FK>>
+  tipo_consumo_id : number <<FK>>
+  valor : number
+  periodicidad : number <<enum>>
+  periodo_de_imputacion : text
+}
+
+entity Ubicacion {
+  ubicacion_id : number <<generated>>
+  --
+  localidad_id : number
+  calle : text
+  altura : text
+}
+
+entity Sector {
+  sector_id : number <<generated>>
+  --
+  organizacion_id : number <<FK>>
+}
+
+entity Miembro {
+  miembro_id : number <<generated>>
+  --
+  nombre : text
+  apellido : text
+  numero_de_documento : number
+  tipo_de_documento : number <<enum>>
+  trayecto_id : number <<FK>>
+}
+
+entity Transporte {
+  transporte_id : number <<generated>>
+  --
+  tipo_consumo_id : number <<FK>>
+  combustible_por_km : number
+  tipo_transporte : number <<enum>>
+  ' Analizar herencia (single-table o join)
+  ' VehiculoParticular, TransportePublico y ServicioContratado
+}
+
+entity Tramo {
+  tramo_id : number <<generated>>
+  --
+  origen_id : number <<FK>>
+  destino_id : number <<FK>>
+  transporte_id : number <<FK>>
+}
+
+entity Trayecto {
+  trayecto_id : number <<generated>>
+  --
+  ' Romper relacion con Tramo
+}
+
+entity Parada {
+  parada_id : number <<generated>>
+  --
+  ' Romper relacion con Transporte
+}
+
+entity Administrador {
+  administrador_id : number <<generated>>
+  --
+  user : text
+  password : text
+}
+
+Organizacion ||--|{ Sector
+Sector }|--|{ Miembro
+' Documento es propiedad de Miembro
+Miembro }|--|| Trayecto
+Trayecto }|--|{ Tramo
+Tramo }|--|| Transporte
+' Ver como hacer la Herencia de transporte (single table)
+' TipoTransporte va como propiedad del Transporte
+Parada }o--|{ Transporte
+' ResultadoDistancia es propiedad de Parada
+Ubicacion ||--|| Parada
+Ubicacion ||--|| Organizacion
+' Parada y Organizacion tienen FK de Ubicacion
+Ubicacion||--|{ Tramo
+Ubicacion||--|{ Tramo
+' Tramo tiene 2 FK que referencian a Ubicacion
+Organizacion||-o{ Medicion
+Medicion }o--|| TipoConsumo
+Transporte }o--|| TipoConsumo
+' FE queda como embedded y TipoConsumo queda como Embeddable
+' Administrador no tiene relacion con ninguna entidad
+Organizacion }o--|{ Contacto
+Organizacion }o--|| SectorTerritorial
+
+' Queda romper las relaciones ManyToMany
+
+
+
+@enduml

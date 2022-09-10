@@ -414,7 +414,7 @@ Organizacion ..> Trayecto
 Tramo --> CalculadoraDeDistancia
 CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 
-Organizacion -down-> Medicion
+Organizacion -down->"*" Medicion
 Medicion --> TipoConsumo
 Medicion -right-> Periodicidad
 
