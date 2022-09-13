@@ -26,10 +26,6 @@ jobs:
         run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure() 
-        with:
-          name: JEST Tests
-          path: '*.xml'
-          reporter: jest-junit
+        if: ${{ always() }}
+        uses: scacap/action-surefire-report@v1
 
