@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.exceptions.NonMemberException;
 import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
@@ -134,22 +135,27 @@ public class Organizacion {
     mediosDeComunicacion.add(medioDeComunicacion);
   }
 
-  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
-    return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion)
-        + hcTrayectosMiembros(periodicidad);
+  public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad,
+                                         String periodoDeImputacion,
+                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada)
+        + hcTrayectosMiembros(periodicidad, unidadDeseada);
   }
 
-  public double hcTrayectosMiembros(Periodicidad periodicidad) {
+  public double hcTrayectosMiembros(Periodicidad periodicidad,
+                                    UnidadEquivalenteCarbono unidadDeseada) {
     return this.getTrayectos()
         .stream()
-        .mapToDouble(trayecto -> trayecto.huellaDeCarbonoEnPeriodo(periodicidad))
+        .mapToDouble(trayecto -> trayecto.huellaDeCarbonoEnPeriodo(periodicidad, unidadDeseada))
         .sum();
   }
 
-  public double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion) {
+  public double hcMedicionesEnPeriodo(Periodicidad periodicidad,
+                                      String periodoDeImputacion,
+                                      UnidadEquivalenteCarbono unidadDeseada) {
     return this.medicionesEnPeriodo(periodicidad, periodoDeImputacion)
         .stream()
-        .mapToDouble(medicion -> medicion.huellaDeCarbono())
+        .mapToDouble(medicion -> medicion.huellaDeCarbono(unidadDeseada))
         .sum();
   }
 
@@ -170,18 +176,20 @@ public class Organizacion {
 
   public double impactoMiembroSobreHC(Miembro miembro,
                                       Periodicidad periodicidad,
-                                      String periodoDeImputacion) {
+                                      String periodoDeImputacion,
+                                      UnidadEquivalenteCarbono unidadDeseada) {
     this.verificarQueSeaMiembro(miembro);
-    return miembro.calcularHuellaDeCarbono(periodicidad)
-        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
+    return miembro.calcularHuellaDeCarbono(periodicidad, unidadDeseada)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
   public double indiceSectorSobreHC(Sector sector,
                                     Periodicidad periodicidad,
-                                    String periodoDeImputacion) {
+                                    String periodoDeImputacion,
+                                    UnidadEquivalenteCarbono unidadDeseada) {
     this.verificarQueSeaSector(sector);
-    return sector.calcularHuellaDeCarbono(periodicidad)
-        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion);
+    return sector.calcularHuellaDeCarbono(periodicidad, unidadDeseada)
+        / huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
 
@@ -194,8 +202,10 @@ public class Organizacion {
   }
 
   public boolean tieneMenorHcQue(Organizacion otraOrganizacion,
-                                 Periodicidad periodicidad, String periodo) {
-    return this.huellaDeCarbonoEnPeriodo(periodicidad, periodo)
-        < otraOrganizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodo);
+                                 Periodicidad periodicidad,
+                                 String periodo,
+                                 UnidadEquivalenteCarbono unidadDeseada) {
+    return this.huellaDeCarbonoEnPeriodo(periodicidad, periodo, unidadDeseada)
+        < otraOrganizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodo, unidadDeseada);
   }
 }

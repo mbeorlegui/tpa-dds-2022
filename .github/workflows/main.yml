@@ -2,16 +2,19 @@ name: Run Tests
 
 on: [push]
 
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+  statuses: write
+  pull-requests: write
+  issues: read
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up JDK 1.8
@@ -23,14 +26,14 @@ jobs:
         run: mvn --batch-mode -DskipTests package
 
       - name: Test
-        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+        run: mvn clean test -Denv=DEV -DtestngXML='tableView.xml'
 
       - name: Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.5.0
         if: always()
         with:
           name: Maven Tests
-          path: target/surefire-reports/*.xml
+          path: "**/surefire-reports/TEST-*.xml"
           reporter: java-junit
-          fail-on-error: true
+          fail-on-error: false
 

@@ -2,6 +2,7 @@ package domain;
 
 import domain.administrador.Administrador;
 import domain.administrador.FactorDeEmision;
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.exceptions.InvalidPasswordException;
 import domain.medicion.*;
 import org.junit.jupiter.api.DisplayName;
@@ -97,7 +98,7 @@ public class AdministradorTests {
   @Test
   public void adminConPasswordCompletoGeneraNuevoFactorDeEmision() {
     adminConPasswordCompleto().generarNuevoFactorDeEmision(
-        Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, 120,
+        Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, new FactorDeEmision(120.0, UnidadEquivalenteCarbono.GRAMO),
         "factorDeEmisionDePrueba");
     assertTrue(TiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
   }

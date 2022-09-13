@@ -20,9 +20,12 @@ class Organizacion {
   void agregarContacto(Contacto)
   boolean contieneMedicionIdentica(Medicion)
   Set<Trayecto> getTrayectos()
-  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion)
-  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion)
-  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion)
+  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  double hcTrayectosMiembros(Periodicidad, UnidadEquivalenteCarbono)
+  double hcMedicionesEnPeriodo(Periodicidad periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  double impactoMiembroSobreHC(Miembro, Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  double indiceSectorSobreHC(Sector, Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
+  boolean tieneMenorHcQue(Organizacion, Periodicidad, String periodo, UnidadEquivalenteCarbono)
   void enviarGuiaDeRecomendaciones(String link)
 }
 ' impactoMiembroSobreHC -> llamo a huellaDeCarbonoEnPeriodo, y calcularHuellaDeCarbono de Miembro, y divido el resultado para obtener el porcentaje 
@@ -65,6 +68,7 @@ MediosDeComunicacion <|-up- Email
 
 class SectorTerritorial {
   organizaciones : List<Organizacion>
+  double huellaDeCarbonoEnPeriodo(Periodicidad, String periodoDeImputacion, UnidadEquivalenteCarbono)
 }
 
 SectorTerritorial -->"*" Organizacion
@@ -86,16 +90,18 @@ TiposConsumos -left->"*" TipoConsumo
 TipoConsumo --> Actividad
 TipoConsumo --> Alcance
 TipoConsumo --> Unidad
+TipoConsumo --> FactorDeEmision
+FactorDeEmision --> UnidadEquivalenteCarbono
+
 
 class TipoConsumo {
   actividad : Actividad
   alcance : Alcance
   unidad : Unidad
-  factorDeEmision : Double
-  'nombre : String --> es necesario?
-  double calcularHuellaDeCarbono()
+  factorDeEmision : FactorDeEmision
+  nombre : String
+  double calcularHuellaDeCarbono(double medicion, UnidadEquivalenteCarbono)
 }
-' void setFactorDeEmision(double)
 
 enum Actividad {
   COMBUSTION_FIJA,
@@ -120,13 +126,27 @@ enum Unidad {
   SIN_UNIDAD,
 }
 
+class FactorDeEmision {
+  factor : Double
+  unidadEquivalenteCarbono : UnidadEquivalenteCarbono
+  Double getFactor(UnidadEquivalenteCarbono)
+}
+
+enum UnidadEquivalenteCarbono {
+  GRAMO,
+  KILOGRAMO,
+  TONELADA;
+  Double equivalenciaA(Double factor, UnidadEquivalenteCarbono)
+}
+
+
 
 class Medicion {
   tipoConsumo: TipoConsumo
   valor: Integer
   periodicidad: Periodicidad
   periodoDeImputacion: String
-  double huellaDeCarbono()
+  double huellaDeCarbono(UnidadEquivalenteCarbono)
 }
 
 
@@ -142,7 +162,7 @@ class Ubicacion {
 
 class Sector {
   miembros : List<Miembro>
-  double calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad, UnidadEquivalenteCarbono)
 }
 
 class Miembro {
@@ -151,7 +171,7 @@ class Miembro {
   numeroDeDocumento : Integer
   tipoDeDocumento : Documento
   trayecto : Trayecto
-  double calcularHuellaDeCarbono(Periodicidad)
+  double calcularHuellaDeCarbono(Periodicidad,UnidadEquivalenteCarbono)
 }
 
 enum Documento {
@@ -182,7 +202,7 @@ abstract Transporte {
   calculadoraDeDistancia : CalculadoraDeDistancia
   void verificarParadas(Ubicacion, Ubicacion)
   double calcularDistancia(Ubicacion, Ubicacion)
-  double huellaDeCarbonoDeDistancia(double)
+  double huellaDeCarbonoDeDistancia(double, UnidadEquivalenteCarbono)
 }
 
 enum TipoTransporte {
@@ -247,7 +267,7 @@ class Tramo {
   transporteUtilizado : Transporte
   boolean puedeSerCompartido()
   double distanciaIntermedia()
-  double huellaDeCarbono()
+  double huellaDeCarbono(UnidadEquivalenteCarbono)
 }
 ' puedeSerCompartido -> valida que el tipo de transporte del tramo sea
 ' vehiculo particular o de servicio contratado
@@ -257,8 +277,8 @@ class Trayecto {
   void verificarQuePuedaSerAsignadoAMiembros()
   double distanciaTotal()
   boolean tramosPuedenSerCompartidos()
-  double huellaDeCarbonoEnPeriodo(Periodicidad)
-  double hcTramos()
+  double huellaDeCarbonoEnPeriodo(Periodicidad, UnidadEquivalenteCarbono)
+  double hcTramos(UnidadEquivalenteCarbono)
 }
 ' verificarQuePuedaSerAsignadoAMiembros -> llama para cada tramo al validarTramoCompartido
 
@@ -286,7 +306,7 @@ class Administrador {
   user : String
   password : String
   validador : PasswordValidator 
-  void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, double factorDeEmision, String nombreTipoDeConsumo)
+  void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, FactorDeEmision, String nombreTipoDeConsumo)
 }
 
 class PasswordValidator {
@@ -394,7 +414,7 @@ Organizacion ..> Trayecto
 Tramo --> CalculadoraDeDistancia
 CalculadoraDeDistanciaRetrofit .up.|> CalculadoraDeDistancia
 
-Organizacion -down-> Medicion
+Organizacion -down->"*" Medicion
 Medicion --> TipoConsumo
 Medicion -right-> Periodicidad
 

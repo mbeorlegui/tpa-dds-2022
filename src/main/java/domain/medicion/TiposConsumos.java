@@ -1,5 +1,8 @@
 package domain.medicion;
 
+import domain.administrador.FactorDeEmision;
+import domain.administrador.UnidadEquivalenteCarbono;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,23 +10,33 @@ import java.util.List;
 public class TiposConsumos {
   public List<TipoConsumo> consumos = new ArrayList<>();
   private TipoConsumo gasNatural = new TipoConsumo(Actividad.COMBUSTION_FIJA,
-      Alcance.EMISION_DIRECTA, Unidad.M3, 0.2, "GAS_NATURAL");
+      Alcance.EMISION_DIRECTA, Unidad.M3, new FactorDeEmision(0.2, UnidadEquivalenteCarbono.GRAMO),
+      "GAS_NATURAL");
   private TipoConsumo dieselGasoil = new TipoConsumo(Actividad.COMBUSTION_FIJA,
-      Alcance.EMISION_DIRECTA, Unidad.LT, 2.5, "DIESEL_GASOIL");
+      Alcance.EMISION_DIRECTA, Unidad.LT, new FactorDeEmision(2.5, UnidadEquivalenteCarbono.GRAMO),
+      "DIESEL_GASOIL");
   private TipoConsumo nafta = new TipoConsumo(Actividad.COMBUSTION_FIJA,
-      Alcance.EMISION_DIRECTA, Unidad.LT, 2.3, "NAFTA");
+      Alcance.EMISION_DIRECTA, Unidad.LT, new FactorDeEmision(2.3, UnidadEquivalenteCarbono.GRAMO),
+      "NAFTA");
   private TipoConsumo carbon = new TipoConsumo(Actividad.COMBUSTION_FIJA,
-      Alcance.EMISION_DIRECTA, Unidad.KG, 1.6, "CARBON");
+      Alcance.EMISION_DIRECTA, Unidad.KG, new FactorDeEmision(1.6, UnidadEquivalenteCarbono.GRAMO),
+      "CARBON");
   private TipoConsumo ccGasoil = new TipoConsumo(Actividad.COMBUSTION_MOVIL,
-      Alcance.EMISION_DIRECTA, Unidad.LT, 2.7, "CC_GASOIL");
+      Alcance.EMISION_DIRECTA, Unidad.LT, new FactorDeEmision(2.7, UnidadEquivalenteCarbono.GRAMO),
+      "CC_GASOIL");
   private TipoConsumo ccNafta = new TipoConsumo(Actividad.COMBUSTION_MOVIL,
-      Alcance.EMISION_DIRECTA, Unidad.LT, 2.4, "CC_NAFTA");
+      Alcance.EMISION_DIRECTA, Unidad.LT, new FactorDeEmision(2.4, UnidadEquivalenteCarbono.GRAMO),
+      "CC_NAFTA");
   private TipoConsumo electricidad = new TipoConsumo(Actividad.ELECTRICIDAD,
-      Alcance.EMISION_INDIRECTA, Unidad.KWH, 0.4, "ELECTRICIDAD");
+      Alcance.EMISION_INDIRECTA,Unidad.KWH,new FactorDeEmision(0.4, UnidadEquivalenteCarbono.GRAMO),
+      "ELECTRICIDAD");
   private TipoConsumo medioDeTransporte = new TipoConsumo(Actividad.LOGISTICA,
-      Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, 0.1, "MEDIO_DE_TRANSPORTE");
+      Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD,
+      new FactorDeEmision(0.1, UnidadEquivalenteCarbono.GRAMO),
+      "MEDIO_DE_TRANSPORTE");
   private TipoConsumo distanciaMedia = new TipoConsumo(Actividad.LOGISTICA,
-      Alcance.OTRAS_EMISIONES, Unidad.KM, 1, "DISTANCIA_MEDIA_RECORRIDA");
+      Alcance.OTRAS_EMISIONES, Unidad.KM, new FactorDeEmision(1.0, UnidadEquivalenteCarbono.GRAMO),
+      "DISTANCIA_MEDIA_RECORRIDA");
 
   private static final TiposConsumos INSTANCE =
       new TiposConsumos();

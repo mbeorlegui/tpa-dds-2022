@@ -26,7 +26,7 @@ public class Administrador {
   public void generarNuevoFactorDeEmision(Actividad actividad,
                                           Alcance alcance,
                                           Unidad unidad,
-                                          double factorDeEmision,
+                                          FactorDeEmision factorDeEmision,
                                           String nombreTipoDeConsumo) {
     TiposConsumos.getInstance().agregarTiposDeConsumo(
         new TipoConsumo(actividad, alcance, unidad, factorDeEmision, nombreTipoDeConsumo)
