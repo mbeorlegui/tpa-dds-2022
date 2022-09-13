@@ -30,6 +30,6 @@ jobs:
         if: success() || failure() 
         with:
           name: JEST Tests
-          path: *.xml
+          path: '*.xml'
           reporter: jest-junit
 
