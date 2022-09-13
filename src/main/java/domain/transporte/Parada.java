@@ -5,11 +5,20 @@ import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "parada")
 public class Parada {
+  @Id
+  @GeneratedValue
+  @Column(name = "parada_id")
+  private long id;
   @Getter
+  @Transient
   Ubicacion ubicacion;
   @Setter
+  @Transient
   ResultadoDistancia distanciaSiguienteParada;
 
   public Parada(Ubicacion ubicacion, ResultadoDistancia distanciaSiguienteParada) {

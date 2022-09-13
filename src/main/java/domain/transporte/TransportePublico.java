@@ -11,10 +11,17 @@ import java.util.List;
 
 import lombok.Getter;
 
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue(value = "transporte_publico")
 public class TransportePublico extends Transporte {
   @Getter
+  @Enumerated
+  @Column(name = "tipo_de_transporte_publico")
   private TipoDeTransportePublico tipoDeTransportePublico;
   @Getter
+  @Transient
   private List<Parada> paradas = new ArrayList<>();
   @Getter
   private String linea;

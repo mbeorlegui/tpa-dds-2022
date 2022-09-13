@@ -4,11 +4,20 @@ import domain.administrador.UnidadEquivalenteCarbono;
 import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.medicion.Periodicidad;
 import lombok.Getter;
+
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.List;
 
+@Entity
+@Table(name = "trayecto")
 public class Trayecto {
+  @Id
+  @GeneratedValue
+  @Column(name = "trayecto_id")
+  private long id;
   @Getter
+  @Transient
   private List<Tramo> tramos;
 
   public Trayecto(List<Tramo> tramos) {

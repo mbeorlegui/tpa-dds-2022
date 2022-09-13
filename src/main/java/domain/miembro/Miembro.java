@@ -7,25 +7,26 @@ import domain.trayecto.Trayecto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "miembro")
 public class Miembro {
   @Id
   @GeneratedValue
+  @Column(name = "miembro_id")
   private long id;
   @Getter
   private String nombre;
   @Getter
   private String apellido;
   @Getter
+  @Column(name = "numero_de_documento")
   private Integer numeroDeDocumento;
   @Getter
-  @Transient
+  @Enumerated
+  @Column(name = "tipo_de_documento")
   private Documento tipoDeDocumento;
   @Setter
   @Getter

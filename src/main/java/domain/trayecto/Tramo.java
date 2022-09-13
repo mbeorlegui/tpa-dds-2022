@@ -9,12 +9,23 @@ import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tramo")
 public class Tramo {
+  @Id
+  @GeneratedValue
+  @Column(name = "tramo_id")
+  private long id;
   @Getter
+  @Transient
   private Ubicacion origenDeTramo;
   @Getter
+  @Transient
   private Ubicacion destinoDeTramo;
   @Getter
+  @Transient
   private Transporte transporteUtilizado;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {

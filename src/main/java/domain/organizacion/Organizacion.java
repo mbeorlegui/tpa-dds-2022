@@ -18,15 +18,32 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+import javax.persistence.*;
+
 @Getter
+@Entity
+@Table(name = "organizacion")
 public class Organizacion {
+  @Id
+  @GeneratedValue
+  @Column(name = "organizacion_id")
+  private long id;
+  @Column(name = "razon_social")
   private String razonSocial;
+  @Enumerated
+  @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
+  @Transient
   private Ubicacion ubicacion;
+  @Transient
   private List<Sector> sectores = new ArrayList<>();
+  @Enumerated
   private Clasificacion clasificacion;
+  @Transient
   private List<Medicion> mediciones = new ArrayList<Medicion>();
+  @Transient
   private List<Contacto> contactos = new ArrayList<>();
+  @Transient
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
   public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Ubicacion ubicacion,
