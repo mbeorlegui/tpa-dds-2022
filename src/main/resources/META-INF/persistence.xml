@@ -9,13 +9,22 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>domain.miembro.Miembro</class>
         <class>domain.ubicacion.Ubicacion</class>
+        <class>domain.transporte.Parada</class>
+        <class>domain.trayecto.Trayecto</class>
+        <class>domain.organizacion.Sector</class>
+        <class>domain.trayecto.Tramo</class>
+        <class>domain.transporte.Transporte</class>
+        <class>domain.medicion.Medicion</class>
+        <class>domain.medicion.TipoConsumo</class>
+        <class>domain.administrador.Administrador</class>
+        <class>domain.organizacion.SectorTerritorial</class>
 
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/prueba"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/TpIntegrador"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="matiasbeorlegui"/>
 
