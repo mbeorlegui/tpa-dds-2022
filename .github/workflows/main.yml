@@ -2,6 +2,11 @@ name: Run Tests
 
 on: [push]
 
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
 jobs:
   build:
 
@@ -33,7 +38,4 @@ jobs:
           path: "**/surefire-reports/TEST-*.xml"
           reporter: java-junit
           fail-on-error: false
-        permissions:
-          id-token: write
-          contents: read
-          checks: write
+
