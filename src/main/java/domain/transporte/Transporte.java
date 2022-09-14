@@ -20,7 +20,8 @@ public abstract class Transporte {
   @Column(name = "transporte_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "combustible_tipo_consumo_id")
   public TipoConsumo combustible;
   @Getter
   @Column(name = "combustible_por_km")

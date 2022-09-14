@@ -27,7 +27,8 @@ public class Tramo {
   @JoinColumn(name = "ubicacion_destino_id")
   private Ubicacion destinoDeTramo;
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "transporte_id")
   private Transporte transporteUtilizado;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {

@@ -21,7 +21,7 @@ public class TransportePublico extends Transporte {
   @Column(name = "tipo_de_transporte_publico")
   private TipoDeTransportePublico tipoDeTransportePublico;
   @Getter
-  @Transient
+  @ManyToMany
   private List<Parada> paradas = new ArrayList<>();
   @Getter
   private String linea;
