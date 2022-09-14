@@ -19,10 +19,12 @@ public class Tramo {
   @Column(name = "tramo_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "ubicacion_origen_id")
   private Ubicacion origenDeTramo;
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "ubicacion_destino_id")
   private Ubicacion destinoDeTramo;
   @Getter
   @Transient

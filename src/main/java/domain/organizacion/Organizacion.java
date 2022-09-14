@@ -33,7 +33,8 @@ public class Organizacion {
   @Enumerated
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
-  @Transient
+  @OneToOne
+  @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
   @Transient
   private List<Sector> sectores = new ArrayList<>();
