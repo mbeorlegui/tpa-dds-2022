@@ -40,7 +40,8 @@ public class Organizacion {
   private List<Sector> sectores = new ArrayList<>();
   @Enumerated
   private Clasificacion clasificacion;
-  @Transient
+  @OneToMany
+  @JoinColumn(name = "organizacion_id")
   private List<Medicion> mediciones = new ArrayList<Medicion>();
   @Transient
   private List<Contacto> contactos = new ArrayList<>();
