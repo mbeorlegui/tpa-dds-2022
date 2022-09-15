@@ -15,7 +15,7 @@ public class Parada {
   @Column(name = "parada_id")
   private long id;
   @Getter
-  @OneToOne()
+  @OneToOne
   @JoinColumn(name = "ubicacion_id")
   Ubicacion ubicacion;
   @Setter
