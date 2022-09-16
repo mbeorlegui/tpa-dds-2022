@@ -12,8 +12,8 @@ public class Runner {
     System.out.println("Ejecutando queries!");
     EntityManager em = PerThreadEntityManagers.getEntityManager();
     EntityTransaction et = em.getTransaction();
-    et.begin();
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
+    et.begin();
     em.persist(ubicacion);
     et.commit();
     System.out.println("Cerrando conexion");
