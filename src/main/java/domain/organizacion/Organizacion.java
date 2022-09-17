@@ -33,15 +33,18 @@ public class Organizacion {
   @Enumerated
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
-  @Transient
+  @OneToOne
+  @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
-  @Transient
+  @OneToMany
+  @JoinColumn(name = "organizacion_id")
   private List<Sector> sectores = new ArrayList<>();
   @Enumerated
   private Clasificacion clasificacion;
-  @Transient
+  @OneToMany
+  @JoinColumn(name = "organizacion_id")
   private List<Medicion> mediciones = new ArrayList<Medicion>();
-  @Transient
+  @ManyToMany
   private List<Contacto> contactos = new ArrayList<>();
   @Transient
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();

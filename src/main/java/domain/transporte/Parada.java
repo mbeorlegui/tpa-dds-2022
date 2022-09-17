@@ -15,7 +15,8 @@ public class Parada {
   @Column(name = "parada_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToOne // Ya que varias paradas comparten ubicacion pero no necesariamente distancia a la siguiente
+  @JoinColumn(name = "ubicacion_id")
   Ubicacion ubicacion;
   @Setter
   @Transient

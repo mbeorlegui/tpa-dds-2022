@@ -17,7 +17,7 @@ public class Trayecto {
   @Column(name = "trayecto_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToMany
   private List<Tramo> tramos;
 
   public Trayecto(List<Tramo> tramos) {

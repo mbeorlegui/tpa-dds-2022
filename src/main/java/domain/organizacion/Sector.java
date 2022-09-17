@@ -22,7 +22,7 @@ public class Sector {
   @Column(name = "sector_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToMany
   private List<Miembro> miembros;
 
   public Sector() {

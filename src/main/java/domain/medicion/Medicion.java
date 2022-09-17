@@ -13,7 +13,8 @@ public class Medicion {
   @Column(name = "medicion_id")
   private long id;
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "tipo_consumo_id")
   private TipoConsumo tipoConsumo;
   @Getter
   private Integer valor;

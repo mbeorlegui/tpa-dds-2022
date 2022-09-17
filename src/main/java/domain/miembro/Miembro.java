@@ -30,7 +30,8 @@ public class Miembro {
   private Documento tipoDeDocumento;
   @Setter
   @Getter
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "trayecto_id")
   private Trayecto trayecto;
 
   /*

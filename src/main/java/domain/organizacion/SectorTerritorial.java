@@ -14,7 +14,8 @@ public class SectorTerritorial {
   @GeneratedValue
   @Column(name = "sector_territorial_id")
   private long id;
-  @Transient
+  @OneToMany
+  @JoinColumn(name = "sector_territorial_id")
   private List<Organizacion> organizaciones = new ArrayList<>();
 
   public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad,
