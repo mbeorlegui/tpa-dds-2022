@@ -1,5 +1,6 @@
 package domain.organizacion;
 
+import domain.reports.ReportGenerator;
 import lombok.Getter;
 
 import java.text.SimpleDateFormat;
