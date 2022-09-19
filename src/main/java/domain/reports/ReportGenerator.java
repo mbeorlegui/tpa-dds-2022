@@ -1,5 +1,7 @@
 package domain.reports;
 
+import domain.administrador.UnidadEquivalenteCarbono;
+import domain.medicion.Periodicidad;
 import domain.organizacion.Organizacion;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
@@ -36,10 +38,35 @@ public class ReportGenerator implements WithGlobalEntityManager {
   }
 
   @SuppressWarnings("unchecked")
-  public static List<Organizacion> getOrganizacionesPorTipo(TipoOrganizacion tipoOrganizacion) {
+  public List<Organizacion> getOrganizacionesPorTipo(TipoOrganizacion tipoOrganizacion) {
     return em
         .createQuery("from Organizacion where tipo_organizacion = :tipoOrg")
         .setParameter("tipoOrg", tipoOrganizacion.name())
         .getResultList();
+  }
+
+  public SectorTerritorial getSectorTerritorial(Long id) {
+    return em.find(SectorTerritorial.class, id);
+  }
+
+  public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
+                                           Periodicidad periodicidad,
+                                           String periodoDeImputacion,
+                                           UnidadEquivalenteCarbono unidadDeseada) {
+    return this
+        .getSectorTerritorial(sectorTerritorialId)
+        .huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
+  }
+
+  public double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
+                                              Periodicidad periodicidad,
+                                              String periodoDeImputacion,
+                                              UnidadEquivalenteCarbono unidadDeseada) {
+    return this
+        .getOrganizacionesPorTipo(tipoOrganizacion)
+        .stream()
+        .mapToDouble(org ->
+            org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
+        .sum();
   }
 }

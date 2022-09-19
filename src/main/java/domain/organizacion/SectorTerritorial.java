@@ -31,4 +31,12 @@ public class SectorTerritorial {
   public void agregarOrganizacion(Organizacion organizacion) {
     organizaciones.add(organizacion);
   }
+
+  public Long getId() {
+    return id;
+  }
+
+  public List<Organizacion> getOrganizaciones() {
+    return organizaciones;
+  }
 }
