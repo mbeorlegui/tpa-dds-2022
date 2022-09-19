@@ -18,6 +18,7 @@
         <class>domain.medicion.TipoConsumo</class>
         <class>domain.administrador.Administrador</class>
         <class>domain.organizacion.SectorTerritorial</class>
+        <class>domain.organizacion.Organizacion</class>
 
 
         <properties>

@@ -27,4 +27,8 @@ public class SectorTerritorial {
             org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
         .sum();
   }
+
+  public void agregarOrganizacion(Organizacion organizacion) {
+    organizaciones.add(organizacion);
+  }
 }

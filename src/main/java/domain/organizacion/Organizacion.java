@@ -30,7 +30,7 @@ public class Organizacion {
   private long id;
   @Column(name = "razon_social")
   private String razonSocial;
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
   @OneToOne
