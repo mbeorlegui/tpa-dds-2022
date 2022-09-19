@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 public class Runner {
-  Probar con: mvn compile exec:java
+  //  Probar con: mvn compile exec:java
   public static void main(String[] args) {
     System.out.println("Ejecutando queries!");
     EntityManager em = PerThreadEntityManagers.getEntityManager();
