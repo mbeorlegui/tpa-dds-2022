@@ -69,4 +69,14 @@ public class ReportGenerator implements WithGlobalEntityManager {
             org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
         .sum();
   }
+
+  public double evolucionDeHcEnSector(
+      SectorTerritorial sector, String periodoDeInicio, String periodoDeFin) {
+    return 0;
+  }
+
+  public double evolucionDeHcEnOrganizacion(
+      Organizacion organizacion, String periodoDeInicio, String periodoDeFin) {
+    return 0;
+  }
 }
