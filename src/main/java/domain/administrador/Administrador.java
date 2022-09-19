@@ -8,7 +8,12 @@ import domain.medicion.Unidad;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+import javax.persistence.Column;
 
 import static java.util.Objects.requireNonNull;
 

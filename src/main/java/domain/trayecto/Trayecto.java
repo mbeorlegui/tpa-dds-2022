@@ -5,8 +5,12 @@ import domain.exceptions.NoPuedeSerTrayectoCompartidoException;
 import domain.medicion.Periodicidad;
 import lombok.Getter;
 
-import javax.persistence.*;
-import java.io.IOException;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity

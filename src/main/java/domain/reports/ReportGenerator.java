@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ReportGenerator implements WithGlobalEntityManager {
   private static EntityManager em = PerThreadEntityManagers.getEntityManager();
+
   @SuppressWarnings("unchecked")
   public static List<Organizacion> getOrganizaciones() {
     return em
@@ -23,7 +24,6 @@ public class ReportGenerator implements WithGlobalEntityManager {
 
   @SuppressWarnings("unchecked")
   public static List<Organizacion> getOrganizacionesPorSector(SectorTerritorial sector) {
-    EntityManager em = PerThreadEntityManagers.getEntityManager();
     return em
         .createQuery("from Organizacion where sector_territorial_id = :sector")
         .setParameter("sector", sector)

@@ -8,12 +8,24 @@ import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.Inheritance;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Transient;
+import javax.persistence.Enumerated;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.InheritanceType;
 
 @Entity
 @Table(name = "transporte")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "discriminador",discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "discriminador", discriminatorType = DiscriminatorType.STRING)
 public abstract class Transporte {
   @Id
   @GeneratedValue
@@ -31,11 +43,13 @@ public abstract class Transporte {
   @Enumerated
   @Column(name = "tipo_transporte")
   public TipoTransporte tipoTransporte;
-  @Getter @Setter
+  @Getter
+  @Setter
   @Transient
   private CalculadoraDeDistancia calculadoraDeDistancia;
 
-  @Getter @Setter
+  @Getter
+  @Setter
   @Transient
   private CalculadoraDeDistanciaRetrofit calculadoraDeDistanciaRetrofit;
 

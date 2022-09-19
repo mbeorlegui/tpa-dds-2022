@@ -1,7 +1,6 @@
 package domain.transporte;
 
 import domain.medicion.TipoConsumo;
-import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.ubicacion.Ubicacion;
 
@@ -11,7 +10,13 @@ import java.util.List;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.OrderColumn;
+import javax.persistence.Enumerated;
 
 @Entity
 @DiscriminatorValue(value = "transporte_publico")

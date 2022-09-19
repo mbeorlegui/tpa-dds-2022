@@ -5,7 +5,13 @@ import domain.administrador.UnidadEquivalenteCarbono;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.Embedded;
 
 @Entity
 @Table(name = "tipo_consumo")

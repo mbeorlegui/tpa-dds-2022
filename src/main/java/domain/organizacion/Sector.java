@@ -5,7 +5,13 @@ import domain.medicion.Periodicidad;
 import domain.miembro.Miembro;
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
