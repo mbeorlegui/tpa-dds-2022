@@ -1,8 +1,10 @@
 package domain.dbrunner;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
+import domain.medicion.Periodicidad;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
@@ -44,7 +46,7 @@ public class Runner {
     MedicionRead medicionRead3 = new MedicionRead(
         "ELECTRICIDAD", "7000", "MENSUAL", "04/2021");
     Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
-    MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "6000", "MENSUAL", "03/2022");
+    MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
@@ -59,11 +61,11 @@ public class Runner {
     em.persist(unSector);
     // Para que los metodos anden en el runner deben ser static
     // System.out.println("Ubicacion 0: " + ReportGenerator.getUbicaciones().get(0).getCalle());
-    System.out.println(
-        "Organizacion 0: " + ReportGenerator.getOrganizaciones().get(0).getRazonSocial());
-    System.out.println(
-        "Ubicacion de Organizacion 0: "
-            + ReportGenerator.getOrganizaciones().get(0).getUbicacion().getCalle());
+//    System.out.println(
+//        "Organizacion 0: " + ReportGenerator.getOrganizaciones().get(0).getRazonSocial());
+//    System.out.println(
+//        "Ubicacion de Organizacion 0: "
+//            + ReportGenerator.getOrganizaciones().get(0).getUbicacion().getCalle());
 //    System.out.println(
 //        "Organizacion 0 en sector territorial: "
 //            + ReportGenerator.getSectorTerritorial(
@@ -80,30 +82,32 @@ public class Runner {
     em.persist(medicion4);
     em.persist(org2);
     et.commit();
-    System.out.println(
-        "Mediciones en periodo1: "
-            + ReportGenerator.getMedicionEnPeriodo(org, "04/2021")
-    );
-    System.out.println(
-        "Mediciones en periodo2: "
-            + ReportGenerator.getMedicionEnPeriodo(org, "03/2022")
-    );
-    System.out.println(
-        "Variacion entre periodos: "
-            + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
-            + "%"
-    );
-    System.out.println(
-        "Variacion entre periodos: "
-            + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
-            + "%"
-    );
-    ReportGenerator rg = new ReportGenerator();
-    System.out.println(
-        "Variacion entre periodos: "
-            + rg.getVariacionEntrePeriodosDeSector(sectorTerritorial, "04/2021", "03/2022")
-            + "%"
-    );
+//    System.out.println(
+//        "Mediciones en periodo1: "
+//            + ReportGenerator.getHuellaDeCarbonoEnPeriodo(org.getId(), Periodicidad.MENSUAL, "04/2021", UnidadEquivalenteCarbono.KILOGRAMO)
+//    );
+//    System.out.println(
+//        "Mediciones en periodo2: "
+//            + ReportGenerator.getHuellaDeCarbonoEnPeriodo(org.getId(), Periodicidad.MENSUAL, "03/2022", UnidadEquivalenteCarbono.KILOGRAMO)
+//    );
+//    System.out.println(
+//        "Periodos intermedios entre 06/2021 - 02/2022: "
+//            + Periodicidad.MENSUAL.getPeriodosIntermedios("06/2021", "02/2022")
+//    );
+//    System.out.println(
+//        "Mediciones entre periodo1 y periodo2: "
+//            + ReportGenerator.getEvolucionHcDeOrganizacion(org.getId(), Periodicidad.MENSUAL, "04/2021", "03/2022", UnidadEquivalenteCarbono.KILOGRAMO)
+//    );
+//    System.out.println(
+//        "Variacion entre periodos: "
+//            + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
+//            + "%"
+//    );
+//    System.out.println(
+//        "Variacion entre periodos: "
+//            + ReportGenerator.getVariacionEntrePeriodosDeSector(sectorTerritorial, "04/2021", "03/2022")
+//            + "%"
+//    );
     System.out.println("Cerrando conexion");
     em.close();
   }
