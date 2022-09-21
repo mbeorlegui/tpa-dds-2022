@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 public enum Periodicidad {
   MENSUAL {
     @Override
@@ -21,7 +22,7 @@ public enum Periodicidad {
           periodoInicio.substring(periodoInicio.length() - 4));
       int anioFin = Integer.parseInt(periodoFin.substring(periodoFin.length() - 4));
       List<String> periodos = new ArrayList<>();
-      
+
       int anioAGuardar = anioInicio;
       int mesAGuardar = mesInicio;
       while ((anioAGuardar * 100 + mesAGuardar) <= (anioFin * 100 + mesFin)) {

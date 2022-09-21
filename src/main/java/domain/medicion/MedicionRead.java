@@ -20,7 +20,8 @@ public class MedicionRead {
   public MedicionRead() {
   }
 
-  public MedicionRead(String tipoConsumo, String valor, String periodicidad, String periodoDeImputacion) {
+  public MedicionRead(
+      String tipoConsumo, String valor, String periodicidad, String periodoDeImputacion) {
     this.tipoConsumo = tipoConsumo;
     this.valor = valor;
     this.periodicidad = periodicidad;
