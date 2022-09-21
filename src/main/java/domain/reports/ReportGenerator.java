@@ -6,11 +6,13 @@ import domain.organizacion.Organizacion;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
 import domain.ubicacion.Ubicacion;
+import org.apache.commons.lang3.StringUtils;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReportGenerator implements WithGlobalEntityManager {
   private static EntityManager em = PerThreadEntityManagers.getEntityManager();
@@ -49,7 +51,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
     return em.find(SectorTerritorial.class, id);
   }
 
-  public Organizacion getOrganizacion(Long id) {
+  public static Organizacion getOrganizacion(Long id) {
     return em.find(Organizacion.class, id);
   }
 
@@ -84,6 +86,40 @@ public class ReportGenerator implements WithGlobalEntityManager {
     return 0;
   }
 
+  @SuppressWarnings("unchecked")
+  public static double getHuellaDeCarbonoEnPeriodo(
+      Long organizacionId,
+      Periodicidad periodicidad,
+      String periodo,
+      UnidadEquivalenteCarbono unidad) {
+    return getOrganizacion(organizacionId).huellaDeCarbonoEnPeriodo(periodicidad, periodo, unidad);
+  }
+
+  public static List<Double> getEvolucionHcDeOrganizacion(
+      Long organizacionId,
+      Periodicidad periodicidad,
+      String periodoInicio,
+      String periodoFin,
+      UnidadEquivalenteCarbono unidad) {
+    List<String> periodosIntermedios = periodicidad.getPeriodosIntermedios(periodoInicio, periodoFin);
+    Organizacion org = getOrganizacion(organizacionId);
+    return periodosIntermedios.stream().mapToDouble(
+        p -> org.huellaDeCarbonoEnPeriodo(periodicidad, p, unidad)
+    ).boxed().collect(Collectors.toList());
+  }
+
+  public List<Double> getEvolucionHcDeSector(
+      Long sectorTerritorialId,
+      Periodicidad periodicidad,
+      String periodoInicio,
+      String periodoFin,
+      UnidadEquivalenteCarbono unidad) {
+    List<String> periodosIntermedios = periodicidad.getPeriodosIntermedios(periodoInicio, periodoFin);
+    SectorTerritorial sector = this.getSectorTerritorial(sectorTerritorialId);
+    return periodosIntermedios.stream().mapToDouble(
+        p -> sector.huellaDeCarbonoEnPeriodo(periodicidad, p, unidad)
+    ).boxed().collect(Collectors.toList());
+  }
 
   public ReporteDeComposicion composicionHcDeSectorTerritorial(Long sectorTerritorialId,
                                                                Periodicidad periodicidad,
@@ -97,16 +133,16 @@ public class ReportGenerator implements WithGlobalEntityManager {
                                                           Periodicidad periodicidad,
                                                           String periodoDeImputacion,
                                                           UnidadEquivalenteCarbono unidadDeseada) {
-    Organizacion organizacion = this.getOrganizacion(organizacionId);
+    Organizacion organizacion = getOrganizacion(organizacionId);
     return new ReporteDeComposicion(
         organizacion.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
-        organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada);
+        organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada));
   }
 
   private ReporteDeComposicion composicionHcDeOrganizaciones(List<Organizacion> organizaciones,
-                                                            Periodicidad periodicidad,
-                                                            String periodoDeImputacion,
-                                                            UnidadEquivalenteCarbono unidadDeseada) {
+                                                             Periodicidad periodicidad,
+                                                             String periodoDeImputacion,
+                                                             UnidadEquivalenteCarbono unidadDeseada) {
     return new ReporteDeComposicion(
         this.hcMediciones(organizaciones, periodicidad, periodoDeImputacion, unidadDeseada),
         this.hcTrayectos(organizaciones, periodicidad, unidadDeseada));

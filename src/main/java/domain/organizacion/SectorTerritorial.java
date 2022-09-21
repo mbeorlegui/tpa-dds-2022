@@ -2,6 +2,7 @@ package domain.organizacion;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,6 +20,7 @@ public class SectorTerritorial {
   @Id
   @GeneratedValue
   @Column(name = "sector_territorial_id")
+  @Getter
   private long id;
   @OneToMany
   @JoinColumn(name = "sector_territorial_id")

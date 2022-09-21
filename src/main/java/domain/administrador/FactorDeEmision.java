@@ -15,6 +15,9 @@ public class FactorDeEmision {
   @Column(name = "unidad_eqivalente_carbono")
   UnidadEquivalenteCarbono unidadEqivalenteCarbono;
 
+  public FactorDeEmision() {
+  }
+
   public FactorDeEmision(Double factor, UnidadEquivalenteCarbono unidadEqivalenteCarbono) {
     this.factor = factor;
     this.unidadEqivalenteCarbono = unidadEqivalenteCarbono;
