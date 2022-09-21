@@ -1,9 +1,10 @@
 package domain.reports;
 
 public class ReporteDeComposicion {
-
-  private double hcMediciones;
-  private double hcTrayectos;
+  @SuppressWarnings({"FieldCanBeLocal", "unused"})
+  private final double hcMediciones;
+  @SuppressWarnings({"FieldCanBeLocal", "unused"})
+  private final double hcTrayectos;
 
   public ReporteDeComposicion(double hcMediciones, double hcTrayectos) {
     this.hcMediciones = hcMediciones;
