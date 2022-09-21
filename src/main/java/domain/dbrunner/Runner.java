@@ -39,12 +39,19 @@ public class Runner {
     MedicionRead medicionRead1 = new MedicionRead(
         "ELECTRICIDAD", "6000", "MENSUAL", "04/2021");
     Medicion medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
-    MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "100", "MENSUAL", "03/2022");
+    MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "5000", "MENSUAL", "03/2022");
     Medicion medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
+    MedicionRead medicionRead3 = new MedicionRead(
+        "ELECTRICIDAD", "7000", "MENSUAL", "04/2021");
+    Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
+    MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "6000", "MENSUAL", "03/2022");
+    Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
+    org2.agregarMedicion(medicion3);
+    org2.agregarMedicion(medicion4);
     org2.addSector(unSector);
-//    sectorTerritorial.agregarOrganizacion(org2);
+    sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
     et.begin();
     em.persist(ubicacion);
@@ -69,6 +76,9 @@ public class Runner {
     em.persist(medicion1);
     em.persist(medicion2);
     em.persist(org);
+    em.persist(medicion3);
+    em.persist(medicion4);
+    em.persist(org2);
     et.commit();
     System.out.println(
         "Mediciones en periodo1: "
@@ -81,6 +91,17 @@ public class Runner {
     System.out.println(
         "Variacion entre periodos: "
             + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
+            + "%"
+    );
+    System.out.println(
+        "Variacion entre periodos: "
+            + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
+            + "%"
+    );
+    ReportGenerator rg = new ReportGenerator();
+    System.out.println(
+        "Variacion entre periodos: "
+            + rg.getVariacionEntrePeriodosDeSector(sectorTerritorial, "04/2021", "03/2022")
             + "%"
     );
     System.out.println("Cerrando conexion");

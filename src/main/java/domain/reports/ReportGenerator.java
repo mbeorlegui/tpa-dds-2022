@@ -4,6 +4,7 @@ import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
 import domain.organizacion.Organizacion;
+import domain.organizacion.Sector;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
 import domain.ubicacion.Ubicacion;
@@ -51,13 +52,11 @@ public class ReportGenerator implements WithGlobalEntityManager {
     return em.find(SectorTerritorial.class, id);
   }
 
-  public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
+  public double hcTotalDeSectorTerritorial(SectorTerritorial sector,
                                            Periodicidad periodicidad,
                                            String periodoDeImputacion,
                                            UnidadEquivalenteCarbono unidadDeseada) {
-    return this
-        .getSectorTerritorial(sectorTerritorialId)
-        .huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
+    return sector.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
   public double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
@@ -99,9 +98,20 @@ public class ReportGenerator implements WithGlobalEntityManager {
     // Tengo en cuenta una variacion porcentual
     int valor1 = getMedicionEnPeriodo(org, periodo1).getValor();
     int valor2 = getMedicionEnPeriodo(org, periodo2).getValor();
+    System.out.println(valor1 + " - " + valor2);
     float result = 0;
     result = (float) ((valor2 - valor1) * 100) / valor1;
 
     return (int) result;
+  }
+
+  public int getVariacionEntrePeriodosDeSector(SectorTerritorial unSector, String periodo1, String periodo2) {
+    double valor1 = hcTotalDeSectorTerritorial(unSector, Periodicidad.MENSUAL, periodo1, UnidadEquivalenteCarbono.KILOGRAMO);
+    double valor2 = hcTotalDeSectorTerritorial(unSector, Periodicidad.MENSUAL, periodo2, UnidadEquivalenteCarbono.KILOGRAMO);
+    System.out.println(valor1 + " - " + valor2);
+    int result = 0;
+    result = (int) (((valor2 - valor1) * 100) / valor1);
+
+    return result;
   }
 }
