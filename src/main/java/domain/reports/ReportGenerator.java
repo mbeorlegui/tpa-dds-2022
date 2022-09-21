@@ -1,11 +1,13 @@
 package domain.reports;
 
 import domain.administrador.UnidadEquivalenteCarbono;
+import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
 import domain.organizacion.Organizacion;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
 import domain.ubicacion.Ubicacion;
+import org.apache.commons.lang3.StringUtils;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
@@ -78,5 +80,27 @@ public class ReportGenerator implements WithGlobalEntityManager {
   public double evolucionDeHcEnOrganizacion(
       Organizacion organizacion, String periodoDeInicio, String periodoDeFin) {
     return 0;
+  }
+
+  @SuppressWarnings("unchecked")
+  public static List<Medicion> getMedicionesEnPeriodo(Organizacion organizacion, String periodo) {
+    String mes = StringUtils.left(periodo, 2);
+    String anio = periodo.substring(periodo.length() - 3);
+
+    return em
+        .createQuery("from Medicion where organizacion_id = :OrgId and periodicidad = 0 and periodo_de_imputacion like :Mes and periodo_de_imputacion like :Anio")
+        .setParameter("OrgId", organizacion.getId())
+        .setParameter("Mes", mes + "%")
+        .setParameter("Anio", "%" + anio)
+        .getResultList();
+  }
+
+  public static float getVariacionEntrePeriodos(Organizacion org, String periodo1, String periodo2) {
+    /*
+    Se calcula como
+     */
+    int valor1 = getMedicionesEnPeriodo(org, periodo1).get(0).getValor();
+    int valor2 = getMedicionesEnPeriodo(org, periodo2).get(0).getValor();
+    return (float) (valor2 - valor1) / valor1;
   }
 }
