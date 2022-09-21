@@ -49,6 +49,10 @@ public class ReportGenerator implements WithGlobalEntityManager {
     return em.find(SectorTerritorial.class, id);
   }
 
+  public Organizacion getOrganizacion(Long id) {
+    return em.find(Organizacion.class, id);
+  }
+
   public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
                                            Periodicidad periodicidad,
                                            String periodoDeImputacion,
@@ -81,18 +85,19 @@ public class ReportGenerator implements WithGlobalEntityManager {
   }
 
 
-  public ReporteDeComposicion composicionHcDeSectorTerritorial(SectorTerritorial sectorTerritorial,
+  public ReporteDeComposicion composicionHcDeSectorTerritorial(Long sectorTerritorialId,
                                                                Periodicidad periodicidad,
                                                                String periodoDeImputacion,
                                                                UnidadEquivalenteCarbono unidadDeseada) {
-    List<Organizacion> organizaciones = this.getOrganizacionesPorSector(sectorTerritorial);
+    List<Organizacion> organizaciones = this.getSectorTerritorial(sectorTerritorialId).getOrganizaciones();
     return this.composicionHcDeOrganizaciones(organizaciones, periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
-  public ReporteDeComposicion composicionHcDeOrganizacion(Organizacion organizacion,
+  public ReporteDeComposicion composicionHcDeOrganizacion(Long organizacionId,
                                                           Periodicidad periodicidad,
                                                           String periodoDeImputacion,
                                                           UnidadEquivalenteCarbono unidadDeseada) {
+    Organizacion organizacion = this.getOrganizacion(organizacionId);
     return new ReporteDeComposicion(
         organizacion.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
         organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada);
