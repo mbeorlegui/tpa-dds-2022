@@ -72,15 +72,16 @@ public class Runner {
     et.commit();
     System.out.println(
         "Mediciones en periodo1: "
-            + ReportGenerator.getMedicionesEnPeriodo(org, "04/2021").get(0)
+            + ReportGenerator.getMedicionEnPeriodo(org, "04/2021")
     );
     System.out.println(
         "Mediciones en periodo2: "
-            + ReportGenerator.getMedicionesEnPeriodo(org, "03/2022").get(0)
+            + ReportGenerator.getMedicionEnPeriodo(org, "03/2022")
     );
     System.out.println(
-        "Variacion entre periodo: "
+        "Variacion entre periodos: "
             + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
+            + "%"
     );
     System.out.println("Cerrando conexion");
     em.close();

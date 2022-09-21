@@ -3,14 +3,7 @@ package domain.medicion;
 import domain.administrador.UnidadEquivalenteCarbono;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "medicion")
@@ -20,7 +13,7 @@ public class Medicion {
   @Column(name = "medicion_id")
   private long id;
   @Getter
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "tipo_consumo_id")
   private TipoConsumo tipoConsumo;
   @Getter

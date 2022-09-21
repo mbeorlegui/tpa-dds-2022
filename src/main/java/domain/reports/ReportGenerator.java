@@ -83,24 +83,25 @@ public class ReportGenerator implements WithGlobalEntityManager {
   }
 
   @SuppressWarnings("unchecked")
-  public static List<Medicion> getMedicionesEnPeriodo(Organizacion organizacion, String periodo) {
+  public static Medicion getMedicionEnPeriodo(Organizacion organizacion, String periodo) {
     String mes = StringUtils.left(periodo, 2);
     String anio = periodo.substring(periodo.length() - 3);
 
-    return em
+    return (Medicion) em
         .createQuery("from Medicion where organizacion_id = :OrgId and periodicidad = 0 and periodo_de_imputacion like :Mes and periodo_de_imputacion like :Anio")
         .setParameter("OrgId", organizacion.getId())
         .setParameter("Mes", mes + "%")
         .setParameter("Anio", "%" + anio)
-        .getResultList();
+        .getSingleResult();
   }
 
-  public static float getVariacionEntrePeriodos(Organizacion org, String periodo1, String periodo2) {
-    /*
-    Se calcula como
-     */
-    int valor1 = getMedicionesEnPeriodo(org, periodo1).get(0).getValor();
-    int valor2 = getMedicionesEnPeriodo(org, periodo2).get(0).getValor();
-    return (float) (valor2 - valor1) / valor1;
+  public static int getVariacionEntrePeriodos(Organizacion org, String periodo1, String periodo2) {
+    // Tengo en cuenta una variacion porcentual
+    int valor1 = getMedicionEnPeriodo(org, periodo1).getValor();
+    int valor2 = getMedicionEnPeriodo(org, periodo2).getValor();
+    float result = 0;
+    result = (float) ((valor2 - valor1) * 100) / valor1;
+
+    return (int) result;
   }
 }
