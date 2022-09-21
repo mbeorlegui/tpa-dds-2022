@@ -52,11 +52,13 @@ public class ReportGenerator implements WithGlobalEntityManager {
     return em.find(SectorTerritorial.class, id);
   }
 
-  public double hcTotalDeSectorTerritorial(SectorTerritorial sector,
+  public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
                                            Periodicidad periodicidad,
                                            String periodoDeImputacion,
                                            UnidadEquivalenteCarbono unidadDeseada) {
-    return sector.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
+    return this
+        .getSectorTerritorial(sectorTerritorialId)
+        .huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
   public double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
@@ -106,8 +108,8 @@ public class ReportGenerator implements WithGlobalEntityManager {
   }
 
   public int getVariacionEntrePeriodosDeSector(SectorTerritorial unSector, String periodo1, String periodo2) {
-    double valor1 = hcTotalDeSectorTerritorial(unSector, Periodicidad.MENSUAL, periodo1, UnidadEquivalenteCarbono.KILOGRAMO);
-    double valor2 = hcTotalDeSectorTerritorial(unSector, Periodicidad.MENSUAL, periodo2, UnidadEquivalenteCarbono.KILOGRAMO);
+    double valor1 = hcTotalDeSectorTerritorial(unSector.getId(), Periodicidad.MENSUAL, periodo1, UnidadEquivalenteCarbono.KILOGRAMO);
+    double valor2 = hcTotalDeSectorTerritorial(unSector.getId(), Periodicidad.MENSUAL, periodo2, UnidadEquivalenteCarbono.KILOGRAMO);
     System.out.println(valor1 + " - " + valor2);
     int result = 0;
     result = (int) (((valor2 - valor1) * 100) / valor1);
