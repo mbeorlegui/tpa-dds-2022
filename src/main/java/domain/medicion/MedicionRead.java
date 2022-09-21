@@ -17,6 +17,15 @@ public class MedicionRead {
   @Setter
   private String periodoDeImputacion;
 
+  public MedicionRead() {
+  }
+
+  public MedicionRead(String tipoConsumo, String valor, String periodicidad, String periodoDeImputacion) {
+    this.tipoConsumo = tipoConsumo;
+    this.valor = valor;
+    this.periodicidad = periodicidad;
+    this.periodoDeImputacion = periodoDeImputacion;
+  }
 
   @Override
   public String toString() {

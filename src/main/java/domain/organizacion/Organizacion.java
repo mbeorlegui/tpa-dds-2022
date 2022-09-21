@@ -18,15 +18,46 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.EnumType;
+import javax.persistence.Transient;
+
 @Getter
+@Entity
+@Table(name = "organizacion")
 public class Organizacion {
+  @Id
+  @GeneratedValue
+  @Column(name = "organizacion_id")
+  private long id;
+  @Column(name = "razon_social")
   private String razonSocial;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
+  @OneToOne
+  @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
+  @OneToMany
+  @JoinColumn(name = "organizacion_id")
   private List<Sector> sectores = new ArrayList<>();
+  @Enumerated
   private Clasificacion clasificacion;
+  @OneToMany
+  @JoinColumn(name = "organizacion_id")
   private List<Medicion> mediciones = new ArrayList<Medicion>();
+  @ManyToMany
   private List<Contacto> contactos = new ArrayList<>();
+  @Transient
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
   public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Ubicacion ubicacion,

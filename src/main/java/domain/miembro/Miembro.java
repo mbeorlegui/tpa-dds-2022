@@ -2,25 +2,43 @@ package domain.miembro;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
-import domain.organizacion.Organizacion;
-import domain.organizacion.Sector;
+
 import domain.trayecto.Trayecto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.Enumerated;
 
+
+@Entity
+@Table(name = "miembro")
 public class Miembro {
+  @Id
+  @GeneratedValue
+  @Column(name = "miembro_id")
+  private long id;
   @Getter
   private String nombre;
   @Getter
   private String apellido;
   @Getter
+  @Column(name = "numero_de_documento")
   private Integer numeroDeDocumento;
   @Getter
+  @Enumerated
+  @Column(name = "tipo_de_documento")
   private Documento tipoDeDocumento;
   @Setter
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "trayecto_id")
   private Trayecto trayecto;
 
   /*
@@ -28,6 +46,8 @@ public class Miembro {
     return organizaciones;
   }
   */
+  public Miembro() {
+  }
 
   public Miembro(
       String nombre,

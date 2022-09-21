@@ -35,6 +35,7 @@ entity TipoConsumo {
   ' factor y unidad son embebidos
   factor : number
   unidad_equivalente_carbono : number <<enum>>
+  nombre : text
 }
 
 entity Medicion {
@@ -98,6 +99,7 @@ entity Trayecto {
 entity Parada {
   parada_id : number <<generated>>
   --
+  ubicacion_id : number <<FK>>
   ' Romper relacion con Transporte
 }
 

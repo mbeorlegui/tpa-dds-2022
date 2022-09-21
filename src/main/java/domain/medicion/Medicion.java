@@ -3,14 +3,26 @@ package domain.medicion;
 import domain.administrador.UnidadEquivalenteCarbono;
 import lombok.Getter;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "medicion")
 public class Medicion {
+  @Id
+  @GeneratedValue
+  @Column(name = "medicion_id")
+  private long id;
   @Getter
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "tipo_consumo_id")
   private TipoConsumo tipoConsumo;
   @Getter
   private Integer valor;
   @Getter
+  @Enumerated
   private Periodicidad periodicidad;
   @Getter
+  @Column(name = "periodo_de_imputacion")
   private String periodoDeImputacion;
 
   public Medicion(TipoConsumo tipoConsumo,

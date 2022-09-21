@@ -8,13 +8,27 @@ import domain.medicion.Unidad;
 
 import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+import javax.persistence.Column;
+
 import static java.util.Objects.requireNonNull;
 
+@Entity
+@Table(name = "administrador")
 public class Administrador {
+  @Id
+  @GeneratedValue
+  @Column(name = "administrador_id")
+  private long id;
   @Getter
   String user;
   @Getter
   String password;
+  @Transient
   PasswordValidator validador = new PasswordValidator();
 
   public Administrador(String user, String password) {
