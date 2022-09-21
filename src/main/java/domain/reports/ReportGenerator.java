@@ -136,13 +136,13 @@ public class ReportGenerator implements WithGlobalEntityManager {
     Organizacion organizacion = this.getOrganizacion(organizacionId);
     return new ReporteDeComposicion(
         organizacion.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
-        organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada);
+        organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada));
   }
 
   private ReporteDeComposicion composicionHcDeOrganizaciones(List<Organizacion> organizaciones,
-                                                            Periodicidad periodicidad,
-                                                            String periodoDeImputacion,
-                                                            UnidadEquivalenteCarbono unidadDeseada) {
+                                                             Periodicidad periodicidad,
+                                                             String periodoDeImputacion,
+                                                             UnidadEquivalenteCarbono unidadDeseada) {
     return new ReporteDeComposicion(
         this.hcMediciones(organizaciones, periodicidad, periodoDeImputacion, unidadDeseada),
         this.hcTrayectos(organizaciones, periodicidad, unidadDeseada));
