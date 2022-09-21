@@ -1,5 +1,8 @@
 package domain.dbrunner;
 
+import domain.medicion.Medicion;
+import domain.medicion.MedicionAdapter;
+import domain.medicion.MedicionRead;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
@@ -30,17 +33,23 @@ public class Runner {
         ubicacion,
         Clasificacion.UNIVERSIDAD);
     Sector unSector = new Sector();
-    org2.addSector(unSector);
     SectorTerritorial sectorTerritorial = new SectorTerritorial();
+    // ------------------------
+    // pruebas de mediciones
+    MedicionRead medicionRead1 = new MedicionRead(
+        "ELECTRICIDAD", "6000", "MENSUAL", "04/2021");
+    Medicion medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
+    MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "100", "MENSUAL", "03/2022");
+    Medicion medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
+    org.agregarMedicion(medicion1);
+    org.agregarMedicion(medicion2);
+    org2.addSector(unSector);
 //    sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
     et.begin();
     em.persist(ubicacion);
     em.persist(org2);
-    em.persist(org);
     em.persist(unSector);
-    em.persist(sectorTerritorial);
-    et.commit();
     // Para que los metodos anden en el runner deben ser static
     // System.out.println("Ubicacion 0: " + ReportGenerator.getUbicaciones().get(0).getCalle());
     System.out.println(
@@ -56,6 +65,24 @@ public class Runner {
 //        "Organizacion 0 de tipo gubernamental: " +
 //            ReportGenerator.getOrganizacionesPorTipo(
 //                TipoOrganizacion.GUBERNAMENTAL).get(0).getRazonSocial());
+    em.persist(sectorTerritorial);
+    em.persist(medicion1);
+    em.persist(medicion2);
+    em.persist(org);
+    et.commit();
+    System.out.println(
+        "Mediciones en periodo1: "
+            + ReportGenerator.getMedicionesEnPeriodo(org, "04/2021").get(0)
+    );
+    System.out.println(
+        "Mediciones en periodo2: "
+            + ReportGenerator.getMedicionesEnPeriodo(org, "03/2022").get(0)
+    );
+    System.out.println(
+        "Variacion entre periodo: "
+            + ReportGenerator.getVariacionEntrePeriodos(org, "04/2021", "03/2022")
+    );
     System.out.println("Cerrando conexion");
+    em.close();
   }
 }
