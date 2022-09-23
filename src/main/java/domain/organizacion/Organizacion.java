@@ -7,6 +7,7 @@ import domain.medicion.Periodicidad;
 import domain.medios.Contacto;
 import domain.medios.MedioDeComunicacion;
 import domain.miembro.Miembro;
+import domain.reports.ReporteDeComposicion;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 
@@ -160,6 +161,14 @@ public class Organizacion {
                                          UnidadEquivalenteCarbono unidadDeseada) {
     return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada)
         + hcTrayectosMiembros(periodicidad, unidadDeseada);
+  }
+
+  public ReporteDeComposicion composicionHuellaDeCarbono(Periodicidad periodicidad,
+                                                         String periodoDeImputacion,
+                                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return new ReporteDeComposicion(
+        this.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
+        this.hcTrayectosMiembros(periodicidad, unidadDeseada));
   }
 
   public double hcTrayectosMiembros(Periodicidad periodicidad,

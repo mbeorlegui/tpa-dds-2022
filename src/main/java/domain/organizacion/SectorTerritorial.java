@@ -2,6 +2,7 @@ package domain.organizacion;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
+import domain.reports.ReporteDeComposicion;
 import lombok.Getter;
 
 import javax.persistence.Entity;
@@ -29,10 +30,34 @@ public class SectorTerritorial {
   public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad,
                                          String periodoDeImputacion,
                                          UnidadEquivalenteCarbono unidadDeseada) {
+    return RepoOrganizaciones
+        .getInstance()
+        .huellaDeCarbonoEnPeriodoDeOrganizaciones(organizaciones, periodicidad, periodoDeImputacion, unidadDeseada);
+  }
+
+  public ReporteDeComposicion composicionHuellaDeCarbono(Periodicidad periodicidad,
+                                                         String periodoDeImputacion,
+                                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return new ReporteDeComposicion(
+        this.hcMediciones(periodicidad, periodoDeImputacion, unidadDeseada),
+        this.hcTrayectos(periodicidad, unidadDeseada));
+  }
+
+  private double hcMediciones(Periodicidad periodicidad,
+                              String periodoDeImputacion,
+                              UnidadEquivalenteCarbono unidadDeseada) {
     return organizaciones
         .stream()
-        .mapToDouble(org ->
-            org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
+        .mapToDouble(
+            org -> org.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
+        .sum();
+  }
+
+  private double hcTrayectos(Periodicidad periodicidad,
+                             UnidadEquivalenteCarbono unidadDeseada) {
+    return organizaciones
+        .stream()
+        .mapToDouble(org -> org.hcTrayectosMiembros(periodicidad, unidadDeseada))
         .sum();
   }
 

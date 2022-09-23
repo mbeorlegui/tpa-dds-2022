@@ -1,5 +1,7 @@
 package domain.organizacion;
 
+import domain.administrador.UnidadEquivalenteCarbono;
+import domain.medicion.Periodicidad;
 import lombok.Getter;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -39,6 +41,27 @@ public class RepoOrganizaciones {
 
   public Organizacion getOrganizacion(Long id) {
     return em.find(Organizacion.class, id);
+  }
+
+  public double huellaDeCarbonoEnPeriodoDeOrganizaciones(List<Organizacion> organizaciones,
+                                                         Periodicidad periodicidad,
+                                                         String periodoDeImputacion,
+                                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return organizaciones
+        .stream()
+        .mapToDouble(org ->
+            org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
+        .sum();
+  }
+
+  public double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
+                                              Periodicidad periodicidad,
+                                              String periodoDeImputacion,
+                                              UnidadEquivalenteCarbono unidadDeseada) {
+    return this
+        .huellaDeCarbonoEnPeriodoDeOrganizaciones(
+            this.getOrganizacionesPorTipo(tipoOrganizacion), periodicidad, periodoDeImputacion, unidadDeseada
+        );
   }
 
   // Se ejecuta con tarea programada
