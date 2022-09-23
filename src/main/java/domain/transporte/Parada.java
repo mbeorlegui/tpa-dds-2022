@@ -15,9 +15,6 @@ public class Parada {
   @Column(name = "parada_id")
   private long id;
   @Getter
-  // @ManyToOne
-  // Ya que varias paradas comparten ubicacion pero no necesariamente distancia a la siguiente
-  // @JoinColumn(name = "ubicacion_id")
   @Embedded
   @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   Ubicacion ubicacion;

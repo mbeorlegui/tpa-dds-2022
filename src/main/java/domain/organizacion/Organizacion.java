@@ -33,8 +33,6 @@ public class Organizacion {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
-  // @OneToOne
-  // @JoinColumn(name = "ubicacion_id")
   @Embedded
   @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   private Ubicacion ubicacion;

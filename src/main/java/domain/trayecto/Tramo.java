@@ -18,9 +18,6 @@ public class Tramo {
   @Column(name = "tramo_id")
   private long id;
   @Getter
-  // @ManyToOne
-  // @JoinColumn(name = "ubicacion_origen_id")
-
   @AttributeOverrides({
       @AttributeOverride(name = "localidadID", column = @Column(name = "origen_localidad_id")),
       @AttributeOverride(name = "altura", column = @Column(name = "origen_altura")),
@@ -28,9 +25,6 @@ public class Tramo {
   })
   @Embedded private Ubicacion origenDeTramo;
   @Getter
-  // @ManyToOne
-  // @JoinColumn(name = "ubicacion_destino_id")
-
   @AttributeOverrides({
       @AttributeOverride(name = "localidadID", column = @Column(name = "destino_localidad_id")),
       @AttributeOverride(name = "altura", column = @Column(name = "destino_altura")),

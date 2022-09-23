@@ -6,14 +6,8 @@ import javax.persistence.*;
 
 
 @Embeddable
-// @Table(name = "ubicacion")
 public class Ubicacion {
-  // @Id
-  // @GeneratedValue
-  // @Column(name = "ubicacion_id")
-  // private long id;
   @Getter
-  // @Column(name = "localidad_id")
   private Integer localidadID;
   @Getter
   private String calle;
