@@ -2,22 +2,18 @@ package domain.ubicacion;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 
-@Entity
-@Table(name = "ubicacion")
+@Embeddable
+// @Table(name = "ubicacion")
 public class Ubicacion {
-  @Id
-  @GeneratedValue
-  @Column(name = "ubicacion_id")
-  private long id;
+  // @Id
+  // @GeneratedValue
+  // @Column(name = "ubicacion_id")
+  // private long id;
   @Getter
-  @Column(name = "localidad_id")
+  // @Column(name = "localidad_id")
   private Integer localidadID;
   @Getter
   private String calle;

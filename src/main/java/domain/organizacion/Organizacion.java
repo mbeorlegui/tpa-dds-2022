@@ -18,18 +18,7 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
-import javax.persistence.EnumType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -44,8 +33,10 @@ public class Organizacion {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
-  @OneToOne
-  @JoinColumn(name = "ubicacion_id")
+  // @OneToOne
+  // @JoinColumn(name = "ubicacion_id")
+  @Embedded
+  @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   private Ubicacion ubicacion;
   @OneToMany
   @JoinColumn(name = "organizacion_id")

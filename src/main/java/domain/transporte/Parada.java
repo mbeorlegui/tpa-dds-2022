@@ -5,14 +5,7 @@ import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "parada")
@@ -22,9 +15,11 @@ public class Parada {
   @Column(name = "parada_id")
   private long id;
   @Getter
-  @ManyToOne
+  // @ManyToOne
   // Ya que varias paradas comparten ubicacion pero no necesariamente distancia a la siguiente
-  @JoinColumn(name = "ubicacion_id")
+  // @JoinColumn(name = "ubicacion_id")
+  @Embedded
+  @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   Ubicacion ubicacion;
   @Setter
   @Transient
