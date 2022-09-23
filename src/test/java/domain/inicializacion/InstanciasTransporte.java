@@ -1,6 +1,6 @@
 package domain.inicializacion;
 
-import domain.medicion.TiposConsumos;
+import domain.medicion.RepoTiposConsumos;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.transporte.*;
 import lombok.Getter;
@@ -36,7 +36,7 @@ public class InstanciasTransporte {
 
   @DisplayName("Instanciar: Colectivo Linea 7")
   private TransportePublico colectivoLinea7(Parada... paradas) {
-    TransportePublico colectivo7 = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
+    TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().hayarTipo(
         "NAFTA"), 3.0, TipoDeTransportePublico.COLECTIVO, "7");
     colectivo7.addParadas(paradas);
     return colectivo7;
@@ -44,7 +44,7 @@ public class InstanciasTransporte {
 
   @DisplayName("Instanciar: Subte X")
   private TransportePublico subteX(Parada... paradas) {
-    TransportePublico subte = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
+    TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().hayarTipo(
         "DIESEL_GASOIL"), 0.5, TipoDeTransportePublico.SUBTE, "X");
     subte.addParadas(paradas);
     return subte;
@@ -52,7 +52,7 @@ public class InstanciasTransporte {
 
   @DisplayName("Instanciar: Colectivo linea 157")
   private TransportePublico colectivoLinea157(Parada... paradas) {
-    TransportePublico bondi = new TransportePublico(TiposConsumos.getInstance().hayarTipo(
+    TransportePublico bondi = new TransportePublico(RepoTiposConsumos.getInstance().hayarTipo(
         "NAFTA"), 3.0, TipoDeTransportePublico.COLECTIVO, "157");
     bondi.addParadas(paradas);
     return bondi;
@@ -60,14 +60,14 @@ public class InstanciasTransporte {
 
   @DisplayName("Instanciar: Taxi")
   private ServicioContratado taxi(CalculadoraDeDistancia calculadoraMock) {
-    ServicioContratado taxi =  new ServicioContratado(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
+    ServicioContratado taxi =  new ServicioContratado(RepoTiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
         2.0, TipoDeServicioContratado.TAXI);
     taxi.setCalculadoraDeDistancia(calculadoraMock);
     return taxi;
   }
   @DisplayName("Instanciar: Moto que usa nafta")
   private VehiculoParticular motoNafta(CalculadoraDeDistancia calculadoraMock) {
-    VehiculoParticular motoNafta = new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
+    VehiculoParticular motoNafta = new VehiculoParticular(RepoTiposConsumos.getInstance().hayarTipo("GAS_NATURAL"),
         1.2, TipoDeVehiculo.MOTO);
     motoNafta.setCalculadoraDeDistancia(calculadoraMock);
     return motoNafta;
@@ -75,7 +75,7 @@ public class InstanciasTransporte {
 
   @DisplayName("Instanciar: Auto")
   private VehiculoParticular auto(CalculadoraDeDistancia calculadoraMock) {
-    VehiculoParticular auto = new VehiculoParticular(TiposConsumos.getInstance().hayarTipo("DIESEL_GASOIL"),
+    VehiculoParticular auto = new VehiculoParticular(RepoTiposConsumos.getInstance().hayarTipo("DIESEL_GASOIL"),
         2.5, TipoDeVehiculo.AUTO);
     auto.setCalculadoraDeDistancia(calculadoraMock);
     return auto;

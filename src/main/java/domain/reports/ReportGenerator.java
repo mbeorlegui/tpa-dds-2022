@@ -2,9 +2,7 @@ package domain.reports;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
-import domain.organizacion.Organizacion;
-import domain.organizacion.SectorTerritorial;
-import domain.organizacion.TipoOrganizacion;
+import domain.organizacion.*;
 import domain.ubicacion.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -14,51 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportGenerator implements WithGlobalEntityManager {
-  private static EntityManager em = PerThreadEntityManagers.getEntityManager();
-
-  @SuppressWarnings("unchecked")
-  public static List<Organizacion> getOrganizaciones() {
-    return em
-        .createQuery("from Organizacion")
-        .getResultList();
-  }
-
-  @SuppressWarnings("unchecked")
-  public List<Organizacion> getOrganizacionesPorSector(SectorTerritorial sector) {
-    return em
-        .createQuery("from Organizacion where sector_territorial_id = :sector")
-        .setParameter("sector", sector)
-        .getResultList();
-  }
-
-  @SuppressWarnings("unchecked")
-  public static List<Ubicacion> getUbicaciones() {
-    return em
-        .createQuery("from Ubicacion")
-        .getResultList();
-  }
-
-  @SuppressWarnings("unchecked")
-  public List<Organizacion> getOrganizacionesPorTipo(TipoOrganizacion tipoOrganizacion) {
-    return em
-        .createQuery("from Organizacion where tipo_organizacion = :tipoOrg")
-        .setParameter("tipoOrg", tipoOrganizacion.name())
-        .getResultList();
-  }
-
-  public SectorTerritorial getSectorTerritorial(Long id) {
-    return em.find(SectorTerritorial.class, id);
-  }
-
-  public static Organizacion getOrganizacion(Long id) {
-    return em.find(Organizacion.class, id);
-  }
 
   public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
                                            Periodicidad periodicidad,
                                            String periodoDeImputacion,
                                            UnidadEquivalenteCarbono unidadDeseada) {
-    return this
+    return RepoSectoresTerritoriales
+        .getInstance()
         .getSectorTerritorial(sectorTerritorialId)
         .huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada);
   }
@@ -67,22 +27,13 @@ public class ReportGenerator implements WithGlobalEntityManager {
                                               Periodicidad periodicidad,
                                               String periodoDeImputacion,
                                               UnidadEquivalenteCarbono unidadDeseada) {
-    return this
+    return RepoOrganizaciones
+        .getInstance()
         .getOrganizacionesPorTipo(tipoOrganizacion)
         .stream()
         .mapToDouble(org ->
             org.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada))
         .sum();
-  }
-
-  public double evolucionDeHcEnSector(
-      SectorTerritorial sector, String periodoDeInicio, String periodoDeFin) {
-    return 0;
-  }
-
-  public double evolucionDeHcEnOrganizacion(
-      Organizacion organizacion, String periodoDeInicio, String periodoDeFin) {
-    return 0;
   }
 
   @SuppressWarnings("unchecked")
@@ -91,7 +42,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
       Periodicidad periodicidad,
       String periodo,
       UnidadEquivalenteCarbono unidad) {
-    return getOrganizacion(organizacionId).huellaDeCarbonoEnPeriodo(periodicidad, periodo, unidad);
+    return RepoOrganizaciones.getInstance().getOrganizacion(organizacionId).huellaDeCarbonoEnPeriodo(periodicidad, periodo, unidad);
   }
 
   public static List<Double> getEvolucionHcDeOrganizacion(
@@ -102,7 +53,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
       UnidadEquivalenteCarbono unidad) {
     List<String> periodosIntermedios =
         periodicidad.getPeriodosIntermedios(periodoInicio, periodoFin);
-    Organizacion org = getOrganizacion(organizacionId);
+    Organizacion org = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
     return periodosIntermedios.stream().mapToDouble(
         p -> org.huellaDeCarbonoEnPeriodo(periodicidad, p, unidad)
     ).boxed().collect(Collectors.toList());
@@ -116,7 +67,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
       UnidadEquivalenteCarbono unidad) {
     List<String> periodosIntermedios =
         periodicidad.getPeriodosIntermedios(periodoInicio, periodoFin);
-    SectorTerritorial sector = this.getSectorTerritorial(sectorTerritorialId);
+    SectorTerritorial sector = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(sectorTerritorialId);
     return periodosIntermedios.stream().mapToDouble(
         p -> sector.huellaDeCarbonoEnPeriodo(periodicidad, p, unidad)
     ).boxed().collect(Collectors.toList());
@@ -127,8 +78,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
       Periodicidad periodicidad,
       String periodoDeImputacion,
       UnidadEquivalenteCarbono unidadDeseada) {
-    List<Organizacion> organizaciones = this.getSectorTerritorial(
-        sectorTerritorialId).getOrganizaciones();
+    List<Organizacion> organizaciones = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(sectorTerritorialId).getOrganizaciones();
     return this.composicionHcDeOrganizaciones(
         organizaciones, periodicidad, periodoDeImputacion, unidadDeseada);
   }
@@ -138,7 +88,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
       Periodicidad periodicidad,
       String periodoDeImputacion,
       UnidadEquivalenteCarbono unidadDeseada) {
-    Organizacion organizacion = getOrganizacion(organizacionId);
+    Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
     return new ReporteDeComposicion(
         organizacion.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
         organizacion.hcTrayectosMiembros(periodicidad, unidadDeseada));

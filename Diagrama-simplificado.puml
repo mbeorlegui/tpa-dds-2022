@@ -56,7 +56,7 @@ class TiposConsumos <<(S,#FF7700) Singleton>> {
   consumos : List<TipoConsumo>
 }
 
-' TiposConsumos es singleton (repositorio de objetos)
+' RepoTiposConsumos es singleton (repositorio de objetos)
 TiposConsumos -left->"*" TipoConsumo
 
 class TipoConsumo {

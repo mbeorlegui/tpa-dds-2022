@@ -1,10 +1,7 @@
 package domain.administrador;
 
-import domain.medicion.Actividad;
-import domain.medicion.Alcance;
-import domain.medicion.TiposConsumos;
-import domain.medicion.TipoConsumo;
-import domain.medicion.Unidad;
+import domain.medicion.*;
+import domain.medicion.RepoTiposConsumos;
 
 import lombok.Getter;
 
@@ -42,7 +39,7 @@ public class Administrador {
                                           Unidad unidad,
                                           FactorDeEmision factorDeEmision,
                                           String nombreTipoDeConsumo) {
-    TiposConsumos.getInstance().agregarTiposDeConsumo(
+    RepoTiposConsumos.getInstance().agregarTiposDeConsumo(
         new TipoConsumo(actividad, alcance, unidad, factorDeEmision, nombreTipoDeConsumo)
     );
   }

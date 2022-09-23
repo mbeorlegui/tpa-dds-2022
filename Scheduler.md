@@ -10,7 +10,7 @@ $ mvn package
 Luego, corremos el comando ejecutando directamente el método principal (`Main`) de la clase `OrganizacionesRepositorio`:
 
 ```console
-$ java -cp $PWD:target/ejercicio-1.0-SNAPSHOT.jar domain.organizacion.OrganizacionesRepositorio <LINK>
+$ java -cp $PWD:target/ejercicio-1.0-SNAPSHOT.jar domain.organizacion.RepoOrganizaciones <LINK>
 ```
 
 **NOTA**: Tener en cuenta que `$PWD` es una variable de entorno de Linux que almacena el path actual.
@@ -56,5 +56,5 @@ $ grep CRON /var/log/syslog
 Allí pudimos verificar el funcionamiento de nuestra tarea programada, viendo que se ejecutaba a la hora que necesitamos:
 
 ```
-Jul 16 17:00:01 MatiasFierro CRON[51021]: (mbeorlegui) CMD (mbeorlegui /usr/bin/java -cp /home/mbeorlegui/Escritorio/Matias/dds/tpIntegrador:target/ejercicio-1.0-SNAPSHOT.jar domain.organizacion.OrganizacionesRepositorio >/dev/null 2>&1)
+Jul 16 17:00:01 MatiasFierro CRON[51021]: (mbeorlegui) CMD (mbeorlegui /usr/bin/java -cp /home/mbeorlegui/Escritorio/Matias/dds/tpIntegrador:target/ejercicio-1.0-SNAPSHOT.jar domain.organizacion.RepoOrganizaciones >/dev/null 2>&1)
 ```
