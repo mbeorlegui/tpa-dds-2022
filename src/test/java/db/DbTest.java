@@ -1,9 +1,6 @@
 package db;
 
-import domain.organizacion.Clasificacion;
-import domain.organizacion.Organizacion;
-import domain.organizacion.Sector;
-import domain.organizacion.TipoOrganizacion;
+import domain.organizacion.*;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +11,8 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
@@ -41,5 +40,7 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     Sector unSector = new Sector();
     org.addSector(unSector);
     em.persist(org);
+    Organizacion orgDeBase = RepoOrganizaciones.getInstance().getOrganizacion(org.getId());
+    assertEquals(org, orgDeBase);
   }
 }
