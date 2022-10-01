@@ -13,6 +13,12 @@ entity Organizacion {
   sector_territorial_id : number <<FK>>
 }
 
+entity Contacto_x_organizacion {
+  contacto_id : number <<generated>>
+  organizacion_id : number <<generated>>
+  --
+}
+
 entity Contacto {
   contacto_id : number <<generated>>
   --
@@ -62,6 +68,13 @@ entity Sector {
   organizacion_id : number <<FK>>
 }
 
+entity Miembro_x_sector {
+  sector_id : number <<generated>>
+  miembro_id : number <<generated>>
+  --
+
+}
+
 entity Miembro {
   miembro_id : number <<generated>>
   --
@@ -90,10 +103,23 @@ entity Tramo {
   transporte_id : number <<FK>>
 }
 
+entity Trayecto_x_tramo {
+  trayecto_id : number <<generated>>
+  tramo_id : number <<generated>>
+  --
+}
+
 entity Trayecto {
   trayecto_id : number <<generated>>
   --
   ' Romper relacion con Tramo
+}
+
+entity Parada_x_transporte {
+  transporte_id : number <<generated>>
+  parada_id : number <<generated>>
+  --
+
 }
 
 entity Parada {
@@ -111,14 +137,11 @@ entity Administrador {
 }
 
 Organizacion ||--|{ Sector
-Sector }|--|{ Miembro
 ' Documento es propiedad de Miembro
 Miembro }|--|| Trayecto
-Trayecto }|--|{ Tramo
 Tramo }|--|| Transporte
 ' Ver como hacer la Herencia de transporte (single table)
 ' TipoTransporte va como propiedad del Transporte
-Parada }o--|{ Transporte
 ' ResultadoDistancia es propiedad de Parada
 Ubicacion ||--|| Parada
 Ubicacion ||--|| Organizacion
@@ -131,11 +154,16 @@ Medicion }o--|| TipoConsumo
 Transporte }o--|| TipoConsumo
 ' FE queda como embedded y TipoConsumo queda como Embeddable
 ' Administrador no tiene relacion con ninguna entidad
-Organizacion }o--|{ Contacto
 Organizacion }o--|| SectorTerritorial
 
 ' Queda romper las relaciones ManyToMany
-
-
+Contacto_x_organizacion }o--||Contacto
+Contacto_x_organizacion }|--||Organizacion
+Miembro_x_sector }|--||Miembro
+Miembro_x_sector }|--||Sector
+Trayecto_x_tramo }|--||Tramo
+Trayecto_x_tramo }|--||Trayecto
+Parada_x_transporte }o--||Transporte
+Parada_x_transporte }|--||Parada
 
 @enduml
