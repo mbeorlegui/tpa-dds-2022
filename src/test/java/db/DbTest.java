@@ -4,6 +4,7 @@ import domain.organizacion.*;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -30,6 +31,7 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   }
 
   @Test
+  @DisplayName("Cuando guardo una organizacion en la base, la saco correctamente de la misma")
   public void guardarOrganizacion() {
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
