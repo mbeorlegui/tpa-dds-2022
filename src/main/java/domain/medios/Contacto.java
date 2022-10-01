@@ -13,7 +13,7 @@ import javax.persistence.Column;
 public class Contacto {
   @Id
   @GeneratedValue
-  @Column(name = "ubicacion_id")
+  @Column(name = "contacto_id")
   private long id;
   @Getter
   String nombre;
