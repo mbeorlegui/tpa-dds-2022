@@ -112,21 +112,13 @@ entity Trayecto_x_tramo {
 entity Trayecto {
   trayecto_id : number <<generated>>
   --
-  ' Romper relacion con Tramo
-}
-
-entity Parada_x_transporte {
-  transporte_id : number <<generated>>
-  parada_id : number <<generated>>
-  --
-
 }
 
 entity Parada {
   parada_id : number <<generated>>
   --
   ubicacion_id : number <<FK>>
-  ' Romper relacion con Transporte
+  transporte_id : number <<FK>>
 }
 
 entity Administrador {
@@ -156,14 +148,12 @@ Transporte }o--|| TipoConsumo
 ' Administrador no tiene relacion con ninguna entidad
 Organizacion }o--|| SectorTerritorial
 
-' Queda romper las relaciones ManyToMany
 Contacto_x_organizacion }o--||Contacto
 Contacto_x_organizacion }|--||Organizacion
 Miembro_x_sector }|--||Miembro
 Miembro_x_sector }|--||Sector
 Trayecto_x_tramo }|--||Tramo
 Trayecto_x_tramo }|--||Trayecto
-Parada_x_transporte }o--||Transporte
-Parada_x_transporte }|--||Parada
+Parada }o--||Transporte
 
 @enduml
