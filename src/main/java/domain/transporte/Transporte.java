@@ -3,7 +3,6 @@ package domain.transporte;
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.CalculadoraDeDistancia;
-import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,9 +51,6 @@ public abstract class Transporte {
     this.combustible = combustible;
     this.combustiblePorKm = combustiblePorKm;
   }
-
-  public abstract void verificarParadas(Ubicacion origen, Ubicacion destino);
-
 
   public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
     return this.calculadoraDeDistancia.distancia(origenDeTramo, destinoDeTramo);

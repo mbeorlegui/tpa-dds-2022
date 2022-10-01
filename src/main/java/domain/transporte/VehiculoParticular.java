@@ -24,10 +24,4 @@ public class VehiculoParticular extends Transporte {
     this.tipoDeVehiculo = tipoDeVehiculo;
     setTipoTransporte(TipoTransporte.PARTICULAR);
   }
-
-  @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
-  }
-
 }

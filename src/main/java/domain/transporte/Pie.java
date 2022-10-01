@@ -13,10 +13,4 @@ public class Pie extends Transporte {
     super(RepoTiposConsumos.getInstance().hayarTipo("MEDIO_DE_TRANSPORTE"), 0.0);
     setTipoTransporte(TipoTransporte.PIE);
   }
-
-  @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
-  }
-
 }

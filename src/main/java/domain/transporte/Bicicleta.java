@@ -14,10 +14,4 @@ public class Bicicleta extends Transporte {
     super(null, null);
     setTipoTransporte(TipoTransporte.BICICLETA);
   }
-
-  @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
-  }
-
 }

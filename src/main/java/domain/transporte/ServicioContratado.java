@@ -15,11 +15,6 @@ public class ServicioContratado extends Transporte {
   @Column(name = "tipo_de_servicio_contratado")
   private TipoDeServicioContratado tipoDeServicioContratado;
 
-  @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
-  }
-
   public ServicioContratado(TipoConsumo combustible, Double combustiblePorKm,
                             TipoDeServicioContratado tipoDeServicioContratado) {
     super(combustible, combustiblePorKm);
