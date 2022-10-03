@@ -28,7 +28,7 @@ public class RepoTiposConsumos {
       Alcance.EMISION_DIRECTA, Unidad.LT, new FactorDeEmision(2.4, UnidadEquivalenteCarbono.GRAMO),
       "CC_NAFTA");
   private TipoConsumo electricidad = new TipoConsumo(Actividad.ELECTRICIDAD,
-      Alcance.EMISION_INDIRECTA,Unidad.KWH,new FactorDeEmision(0.4, UnidadEquivalenteCarbono.GRAMO),
+      Alcance.EMISION_INDIRECTA, Unidad.KWH, new FactorDeEmision(0.4, UnidadEquivalenteCarbono.GRAMO),
       "ELECTRICIDAD");
   private TipoConsumo medioDeTransporte = new TipoConsumo(Actividad.LOGISTICA,
       Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD,
@@ -45,8 +45,8 @@ public class RepoTiposConsumos {
 
   private RepoTiposConsumos() {
     agregarTiposDeConsumo(gasNatural, dieselGasoil, nafta,
-                          carbon, ccGasoil, ccNafta, electricidad, 
-                          medioDeTransporte, distanciaMedia);
+        carbon, ccGasoil, ccNafta, electricidad,
+        medioDeTransporte, distanciaMedia);
   }
   // TODO: Mejorar el init que está feo
 

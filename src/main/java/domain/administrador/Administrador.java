@@ -1,6 +1,9 @@
 package domain.administrador;
 
-import domain.medicion.*;
+import domain.medicion.Actividad;
+import domain.medicion.Alcance;
+import domain.medicion.Unidad;
+import domain.medicion.TipoConsumo;
 import domain.medicion.RepoTiposConsumos;
 
 import lombok.Getter;

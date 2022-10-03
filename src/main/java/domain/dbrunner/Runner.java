@@ -1,16 +1,13 @@
 package domain.dbrunner;
 
-import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
-import domain.medicion.Periodicidad;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
-import domain.reports.ReportGenerator;
 import domain.ubicacion.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
