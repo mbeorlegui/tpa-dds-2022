@@ -28,5 +28,5 @@ public class MedicionAdapter {
   public TipoConsumo adaptarTipoConsumo(MedicionRead unaMedicion) {
     return TiposConsumos.getInstance().hayarTipo(unaMedicion.getTipoConsumo());
   }
-
+//TODO: ver como cambiar esto, ya que TiposConsumos ahora interactua con db
 }
