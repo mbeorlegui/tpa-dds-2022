@@ -1,7 +1,6 @@
 package domain.transporte;
 
 import domain.administrador.UnidadEquivalenteCarbono;
-import domain.medicion.TiposConsumos;
 import domain.ubicacion.Ubicacion;
 
 import javax.persistence.DiscriminatorValue;

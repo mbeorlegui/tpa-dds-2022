@@ -56,7 +56,7 @@ public class Runner {
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
     et.begin();
-    em.persist(ubicacion);
+    // em.persist(ubicacion);
     em.persist(org2);
     em.persist(unSector);
     // Para que los metodos anden en el runner deben ser static

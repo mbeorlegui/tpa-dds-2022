@@ -7,13 +7,7 @@ import domain.transporte.Transporte;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 
 @Entity
@@ -24,13 +18,20 @@ public class Tramo {
   @Column(name = "tramo_id")
   private long id;
   @Getter
-  @ManyToOne
-  @JoinColumn(name = "ubicacion_origen_id")
-  private Ubicacion origenDeTramo;
+  @AttributeOverrides({
+      @AttributeOverride(name = "localidadID", column = @Column(name = "origen_localidad_id")),
+      @AttributeOverride(name = "altura", column = @Column(name = "origen_altura")),
+      @AttributeOverride(name = "calle", column = @Column(name = "origen_calle"))
+  })
+  @Embedded private Ubicacion origenDeTramo;
   @Getter
-  @ManyToOne
-  @JoinColumn(name = "ubicacion_destino_id")
-  private Ubicacion destinoDeTramo;
+  @AttributeOverrides({
+      @AttributeOverride(name = "localidadID", column = @Column(name = "destino_localidad_id")),
+      @AttributeOverride(name = "altura", column = @Column(name = "destino_altura")),
+      @AttributeOverride(name = "calle", column = @Column(name = "destino_calle"))
+  })
+  @Embedded private Ubicacion destinoDeTramo;
+
   @Getter
   @ManyToOne
   @JoinColumn(name = "transporte_id")

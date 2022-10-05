@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TiposConsumos {
+public class RepoTiposConsumos {
   public List<TipoConsumo> consumos = new ArrayList<>();
   private TipoConsumo gasNatural = new TipoConsumo(Actividad.COMBUSTION_FIJA,
       Alcance.EMISION_DIRECTA, Unidad.M3, new FactorDeEmision(0.2, UnidadEquivalenteCarbono.GRAMO),
@@ -38,12 +38,12 @@ public class TiposConsumos {
       Alcance.OTRAS_EMISIONES, Unidad.KM, new FactorDeEmision(1.0, UnidadEquivalenteCarbono.GRAMO),
       "DISTANCIA_MEDIA_RECORRIDA");
 
-  private static final TiposConsumos INSTANCE =
-      new TiposConsumos();
+  private static final RepoTiposConsumos INSTANCE =
+      new RepoTiposConsumos();
 
   // TODO: chequear factor de emision, por ahora definido en 500
 
-  private TiposConsumos() {
+  private RepoTiposConsumos() {
     agregarTiposDeConsumo(gasNatural, dieselGasoil, nafta,
                           carbon, ccGasoil, ccNafta, electricidad, 
                           medioDeTransporte, distanciaMedia);
@@ -55,7 +55,7 @@ public class TiposConsumos {
   }
   //TODO: modificar para que agregue a la db y hacer un test
 
-  public static TiposConsumos getInstance() {
+  public static RepoTiposConsumos getInstance() {
     return INSTANCE;
   }
 

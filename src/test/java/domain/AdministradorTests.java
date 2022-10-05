@@ -100,7 +100,7 @@ public class AdministradorTests {
     adminConPasswordCompleto().generarNuevoFactorDeEmision(
         Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, new FactorDeEmision(120.0, UnidadEquivalenteCarbono.GRAMO),
         "factorDeEmisionDePrueba");
-    assertTrue(TiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
+    assertTrue(RepoTiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
     //TODO: ver como modificar existeTipo
   }
 
