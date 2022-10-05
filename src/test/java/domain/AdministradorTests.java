@@ -101,7 +101,6 @@ public class AdministradorTests {
         Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, new FactorDeEmision(120.0, UnidadEquivalenteCarbono.GRAMO),
         "factorDeEmisionDePrueba");
     assertTrue(RepoTiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
-    //TODO: ver como modificar existeTipo
   }
 
 
