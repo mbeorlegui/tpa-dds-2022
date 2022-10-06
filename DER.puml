@@ -9,8 +9,17 @@ entity Organizacion {
   razon_social : text
   tipo_organizacion : number <<enum>>
   clasificacion : number <<enum>>
-  ubicacion_id : number <<FK>>
+  'Embeded de ubicacion
+  localidad_id : number
+  calle : text
+  altura : text
   sector_territorial_id : number <<FK>>
+}
+
+entity Contacto_x_organizacion {
+  contacto_id : number <<generated>>
+  organizacion_id : number <<generated>>
+  --
 }
 
 entity Contacto {
@@ -48,18 +57,17 @@ entity Medicion {
   periodo_de_imputacion : text
 }
 
-entity Ubicacion {
-  ubicacion_id : number <<generated>>
-  --
-  localidad_id : number
-  calle : text
-  altura : text
-}
-
 entity Sector {
   sector_id : number <<generated>>
   --
   organizacion_id : number <<FK>>
+}
+
+entity Miembro_x_sector {
+  sector_id : number <<generated>>
+  miembro_id : number <<generated>>
+  --
+
 }
 
 entity Miembro {
@@ -85,22 +93,36 @@ entity Transporte {
 entity Tramo {
   tramo_id : number <<generated>>
   --
-  origen_id : number <<FK>>
-  destino_id : number <<FK>>
+  'Embeded de ubicacion
+  origen_localidad_id : number
+  origen_calle : text
+  origen_altura : text
+  'Embeded de ubicacion
+  destino_localidad_id : number
+  destino_calle : text
+  destino_altura : text
   transporte_id : number <<FK>>
+}
+
+entity Trayecto_x_tramo {
+  trayecto_id : number <<generated>>
+  tramo_id : number <<generated>>
+  --
 }
 
 entity Trayecto {
   trayecto_id : number <<generated>>
   --
-  ' Romper relacion con Tramo
 }
 
 entity Parada {
   parada_id : number <<generated>>
   --
-  ubicacion_id : number <<FK>>
-  ' Romper relacion con Transporte
+  'Embeded de ubicacion
+  localidad_id : number
+  calle : text
+  altura : text
+  transporte_id : number <<FK>>
 }
 
 entity Administrador {
@@ -111,31 +133,26 @@ entity Administrador {
 }
 
 Organizacion ||--|{ Sector
-Sector }|--|{ Miembro
 ' Documento es propiedad de Miembro
 Miembro }|--|| Trayecto
-Trayecto }|--|{ Tramo
 Tramo }|--|| Transporte
 ' Ver como hacer la Herencia de transporte (single table)
 ' TipoTransporte va como propiedad del Transporte
-Parada }o--|{ Transporte
 ' ResultadoDistancia es propiedad de Parada
-Ubicacion ||--|| Parada
-Ubicacion ||--|| Organizacion
-' Parada y Organizacion tienen FK de Ubicacion
-Ubicacion||--|{ Tramo
-Ubicacion||--|{ Tramo
-' Tramo tiene 2 FK que referencian a Ubicacion
+
 Organizacion||-o{ Medicion
 Medicion }o--|| TipoConsumo
 Transporte }o--|| TipoConsumo
 ' FE queda como embedded y TipoConsumo queda como Embeddable
 ' Administrador no tiene relacion con ninguna entidad
-Organizacion }o--|{ Contacto
 Organizacion }o--|| SectorTerritorial
 
-' Queda romper las relaciones ManyToMany
-
-
+Contacto_x_organizacion }o--||Contacto
+Contacto_x_organizacion }|--||Organizacion
+Miembro_x_sector }|--||Miembro
+Miembro_x_sector }|--||Sector
+Trayecto_x_tramo }|--||Tramo
+Trayecto_x_tramo }|--||Trayecto
+Parada }o--||Transporte
 
 @enduml
