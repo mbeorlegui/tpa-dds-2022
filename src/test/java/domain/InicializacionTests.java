@@ -14,12 +14,14 @@ public class InicializacionTests {
   InstanciasTransporte transportes;
   InstanciasTrayecto trayectos;
   InstanciasUbicacion ubicaciones;
+  InstanciasTipoDeConsumo tiposDeConsumo;
   public InicializacionTests() {
     this.contactos = new InstanciasContacto();
     this.mediciones = new InstanciasMedicion();
     this.paradas = new InstanciasParada();
     this.ubicaciones = new InstanciasUbicacion();
-    this.transportes = new InstanciasTransporte(this.getParadas());
+    this.tiposDeConsumo = new InstanciasTipoDeConsumo();
+    this.transportes = new InstanciasTransporte(this.getParadas(), this.getTiposDeConsumo());
     this.tramos = new InstanciasTramo(this.getUbicaciones(), this.getTransportes());
     this.trayectos = new InstanciasTrayecto(this.getTramos());
     this.miembros = new InstanciasMiembro(this.getTrayectos());
