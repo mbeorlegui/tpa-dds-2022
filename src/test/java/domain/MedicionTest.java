@@ -2,6 +2,7 @@ package domain;
 
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
+import domain.medicion.TipoConsumo;
 import domain.organizacion.CsvHandler;
 import domain.organizacion.Organizacion;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,8 @@ public class MedicionTest {
   private Medicion otraMedicionAdaptada;
   private Medicion otraMedicionAdaptadaMas;
   private CsvHandler csvHandler;
+  private TipoConsumo gasNatural;
+  private TipoConsumo electricidad;
 
   @BeforeEach
   void initOrganizacion() {
@@ -26,11 +29,13 @@ public class MedicionTest {
     organizacion = inicializador.getOrganizaciones().getUtn();
     otraOrganizacion = inicializador.getOrganizaciones().getOrgFalsa();
     MedicionAdapter medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
-    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(
+    gasNatural = inicializador.getTiposDeConsumo().getGasNatural();
+    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(gasNatural,
         inicializador.getMediciones().getMedicionDeLectura1());
-    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(
+    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(gasNatural,
         inicializador.getMediciones().getMedicionDeLectura1());
-    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(
+    electricidad = inicializador.getTiposDeConsumo().getElectricidad();
+    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(electricidad,
         inicializador.getMediciones().getMedicionDeLectura2());
     csvHandler = inicializador.getMediciones().csvHandler();
   }

@@ -16,13 +16,14 @@ public class InstanciasMedicion {
   private Medicion medicionEstandar;
   private CsvHandler csvHandler;
 
-  public InstanciasMedicion() {
+  public InstanciasMedicion(InstanciasTipoDeConsumo tipoDeConsumo) {
     this.medicionDeLectura1 = medicionDeLectura1();
     this.medicionDeLectura2 = medicionDeLectura2();
     this.medicionDeLectura3 = medicionDeLectura3();
     this.unAdapterDeMedicion = unAdapterDeMedicion();
     this.csvHandler = csvHandler();
-    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(medicionDeLectura1);
+    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(
+            tipoDeConsumo.getGasNatural(), medicionDeLectura1);
   }
 
   @DisplayName("Instanciar: Medicion de lectura 1")
