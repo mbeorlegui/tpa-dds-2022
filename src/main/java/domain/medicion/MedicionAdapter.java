@@ -28,5 +28,4 @@ public class MedicionAdapter {
   public TipoConsumo adaptarTipoConsumo(MedicionRead unaMedicion) {
     return RepoTiposConsumos.getInstance().hayarTipo(unaMedicion.getTipoConsumo());
   }
-
 }
