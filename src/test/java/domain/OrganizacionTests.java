@@ -4,6 +4,7 @@ import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.Periodicidad;
+import domain.medicion.TipoConsumo;
 import domain.organizacion.*;
 import domain.services.apidistancias.CalculadoraDeDistancia;
 import domain.services.apidistancias.entities.ResultadoDistancia;
@@ -18,6 +19,9 @@ import domain.organizacion.TipoOrganizacion;
 import domain.trayecto.Trayecto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,6 +50,7 @@ public class OrganizacionTests {
   private Medicion medicionAdaptada2;
 
   private Double deltaError;
+  private List<TipoConsumo> tipoConsumos;
 
   @BeforeEach
   void init() {
@@ -69,7 +74,8 @@ public class OrganizacionTests {
     casaHastaLinea7 = inicializador.getTramos().getCasaHastaParadaLinea7();
     casa2HastaLinea7 = inicializador.getTramos().getCasa2HastaParadaLinea7();
     casa2HastaUTN = inicializador.getTrayectos().getCasa2HastaUTN();
-    medicionAdaptada2 = medicionAdapter.adaptarMedicion(
+    tipoConsumos = inicializador.getMediciones().getTipoConsumos();
+    medicionAdaptada2 = medicionAdapter.adaptarMedicion(tipoConsumos,
         inicializador.getMediciones().getMedicionDeLectura2());
     utn.agregarMedicion(medicionAdaptada2);
     utn.agregarMedicion(unaMedicion);

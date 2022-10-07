@@ -42,6 +42,7 @@ public class RepoTiposConsumos {
         .findFirst().get();
   }
 
+
   public boolean existeTipo(String nombre) {
     return this.getTiposConsumos().stream().anyMatch(unConsumo -> unConsumo.toString().equals(nombre));
   }
