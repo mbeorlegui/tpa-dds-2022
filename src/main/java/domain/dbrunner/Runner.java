@@ -1,8 +1,8 @@
 package domain.dbrunner;
 
-import domain.medicion.Medicion;
-import domain.medicion.MedicionAdapter;
-import domain.medicion.MedicionRead;
+import domain.administrador.FactorDeEmision;
+import domain.administrador.UnidadEquivalenteCarbono;
+import domain.medicion.*;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
@@ -13,10 +13,12 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.stream.Collectors;
 
 public class Runner {
   //  Probar con: mvn compile exec:java
   public static void main(String[] args) {
+    RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     System.out.println("Ejecutando queries!");
     EntityManager em = PerThreadEntityManagers.getEntityManager();
     EntityTransaction et = em.getTransaction();
@@ -105,6 +107,8 @@ public class Runner {
 //            + ReportGenerator.getVariacionEntrePeriodosDeSector(sectorTerritorial, "04/2021", "03/2022")
 //            + "%"
 //    );
+    System.out.println("Tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos());
+    System.out.println("Factores de emision de tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
     System.out.println("Cerrando conexion");
     em.close();
   }

@@ -6,9 +6,12 @@ import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.medicion.Periodicidad;
+import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.RepoOrganizaciones;
+import domain.organizacion.TipoOrganizacion;
 import domain.reports.ReportGenerator;
+import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +44,12 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   public void begin() {
     et.begin();
     InicializacionTests inicializador = new InicializacionTests();
-    org = inicializador.getOrganizaciones().getOrgFalsa();
+    Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
+    org = new Organizacion(
+        "Prueba Empresa",
+        TipoOrganizacion.EMPRESA,
+        ubicacion,
+        Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
     medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
     medicionAdaptada = medicionAdapter.adaptarMedicion(
         inicializador.getMediciones().getMedicionDeLectura2());
@@ -84,16 +92,12 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   public void evaluacionDeHcEnPeriodo() {
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
-    org.agregarMedicion(medicion3);
-    org.agregarMedicion(medicion4);
-    em.persist(medicion1);
-    em.persist(medicion2);
-    em.persist(medicion3);
-    em.persist(medicion4);
     em.persist(org);
-    List<Double> evolucion = ReportGenerator.getEvolucionHcDeOrganizacion(org.getId(), Periodicidad.MENSUAL, "04/2021", "03/2022", UnidadEquivalenteCarbono.KILOGRAMO);
-    
-    List<Double> miLista = Arrays.asList(6000.0, 5000.0, 7000.0, 8000.0);
-    assertEquals(evolucion, miLista);
+    List<Double> evolucionCalculada = ReportGenerator.getEvolucionHcDeOrganizacion(
+        org.getId(), Periodicidad.MENSUAL, "04/2021", "03/2022", UnidadEquivalenteCarbono.KILOGRAMO);
+
+    List<Double> miLista = Arrays.asList(2.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+    System.out.println(org);
+    assertEquals(miLista, evolucionCalculada);
   }
 }

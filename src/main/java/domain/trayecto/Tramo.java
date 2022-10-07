@@ -49,7 +49,6 @@ public class Tramo {
   private Transporte transporteUtilizado;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
-    transporteUtilizado.verificarParadas(origenDeTramo, destinoDeTramo);
     this.origenDeTramo = origenDeTramo;
     this.destinoDeTramo = destinoDeTramo;
     this.transporteUtilizado = transporteUtilizado;

@@ -1,5 +1,6 @@
 package domain.transporte;
 
+import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.TipoConsumo;
 import domain.ubicacion.Ubicacion;
 
@@ -16,8 +17,8 @@ public class Bicicleta extends Transporte {
   }
 
   @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
+  public double huellaDeCarbonoDeDistancia(double distanciaRecorrida,
+                                           UnidadEquivalenteCarbono unidadDeseada) {
+    return 0.0;
   }
-
 }
