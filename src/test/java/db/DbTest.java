@@ -2,10 +2,7 @@ package db;
 
 import domain.InicializacionTests;
 import domain.administrador.UnidadEquivalenteCarbono;
-import domain.medicion.Medicion;
-import domain.medicion.MedicionAdapter;
-import domain.medicion.MedicionRead;
-import domain.medicion.Periodicidad;
+import domain.medicion.*;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.RepoOrganizaciones;
@@ -33,36 +30,25 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   EntityManager em = PerThreadEntityManagers.getEntityManager();
   EntityTransaction et = em.getTransaction();
   private Organizacion org;
-  private MedicionAdapter medicionAdapter;
-  private Medicion medicionAdaptada;
   private Medicion medicion1;
   private Medicion medicion2;
-  private Medicion medicion3;
-  private Medicion medicion4;
 
   @BeforeEach
   public void begin() {
+
     et.begin();
-    InicializacionTests inicializador = new InicializacionTests();
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     org = new Organizacion(
         "Prueba Empresa",
         TipoOrganizacion.EMPRESA,
         ubicacion,
         Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
-    medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
-    medicionAdaptada = medicionAdapter.adaptarMedicion(
-        inicializador.getMediciones().getMedicionDeLectura2());
+    RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     MedicionRead medicionRead1 = new MedicionRead(
         "ELECTRICIDAD", "6000", "MENSUAL", "04/2021");
     medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
     MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "5000", "MENSUAL", "03/2022");
     medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
-    MedicionRead medicionRead3 = new MedicionRead(
-        "ELECTRICIDAD", "7000", "MENSUAL", "04/2021");
-    medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
-    MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
-    medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
   }
 
   @AfterEach
@@ -81,10 +67,10 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   @Test
   @DisplayName("Cuando guardo una organizacion en la base, saco correctamente sus mediciones")
   public void guardarMedicionesDeOrg() {
-    org.agregarMedicion(medicionAdaptada);
+    org.agregarMedicion(medicion1);
     em.persist(org);
     Medicion medicion = RepoOrganizaciones.getInstance().getOrganizacion(org.getId()).getMediciones().get(0);
-    assertEquals(medicionAdaptada, medicion);
+    assertEquals(medicion1, medicion);
   }
 
   @Test

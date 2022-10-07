@@ -20,6 +20,7 @@
         <class>domain.organizacion.SectorTerritorial</class>
         <class>domain.organizacion.Organizacion</class>
         <class>domain.medios.Contacto</class>
+        <class>domain.medios.MedioDeComunicacion</class>
 
 
         <properties>
@@ -31,7 +32,6 @@
             <property name="hibernate.connection.username" value="sa"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
-
 
             <property name="use_sql_comments" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
