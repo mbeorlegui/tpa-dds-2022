@@ -5,6 +5,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
+import domain.medicion.TipoConsumo;
 
 
 import java.io.IOException;
@@ -28,6 +29,16 @@ public class CsvHandler {
 
     medicionesLeidas.forEach(m -> mediciones.add(medicionAdapter.adaptarMedicion(m)));
     
+    return mediciones;
+  }
+
+  public List<Medicion> getMediciones(List<TipoConsumo> tipoConsumos) throws IOException {
+    MedicionAdapter medicionAdapter = new MedicionAdapter();
+    List<Medicion> mediciones = new ArrayList<>();
+    List<MedicionRead> medicionesLeidas = this.getMedicionesRead();
+
+    medicionesLeidas.forEach(m -> mediciones.add(medicionAdapter.adaptarMedicion(tipoConsumos, m)));
+
     return mediciones;
   }
 

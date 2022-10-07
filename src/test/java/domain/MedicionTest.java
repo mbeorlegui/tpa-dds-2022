@@ -2,6 +2,7 @@ package domain;
 
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
+import domain.medicion.TipoConsumo;
 import domain.organizacion.CsvHandler;
 import domain.organizacion.Organizacion;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +22,7 @@ public class MedicionTest {
   private Medicion otraMedicionAdaptada;
   private Medicion otraMedicionAdaptadaMas;
   private CsvHandler csvHandler;
+  private List<TipoConsumo> tipoConsumos;
 
   @BeforeEach
   void initOrganizacion() {
@@ -26,11 +30,12 @@ public class MedicionTest {
     organizacion = inicializador.getOrganizaciones().getUtn();
     otraOrganizacion = inicializador.getOrganizaciones().getOrgFalsa();
     MedicionAdapter medicionAdapter = inicializador.getMediciones().getUnAdapterDeMedicion();
-    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(
+    tipoConsumos = inicializador.getMediciones().getTipoConsumos();
+    unaMedicionAdaptada = medicionAdapter.adaptarMedicion(tipoConsumos,
         inicializador.getMediciones().getMedicionDeLectura1());
-    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(
+    otraMedicionAdaptada = medicionAdapter.adaptarMedicion(tipoConsumos,
         inicializador.getMediciones().getMedicionDeLectura1());
-    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(
+    otraMedicionAdaptadaMas = medicionAdapter.adaptarMedicion(tipoConsumos,
         inicializador.getMediciones().getMedicionDeLectura2());
     csvHandler = inicializador.getMediciones().csvHandler();
   }
@@ -62,7 +67,7 @@ public class MedicionTest {
     organizacion.agregarMedicion(unaMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptadaMas);
-    otraOrganizacion.agregarMediciones(csvHandler.getMediciones());
+    otraOrganizacion.agregarMediciones(csvHandler.getMediciones(tipoConsumos));
     assertTrue(organizacion.contieneMedicionIdentica(unaMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));
