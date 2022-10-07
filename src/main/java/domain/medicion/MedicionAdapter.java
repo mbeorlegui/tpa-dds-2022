@@ -1,5 +1,7 @@
 package domain.medicion;
 
+import java.util.List;
+
 public class MedicionAdapter {
   /**
    * @param unaMedicion Recibe una MedicionRead, con todos los parametros tipo String
@@ -11,6 +13,19 @@ public class MedicionAdapter {
             adaptarValor(unaMedicion),
             adaptarPeriodicidad(unaMedicion),
             adaptarPeriodo(unaMedicion));
+  }
+
+  /**
+   * @param unaMedicion Recibe una MedicionRead, con todos los parametros tipo String
+   *                    y el tipo de consumo en el caso de los tests
+   * @return Retorna una Medicion, con el objeto convertido correctamente para el uso en los tests
+   */
+  public Medicion adaptarMedicion(List<TipoConsumo> tipoConsumos, MedicionRead unaMedicion) {
+    return
+            new Medicion(adaptarTipoConsumo(unaMedicion, tipoConsumos),
+                    adaptarValor(unaMedicion),
+                    adaptarPeriodicidad(unaMedicion),
+                    adaptarPeriodo(unaMedicion));
   }
 
   public Integer adaptarValor(MedicionRead unaMedicion) {
@@ -27,5 +42,10 @@ public class MedicionAdapter {
 
   public TipoConsumo adaptarTipoConsumo(MedicionRead unaMedicion) {
     return RepoTiposConsumos.getInstance().hayarTipo(unaMedicion.getTipoConsumo());
+  }
+
+  public TipoConsumo adaptarTipoConsumo(MedicionRead unaMedicion, List<TipoConsumo> tipoConsumos) {
+    return tipoConsumos.stream().filter(unConsumo -> unConsumo.toString().equals(
+            unaMedicion.getTipoConsumo())).findFirst().get();
   }
 }

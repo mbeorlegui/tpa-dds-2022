@@ -132,6 +132,18 @@ entity Administrador {
   password : text
 }
 
+entity Medio_de_comunicacion {
+    medio_de_comunicacion_id : number <<generated>>
+    --
+    discriminador : text
+}
+
+entity Organizacion_x_Medio_de_comunicacion {
+    organizacion_id : number <<FK>>
+    medio_de_comunicacion_id : number <<FK>>
+    --
+}
+
 Organizacion ||--|{ Sector
 ' Documento es propiedad de Miembro
 Miembro }|--|| Trayecto
@@ -146,6 +158,9 @@ Transporte }o--|| TipoConsumo
 ' FE queda como embedded y TipoConsumo queda como Embeddable
 ' Administrador no tiene relacion con ninguna entidad
 Organizacion }o--|| SectorTerritorial
+
+Organizacion_x_Medio_de_comunicacion }|--||Medio_de_comunicacion
+Organizacion_x_Medio_de_comunicacion }|--||Organizacion
 
 Contacto_x_organizacion }o--||Contacto
 Contacto_x_organizacion }|--||Organizacion

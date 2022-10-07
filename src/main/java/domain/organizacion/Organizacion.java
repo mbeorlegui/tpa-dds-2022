@@ -47,7 +47,7 @@ public class Organizacion {
   private List<Medicion> mediciones = new ArrayList<Medicion>();
   @ManyToMany
   private List<Contacto> contactos = new ArrayList<>();
-  @Transient
+  @ManyToMany
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
   public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Ubicacion ubicacion,

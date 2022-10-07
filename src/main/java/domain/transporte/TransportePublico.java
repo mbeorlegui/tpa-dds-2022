@@ -98,7 +98,6 @@ public class TransportePublico extends Transporte {
     return paradas.stream().anyMatch(p -> p.getUbicacion().esMismaUbicacionQue(unaUbicacion));
   }
 
-  @Override
   public void verificarParadas(Ubicacion origen, Ubicacion destino) {
     if (!this.tieneUnaParadaEn(origen) || !this.tieneUnaParadaEn(destino)) {
       throw new IllegalArgumentException("Los tramos no coinciden con las paradas");

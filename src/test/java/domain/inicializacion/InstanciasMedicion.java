@@ -3,9 +3,13 @@ package domain.inicializacion;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
+import domain.medicion.TipoConsumo;
 import domain.organizacion.CsvHandler;
 import lombok.Getter;
 import org.junit.jupiter.api.DisplayName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class InstanciasMedicion {
@@ -15,14 +19,25 @@ public class InstanciasMedicion {
   private MedicionAdapter unAdapterDeMedicion;
   private Medicion medicionEstandar;
   private CsvHandler csvHandler;
+  private List<TipoConsumo> tipoConsumos = new ArrayList<>();
 
-  public InstanciasMedicion() {
+  public InstanciasMedicion(InstanciasTipoDeConsumo tipoDeConsumo) {
     this.medicionDeLectura1 = medicionDeLectura1();
     this.medicionDeLectura2 = medicionDeLectura2();
     this.medicionDeLectura3 = medicionDeLectura3();
     this.unAdapterDeMedicion = unAdapterDeMedicion();
     this.csvHandler = csvHandler();
-    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(medicionDeLectura1);
+    tipoConsumos.add(tipoDeConsumo.getGasNatural());
+    tipoConsumos.add(tipoDeConsumo.getNafta());
+    tipoConsumos.add(tipoDeConsumo.getCarbon());
+    tipoConsumos.add(tipoDeConsumo.getElectricidad());
+    tipoConsumos.add(tipoDeConsumo.getDieselGasoil());
+    tipoConsumos.add(tipoDeConsumo.getCcGasoil());
+    tipoConsumos.add(tipoDeConsumo.getCcNafta());
+    tipoConsumos.add(tipoDeConsumo.getMedioDeTransporte());
+    tipoConsumos.add(tipoDeConsumo.getDistanciaMedia());
+    this.medicionEstandar = unAdapterDeMedicion.adaptarMedicion(
+            tipoConsumos, medicionDeLectura1);
   }
 
   @DisplayName("Instanciar: Medicion de lectura 1")

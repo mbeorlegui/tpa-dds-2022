@@ -17,10 +17,10 @@ public class InicializacionTests {
   InstanciasTipoDeConsumo tiposDeConsumo;
   public InicializacionTests() {
     this.contactos = new InstanciasContacto();
-    this.mediciones = new InstanciasMedicion();
     this.paradas = new InstanciasParada();
     this.ubicaciones = new InstanciasUbicacion();
     this.tiposDeConsumo = new InstanciasTipoDeConsumo();
+    this.mediciones = new InstanciasMedicion(this.getTiposDeConsumo());
     this.transportes = new InstanciasTransporte(this.getParadas(), this.getTiposDeConsumo());
     this.tramos = new InstanciasTramo(this.getUbicaciones(), this.getTransportes());
     this.trayectos = new InstanciasTrayecto(this.getTramos());

@@ -17,11 +17,6 @@ public class Bicicleta extends Transporte {
   }
 
   @Override
-  public void verificarParadas(Ubicacion origen, Ubicacion destino) {
-
-  }
-
-  @Override
   public double huellaDeCarbonoDeDistancia(double distanciaRecorrida,
                                            UnidadEquivalenteCarbono unidadDeseada) {
     return 0.0;
