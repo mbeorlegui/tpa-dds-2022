@@ -2,12 +2,13 @@ package domain.reports;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
-import domain.organizacion.*;
-import domain.ubicacion.Ubicacion;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import domain.organizacion.RepoSectoresTerritoriales;
+import domain.organizacion.RepoOrganizaciones;
+import domain.organizacion.TipoOrganizacion;
+import domain.organizacion.Organizacion;
+import domain.organizacion.SectorTerritorial;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,7 +68,8 @@ public class ReportGenerator implements WithGlobalEntityManager {
                                              UnidadEquivalenteCarbono unidad) {
     List<String> periodosIntermedios =
         periodicidad.getPeriodosIntermedios(periodoInicio, periodoFin);
-    SectorTerritorial sector = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(sectorTerritorialId);
+    SectorTerritorial sector = RepoSectoresTerritoriales.getInstance()
+        .getSectorTerritorial(sectorTerritorialId);
     return periodosIntermedios.stream().mapToDouble(
         p -> sector.huellaDeCarbonoEnPeriodo(periodicidad, p, unidad)
     ).boxed().collect(Collectors.toList());
@@ -76,8 +78,10 @@ public class ReportGenerator implements WithGlobalEntityManager {
   public ReporteDeComposicion composicionHcDeSectorTerritorial(Long sectorTerritorialId,
                                                                Periodicidad periodicidad,
                                                                String periodoDeImputacion,
-                                                               UnidadEquivalenteCarbono unidadDeseada) {
-    SectorTerritorial sectorTerritorial = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(sectorTerritorialId);
+                                                               UnidadEquivalenteCarbono
+                                                                   unidadDeseada) {
+    SectorTerritorial sectorTerritorial = RepoSectoresTerritoriales.getInstance()
+        .getSectorTerritorial(sectorTerritorialId);
     return sectorTerritorial
         .composicionHuellaDeCarbono(
             periodicidad, periodoDeImputacion, unidadDeseada

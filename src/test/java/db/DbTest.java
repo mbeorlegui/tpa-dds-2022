@@ -35,7 +35,6 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
 
   @BeforeEach
   public void begin() {
-
     et.begin();
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     org = new Organizacion(

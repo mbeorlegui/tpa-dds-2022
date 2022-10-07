@@ -40,12 +40,18 @@ public class Runner {
     MedicionRead medicionRead1 = new MedicionRead(
         "ELECTRICIDAD", "6000", "MENSUAL", "04/2021");
     Medicion medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
-    MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "5000", "MENSUAL", "03/2022");
-    Medicion medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
+    MedicionRead medicionRead2 =
+        new MedicionRead(
+            "GAS_NATURAL", "5000", "MENSUAL", "03/2022");
+    Medicion medicion2 =
+        new MedicionAdapter().adaptarMedicion(medicionRead2);
     MedicionRead medicionRead3 = new MedicionRead(
         "ELECTRICIDAD", "7000", "MENSUAL", "04/2021");
     Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
-    MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
+    MedicionRead medicionRead4 =
+        new MedicionRead(
+            "GAS_NATURAL", "8000", "MENSUAL",
+            "03/2022");
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
@@ -108,7 +114,8 @@ public class Runner {
 //            + "%"
 //    );
     System.out.println("Tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos());
-    System.out.println("Factores de emision de tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
+    System.out.println("Factores de emision de tipos de consumo: "
+        + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
     System.out.println("Cerrando conexion");
     em.close();
   }
