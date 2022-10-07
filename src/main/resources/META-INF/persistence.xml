@@ -29,7 +29,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="matiasbeorlegui"/>
 
-            <property name="use_sql_comments" value="true"/>
+            <property name="use_sql_comments" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
 
