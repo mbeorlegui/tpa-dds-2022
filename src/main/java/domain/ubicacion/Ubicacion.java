@@ -2,8 +2,7 @@ package domain.ubicacion;
 
 import lombok.Getter;
 
-import javax.persistence.*;
-
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class Ubicacion {
