@@ -19,7 +19,18 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Embedded;
+import javax.persistence.AttributeOverride;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 @Getter
 @Entity

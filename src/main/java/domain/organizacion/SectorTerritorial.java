@@ -32,7 +32,8 @@ public class SectorTerritorial {
                                          UnidadEquivalenteCarbono unidadDeseada) {
     return RepoOrganizaciones
         .getInstance()
-        .huellaDeCarbonoEnPeriodoDeOrganizaciones(organizaciones, periodicidad, periodoDeImputacion, unidadDeseada);
+        .huellaDeCarbonoEnPeriodoDeOrganizaciones(
+            organizaciones, periodicidad, periodoDeImputacion, unidadDeseada);
   }
 
   public ReporteDeComposicion composicionHuellaDeCarbono(Periodicidad periodicidad,

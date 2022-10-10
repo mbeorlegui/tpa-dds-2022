@@ -60,7 +60,10 @@ public class RepoOrganizaciones {
                                               UnidadEquivalenteCarbono unidadDeseada) {
     return this
         .huellaDeCarbonoEnPeriodoDeOrganizaciones(
-            this.getOrganizacionesPorTipo(tipoOrganizacion), periodicidad, periodoDeImputacion, unidadDeseada
+            this.getOrganizacionesPorTipo(tipoOrganizacion),
+            periodicidad,
+            periodoDeImputacion,
+            unidadDeseada
         );
   }
 
