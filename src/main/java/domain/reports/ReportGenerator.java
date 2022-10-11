@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ReportGenerator implements WithGlobalEntityManager {
 
   // Evaluar si ponerlo en RepoSectoresTerritoriales
-  public double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
+  public static double hcTotalDeSectorTerritorial(Long sectorTerritorialId,
                                            Periodicidad periodicidad,
                                            String periodoDeImputacion,
                                            UnidadEquivalenteCarbono unidadDeseada) {
@@ -26,7 +26,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
   }
 
   // Evaluar si vale la pena esta abstraccion (es basicamente un pasamanos)
-  public double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
+  public static double hcTotalDeOrganizacionesDeTipo(TipoOrganizacion tipoOrganizacion,
                                               Periodicidad periodicidad,
                                               String periodoDeImputacion,
                                               UnidadEquivalenteCarbono unidadDeseada) {

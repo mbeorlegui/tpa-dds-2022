@@ -2,11 +2,9 @@ package db;
 
 import domain.InicializacionTests;
 import domain.administrador.UnidadEquivalenteCarbono;
+import domain.inicializacion.InstanciasOrganizacion;
 import domain.medicion.*;
-import domain.organizacion.Clasificacion;
-import domain.organizacion.Organizacion;
-import domain.organizacion.RepoOrganizaciones;
-import domain.organizacion.TipoOrganizacion;
+import domain.organizacion.*;
 import domain.reports.ReportGenerator;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.AfterEach;
@@ -30,11 +28,15 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   EntityManager em = PerThreadEntityManagers.getEntityManager();
   EntityTransaction et = em.getTransaction();
   private Organizacion org;
+  private Organizacion utn;
+  private Organizacion orgFalsa;
   private Medicion medicion1;
   private Medicion medicion2;
+  private SectorTerritorial sectorTerritorial1;
 
   @BeforeEach
   public void begin() {
+    InicializacionTests inicializador = new InicializacionTests();
     et.begin();
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     org = new Organizacion(
@@ -42,12 +44,17 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
         TipoOrganizacion.EMPRESA,
         ubicacion,
         Clasificacion.EMPRESA_DEL_SECTOR_PRIMARIO);
+    utn = inicializador.getOrganizaciones().getUtn();
+    orgFalsa = inicializador.getOrganizaciones().getOrgFalsa();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     MedicionRead medicionRead1 = new MedicionRead(
         "ELECTRICIDAD", "6000", "MENSUAL", "04/2021");
     medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
     MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "5000", "MENSUAL", "03/2022");
     medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
+    sectorTerritorial1 = new SectorTerritorial();
+    sectorTerritorial1.agregarOrganizacion(org);
+    sectorTerritorial1.agregarOrganizacion(utn);
   }
 
   @AfterEach
@@ -70,6 +77,47 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     em.persist(org);
     Medicion medicion = RepoOrganizaciones.getInstance().getOrganizacion(org.getId()).getMediciones().get(0);
     assertEquals(medicion1, medicion);
+  }
+
+//  HC total por tipo de Organización (según la clasificación de la Organización)
+//  Composición de HC total de un determinado sector territorial
+//  Composición de HC total de una determinada Organización
+//  Evolución de HC total de un determinado sector territorial
+  @Test
+  @DisplayName("Calculo hc del sector territorial con dos organizaciones")
+  public void hcTotalPorSectorTerritorial() {
+    org.agregarMedicion(medicion1);
+    org.agregarMedicion(medicion2);
+    em.persist(org);
+    em.persist(utn);
+    em.persist(sectorTerritorial1);
+    double hcOrg = org.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    double hcUtn = utn.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+
+    double hcSectorTerritorial = ReportGenerator.hcTotalDeSectorTerritorial(
+        sectorTerritorial1.getId(), Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    assertEquals(hcSectorTerritorial, hcOrg + hcUtn);
+  }
+
+  @Test
+  @DisplayName("Calculo hc del sector territorial con dos organizaciones")
+  public void hcTotalPorTipoDeOrganizacion() {
+    org.agregarMedicion(medicion1);
+    org.agregarMedicion(medicion2);
+    em.persist(org);
+    em.persist(orgFalsa);
+    double hcOrg = org.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    double hcOrgFalsa = orgFalsa.huellaDeCarbonoEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+
+    double hcSectorTerritorial = ReportGenerator.hcTotalDeOrganizacionesDeTipo(
+        TipoOrganizacion.EMPRESA, Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    assertEquals(hcSectorTerritorial, hcOrg + hcOrgFalsa);
   }
 
   @Test
