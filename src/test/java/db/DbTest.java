@@ -79,10 +79,6 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     assertEquals(medicion1, medicion);
   }
 
-//  HC total por tipo de Organización (según la clasificación de la Organización)
-//  Composición de HC total de un determinado sector territorial
-//  Composición de HC total de una determinada Organización
-//  Evolución de HC total de un determinado sector territorial
   @Test
   @DisplayName("Calculo hc del sector territorial con dos organizaciones")
   public void hcTotalPorSectorTerritorial() {
@@ -103,7 +99,7 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
   }
 
   @Test
-  @DisplayName("Calculo hc del sector territorial con dos organizaciones")
+  @DisplayName("Calculo hc por tipo de organizacion (empresa)")
   public void hcTotalPorTipoDeOrganizacion() {
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
@@ -120,6 +116,24 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     assertEquals(hcSectorTerritorial, hcOrg + hcOrgFalsa);
   }
 
+  //  TODO: Composición de HC total de un determinado sector territorial
+  //  TODO: Composición de HC total de una determinada Organización
+  @Test
+  @DisplayName("Evolucion de hc de un sector territorial con dos organizaciones")
+  public void evolucionDeHcDeUnSectorTerritorial() {
+    org.agregarMedicion(medicion1);
+    org.agregarMedicion(medicion2);
+    em.persist(org);
+    em.persist(utn);
+    em.persist(sectorTerritorial1);
+    List<Double> evolucionCalculada = ReportGenerator.getEvolucionHcDeSector(
+        sectorTerritorial1.getId(), Periodicidad.MENSUAL, "04/2021",
+        "03/2022", UnidadEquivalenteCarbono.GRAMO);
+
+    List<Double> miLista = Arrays.asList(3559.2, 1159.2, 1159.2, 1159.2, 1159.2,
+        1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 2159.2);;
+    assertEquals(miLista, evolucionCalculada);
+  }
   @Test
   @DisplayName("Cuando guardo mediciones, saco correctamente la evolucion de HC")
   public void evaluacionDeHcEnPeriodo() {

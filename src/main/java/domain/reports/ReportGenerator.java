@@ -61,7 +61,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
     ).boxed().collect(Collectors.toList());
   }
 
-  public List<Double> getEvolucionHcDeSector(Long sectorTerritorialId,
+  public static List<Double> getEvolucionHcDeSector(Long sectorTerritorialId,
                                              Periodicidad periodicidad,
                                              String periodoInicio,
                                              String periodoFin,
