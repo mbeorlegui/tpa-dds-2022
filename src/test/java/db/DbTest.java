@@ -6,6 +6,7 @@ import domain.inicializacion.InstanciasOrganizacion;
 import domain.medicion.*;
 import domain.organizacion.*;
 import domain.reports.ReportGenerator;
+import domain.reports.ReporteDeComposicion;
 import domain.ubicacion.Ubicacion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
@@ -116,8 +118,53 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     assertEquals(hcSectorTerritorial, hcOrg + hcOrgFalsa);
   }
 
-  //  TODO: Composición de HC total de un determinado sector territorial
-  //  TODO: Composición de HC total de una determinada Organización
+  @Test
+  @DisplayName("Composición de HC total de un sector territorial con dos organizaciones")
+  public void composicionHcSectorTerritorial() {
+    org.agregarMedicion(medicion1);
+    org.agregarMedicion(medicion2);
+    em.persist(org);
+    em.persist(utn);
+    em.persist(sectorTerritorial1);
+
+    double hcMedicionesOrg = org.hcMedicionesEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    double hcMedicionesUtn = utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    double hcTrayectosOrg = org.hcTrayectosMiembros(Periodicidad.MENSUAL,
+        UnidadEquivalenteCarbono.GRAMO);
+    double hcTrayectosUtn = utn.hcTrayectosMiembros(Periodicidad.MENSUAL,
+        UnidadEquivalenteCarbono.GRAMO);
+
+    ReporteDeComposicion ejemploReporte = new ReporteDeComposicion(
+        hcMedicionesOrg+hcMedicionesUtn,hcTrayectosOrg+hcTrayectosUtn);
+
+    ReporteDeComposicion reporteDeComposicionCalculado = ReportGenerator.composicionHcDeSectorTerritorial(
+        sectorTerritorial1.getId(), Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+
+    assertTrue(reporteDeComposicionCalculado.tieneMismoHC(ejemploReporte));
+  }
+
+  @Test
+  @DisplayName("Composición de HC total de una organizacion")
+  public void composicionHcOrganizacion() {
+    em.persist(utn);
+
+    double hcMedicionesUtn = utn.hcMedicionesEnPeriodo(Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+    double hcTrayectosUtn = utn.hcTrayectosMiembros(Periodicidad.MENSUAL,
+        UnidadEquivalenteCarbono.GRAMO);
+
+    ReporteDeComposicion ejemploReporte = new ReporteDeComposicion(hcMedicionesUtn, hcTrayectosUtn);
+
+    ReporteDeComposicion reporteDeComposicionCalculado = ReportGenerator.composicionHcDeOrganizacion(
+        utn.getId(), Periodicidad.MENSUAL,
+        "04/2021", UnidadEquivalenteCarbono.GRAMO);
+
+    assertTrue(reporteDeComposicionCalculado.tieneMismoHC(ejemploReporte));
+  }
+
   @Test
   @DisplayName("Evolucion de hc de un sector territorial con dos organizaciones")
   public void evolucionDeHcDeUnSectorTerritorial() {
@@ -131,7 +178,7 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
         "03/2022", UnidadEquivalenteCarbono.GRAMO);
 
     List<Double> miLista = Arrays.asList(3559.2, 1159.2, 1159.2, 1159.2, 1159.2,
-        1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 2159.2);;
+        1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 1159.2, 2159.2);
     assertEquals(miLista, evolucionCalculada);
   }
   @Test

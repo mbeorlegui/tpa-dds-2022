@@ -75,7 +75,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
     ).boxed().collect(Collectors.toList());
   }
 
-  public ReporteDeComposicion composicionHcDeSectorTerritorial(Long sectorTerritorialId,
+  public static ReporteDeComposicion composicionHcDeSectorTerritorial(Long sectorTerritorialId,
                                                                Periodicidad periodicidad,
                                                                String periodoDeImputacion,
                                                                UnidadEquivalenteCarbono
@@ -88,7 +88,7 @@ public class ReportGenerator implements WithGlobalEntityManager {
         );
   }
 
-  public ReporteDeComposicion composicionHcDeOrganizacion(Long organizacionId,
+  public static ReporteDeComposicion composicionHcDeOrganizacion(Long organizacionId,
                                                           Periodicidad periodicidad,
                                                           String periodoDeImputacion,
                                                           UnidadEquivalenteCarbono unidadDeseada) {
