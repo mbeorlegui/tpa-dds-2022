@@ -7,6 +7,7 @@ import domain.medicion.Periodicidad;
 import domain.medios.Contacto;
 import domain.medios.MedioDeComunicacion;
 import domain.miembro.Miembro;
+import domain.reports.ReporteDeComposicion;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 
@@ -18,18 +19,18 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
 import javax.persistence.EnumType;
-import javax.persistence.Transient;
+import javax.persistence.Embedded;
+import javax.persistence.AttributeOverride;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 @Getter
 @Entity
@@ -44,8 +45,8 @@ public class Organizacion {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_organizacion")
   private TipoOrganizacion tipoOrganizacion;
-  @OneToOne
-  @JoinColumn(name = "ubicacion_id")
+  @Embedded
+  @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   private Ubicacion ubicacion;
   @OneToMany
   @JoinColumn(name = "organizacion_id")
@@ -57,7 +58,7 @@ public class Organizacion {
   private List<Medicion> mediciones = new ArrayList<Medicion>();
   @ManyToMany
   private List<Contacto> contactos = new ArrayList<>();
-  @Transient
+  @ManyToMany
   private List<MedioDeComunicacion> mediosDeComunicacion = new ArrayList<>();
 
   public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Ubicacion ubicacion,
@@ -171,6 +172,14 @@ public class Organizacion {
                                          UnidadEquivalenteCarbono unidadDeseada) {
     return hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada)
         + hcTrayectosMiembros(periodicidad, unidadDeseada);
+  }
+
+  public ReporteDeComposicion composicionHuellaDeCarbono(Periodicidad periodicidad,
+                                                         String periodoDeImputacion,
+                                                         UnidadEquivalenteCarbono unidadDeseada) {
+    return new ReporteDeComposicion(
+        this.hcMedicionesEnPeriodo(periodicidad, periodoDeImputacion, unidadDeseada),
+        this.hcTrayectosMiembros(periodicidad, unidadDeseada));
   }
 
   public double hcTrayectosMiembros(Periodicidad periodicidad,

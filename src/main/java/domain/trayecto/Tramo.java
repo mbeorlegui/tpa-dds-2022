@@ -11,9 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Embedded;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
-import javax.persistence.Column;
 
 
 @Entity
@@ -24,20 +27,28 @@ public class Tramo {
   @Column(name = "tramo_id")
   private long id;
   @Getter
-  @ManyToOne
-  @JoinColumn(name = "ubicacion_origen_id")
+  @AttributeOverrides({
+      @AttributeOverride(name = "localidadID", column = @Column(name = "origen_localidad_id")),
+      @AttributeOverride(name = "altura", column = @Column(name = "origen_altura")),
+      @AttributeOverride(name = "calle", column = @Column(name = "origen_calle"))
+  })
+  @Embedded
   private Ubicacion origenDeTramo;
   @Getter
-  @ManyToOne
-  @JoinColumn(name = "ubicacion_destino_id")
+  @AttributeOverrides({
+      @AttributeOverride(name = "localidadID", column = @Column(name = "destino_localidad_id")),
+      @AttributeOverride(name = "altura", column = @Column(name = "destino_altura")),
+      @AttributeOverride(name = "calle", column = @Column(name = "destino_calle"))
+  })
+  @Embedded
   private Ubicacion destinoDeTramo;
+
   @Getter
   @ManyToOne
   @JoinColumn(name = "transporte_id")
   private Transporte transporteUtilizado;
 
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
-    transporteUtilizado.verificarParadas(origenDeTramo, destinoDeTramo);
     this.origenDeTramo = origenDeTramo;
     this.destinoDeTramo = destinoDeTramo;
     this.transporteUtilizado = transporteUtilizado;

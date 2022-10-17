@@ -77,7 +77,7 @@ class TiposConsumos <<(S,#FF7700) Singleton>> {
   consumos : List<TipoConsumo>
 }
 
-' TiposConsumos.getInstance().getConsumos().get(0)
+' RepoTiposConsumos.getInstance().getConsumos().get(0)
 ' TipoConsumo gasNatural = new TipoConsumo(
 '   Actividad.COMBUSTION_FIJA,
 '   Alcance.EMISION_DIRECTA,
@@ -85,7 +85,7 @@ class TiposConsumos <<(S,#FF7700) Singleton>> {
 '   500
 ' );
 
-' TiposConsumos es singleton (repositorio de objetos)
+' RepoTiposConsumos es singleton (repositorio de objetos)
 TiposConsumos -left->"*" TipoConsumo
 TipoConsumo --> Actividad
 TipoConsumo --> Alcance

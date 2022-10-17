@@ -10,4 +10,9 @@ public class ReporteDeComposicion {
     this.hcMediciones = hcMediciones;
     this.hcTrayectos = hcTrayectos;
   }
+
+  public boolean tieneMismoHC(ReporteDeComposicion otroReporte) {
+    return otroReporte.hcMediciones == this.hcMediciones
+        && otroReporte.hcTrayectos == this.hcTrayectos;
+  }
 }

@@ -95,13 +95,14 @@ public class AdministradorTests {
     });
   }
 
-  @Test
-  public void adminConPasswordCompletoGeneraNuevoFactorDeEmision() {
-    adminConPasswordCompleto().generarNuevoFactorDeEmision(
-        Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, new FactorDeEmision(120.0, UnidadEquivalenteCarbono.GRAMO),
-        "factorDeEmisionDePrueba");
-    assertTrue(TiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
-  }
+//  @Test
+//  public void adminConPasswordCompletoGeneraNuevoFactorDeEmision() {
+//    adminConPasswordCompleto().generarNuevoFactorDeEmision(
+//        Actividad.ELECTRICIDAD, Alcance.OTRAS_EMISIONES, Unidad.SIN_UNIDAD, new FactorDeEmision(120.0, UnidadEquivalenteCarbono.GRAMO),
+//        "factorDeEmisionDePrueba");
+//    assertTrue(RepoTiposConsumos.getInstance().existeTipo("factorDeEmisionDePrueba"));
+//  }
+//  TODO: se deberia pasar a los tests de db, ya que generarNuevoFactorDeEmision deberia usar persist (eso supongo)
 
 
   @DisplayName("Instanciar: Admin con igual user y password")
