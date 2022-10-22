@@ -180,3 +180,32 @@ body {
   background-size: cover;
   font-family: 'Lato', sans-serif; 
 }
+
+.trayecto-form {
+  background: #fff;
+  width: 75%;
+  margin: 65px auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+hr{
+  width:40%;
+  text-align:left;
+  margin-left:0
+}

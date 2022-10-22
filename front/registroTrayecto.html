@@ -27,21 +27,52 @@
       </div>
     </div>
   </nav>
-  <div class="login-form">
+  <div class="trayecto-form">
     <form>
-      <h1>Login</h1>
-      <div class="content">
-        <div class="input-field">
-          <input type="usuario" placeholder="Usuario" autocomplete="nope" />
+      <h1>Registrar trayecto</h1>
+      <div class="container-fluid">
+        <div class="d-flex my-2">
+          <label for="exampleDataList" class="form-label my-auto ms-5">Inicio del trayecto</label>
+          <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+          <datalist id="datalistOptions">
+            <option value="San Francisco">
+            <option value="New York">
+            <option value="Seattle">
+            <option value="Los Angeles">
+            <option value="Chicago">
+          </datalist>
         </div>
-        <div class="input-field">
-          <input type="password" placeholder="Contraseña" autocomplete="new-password" />
+        <div class="d-flex justify-content-center">
+          <hr>
+          <button type="button" class="btn btn-outline-secondary btn-circle">+</button>
+          <hr>
         </div>
-      </div>
-      <div class="action">
-        <button>Registrarse</button>
-        <button>Loguearse</button>
-      </div>
+        <div class="d-flex my-2">
+          <label for="exampleDataList" class="form-label my-auto ms-5">Parada 1</label>
+          <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+          <datalist id="datalistOptions">
+            <option value="San Francisco">
+            <option value="New York">
+            <option value="Seattle">
+            <option value="Los Angeles">
+            <option value="Chicago">
+          </datalist>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-secondary btn-circle">+</button>
+        </div>
+        <div class="d-flex my-2">
+          <label for="exampleDataList" class="form-label my-auto ms-5">Fin del trayecto</label>
+          <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+          <datalist id="datalistOptions">
+            <option value="San Francisco">
+            <option value="New York">
+            <option value="Seattle">
+            <option value="Los Angeles">
+            <option value="Chicago">
+          </datalist>
+        </div>
+    	</div>
     </form>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
