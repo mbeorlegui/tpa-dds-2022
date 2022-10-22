@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login</title>
+  <title>Signin</title>
   <!-- Agrego Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
@@ -20,14 +20,14 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="index.html">Home</a>
-        <a class="nav-item nav-link" href="#">LogIn</a>
-        <a class="nav-item nav-link" href="contacto.html">SignIn</a>
+        <a class="nav-item nav-link" href="login.html">LogIn</a>
+        <a class="nav-item nav-link" href="#">SignIn</a>
       </div>
     </div>
   </nav>
   <div class="login-form">
     <form>
-      <h1>Login</h1>
+      <h1>Signin</h1>
       <div class="content">
         <div class="input-field">
           <input type="usuario" placeholder="Usuario" autocomplete="nope" />
@@ -35,10 +35,12 @@
         <div class="input-field">
           <input type="password" placeholder="Contraseña" autocomplete="new-password" />
         </div>
+        <div class="input-field">
+          <input type="verify-password" placeholder="Verificar contraseña" autocomplete="verify-password" />
+        </div>
       </div>
       <div class="action">
         <button>Registrarse</button>
-        <button>Loguearse</button>
       </div>
     </form>
   </div>
