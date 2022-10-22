@@ -19,10 +19,13 @@ import java.util.stream.Collectors;
 public class Runner {
   //  Probar con: mvn compile exec:java
   public static void main(String[] args) {
-    RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     System.out.println("Ejecutando queries!");
     EntityManager em = PerThreadEntityManagers.getEntityManager();
     EntityTransaction et = em.getTransaction();
+    et.begin();
+    RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
+    et.commit();
+
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
         "Prueba Empresa",
@@ -55,6 +58,7 @@ public class Runner {
     org2.addSector(unSector);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
+
     et.begin();
     // em.persist(ubicacion);
     em.persist(org2);
