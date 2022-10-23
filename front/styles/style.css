@@ -95,7 +95,7 @@ body {
           flex-direction: row;
 }
 
-.login-form .action button {
+.login-form .action button, .boton-rechazar {
   width: 100%;
   border: none;
   padding: 18px;
@@ -112,18 +112,18 @@ body {
   transition: all .3s;
 }
 
-.login-form .action button:hover {
+.login-form .action button:hover, .boton-rechazar:hover {
   background: #d8d8d8;
 }
 
-.login-form .action button:nth-child(2) {
+.login-form .action button:nth-child(2), .boton-aceptar {
   background: #2d3b55;
   color: #fff;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 4px;
 }
 
-.login-form .action button:nth-child(2):hover {
+.login-form .action button:nth-child(2):hover, .boton-aceptar:hover {
   background: #3c4d6d;
 }
 
@@ -208,4 +208,58 @@ hr{
   width:40%;
   text-align:left;
   margin-left:0
+}
+
+.acept {
+  background: #fff;
+  width: 90%;
+  margin: 65px auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+  padding: 2%;
+}
+
+.boton-rechazar {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #e8e9ec;
+  color: #777;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+  outline: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.boton-rechazar:hover {
+  background: #d8d8d8;
+}
+
+.boton-aceptar {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #2d3b55;
+  color: #fff;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+  outline: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.boton-aceptar:hover {
+  background: #3c4d6d;
 }
