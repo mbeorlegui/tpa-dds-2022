@@ -10,6 +10,8 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,700" />
   <link rel="stylesheet" href="./styles/style.css" />
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top px-3">
@@ -24,14 +26,15 @@
         <a class="nav-item nav-link mx-1" href="signin.html">SignIn</a>
         <a class="nav-item nav-link mx-1" href="registrarMedicionCsv.html">csv</a>
         <a class="nav-item nav-link mx-1" href="request.html">request</a>
+        <a class="nav-item nav-link mx-1" href="registroTrayecto.html">Resgistro trayecto</a>
       </div>
     </div>
   </nav>
-  <div class="trayecto-form">
+  <div class="trayecto-form p-2">
     <form>
-      <h1>Registrar trayecto</h1>
-      <div class="container-fluid">
-        <div class="d-flex my-2">
+      <h1 class="ms-2">Registrar trayecto</h1>
+      <div class="container-fluid" id="contenido">
+        <div class="col-8 d-flex my-2">
           <label for="exampleDataList" class="form-label my-auto ms-5">Inicio del trayecto</label>
           <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
           <datalist id="datalistOptions">
@@ -42,26 +45,20 @@
             <option value="Chicago">
           </datalist>
         </div>
-        <div class="d-flex justify-content-center">
-          <hr>
-          <button type="button" class="btn btn-outline-secondary btn-circle">+</button>
-          <hr>
+        <div class="container d-flex align-items-center">
+          <div class="col-8 d-flex justify-content-center my-2">
+            <hr class="line">
+            <button type="button" class="btn btn-outline-secondary btn-circle" onclick="agregarParada(this)">+</button>
+            <hr class="line">
+          </div>
+          <select class="form-select h-50">
+            <option selected hidden>Seleccione transporte del tramo</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
         </div>
-        <div class="d-flex my-2">
-          <label for="exampleDataList" class="form-label my-auto ms-5">Parada 1</label>
-          <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-          <datalist id="datalistOptions">
-            <option value="San Francisco">
-            <option value="New York">
-            <option value="Seattle">
-            <option value="Los Angeles">
-            <option value="Chicago">
-          </datalist>
-        </div>
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-outline-secondary btn-circle">+</button>
-        </div>
-        <div class="d-flex my-2">
+        <div class="col-8 d-flex my-2">
           <label for="exampleDataList" class="form-label my-auto ms-5">Fin del trayecto</label>
           <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
           <datalist id="datalistOptions">
@@ -71,6 +68,9 @@
             <option value="Los Angeles">
             <option value="Chicago">
           </datalist>
+        </div>
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-secondary">Cargar trayecto</button>
         </div>
     	</div>
     </form>
@@ -84,6 +84,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
