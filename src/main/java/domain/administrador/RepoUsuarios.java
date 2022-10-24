@@ -27,4 +27,8 @@ public class RepoUsuarios {
     return em.find(Usuario.class, id);
   }
 
+  public Usuario findByUsername(String username) {
+    return this.getUsuarios().stream().filter(usuario -> usuario.getUser().equals(username)).findAny().get();
+  }
+
 }

@@ -1,9 +1,6 @@
 package domain.dbrunner;
 
-import domain.administrador.FactorDeEmision;
-import domain.administrador.TipoUsuario;
-import domain.administrador.UnidadEquivalenteCarbono;
-import domain.administrador.Usuario;
+import domain.administrador.*;
 import domain.medicion.*;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
@@ -117,6 +114,7 @@ public class Runner {
 //    );
     System.out.println("Tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos());
     System.out.println("Factores de emision de tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
+    System.out.println("Un Usuario: " + RepoUsuarios.getInstance().findByUsername("matias").getUser() + RepoUsuarios.getInstance().findByUsername("matias").getPassword() );
     System.out.println("Cerrando conexion");
     em.close();
   }
