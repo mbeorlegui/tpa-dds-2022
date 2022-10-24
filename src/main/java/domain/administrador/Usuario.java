@@ -30,6 +30,8 @@ public class Usuario {
   @Transient
   PasswordValidator validador = new PasswordValidator();
 
+  public Usuario() {}
+
   public Usuario(String user, String password, TipoUsuario tipoUsuario) {
     this.tipoUsuario = tipoUsuario;
     this.user = requireNonNull(user, "El usuario no debe ser vacio!");

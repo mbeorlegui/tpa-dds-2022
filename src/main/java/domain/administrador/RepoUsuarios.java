@@ -17,6 +17,9 @@ public class RepoUsuarios {
     return INSTANCE;
   }
 
+  public RepoUsuarios() {
+  }
+
   public List<Usuario> getUsuarios() {
     return em
         .createQuery("from Usuario")
@@ -28,6 +31,8 @@ public class RepoUsuarios {
   }
 
   public Usuario findByUsername(String username) {
+    System.out.println(username);
+    System.out.println(this.getUsuarios());
     return this.getUsuarios().stream().filter(usuario -> usuario.getUser().equals(username)).findAny().get();
   }
 
