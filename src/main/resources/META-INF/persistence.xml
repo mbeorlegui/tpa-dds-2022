@@ -16,7 +16,7 @@
         <class>domain.transporte.Transporte</class>
         <class>domain.medicion.Medicion</class>
         <class>domain.medicion.TipoConsumo</class>
-        <class>domain.administrador.Administrador</class>
+        <class>domain.administrador.Usuario</class>
         <class>domain.organizacion.SectorTerritorial</class>
         <class>domain.organizacion.Organizacion</class>
 

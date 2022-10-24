@@ -1,7 +1,9 @@
 package domain.dbrunner;
 
 import domain.administrador.FactorDeEmision;
+import domain.administrador.TipoUsuario;
 import domain.administrador.UnidadEquivalenteCarbono;
+import domain.administrador.Usuario;
 import domain.medicion.*;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
@@ -25,7 +27,7 @@ public class Runner {
     et.begin();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     et.commit();
-
+    Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
         "Prueba Empresa",
@@ -85,6 +87,7 @@ public class Runner {
     em.persist(medicion3);
     em.persist(medicion4);
     em.persist(org2);
+    em.persist(admin);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "

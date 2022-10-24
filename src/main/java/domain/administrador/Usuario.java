@@ -8,18 +8,13 @@ import domain.medicion.RepoTiposConsumos;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Transient;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 import static java.util.Objects.requireNonNull;
 
 @Entity
-@Table(name = "administrador")
-public class Administrador {
+@Table(name = "usuario")
+public class Usuario {
   @Id
   @GeneratedValue
   @Column(name = "administrador_id")
@@ -28,10 +23,15 @@ public class Administrador {
   String user;
   @Getter
   String password;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_usuario")
+  @Getter
+  private TipoUsuario tipoUsuario;
   @Transient
   PasswordValidator validador = new PasswordValidator();
 
-  public Administrador(String user, String password) {
+  public Usuario(String user, String password, TipoUsuario tipoUsuario) {
+    this.tipoUsuario = tipoUsuario;
     this.user = requireNonNull(user, "El usuario no debe ser vacio!");
     validador.validarPassword(password, user);
     this.password = password;
