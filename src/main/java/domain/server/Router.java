@@ -14,7 +14,7 @@ public class Router {
 
     DebugScreen.enableDebugScreen();
 
-    // Spark.staticFiles.location("public"); --> carpeta en la que se encuentran los .css dentro de la carpeta resouces
+    Spark.staticFiles.location("public"); // --> carpeta en la que se encuentran los .css dentro de la carpeta resouces
 
     Spark.get("/home", homeController::index, engineTemplate);
     Spark.redirect.get("/", "/home");
