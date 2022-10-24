@@ -68,13 +68,13 @@ public class RepoOrganizaciones {
   }
 
   // Se ejecuta con tarea programada
-  public static void enviarGuiaDeRecomendaciones(String link) {
-    organizaciones.forEach(
+  public void enviarGuiaDeRecomendaciones(String link) {
+    this.getOrganizaciones().forEach(
         org -> org.enviarGuiaDeRecomendaciones(link)
     );
   }
 
-  public static void main(String[] args) {
+  public void main(String[] args) {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date(System.currentTimeMillis());
     String currentDate = formatter.format(date);
@@ -82,7 +82,7 @@ public class RepoOrganizaciones {
         "[" + currentDate + "] - INFO - Guia de recomendaciones enviada a contactos - Link: "
             + args[0]
     );
-    enviarGuiaDeRecomendaciones(args[0]);
+    this.enviarGuiaDeRecomendaciones(args[0]);
   }
   // Correr con:
   // java -cp $PWD domain.organizacion.RepoOrganizaciones "google.com"
