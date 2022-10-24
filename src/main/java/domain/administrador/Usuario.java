@@ -37,6 +37,7 @@ public class Usuario {
     this.password = password;
   }
 
+  /* Esto es una accion de un actor, no un metodo de una clase
   public void generarNuevoFactorDeEmision(Actividad actividad,
                                           Alcance alcance,
                                           Unidad unidad,
@@ -46,5 +47,7 @@ public class Usuario {
         new TipoConsumo(actividad, alcance, unidad, factorDeEmision, nombreTipoDeConsumo)
     );
   }
+
+   */
 
 }

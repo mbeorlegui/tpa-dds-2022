@@ -302,11 +302,21 @@ class Parada {
   void modificarDistanciaSiguienteParada(Parada)
 }
 
-class Administrador {
+class Usuario {
   user : String
   password : String
   validador : PasswordValidator 
+  tipoUsuario : TipoUsuario
   void generarNuevoFactorDeEmision(Actividad, Alcance, Unidad, FactorDeEmision, String nombreTipoDeConsumo)
+}
+
+enum TipoUsuario {
+  USUARIO_GENERAL,
+  ADMINISTRADOR,
+}
+
+class RepoUsuarios <<(S,#FF7700) Singleton>> {
+  usuarios : List<Usuario>
 }
 
 class PasswordValidator {
@@ -369,8 +379,8 @@ class CsvHandler {
 
 CsvHandler --> Medicion
 
-Administrador .left.> TiposConsumos
-Administrador -down->"1" PasswordValidator
+RepoUsuarios --> "*" Usuario
+Usuario -down->"1" PasswordValidator
 PasswordValidator --> "9" Validator
 Validator <|-down- PasswordIsCommonValidator
 PasswordIsCommonValidator -down->"1" FileHandler
