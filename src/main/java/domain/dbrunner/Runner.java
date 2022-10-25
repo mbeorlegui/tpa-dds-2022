@@ -59,6 +59,7 @@ public class Runner {
     sectorTerritorial.agregarOrganizacion(org);
     Solicitud solicitud = new Solicitud(
         unSector,
+        admin,
         "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
     );
     et.begin();
