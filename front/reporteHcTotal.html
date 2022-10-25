@@ -32,84 +32,115 @@
 </nav>
 <div class="login-form" style="width: 90%;">
     <form>
-        <h2>Reporte de Huella de Carbono según tipo de organización</h2>
-        <div class="container d-flex justify-content-center border border-1 p-2">
+        <h2>Reporte de Huella de Carbono</h2>
+        <div class="container-fluid d-flex justify-content-center border border-1 p-2">
             <a class="btn btn-primary mx-2" href="reporteHcTotal.html" role="button">HC Total</a>
             <a class="btn btn-secondary mx-2" href="#" role="button">Evolución</a>
             <a class="btn btn-secondary mx-2" href="#" role="button">Composición</a>
         </div>
         <div class="content">
             <div class="row justify-content-left" style="margin: 15px 0px 15px 0px;">
-                <div class="col-md-4 text-start" style="padding-left: 0px">
-                    <h4>Seleccione tipo de entidad: </h4>
-                </div>
-                <div class="col-md-2 form-check">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion">
-                    <label class="form-check-label" for="organizacion">
-                        Organización
-                    </label>
-                </div>
-                <div class="col-md-2  form-check">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="sector">
-                    <label class="form-check-label" for="sector">
-                        Sector Territorial
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="dropright" style="margin: 15px 0px 15px 0px;">
-                    <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Seleccione Entidad:
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Org1/Sector1</a>
-                        <a class="dropdown-item" href="#">Org2/Sector2</a>
-                        <a class="dropdown-item" href="#">Org3/Sector3</a>
+                <div class="col-md-9 text-start d-flex" style="padding-left: 0px">
+                    <h5>Seleccione tipo de entidad: </h5>
+                    <div class="d-md-flex ms-1">
+                      <div class="form-check mx-1">
+                          <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" onclick="obtenerOrganizaciones()">
+                          <label class="form-check-label" for="organizacion">
+                              Organización
+                          </label>
+                      </div>
+                      <div class="form-check mx-1">
+                          <input class="form-check-input" type="radio" name="tipo-entidad" id="sector">
+                          <label class="form-check-label" for="sector">
+                              Sector Territorial
+                          </label>
+                      </div>
                     </div>
+                </div>
+                <div class="col-md-3 p-0 d-flex">
+                    <select class="form-select ms-auto" id="entidad" required disabled>
+                      <option hidden>Seleccione Entidad:</option>
+                      <option value="0">Org1/Sector1</option>
+                      <option value="1">Org2/Sector2</option>
+                      <option value="2">Org3/Sector3</option>
+                    </select>
                 </div>
             </div>
             <div class="row" style="margin: 15px 0px 15px 0px;">
-                <div class="col-md-4 text-start" style="padding-left: 0px">
-                    <h4>Seleccione periodicidad: </h4>
+                <div class="col-md-4 text-start d-flex" style="padding-left: 0px">
+                    <h5>Seleccione periodicidad:</h5>
+                    <div class="d-md-block d-sm-flex m-1">
+                      <div class="form-check mx-sm-1">
+                          <input class="form-check-input" type="radio" name="periodicidad" id="anual">
+                          <label class="form-check-label" for="anual">
+                              Anual
+                          </label>
+                      </div>
+                      <div class="form-check mx-sm-1">
+                          <input class="form-check-input" type="radio" name="periodicidad" id="mensual">
+                          <label class="form-check-label" for="mensual">
+                              Mensual
+                          </label>
+                      </div>
+                    </div>
                 </div>
-                <div class="col-md-2 form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="anual">
-                    <label class="form-check-label" for="anual">
-                        Anual
-                    </label>
-                </div>
-                <div class="col-md-2  form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual">
-                    <label class="form-check-label" for="mensual">
-                        Mensual
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 d-flex justify-content-between">
-                    <label class="form-label d" for="anio"><h4>Año:</h4></label>
-                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;"/>
-                </div>
-                <div class="col-md-4 d-flex justify-content-between">
-                    <label class="form-label d" for="anio"><h4>Mes:</h4></label>
-                    <input type="number" min="1" max="12" id="anio" class="form-control" style="width: 75%;"/>
-                </div>
-                <div class="col-md-4 d-flex justify-content-between">
-                    <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
-                    <select class="form-select" id="unidad" required>
-                        <option value=""></option>
+                <div class="col-md-8 d-sm-flex d-block justify-content-between">
+                  <div class="d-flex m-0 align-items-center">
+                    <label class="form-label m-0" for="anio"><h5 class="m-0">Año:</h5></label>
+                    <input type="number" min="1" max="2022" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
+                  </div>
+                  <div class="d-flex m-0 align-items-center">
+                    <label class="form-label m-0" for="anio"><h5 class="m-0">Mes:</h5></label>
+                    <input type="number" min="1" max="12" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
+                  </div>
+                  <div class="d-flex m-0 align-items-center">
+                    <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>
+                    <select class="form-select ms-auto" id="unidad" style="width: 75%;" required>
                         <option value="0">Gramos</option>
                         <option value="1">Kilogramos</option>
                         <option value="2">Toneladas</option>
                     </select>
+                  </div>
                 </div>
             </div>
-        </div>
-        <div class="action">
-            <button>Calcular</button>
+            <div class="action">
+                <button>Calcular</button>
+            </div>
         </div>
     </form>
+    <div class="container">
+      <h4>Resultado:</h4>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>The Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -120,6 +151,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

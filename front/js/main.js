@@ -108,3 +108,15 @@ function enumerarParadas(){
     numero++;
   }
 }
+
+function obtenerOrganizaciones(){
+  let selectEntidad = document.getElementById("entidad");
+  selectEntidad.disabled = false;
+  //tendría que generar options para las organizaciones registradas en la db
+}
+
+function obtenerSectoresTerritoriales(){
+  let selectEntidad = document.getElementById("entidad");
+  selectEntidad.disabled = false;
+  //tendría que generar options para los sectores territoriales registrados en la db
+}
