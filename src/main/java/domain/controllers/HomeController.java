@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeController {
-  public ModelAndView index(Request request, Response response) {
+  public ModelAndView home(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     return new ModelAndView(model, "home.hbs");
