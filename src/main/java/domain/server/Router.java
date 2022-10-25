@@ -39,5 +39,11 @@ public class Router {
     Spark.get("/user/me/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
     Spark.get("/user/me/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
+
+    Spark.get("/user/me/calculadora", reportController::calculadora, engineTemplate);
+
+    Spark.get("/user/me/aceptacionVinculacion", requestController::aceptarVinculacion, engineTemplate);
+
+    Spark.get("/user/me/reporteHcTotal", reportController::reporteHcTotal, engineTemplate);
   }
 }
