@@ -18,7 +18,7 @@ public class Router {
 
     Spark.staticFiles.location("public"); // --> carpeta en la que se encuentran los .css dentro de la carpeta resouces
 
-    Spark.get("/home", homeController::index, engineTemplate);
+    Spark.get("/home", homeController::home, engineTemplate);
     Spark.redirect.get("/", "/home");
 
     Spark.get("/login", usersController::index, engineTemplate);
@@ -26,12 +26,20 @@ public class Router {
     Spark.post("/session/remove", usersController::delete, engineTemplate);
 
     Spark.before("/user/me/*", ((request, response) -> {
-      if(request.session().attribute("usuario_logueado") == null) {
+      if (request.session().attribute("usuario_logueado") == null) {
         response.redirect("/home");
       }
     }));
 
     Spark.get("/user/me/request", requestController::request, engineTemplate);
 
+    Spark.get("/user/me/registrarMedicionCsv", requestController::registrarMedicionCsv, engineTemplate);
+    Spark.redirect.get("/", "/registrarMedicionCsv");
+
+    Spark.get("/user/me/registrarMedicionParticular", requestController::registrarMedicionParticular, engineTemplate);
+    Spark.redirect.get("/", "/registrarMedicionParticular");
+
+    Spark.get("/user/me/registrarTrayecto", requestController::registrarTrayecto, engineTemplate);
+    Spark.redirect.get("/", "/registrarTrayecto");
   }
 }
