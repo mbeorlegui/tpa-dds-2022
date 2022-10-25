@@ -23,5 +23,11 @@ public class Router {
     Spark.post("/session", usersController::post, engineTemplate);
     Spark.post("/session/remove", usersController::delete, engineTemplate);
 
+    Spark.before("/user/me", ((request, response) -> {
+      if(request.session().attribute("usuario_logueado") == null) {
+        response.redirect("/home");
+      }
+    }));
+
   }
 }
