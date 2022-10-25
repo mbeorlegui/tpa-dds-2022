@@ -23,8 +23,8 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active mx-1" href="/home">Home</a>
             {{#if usuario_logueado}}
-                <a class="nav-item nav-link mx-1" href="/registrarMedicionCsv">Registrar medicion</a>
-                <a class="nav-item nav-link mx-1" href="/registrarTrayecto">Registrar trayecto</a>
+                <a class="nav-item nav-link mx-1" href="/user/me/registrarMedicionCsv">Registrar medicion</a>
+                <a class="nav-item nav-link mx-1" href="/user/me/registrarTrayecto">Registrar trayecto</a>
                 <a class="nav-item nav-link mx-1" href="/user/me/request">Solicitud</a>
                 <form class="form-inline my-2 my-lg-0 ml-auto" action="/session/remove" method="POST">
                     <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">LogOut</button>

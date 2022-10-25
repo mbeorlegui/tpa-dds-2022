@@ -1,8 +1,6 @@
 package domain.server;
 
-import domain.controllers.HomeController;
-import domain.controllers.RequestController;
-import domain.controllers.UsersController;
+import domain.controllers.*;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -13,6 +11,9 @@ public class Router {
     HomeController homeController = new HomeController();
     UsersController usersController = new UsersController();
     RequestController requestController = new RequestController();
+    RegistrarMedicionController registrarMedicionController = new RegistrarMedicionController();
+    RegistrarTrayectosController registrarTrayectosController = new RegistrarTrayectosController();
+    ReportController reportController = new ReportController();
 
     DebugScreen.enableDebugScreen();
 
@@ -33,10 +34,10 @@ public class Router {
 
     Spark.get("/user/me/request", requestController::request, engineTemplate);
 
-    Spark.get("/user/me/registrarMedicionCsv", requestController::registrarMedicionCsv, engineTemplate);
+    Spark.get("/user/me/registrarMedicionCsv", registrarMedicionController::registrarMedicionCsv, engineTemplate);
 
-    Spark.get("/user/me/registrarMedicionParticular", requestController::registrarMedicionParticular, engineTemplate);
+    Spark.get("/user/me/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
-    Spark.get("/user/me/registrarTrayecto", requestController::registrarTrayecto, engineTemplate);
+    Spark.get("/user/me/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
   }
 }
