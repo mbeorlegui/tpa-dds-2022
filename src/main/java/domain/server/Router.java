@@ -1,6 +1,7 @@
 package domain.server;
 
 import domain.controllers.HomeController;
+import domain.controllers.RequestController;
 import domain.controllers.UsersController;
 import spark.Spark;
 import spark.debug.DebugScreen;
@@ -11,6 +12,7 @@ public class Router {
     HandlebarsTemplateEngine engineTemplate = new HandlebarsTemplateEngine();
     HomeController homeController = new HomeController();
     UsersController usersController = new UsersController();
+    RequestController requestController = new RequestController();
 
     DebugScreen.enableDebugScreen();
 
@@ -23,11 +25,13 @@ public class Router {
     Spark.post("/session", usersController::post, engineTemplate);
     Spark.post("/session/remove", usersController::delete, engineTemplate);
 
-    Spark.before("/user/me", ((request, response) -> {
+    Spark.before("/user/me/*", ((request, response) -> {
       if(request.session().attribute("usuario_logueado") == null) {
         response.redirect("/home");
       }
     }));
+
+    Spark.get("/user/me/request", requestController::request, engineTemplate);
 
   }
 }

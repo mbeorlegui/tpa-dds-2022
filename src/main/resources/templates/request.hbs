@@ -1,0 +1,41 @@
+{{#partial "contenido"}}
+<div class="login-form">
+    <form>
+        <h2>Solicitud de vinculación</h2>
+        <div class="content">
+            <div class="dropright">
+                <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Organización
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Org1</a>
+                    <a class="dropdown-item" href="#">Org2</a>
+                    <a class="dropdown-item" href="#">Org3</a>
+                </div>
+            </div>
+            <div class="dropright">
+                <button class="btn btn-secondary dropdown-toggle col-12 mt-3" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sector
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Sector1</a>
+                    <a class="dropdown-item" href="#">Sector2</a>
+                    <a class="dropdown-item" href="#">Sector3</a>
+                </div>
+            </div>
+            <div class="input-field pt-3">
+                <label for="exampleFormControlTextarea1">Motivo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="text"
+                          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            </div>
+        </div>
+        <div class="action">
+            <button>Enviar solicitud</button>
+        </div>
+    </form>
+</div>
+{{/partial}}
+
+{{>layoutWithoutFooter.hbs}}
