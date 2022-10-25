@@ -57,7 +57,10 @@ public class Runner {
     org2.addSector(unSector);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
-
+    Solicitud solicitud = new Solicitud(
+        unSector,
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+    );
     et.begin();
     // em.persist(ubicacion);
     em.persist(org2);
@@ -85,6 +88,7 @@ public class Runner {
     em.persist(medicion4);
     em.persist(org2);
     em.persist(admin);
+    em.persist(solicitud);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "
@@ -114,7 +118,7 @@ public class Runner {
 //    );
     System.out.println("Tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos());
     System.out.println("Factores de emision de tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
-    System.out.println("Un Usuario: " + RepoUsuarios.getInstance().findByUsername("matias").getUser() + RepoUsuarios.getInstance().findByUsername("matias").getPassword() );
+    System.out.println("Un Usuario: " + RepoUsuarios.getInstance().findByUsername("matias").getUser() + RepoUsuarios.getInstance().findByUsername("matias").getPassword());
     System.out.println("Cerrando conexion");
     em.close();
   }
