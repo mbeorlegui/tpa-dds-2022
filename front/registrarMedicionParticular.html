@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -24,48 +24,41 @@
             <a class="nav-item nav-link mx-1" href="home.html">Home</a>
             <a class="nav-item nav-link mx-1" href="login.html">LogIn</a>
             <a class="nav-item nav-link mx-1" href="signin.html">SignIn</a>
-            <a class="nav-item nav-link mx-1" href="registrarMedicionCsv.html">Registrar medicion</a>
+            <a class="nav-item nav-link active mx-1" href="#">Registrar medicion</a>
             <a class="nav-item nav-link mx-1" href="registroTrayecto.html">Registrar trayecto</a>
-            <a class="nav-item nav-link active mx-1" href="#">Solicitud</a>
+            <a class="nav-item nav-link mx-1" href="request.html">Solicitud</a>
         </div>
     </div>
 </nav>
 <div class="login-form">
-    <form>
-        <h2>Solicitud de vinculación</h2>
-        <div class="content">
-            <div class="dropright">
-                <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Organización
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Org1</a>
-                    <a class="dropdown-item" href="#">Org2</a>
-                    <a class="dropdown-item" href="#">Org3</a>
-                </div>
-            </div>
-            <div class="dropright">
-                <button class="btn btn-secondary dropdown-toggle col-12 mt-3" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sector
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Sector1</a>
-                    <a class="dropdown-item" href="#">Sector2</a>
-                    <a class="dropdown-item" href="#">Sector3</a>
-                </div>
-            </div>
-            <div class="input-field pt-3">
-                <label for="exampleFormControlTextarea1">Motivo</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="text"
-                          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-            </div>
+    <h2>Registrar medición</h2>
+    <div class="container d-flex justify-content-center border border-1 p-2">
+        <a class="btn btn-primary mx-2" href="registrarMedicionParticular.html" role="button">Particular</a>
+        <a class="btn btn-secondary mx-2" href="registrarMedicionCsv.html" role="button">CSV</a>
+    </div>
+    <div class="m-3 mb-4 col-11 justify-content-center">
+        <select class="form-select h-50">
+            <option selected hidden>Seleccione tipo de consumo</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <div class="d-flex p-1">
+            <label for="valor" class="form-label">Valor:</label>
+            <input class="ms-auto" type="text" name="valor" id="valor">
         </div>
-        <div class="action">
-            <button>Enviar solicitud</button>
+        <div class="d-flex p-1">
+            <label for="periodicidad" class="form-label">Periodicidad:</label>
+            <input class="ms-auto" type="text" name="periodicidad" id="periodicidad">
         </div>
-    </form>
+        <div class="d-flex p-1">
+            <label for="periodoImputacion" class="form-label">Periodo imputación:</label>
+            <input class="ms-auto" type="text" name="periodoImputacion" id="periodoImputacion">
+        </div>
+        <div class="d-grid gap-2 mt-4">
+            <input class="btn btn-secondary" type="submit" value="Registrar">
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

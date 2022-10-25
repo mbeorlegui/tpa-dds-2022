@@ -183,7 +183,7 @@ body {
 
 .trayecto-form {
   background: #fff;
-  width: 75%;
+  width: 90%;
   margin: 65px auto;
   display: -webkit-box;
   display: flex;
@@ -204,10 +204,18 @@ body {
   line-height: 1.42857;
 }
 
-hr{
+.line{
   width:40%;
-  text-align:left;
   margin-left:0
+}
+
+.fa-trash-o {
+  color: gray;
+}
+
+.fa-trash-o:hover {
+  color: red;
+  cursor: pointer;
 }
 
 .acept {
