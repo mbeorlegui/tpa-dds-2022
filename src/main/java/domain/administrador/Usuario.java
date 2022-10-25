@@ -17,10 +17,10 @@ import static java.util.Objects.requireNonNull;
 public class Usuario {
   @Id
   @GeneratedValue
-  @Column(name = "administrador_id")
+  @Column(name = "usuario_id")
   private long id;
   @Getter
-  String user;
+  String userName;
   @Getter
   String password;
   @Enumerated(EnumType.STRING)
@@ -30,7 +30,8 @@ public class Usuario {
   @Transient
   PasswordValidator validador = new PasswordValidator();
 
-  public Usuario() {}
+  public Usuario() {
+  }
 
   public Usuario(String user, String password, TipoUsuario tipoUsuario) {
     this.tipoUsuario = tipoUsuario;
