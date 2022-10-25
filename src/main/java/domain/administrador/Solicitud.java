@@ -16,14 +16,17 @@ public class Solicitud {
   private long id;
   @Transient
   private Sector sector;
+  @Transient
+  private Usuario usuario;
   @Getter
   private String motivo;
 
   public Solicitud() {
   }
 
-  public Solicitud(Sector sector, String motivo) {
+  public Solicitud(Sector sector, Usuario usuario, String motivo) {
     this.sector = sector;
+    this.usuario = usuario;
     this.motivo = motivo;
   }
 }
