@@ -1,0 +1,53 @@
+{{#partial "contenido"}}
+    <div class="trayecto-form p-2">
+        <form>
+            <h1 class="ms-2">Registrar trayecto</h1>
+            <div class="container-fluid" id="contenido">
+                <div class="col-8 d-flex my-2">
+                    <label for="exampleDataList" class="form-label my-auto ms-5">Inicio del trayecto</label>
+                    <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList"
+                           placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                        <option value="San Francisco">
+                        <option value="New York">
+                        <option value="Seattle">
+                        <option value="Los Angeles">
+                        <option value="Chicago">
+                    </datalist>
+                </div>
+                <div class="container d-flex align-items-center">
+                    <div class="col-8 d-flex justify-content-center my-2">
+                        <hr class="line">
+                        <button type="button" class="btn btn-outline-secondary btn-circle"
+                                onclick="agregarParada(this)">+
+                        </button>
+                        <hr class="line">
+                    </div>
+                    <select class="form-select h-50">
+                        <option selected hidden>Seleccione transporte del tramo</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-8 d-flex my-2">
+                    <label for="exampleDataList" class="form-label my-auto ms-5">Fin del trayecto</label>
+                    <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList"
+                           placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                        <option value="San Francisco">
+                        <option value="New York">
+                        <option value="Seattle">
+                        <option value="Los Angeles">
+                        <option value="Chicago">
+                    </datalist>
+                </div>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-secondary">Cargar trayecto</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{{/partial}}
+
+{{>layoutWithoutFooter.hbs}}
