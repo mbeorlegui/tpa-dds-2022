@@ -6,9 +6,14 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UsersController {
   public ModelAndView index(Request request, Response response) {
-    return new ModelAndView(null, "login.hbs");
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "login.hbs");
   }
 
   public ModelAndView post(Request request, Response response) {
@@ -28,6 +33,13 @@ public class UsersController {
     request.session().attribute("usuario_logueado", usuario);
     request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
     response.redirect("/home");
+    return null;
+  }
+
+  public ModelAndView delete(Request req, Response res) {
+    req.session().removeAttribute("usuario_logueado");
+    req.session().removeAttribute("tipo_usuario");
+    res.redirect("/home");
     return null;
   }
 }

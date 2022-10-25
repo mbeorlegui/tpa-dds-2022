@@ -21,6 +21,7 @@ public class Router {
 
     Spark.get("/login", usersController::index, engineTemplate);
     Spark.post("/session", usersController::post, engineTemplate);
+    Spark.post("/session/remove", usersController::delete, engineTemplate);
 
   }
 }
