@@ -2,17 +2,25 @@ package domain.dbrunner;
 
 import domain.administrador.*;
 import domain.medicion.*;
+import domain.miembro.Documento;
+import domain.miembro.Miembro;
 import domain.organizacion.Clasificacion;
 import domain.organizacion.Organizacion;
 import domain.organizacion.Sector;
 import domain.organizacion.SectorTerritorial;
 import domain.organizacion.TipoOrganizacion;
 import domain.reports.ReportGenerator;
+import domain.transporte.TipoDeTransportePublico;
+import domain.transporte.TransportePublico;
+import domain.trayecto.Tramo;
+import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Runner {
@@ -50,6 +58,12 @@ public class Runner {
     Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
     MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
+    TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.SUBTE, "X");
+    List<Tramo> tramos = new ArrayList<>();
+    tramos.add(new Tramo(ubicacion, ubicacion, subte));
+    Trayecto unTrayecto = new Trayecto(tramos);
+    Miembro miembro = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
     org2.agregarMedicion(medicion3);
@@ -59,7 +73,7 @@ public class Runner {
     sectorTerritorial.agregarOrganizacion(org);
     Solicitud solicitud = new Solicitud(
         unSector,
-        admin,
+        miembro,
         "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
     );
     et.begin();
