@@ -14,4 +14,9 @@ public class RequestController {
     return new ModelAndView(model, "request.hbs");
   }
 
+  public ModelAndView aceptarVinculacion(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "aceptacionVinculacion.hbs");
+  }
 }
