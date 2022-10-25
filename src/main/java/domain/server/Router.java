@@ -34,12 +34,9 @@ public class Router {
     Spark.get("/user/me/request", requestController::request, engineTemplate);
 
     Spark.get("/user/me/registrarMedicionCsv", requestController::registrarMedicionCsv, engineTemplate);
-    Spark.redirect.get("/", "/registrarMedicionCsv");
 
     Spark.get("/user/me/registrarMedicionParticular", requestController::registrarMedicionParticular, engineTemplate);
-    Spark.redirect.get("/", "/registrarMedicionParticular");
 
     Spark.get("/user/me/registrarTrayecto", requestController::registrarTrayecto, engineTemplate);
-    Spark.redirect.get("/", "/registrarTrayecto");
   }
 }
