@@ -43,6 +43,8 @@ public class Medicion {
     this.periodoDeImputacion = periodoDeImputacion;
   }
 
+  public Medicion() {}
+
   public String toString() {
     return "Medicion [Tipo de consumo: " + tipoConsumo
         + ", Valor: " + valor + ", Periodicidad: " + periodicidad

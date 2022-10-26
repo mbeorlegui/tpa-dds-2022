@@ -5,15 +5,12 @@
 </div>
 <div class="row">
     <div class="dropright" style="margin: 15px 0px 15px 0px;">
-        <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Seleccione Entidad:
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <select class="form-select" data-style="btn-primary" id="unidad" name="sector_territorial">
+            <option value="">Seleccione Entidad:</option>
             {{#each sectores_territoriales}}
-            <a class="dropdown-item" href="#">{{ nombre }}</a>
+                <option value="{{ id }}">{{ nombre }}</option>
             {{/each}}
-        </div>
+        </select>
     </div>
 </div>
 {{/partial}}

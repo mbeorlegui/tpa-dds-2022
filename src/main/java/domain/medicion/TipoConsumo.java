@@ -41,6 +41,8 @@ public class TipoConsumo {
     this.nombre = nombre;
   }
 
+  public TipoConsumo() {}
+
   @Override
   public String toString() {
     return nombre;

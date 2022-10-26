@@ -1,5 +1,7 @@
 package domain.controllers;
 
+import domain.administrador.UnidadEquivalenteCarbono;
+import domain.medicion.Periodicidad;
 import domain.organizacion.*;
 import spark.ModelAndView;
 import spark.Request;
@@ -16,9 +18,35 @@ public class ReportController {
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
     if (request.queryParams("organizacion") != null) {
-      Integer organizacionId = Integer.parseInt(request.queryParams("organizacion"));
-
-      model.put("resultado", 10000);
+      Long organizacionId = Long.parseLong(request.queryParams("organizacion"));
+      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      String periodoDeImputacion;
+      UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      if(periodicidad == Periodicidad.ANUAL) {
+        periodoDeImputacion = request.queryParams("anio");
+      } else {
+        if (Integer.parseInt(request.queryParams("mes")) < 10) {
+          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        } else {
+          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+        }
+      }
+      switch (Integer.parseInt(request.queryParams("unidad"))) {
+        case 0:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          break;
+        case 1:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+        case 2:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          break;
+        default:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+      }
+      Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
+      model.put("resultado", organizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadEquivalenteCarbono));
     }
     return new ModelAndView(model, "calculadoraOrganizacion.hbs");
   }
@@ -28,6 +56,39 @@ public class ReportController {
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
     model.put("sectores_territoriales", sectoresTerritoriales);
+
+    if (request.queryParams("sector_territorial") != null) {
+      Long organizacionId = Long.parseLong(request.queryParams("sector_territorial"));
+      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      String periodoDeImputacion;
+      UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      if(periodicidad == Periodicidad.ANUAL) {
+        periodoDeImputacion = request.queryParams("anio");
+      } else {
+        if (Integer.parseInt(request.queryParams("mes")) < 10) {
+          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        } else {
+          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+        }
+      }
+      switch (Integer.parseInt(request.queryParams("unidad"))) {
+        case 0:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          break;
+        case 1:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+        case 2:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          break;
+        default:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+      }
+      SectorTerritorial sectorTerritorial = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(organizacionId);
+      model.put("resultado", sectorTerritorial.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadEquivalenteCarbono));
+    }
+
     return new ModelAndView(model, "calculadoraSectorTerritorial.hbs");
   }
 
