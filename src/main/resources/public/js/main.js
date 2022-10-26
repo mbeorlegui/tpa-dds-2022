@@ -113,10 +113,16 @@ function obtenerOrganizaciones(){
     let selectEntidad = document.getElementById("entidad");
     selectEntidad.disabled = false;
     //tendría que generar options para las organizaciones registradas en la db
-  }
+}
   
-  function obtenerSectoresTerritoriales(){
+function obtenerSectoresTerritoriales(){
     let selectEntidad = document.getElementById("entidad");
     selectEntidad.disabled = false;
     //tendría que generar options para los sectores territoriales registrados en la db
-  }
+}
+
+function obtenerSectorDe(organizacion){
+    let selectSector = document.getElementById("sector");
+    selectSector.disabled = false;
+    //tendría que generar options para los sectores territoriales registrados en la db
+}

@@ -4,26 +4,20 @@
         <h2>Solicitud de vinculación</h2>
         <div class="content">
             <div class="dropright">
-                <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Organización
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Org1</a>
-                    <a class="dropdown-item" href="#">Org2</a>
-                    <a class="dropdown-item" href="#">Org3</a>
-                </div>
+                <select class="form-select" name="organizacion" required  onchange="obtenerSectorDe(value)">
+                    <option selected hidden disabled>Organización</option>
+                    <option value="1">Org1</option>
+                    <option value="2">Org2</option>
+                    <option value="3">Org3</option>
+                </select>
             </div>
             <div class="dropright">
-                <button class="btn btn-secondary dropdown-toggle col-12 mt-3" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sector
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Sector1</a>
-                    <a class="dropdown-item" href="#">Sector2</a>
-                    <a class="dropdown-item" href="#">Sector3</a>
-                </div>
+                <select class="form-select" name="sector" id="sector" required disabled>
+                    <option selected hidden disabled>Sector</option>
+                    <option value="1">Sector1</option>
+                    <option value="2">Sector2</option>
+                    <option value="3">Sector3</option>
+                </select>
             </div>
             <div class="input-field pt-3">
                 <label for="exampleFormControlTextarea1">Motivo</label>
