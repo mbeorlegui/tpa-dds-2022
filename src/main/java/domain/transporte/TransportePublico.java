@@ -26,7 +26,6 @@ public class TransportePublico extends Transporte {
   @Column(name = "tipo_de_transporte_publico")
   private TipoDeTransportePublico tipoDeTransportePublico;
   @Getter
-  //@ManyToMany
   @OneToMany
   @JoinColumn(name = "transporte_publico_id")
   @OrderColumn(name = "posicion")

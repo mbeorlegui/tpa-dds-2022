@@ -1,19 +1,24 @@
 package domain.server;
 
-import domain.administrador.RepoUsuarios;
-import domain.administrador.TipoUsuario;
-import domain.administrador.UnidadEquivalenteCarbono;
-import domain.administrador.Usuario;
+import domain.administrador.*;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.medicion.RepoTiposConsumos;
+import domain.miembro.Documento;
+import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.transporte.TipoDeTransportePublico;
+import domain.transporte.TransportePublico;
+import domain.trayecto.Tramo;
+import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Bootstrap {
@@ -50,6 +55,18 @@ public class Bootstrap {
     Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
     MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
+    TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.SUBTE, "X");
+    List<Tramo> tramos = new ArrayList<>();
+    Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
+    tramos.add(tramo);
+    Trayecto unTrayecto = new Trayecto(tramos);
+    Miembro miembro = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
+    Solicitud solicitud = new Solicitud(
+        unSector,
+        miembro,
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+    );
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
     org2.agregarMedicion(medicion3);
@@ -85,6 +102,11 @@ public class Bootstrap {
     em.persist(medicion4);
     em.persist(org2);
     em.persist(admin);
+    em.persist(subte);
+    em.persist(tramo);
+    em.persist(unTrayecto);
+    em.persist(miembro);
+    em.persist(solicitud);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "
