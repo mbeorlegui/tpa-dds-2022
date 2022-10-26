@@ -8,10 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReportController {
-  public ModelAndView calculadora(Request request, Response response) {
+  public ModelAndView calculadoraOrganizacion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
-    return new ModelAndView(model, "calculadora.hbs");
+    return new ModelAndView(model, "calculadoraOrganizacion.hbs");
+  }
+
+  public ModelAndView calculadoraSectorTerritorial(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "calculadoraSectorTerritorial.hbs");
   }
 
   public ModelAndView reporteHcTotal(Request request, Response response) {

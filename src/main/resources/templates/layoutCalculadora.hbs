@@ -3,36 +3,8 @@
     <form>
         <h2>Calculadora de Huella de Carbono</h2>
         <div class="content">
-            <div class="row justify-content-left" style="margin: 15px 0px 15px 0px;">
-                <div class="col-md-4 text-start" style="padding-left: 0px">
-                    <h4>Seleccione tipo de enitdad: </h4>
-                </div>
-                <div class="col-md-2 form-check">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion">
-                    <label class="form-check-label" for="organizacion">
-                        Organización
-                    </label>
-                </div>
-                <div class="col-md-2  form-check">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="sector">
-                    <label class="form-check-label" for="sector">
-                        Sector Territorial
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="dropright" style="margin: 15px 0px 15px 0px;">
-                    <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Seleccione Entidad:
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Org1/Sector1</a>
-                        <a class="dropdown-item" href="#">Org2/Sector2</a>
-                        <a class="dropdown-item" href="#">Org3/Sector3</a>
-                    </div>
-                </div>
-            </div>
+            {{#block "selector"}}
+            {{/block}}
             <div class="row" style="margin: 15px 0px 15px 0px;">
                 <div class="col-md-4 text-start" style="padding-left: 0px">
                     <h4>Seleccione periodicidad: </h4>
