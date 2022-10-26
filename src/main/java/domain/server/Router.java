@@ -22,7 +22,9 @@ public class Router {
     Spark.get("/home", homeController::home, engineTemplate);
     Spark.redirect.get("/", "/home");
 
-    Spark.get("/login", usersController::index, engineTemplate);
+    Spark.get("/login", usersController::login, engineTemplate);
+    Spark.get("/signin", usersController::signin, engineTemplate);
+    Spark.get("/loginError", usersController::loginError, engineTemplate);
     Spark.post("/session", usersController::post, engineTemplate);
     Spark.post("/session/remove", usersController::delete, engineTemplate);
 

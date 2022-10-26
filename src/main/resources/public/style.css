@@ -27,6 +27,7 @@ body {
     padding: 35px 35px 0 35px;
     font-weight: 300;
 }
+
 .login-form h2 {
     padding: 35px 35px 0 35px;
     font-weight: 300;
@@ -127,18 +128,24 @@ body {
     background: #3c4d6d;
 }
 
-.imagen{
+.imagen {
     width: 150px;
     height: auto;
 }
 
-.imagen:hover{
+.imagen:hover {
     transform: scale(1.5);
     transition-duration: 500ms;
     opacity: 0.8;
 }
 
-.logo-image{
+.imagen2:hover {
+    transform: scale(1.2);
+    transition-duration: 500ms;
+    opacity: 0.8;
+}
+
+.logo-image {
     height: 5vh;
     width: auto;
     border-radius: 50%;
@@ -146,24 +153,24 @@ body {
     margin-top: -6px;
 }
 
-.icono:hover{
+.icono:hover {
     transform: scale(1.5) rotate(10deg);
     /* Agranda las veces quee esta entre parentesis */
     transition-duration: 400ms;
 }
 
-.imagen{
+.imagen {
     width: 250px;
     height: auto;
 }
 
-.imagen:hover{
+.imagen:hover {
     transform: scale(1.5);
     transition-duration: 500ms;
     opacity: 0.8;
 }
 
-.logo-image{
+.logo-image {
     height: 5vh;
     width: auto;
     border-radius: 50%;
@@ -171,7 +178,7 @@ body {
     margin-top: -6px;
 }
 
-.footer{
+.footer {
     background: #f7f7f7;
     min-height: 240px;
     /* EL MIN-HEIGHT ES LO QUE HACE AL FOOTER RESPONSIVE */
@@ -204,9 +211,9 @@ body {
     line-height: 1.42857;
 }
 
-.line{
-    width:40%;
-    margin-left:0
+.line {
+    width: 40%;
+    margin-left: 0
 }
 
 .fa-trash-o {
@@ -270,4 +277,10 @@ body {
 
 .boton-aceptar:hover {
     background: #3c4d6d;
+}
+
+.error-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
