@@ -10,10 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UsersController {
-  public ModelAndView index(Request request, Response response) {
+  public ModelAndView login(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     return new ModelAndView(model, "login.hbs");
+  }
+
+  public ModelAndView loginError(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "loginError.hbs");
   }
 
   public ModelAndView post(Request request, Response response) {
@@ -22,8 +28,14 @@ public class UsersController {
 
     System.out.println(usuario);
     // System.out.println("Un Usuario: " + RepoUsuarios.getInstance().findByUsername("matias").getUser() + RepoUsuarios.getInstance().findByUsername("matias").getPassword() );
+    Usuario usuarioEncontrado;
 
-    Usuario usuarioEncontrado = RepoUsuarios.getInstance().findByUsername(usuario);
+    try {
+      usuarioEncontrado = RepoUsuarios.getInstance().findByUsername(usuario);
+    } catch (Exception e) {
+      response.redirect("/loginError");
+      return null;
+    }
 
     if (usuarioEncontrado == null ||
         !usuarioEncontrado.getPassword().equals(password)) {
