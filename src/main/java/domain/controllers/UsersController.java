@@ -16,6 +16,12 @@ public class UsersController {
     return new ModelAndView(model, "login.hbs");
   }
 
+  public ModelAndView signin(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+//    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "signin.hbs");
+  }
+
   public ModelAndView loginError(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
