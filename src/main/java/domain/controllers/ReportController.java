@@ -19,4 +19,16 @@ public class ReportController {
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     return new ModelAndView(model, "reporteHcTotal.hbs");
   }
+
+  public ModelAndView reporteEvolucion(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "reporteEvolucion.hbs");
+  }
+
+  public ModelAndView reporteComposicion(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    return new ModelAndView(model, "reporteComposicion.hbs");
+  }
 }

@@ -1,3 +1,8 @@
+/*
+    Pantalla: registrarTrayecto
+    Funcion: generar todo lo necesario para agregar 
+            una parada intermedia al hacer click en el boton "+"
+*/
 function agregarParada(boton){
     let cantidadParadas = document.querySelectorAll(".paradaIntermedia").length
     let contenidoParada = document.createElement('div');
@@ -92,6 +97,10 @@ function agregarParada(boton){
     enumerarParadas();
 }
 
+/*
+    Pantalla: registrarTrayecto
+    Funcion: eliminar una parada intermedia al hacer click en el icono "trash"
+*/
 function eliminarParada(boton){
     let contenido = document.getElementById("contenido");
     let barraSeparacion = boton.parentNode.nextSibling;
@@ -100,6 +109,11 @@ function eliminarParada(boton){
     enumerarParadas();
 }
 
+/*
+    Pantalla: registrarTrayecto
+    Funcion: enumerar las paradas intermedias al agregar o eliminar
+            para que queden numeradas de forma creciente
+*/
 function enumerarParadas(){
     let paradas = document.querySelectorAll('.paradaIntermediaLabel');
     let numero = 1;
@@ -109,20 +123,45 @@ function enumerarParadas(){
     }
 }
 
+/*
+    Pantalla: reportes
+    Funcion: habilitar el select y generar options para las organizaciones
+*/
 function obtenerOrganizaciones(){
     let selectEntidad = document.getElementById("entidad");
     selectEntidad.disabled = false;
     //tendría que generar options para las organizaciones registradas en la db
 }
-  
+
+/*
+    Pantalla: reportes
+    Funcion: habilitar el select y generar options para los sectores territoriales
+*/
 function obtenerSectoresTerritoriales(){
     let selectEntidad = document.getElementById("entidad");
     selectEntidad.disabled = false;
     //tendría que generar options para los sectores territoriales registrados en la db
 }
 
+/*
+    Pantalla: request
+    Funcion: habilitar el select de sectores y generar options segun una organizacion
+*/
 function obtenerSectorDe(organizacion){
     let selectSector = document.getElementById("sector");
     selectSector.disabled = false;
     //tendría que generar options para los sectores territoriales registrados en la db
+}
+
+/*
+    Pantalla: reportes
+    Funcion: cambiar color tipo de reporte seleccionado
+*/
+function cambiarSeleccionReporte(reporteActual){
+    console.log("hola")
+    let reporteAnterior = document.getElementsByClassName("btn-primary")
+    reporteAnterior.classList.replace("btn-primary","btn-secondary")
+    reporteActual.classList.replace("btn-secondary","btn-primary")
+    console.log(reporteActual)
+    console.log(reporteAnterior)
 }
