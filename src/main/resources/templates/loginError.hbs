@@ -1,29 +1,9 @@
-{{#partial "contenido"}}
-    <div class="login-form">
-        <form action="/session" method="POST">
-            <h1>Login</h1>
-            <div class="content pb-1">
-                <div class="input-field">
-                    <input type="text" placeholder="Usuario" autocomplete="nope" name="nombre" value="{{ nombre }}"/>
-                </div>
-                <div class="input-field">
-                    <input type="password" placeholder="Contraseña" autocomplete="new-password" name="password"
-                           value="{{ password }}"/>
-                </div>
-            </div>
-            <div class="mt-0 mb-2 ml-3">
-                <a class="error-msg"
-                   style="background: white; color: red; text-align: center; vertical-align: middle; text-decoration: none;">
-                    Hubo un error en el logueo. Revise el usuario y la contraseña
-                </a>
-            </div>
-            <div class="action">
-                <button>Registrarse</button>
-                <button type="submit">Loguearse</button>
-            </div>
-        </form>
-    </div>
-
+{{#partial "error"}}
+<div class="mt-0 mb-2 ml-3">
+    <a class="error-msg" style="background: white; color: red; text-align: center; vertical-align: middle; text-decoration: none;">
+        Hubo un error en el logueo. Revise el usuario y la contraseña
+    </a>
+</div>
 {{/partial}}
 
-{{>layout.hbs}}
+{{>login.hbs}}

@@ -10,6 +10,8 @@
           <input type="password" placeholder="Contraseña" autocomplete="new-password" name="password" value="{{ password }}" />
         </div>
       </div>
+      {{#block "error"}}
+      {{/block}}
       <div class="action">
         <button>Registrarse</button>
         <button type="submit">Loguearse</button>
