@@ -1,15 +1,15 @@
 {{#partial "contenido"}}
-<div class="login-form w-100">
-    <form>
-        <h2>Reporte de Huella de Carbono</h2>
-        <div class="container-fluid d-flex justify-content-center border border-1 p-2">
-            <a class="btn btn-primary mx-2" href="reporteHcTotal.html" role="button">HC Total</a>
-            <a class="btn btn-secondary mx-2" href="#" role="button">Evolución</a>
-            <a class="btn btn-secondary mx-2" href="#" role="button">Composición</a>
-        </div>
-        {{#block "form"}}
-        {{/block}}
-    </form>
+    <div class="login-form w-100">
+        <form>
+            <h2>Reporte de Huella de Carbono</h2>
+            <div class="container-fluid d-flex justify-content-center border border-1 p-2">
+                <a class="btn btn-primary mx-2" href="/reporteHcTotal" role="button">HC Total</a>
+                <a class="btn btn-secondary mx-2" href="/evolucionHc" role="button">Evolución</a>
+                <a class="btn btn-secondary mx-2" href="/composicionHc" role="button">Composición</a>
+            </div>
+            {{#block "form"}}
+            {{/block}}
+        </form>
     {{#block "resultado"}}
     {{/block}}
 {{/partial}}
