@@ -37,7 +37,7 @@ public class Bootstrap {
         ubicacion,
         Clasificacion.UNIVERSIDAD);
     Sector unSector = new Sector();
-    SectorTerritorial sectorTerritorial = new SectorTerritorial();
+    SectorTerritorial sectorTerritorial = new SectorTerritorial("Sector Prueba");
     // ------------------------
     // pruebas de mediciones
     MedicionRead medicionRead1 = new MedicionRead(

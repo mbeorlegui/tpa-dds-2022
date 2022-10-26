@@ -17,4 +17,10 @@ public class RepoSectoresTerritoriales {
   public SectorTerritorial getSectorTerritorial(Long id) {
     return em.find(SectorTerritorial.class, id);
   }
+
+  public List<SectorTerritorial> getSectoresTerritoriales() {
+    return em
+        .createQuery("from SectorTerritorial")
+        .getResultList();
+  }
 }
