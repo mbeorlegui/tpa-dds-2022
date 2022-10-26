@@ -15,6 +15,11 @@ public class ReportController {
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
+    if (request.queryParams("organizacion") != null) {
+      Integer organizacionId = Integer.parseInt(request.queryParams("organizacion"));
+
+      model.put("resultado", 10000);
+    }
     return new ModelAndView(model, "calculadoraOrganizacion.hbs");
   }
 
