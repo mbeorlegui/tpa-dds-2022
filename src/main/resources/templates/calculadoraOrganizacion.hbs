@@ -10,9 +10,9 @@
             Seleccione Entidad:
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Org1</a>
-            <a class="dropdown-item" href="#">Org2</a>
-            <a class="dropdown-item" href="#">Org3</a>
+            {{#each organizaciones}}
+            <a class="dropdown-item" href="#">{{ razonSocial }}</a>
+            {{/each}}
         </div>
     </div>
 </div>

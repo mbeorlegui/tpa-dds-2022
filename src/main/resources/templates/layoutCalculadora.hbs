@@ -1,6 +1,10 @@
 {{#partial "contenido"}}
 <div class="login-form" style="width: 90%;">
-    <form>
+    {{#if organizaciones }}
+    <form action="/user/me/calculadoraOrganizacion" method="GET">
+    {{else}}
+    <form action="/user/me/calculadoraSectorTerritorial" method="GET">
+    {{/if}}
         <h2>Calculadora de Huella de Carbono</h2>
         <div class="content">
             {{#block "selector"}}

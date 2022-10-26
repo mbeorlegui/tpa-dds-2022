@@ -69,6 +69,10 @@ public class Organizacion {
     this.clasificacion = clasificacion;
   }
 
+  public Organizacion() {
+
+  }
+
   public void addSector(Sector sector) {
     if (!tieneSectorDe(sector)) {
       sectores.add(sector);
