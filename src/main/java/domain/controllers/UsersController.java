@@ -39,13 +39,17 @@ public class UsersController {
     try {
       usuarioEncontrado = RepoUsuarios.getInstance().findByUsername(usuario);
     } catch (Exception e) {
+      // Si no encuentra el usuario, redirige a pagina de error de login
       response.redirect("/loginError");
       return null;
     }
 
     if (usuarioEncontrado == null ||
         !usuarioEncontrado.getPassword().equals(password)) {
-      return new ModelAndView(null, "login.hbs");
+      // Si el usuario y la contraseña no coinciden, redirige a pagina de error de login
+      // TODO: Analizar crear una ventana a parte con el error
+      response.redirect("/loginError");
+      return null;
     }
 
     request.session().attribute("usuario_logueado", usuario);
