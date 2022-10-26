@@ -1,5 +1,6 @@
 package domain.administrador;
 
+import domain.miembro.Miembro;
 import domain.organizacion.Sector;
 import lombok.Getter;
 
@@ -17,16 +18,16 @@ public class Solicitud {
   @Transient
   private Sector sector;
   @Transient
-  private Usuario usuario;
+  private Miembro miembro;
   @Getter
   private String motivo;
 
   public Solicitud() {
   }
 
-  public Solicitud(Sector sector, Usuario usuario, String motivo) {
+  public Solicitud(Sector sector, Miembro miembro, String motivo) {
     this.sector = sector;
-    this.usuario = usuario;
+    this.miembro = miembro;
     this.motivo = motivo;
   }
 }
