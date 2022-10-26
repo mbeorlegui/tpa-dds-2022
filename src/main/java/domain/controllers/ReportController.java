@@ -34,18 +34,28 @@ public class ReportController {
   public ModelAndView reporteHcTotal(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    model.put("tipo_reporte","Huella de Carbono");
     return new ModelAndView(model, "reporteHcTotal.hbs");
   }
 
   public ModelAndView reporteEvolucion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    model.put("tipo_reporte","Evolución");
     return new ModelAndView(model, "reporteEvolucion.hbs");
   }
 
   public ModelAndView reporteComposicion(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    model.put("tipo_reporte","Composición");
     return new ModelAndView(model, "reporteComposicion.hbs");
+  }
+
+  public ModelAndView reportes(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    model.put("tipo_reporte","");
+    return new ModelAndView(model, "layoutReporte.hbs");
   }
 }

@@ -20,26 +20,30 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse ms-2" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link mx-1" href="/home">Home</a>
+        <div class="navbar-nav w-100">
+            <a class="nav-item nav-link mx-1 align-self-center" href="/home">Home</a>
             {{#if usuario_logueado}}
                 <a class="nav-item nav-link mx-1" href="/user/me/registrarMedicionParticular">Registrar medicion</a>
                 <a class="nav-item nav-link mx-1" href="/user/me/registrarTrayecto">Registrar trayecto</a>
                 <a class="nav-item nav-link mx-1" href="/user/me/request">Solicitud</a>
                 <a class="nav-item nav-link mx-1" href="/user/me/calculadoraOrganizacion">Calculadora HC</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/reporteHcTotal">Reporte HC</a>
+                <a class="nav-item nav-link mx-1" href="/user/me/reportes">Reportes</a>
                 <a class="nav-item nav-link mx-1" href="/user/me/aceptacionVinculacion">Aceptar Vinculacion</a>
-                <form class="form-inline my-2 my-lg-0 ml-auto" action="/session/remove" method="POST">
+                <form class="form-inline my-2 my-lg-0 ms-auto" action="/session/remove" method="POST">
                     <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">LogOut</button>
                 </form>
             {{else}}
-                <form class="form-inline my-2 my-lg-0 ml-auto" action="/login" method="GET">
-                    <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">LogIn</button>
+                <form class="form-inline my-2 my-lg-0 ms-auto" action="/login" method="GET">
+                    <button class="btn btn-outline-success my-2 my-sm-0 ms-auto" type="submit">LogIn</button>
                 </form>
             {{/if}}
         </div>
     </div>
 </nav>
+{{#if usuario_logueado}}
+    {{#block "mensaje"}}
+    {{/block}}
+{{/if}}
 
 <div class="container">
     {{#block "contenido"}}

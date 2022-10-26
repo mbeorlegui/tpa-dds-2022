@@ -48,10 +48,12 @@ public class Router {
 
     Spark.get("/user/me/aceptacionVinculacion", requestController::aceptarVinculacion, engineTemplate);
 
-    Spark.get("/user/me/reporteHcTotal", reportController::reporteHcTotal, engineTemplate);
+    Spark.get("/user/me/reportes", reportController::reportes, engineTemplate);
 
-    Spark.get("/user/me/reporteEvolucion", reportController::reporteEvolucion, engineTemplate);
+    Spark.get("/user/me/reportes/hcTotal", reportController::reporteHcTotal, engineTemplate);
 
-    Spark.get("/user/me/reporteComposicion", reportController::reporteComposicion, engineTemplate);
+    Spark.get("/user/me/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
+
+    Spark.get("/user/me/reportes/composicion", reportController::reporteComposicion, engineTemplate);
   }
 }
