@@ -1,0 +1,80 @@
+{{#partial "contenido"}}
+<div class="login-form" style="width: 90%;">
+    <form>
+        <h2>Calculadora de Huella de Carbono</h2>
+        <div class="content">
+            <div class="row justify-content-left" style="margin: 15px 0px 15px 0px;">
+                <div class="col-md-4 text-start" style="padding-left: 0px">
+                    <h4>Seleccione tipo de enitdad: </h4>
+                </div>
+                <div class="col-md-2 form-check">
+                    <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion">
+                    <label class="form-check-label" for="organizacion">
+                        Organización
+                    </label>
+                </div>
+                <div class="col-md-2  form-check">
+                    <input class="form-check-input" type="radio" name="tipo-entidad" id="sector">
+                    <label class="form-check-label" for="sector">
+                        Sector Territorial
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="dropright" style="margin: 15px 0px 15px 0px;">
+                    <button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Seleccione Entidad:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Org1/Sector1</a>
+                        <a class="dropdown-item" href="#">Org2/Sector2</a>
+                        <a class="dropdown-item" href="#">Org3/Sector3</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin: 15px 0px 15px 0px;">
+                <div class="col-md-4 text-start" style="padding-left: 0px">
+                    <h4>Seleccione periodicidad: </h4>
+                </div>
+                <div class="col-md-2 form-check">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="anual">
+                    <label class="form-check-label" for="anual">
+                        Anual
+                    </label>
+                </div>
+                <div class="col-md-2  form-check">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual">
+                    <label class="form-check-label" for="mensual">
+                        Mensual
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label class="form-label d" for="anio"><h4>Año:</h4></label>
+                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;"/>
+                </div>
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label class="form-label d" for="anio"><h4>Mes:</h4></label>
+                    <input type="number" min="1" max="12" id="anio" class="form-control" style="width: 75%;"/>
+                </div>
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
+                    <select class="form-select" id="unidad" required>
+                        <option value=""></option>
+                        <option value="0">Gramos</option>
+                        <option value="1">Kilogramos</option>
+                        <option value="2">Toneladas</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <button>Calcular</button>
+        </div>
+    </form>
+</div>
+{{/partial}}
+
+{{>layout.hbs}}
