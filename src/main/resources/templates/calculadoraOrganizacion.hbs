@@ -1,19 +1,19 @@
 {{#partial "selector"}}
-<div class="container-fluid d-flex justify-content-center border border-1 p-2">
-    <a class="btn btn-primary mx-2" href="/user/me/calculadoraOrganizacion" role="button">Organizacion</a>
-    <a class="btn btn-secondary mx-2" href="/user/me/calculadoraSectorTerritorial" role="button">Sector Territorial</a>
-</div>
-<div class="row">
-    <div class="dropright" style="margin: 15px 0px 15px 0px;">
-        <select class="form-select" data-style="btn-primary" id="unidad" name="organizacion">
-            <option value="">Seleccione Entidad:</option>
-            {{#each organizaciones}}
-                <option value="{{ id }}">{{ razonSocial }}</option>
-            {{/each}}
-        </select>
-
+    <div class="container-fluid d-flex justify-content-center border border-1 p-2">
+        <a class="btn btn-primary mx-2" href="/user/me/calculadoraOrganizacion" role="button">Organizacion</a>
+        <a class="btn btn-secondary mx-2" href="/user/me/calculadoraSectorTerritorial" role="button">Sector
+            Territorial</a>
     </div>
-</div>
+    <div class="row">
+        <div class="dropright" style="margin: 15px 0px 15px 0px;">
+            <select class="form-select" data-style="btn-primary" id="unidad" name="organizacion">
+                <option value="">Seleccione Entidad:</option>
+                {{#each organizaciones}}
+                    <option value="{{ id }}">{{ razonSocial }}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
 {{/partial}}
 
 {{>layoutCalculadora.hbs}}

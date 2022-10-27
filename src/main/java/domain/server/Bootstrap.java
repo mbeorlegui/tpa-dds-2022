@@ -61,11 +61,29 @@ public class Bootstrap {
     Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
     tramos.add(tramo);
     Trayecto unTrayecto = new Trayecto(tramos);
-    Miembro miembro = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
-    Solicitud solicitud = new Solicitud(
+    Miembro miembro1 = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
+    Solicitud solicitud1 = new Solicitud(
         unSector,
-        miembro,
+        miembro1,
         "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+    );
+    Miembro miembro2 = new Miembro("Ignacio", "Ardanaz", 41567890, Documento.DNI, unTrayecto);
+    Solicitud solicitud2 = new Solicitud(
+        unSector,
+        miembro2,
+        "Necesito el trabajo, no llego a fin de mes"
+    );
+    Miembro miembro3 = new Miembro("Alejo", "Goltzman", 41756189, Documento.DNI, unTrayecto);
+    Solicitud solicitud3 = new Solicitud(
+        unSector,
+        miembro3,
+        "Formar parte de la organización significaría un gran paso para mi carrera profesional"
+    );
+    Miembro miembro4 = new Miembro("Alejo", "Sandrini", 41091789, Documento.DNI, unTrayecto);
+    Solicitud solicitud4 = new Solicitud(
+        unSector,
+        miembro4,
+        "Tengo ganas de empezar a trabajar"
     );
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
@@ -105,8 +123,14 @@ public class Bootstrap {
     em.persist(subte);
     em.persist(tramo);
     em.persist(unTrayecto);
-    em.persist(miembro);
-    em.persist(solicitud);
+    em.persist(miembro1);
+    em.persist(solicitud1);
+    em.persist(miembro2);
+    em.persist(solicitud2);
+    em.persist(miembro3);
+    em.persist(solicitud3);
+    em.persist(miembro4);
+    em.persist(solicitud4);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "
