@@ -54,7 +54,7 @@ public class DbTest extends AbstractPersistenceTest implements WithGlobalEntityM
     medicion1 = new MedicionAdapter().adaptarMedicion(medicionRead1);
     MedicionRead medicionRead2 = new MedicionRead("GAS_NATURAL", "5000", "MENSUAL", "03/2022");
     medicion2 = new MedicionAdapter().adaptarMedicion(medicionRead2);
-    sectorTerritorial1 = new SectorTerritorial();
+    sectorTerritorial1 = new SectorTerritorial("Un Sector");
     sectorTerritorial1.agregarOrganizacion(org);
     sectorTerritorial1.agregarOrganizacion(utn);
   }

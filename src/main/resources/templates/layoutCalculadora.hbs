@@ -1,0 +1,61 @@
+{{#partial "contenido"}}
+<div class="login-form" style="width: 90%;">
+    {{#if organizaciones }}
+    <form action="/user/me/calculadoraOrganizacion" method="GET">
+    {{else}}
+    <form action="/user/me/calculadoraSectorTerritorial" method="GET">
+    {{/if}}
+        <h2>Calculadora de Huella de Carbono</h2>
+        <div class="content">
+            {{#block "selector"}}
+            {{/block}}
+            <div class="row" style="margin: 15px 0px 15px 0px;">
+                <div class="col-md-4 text-start" style="padding-left: 0px">
+                    <h4>Seleccione periodicidad: </h4>
+                </div>
+                <div class="col-md-2 form-check">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual">
+                    <label class="form-check-label" for="anual">
+                        Anual
+                    </label>
+                </div>
+                <div class="col-md-2  form-check">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual">
+                    <label class="form-check-label" for="mensual">
+                        Mensual
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label class="form-label d" for="anio"><h4>Año:</h4></label>
+                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;" name="anio"/>
+                </div>
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label class="form-label d" for="mes"><h4>Mes:</h4></label>
+                    <input type="number" min="1" max="12" id="mes" class="form-control" style="width: 75%;" name="mes"/>
+                </div>
+                <div class="col-md-4 d-flex justify-content-between">
+                    <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
+                    <select class="form-select" id="unidad" name="unidad">
+                        <option value=""></option>
+                        <option value="0">Gramos</option>
+                        <option value="1">Kilogramos</option>
+                        <option value="2">Toneladas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+            {{#if resultado}}
+                <h4>Huella de carbono = {{resultado}}</h4>
+            {{/if}}
+            </div>
+        </div>
+        <div class="action">
+            <button>Calcular</button>
+        </div>
+    </form>
+</div>
+{{/partial}}
+
+{{>layout.hbs}}

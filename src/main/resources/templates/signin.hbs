@@ -1,0 +1,25 @@
+{{#partial "contenido"}}
+    <div class="login-form">
+        <form>
+            <h1>Signin</h1>
+            <div class="content">
+                <div class="input-field">
+                    <input type="usuario" placeholder="Usuario" autocomplete="nope"/>
+                </div>
+                <div class="input-field">
+                    <input type="password" placeholder="Contraseña" autocomplete="new-password"/>
+                </div>
+                <div class="input-field">
+                    <!-- Con el input comentado, se mostraban los caracteres -->
+                    <!-- <input type="verify-password" placeholder="Repetir contraseña" autocomplete="verify-password"/> -->
+                    <input type="password" placeholder="Repetir contraseña" autocomplete="verify-password"/>
+                </div>
+            </div>
+            <div class="action">
+                <button>Registrarse</button>
+            </div>
+        </form>
+    </div>
+{{/partial}}
+
+{{>layout.hbs}}

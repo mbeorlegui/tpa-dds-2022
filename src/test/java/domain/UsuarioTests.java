@@ -1,16 +1,14 @@
 package domain;
 
-import domain.administrador.Administrador;
-import domain.administrador.FactorDeEmision;
-import domain.administrador.UnidadEquivalenteCarbono;
+import domain.administrador.TipoUsuario;
+import domain.administrador.Usuario;
 import domain.exceptions.InvalidPasswordException;
-import domain.medicion.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AdministradorTests {
+public class UsuarioTests {
   static final String LARGE_TEXT =
       "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||";
   static final String SHORT_TEXT = "1Ab_401";
@@ -106,58 +104,58 @@ public class AdministradorTests {
 
 
   @DisplayName("Instanciar: Admin con igual user y password")
-  private Administrador adminConUserQueContienePassword() {
-    return new Administrador("matias", "matias");
+  private Usuario adminConUserQueContienePassword() {
+    return new Usuario("matias", "matias", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con user que contiene a password")
-  private Administrador adminConIgualPasswordYUsuario() {
-    return new Administrador("matias", "matias");
+  private Usuario adminConIgualPasswordYUsuario() {
+    return new Usuario("matias", "matias", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password corto")
-  private Administrador adminConPasswordFacil() {
-    return new Administrador("matias", "asd");
+  private Usuario adminConPasswordFacil() {
+    return new Usuario("matias", "asd", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password comun")
-  private Administrador adminConPasswordComun() {
-    return new Administrador("matias", "1111111111");
+  private Usuario adminConPasswordComun() {
+    return new Usuario("matias", "1111111111", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password sin definir")
-  private Administrador adminConPasswordVacio() {
-    return new Administrador("matias", null);
+  private Usuario adminConPasswordVacio() {
+    return new Usuario("matias", null, TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con user sin definir")
-  private Administrador adminConUserVacio() {
-    return new Administrador(null, "AltaContrRaseNia_*3154");
+  private Usuario adminConUserVacio() {
+    return new Usuario(null, "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password largo")
-  private Administrador adminConPasswordLargo() {
-    return new Administrador("matias", LARGE_TEXT);
+  private Usuario adminConPasswordLargo() {
+    return new Usuario("matias", LARGE_TEXT, TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password corto")
-  private Administrador adminConPasswordCorto() {
-    return new Administrador("matias", SHORT_TEXT);
+  private Usuario adminConPasswordCorto() {
+    return new Usuario("matias", SHORT_TEXT, TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password completo")
-  private Administrador adminConPasswordCompleto() {
-    return new Administrador("matias", "AltaContrRaseNia_*3154");
+  private Usuario adminConPasswordCompleto() {
+    return new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres invalidos")
-  private Administrador adminConPasswordConCaracteresRarosPeroValidos() {
-    return new Administrador("matias", "AltaContrRaseNia_*3154");
+  private Usuario adminConPasswordConCaracteresRarosPeroValidos() {
+    return new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres raros pero invalidos")
-  private Administrador adminConPasswordConCaracteresInvalidos() {
-    return new Administrador("matias", "AltaContrRaseNia_*3154¥");
+  private Usuario adminConPasswordConCaracteresInvalidos() {
+    return new Usuario("matias", "AltaContrRaseNia_*3154¥", TipoUsuario.ADMINISTRADOR);
   }
 
 }

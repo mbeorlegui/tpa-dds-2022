@@ -23,9 +23,17 @@ public class SectorTerritorial {
   @Column(name = "sector_territorial_id")
   @Getter
   private long id;
+  @Getter
+  private String nombre;
   @OneToMany
   @JoinColumn(name = "sector_territorial_id")
   private List<Organizacion> organizaciones = new ArrayList<>();
+
+  public SectorTerritorial(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public SectorTerritorial() {}
 
   public double huellaDeCarbonoEnPeriodo(Periodicidad periodicidad,
                                          String periodoDeImputacion,

@@ -16,7 +16,7 @@
         <class>domain.transporte.Transporte</class>
         <class>domain.medicion.Medicion</class>
         <class>domain.medicion.TipoConsumo</class>
-        <class>domain.administrador.Administrador</class>
+        <class>domain.administrador.Usuario</class>
         <class>domain.organizacion.SectorTerritorial</class>
         <class>domain.organizacion.Organizacion</class>
 
@@ -25,9 +25,9 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/TpIntegrador"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/TpIntegrador?createDatabaseIfNotExist=true"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="matiasbeorlegui"/>
+            <property name="hibernate.connection.password" value="matibeor"/>
 
             <property name="use_sql_comments" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>

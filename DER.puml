@@ -125,11 +125,12 @@ entity Parada {
   transporte_id : number <<FK>>
 }
 
-entity Administrador {
-  administrador_id : number <<generated>>
+entity Usuario {
+  usuario_id : number <<generated>>
   --
   user : text
   password : text
+  tipo_usuario : number <<enum>>
 }
 
 entity Medio_de_comunicacion {
@@ -156,7 +157,7 @@ Organizacion||-o{ Medicion
 Medicion }o--|| TipoConsumo
 Transporte }o--|| TipoConsumo
 ' FE queda como embedded y TipoConsumo queda como Embeddable
-' Administrador no tiene relacion con ninguna entidad
+' Usuario no tiene relacion con ninguna entidad
 Organizacion }o--|| SectorTerritorial
 
 Organizacion_x_Medio_de_comunicacion }|--||Medio_de_comunicacion
