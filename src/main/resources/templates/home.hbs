@@ -43,31 +43,31 @@
         </section>
         <hr>
         <div class="login-form">
-            <form>
-                <h1>¡Contáctanos!</h1>
-                <div class="content">
-                    <div class="input-field">
-                        <input type="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="email" placeholder="Correo electronico" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="comentario" placeholder="Comentario" autocomplete="nope"/>
-                    </div>
+            <form action="https://formsubmit.co/a035311e371b0fa39f570e1e07b7247b" method="POST"/>
+            <h1>¡Contáctanos!</h1>
+            <div class="content">
+                <div class="input-field">
+                    <input type="nombre" name="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
                 </div>
-                <div class="action">
-                    <button>Enviar 📩</button>
+                <div class="input-field">
+                    <input type="email" name="email" placeholder="Correo electronico" autocomplete="nope"/>
                 </div>
+                <div class="input-field">
+                    <input type="comentario" name="comentario" placeholder="Comentario" autocomplete="nope"/>
+                </div>
+            </div>
+            <div class="action">
+                <button>Enviar 📩</button>
+            </div>
             </form>
         </div>
     </div>
 {{/partial}}
 
 {{#partial "mensaje"}}
-<div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
-    <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
-</div>
+    <div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
+        <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
+    </div>
 {{/partial}}
 
 {{>footer.hbs}}
