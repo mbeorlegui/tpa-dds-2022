@@ -23,16 +23,16 @@ public class Sector {
   /*    Hago que la organizacion conozca los sectores y
       que los sectores conozcan a los miembros
   */
+  @Getter
   @Id
   @GeneratedValue
   @Column(name = "sector_id")
   private long id;
   @Getter
   @ManyToMany
-  private List<Miembro> miembros;
+  private List<Miembro> miembros = new ArrayList<>();
 
   public Sector() {
-    miembros = new ArrayList<>();
   }
 
   public void addMiembro(Miembro miembro) {
