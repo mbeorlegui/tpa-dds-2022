@@ -16,6 +16,8 @@ public class RequestController {
   public ModelAndView request(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
+    model.put("organizaciones", organizaciones);
     return new ModelAndView(model, "request.hbs");
   }
 
