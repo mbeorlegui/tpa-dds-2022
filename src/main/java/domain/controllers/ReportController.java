@@ -3,6 +3,7 @@ package domain.controllers;
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
 import domain.organizacion.*;
+import domain.reports.ReportGenerator;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -103,6 +104,48 @@ public class ReportController {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     model.put("tipo_reporte","Evolución");
+    List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
+    model.put("organizaciones", organizaciones);
+    if (request.queryParams("entidad") != null) {
+      Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      System.out.println(request.queryParams("periodicidad"));
+      periodicidad =  Periodicidad.ANUAL;
+      String periodoDeImputacionInicio;
+      String periodoDeImputacionFin;
+      UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      if(periodicidad == Periodicidad.ANUAL) {
+        periodoDeImputacionInicio = request.queryParams("anio1");
+        periodoDeImputacionFin = request.queryParams("anio2");
+      } else {
+        if (Integer.parseInt(request.queryParams("mes")) < 10) {
+          periodoDeImputacionInicio = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+          periodoDeImputacionFin = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        } else {
+          periodoDeImputacionInicio = request.queryParams("mes") + "/" + request.queryParams("anio");
+          periodoDeImputacionFin = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        }
+      }
+      switch (Integer.parseInt(request.queryParams("unidad"))) {
+        case 0:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          break;
+        case 1:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+        case 2:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          break;
+        default:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+      }
+      Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
+      List<Double> resultado = ReportGenerator.getEvolucionHcDeOrganizacion(organizacionId, periodicidad,
+      periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
+      System.out.println(resultado.get(0));
+      model.put("resultado", resultado);
+    }
     return new ModelAndView(model, "reporteEvolucion.hbs");
   }
 
