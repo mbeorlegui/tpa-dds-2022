@@ -1,6 +1,6 @@
 {{#partial "contenido"}}
     <div class="container">
-        <div class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .15;">
+        <div class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
             <h2 class="text-center fw-bold" id="about" name="about">About us</h2>
             <div class="row mt-5">
                 <!-- La suma de las columnas tiene que dar 12 SIEMPRE -->
@@ -22,7 +22,7 @@
             </div>
         </div>
         <hr>
-        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .15;">
+        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
             <h2 class="text-center fw-bold">Organizaciones vinculadas</h2>
             <div class="row mt-5">
                 <div class="row align-items-center">
@@ -59,7 +59,8 @@
                     <input type="email" name="email" placeholder="Correo electronico" autocomplete="nope"/>
                 </div>
                 <div class="input-field">
-                    <input type="comentario" name="comentario" placeholder="Comentario" autocomplete="nope"/>
+                    <textarea class="form-control my-2" id="exampleFormControlTextarea1" placeholder="COMENTARIO" rows="1" name="comentario"
+                        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' autocomplete="nope"></textarea>
                 </div>
             </div>
             <div class="action">
