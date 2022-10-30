@@ -22,28 +22,38 @@
     </button>
     <div class="collapse navbar-collapse ms-2" id="navbarNavAltMarkup">
         <div class="navbar-nav w-100">
-            <a class="nav-item nav-link mx-1 align-self-center" href="/home">Home</a>
+            <a class="nav-item nav-link mx-1 align-self-center" href="/home">Inicio</a>
             {{#if usuario_logueado}}
-                <a class="nav-item nav-link mx-1" href="/user/me/registrarMedicionParticular">Registrar medicion</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/registrarTrayecto">Registrar trayecto</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/request">Solicitud</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/calculadoraOrganizacion">Calculadora HC</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/reportes">Reportes</a>
-                <a class="nav-item nav-link mx-1" href="/user/me/aceptacionVinculacion">Aceptar Vinculacion</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/registrarMedicionParticular">Registrar medición</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/registrarTrayecto">Registrar trayecto</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/request">Solicitud vinculación</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/calculadoraOrganizacion">Calculadora HC</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/reportes">Reportes</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/me/aceptacionVinculacion">Aceptar Vinculación</a>
                 <form class="form-inline my-2 my-lg-0 ms-auto" action="/session/remove" method="POST">
-                    <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">LogOut</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">Cerrar sesión</button>
                 </form>
             {{else}}
                 <form class="form-inline my-2 my-lg-0 ms-auto" action="/login" method="GET">
-                    <button class="btn btn-outline-success my-2 my-sm-0 ms-auto" type="submit">LogIn</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0 ms-auto" type="submit">Iniciar sesión</button>
                 </form>
             {{/if}}
         </div>
     </div>
 </nav>
-{{#if usuario_logueado}}
+<!--{{#if usuario_logueado}}
     {{#block "mensaje"}}
     {{/block}}
+{{/if}}-->
+{{#if mensaje}}
+    <div class="container-fluid 
+    {{#if fondo_mensaje}}
+        bg-{{fondo_mensaje}}
+    {{else}}
+        bg-light
+    {{/if}}" style="--bs-bg-opacity: .5;">
+        <h2 class="ms-4 p-1">{{mensaje}}</h2>
+    </div>
 {{/if}}
 
 <div class="container">

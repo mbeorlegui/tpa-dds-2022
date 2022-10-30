@@ -11,6 +11,8 @@ public class HomeController {
   public ModelAndView home(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "home.hbs");
   }
 

@@ -51,9 +51,10 @@ public class UsersController {
       response.redirect("/loginError");
       return null;
     }
-
+    
     request.session().attribute("usuario_logueado", usuario);
     request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
+    request.session().attribute("mensaje", "Bienvenido "+usuario+"!");
     response.redirect("/home");
     return null;
   }
@@ -61,6 +62,7 @@ public class UsersController {
   public ModelAndView delete(Request req, Response res) {
     req.session().removeAttribute("usuario_logueado");
     req.session().removeAttribute("tipo_usuario");
+    req.session().attribute("mensaje", "Cerraste sesión correctamente.");
     res.redirect("/home");
     return null;
   }
