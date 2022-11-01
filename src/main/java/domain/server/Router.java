@@ -46,7 +46,7 @@ public class Router {
 
     Spark.get("/user/me/calculadoraSectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
 
-    Spark.get("/user/me/aceptacionVinculacion", requestController::aceptarVinculacion, engineTemplate);
+    Spark.get("/user/me/vinculaciones", requestController::aceptarVinculacion, engineTemplate);
 
     Spark.get("/user/me/reportes", reportController::reportes, engineTemplate);
 
