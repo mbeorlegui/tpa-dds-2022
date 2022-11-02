@@ -28,6 +28,7 @@ import javax.persistence.InheritanceType;
 public abstract class Transporte {
   @Id
   @GeneratedValue
+  @Getter
   @Column(name = "transporte_id")
   private long id;
   @Getter

@@ -8,6 +8,7 @@ import domain.medicion.RepoTiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.transporte.Parada;
 import domain.transporte.TipoDeTransportePublico;
 import domain.transporte.TransportePublico;
 import domain.trayecto.Tramo;
@@ -31,6 +32,22 @@ public class Bootstrap {
     et.commit();
     Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
+    Ubicacion ubicacion2 = new Ubicacion(2, "Rivadavia", "4000");
+    Ubicacion ubicacion3 = new Ubicacion(2, "Rivadavia", "4300");
+    Ubicacion ubicacion4 = new Ubicacion(3, "Medrano", "500");
+    Ubicacion ubicacion5 = new Ubicacion(5, "Mozart", "2300");
+    Parada parada1 = new Parada(ubicacion, null);
+    Parada parada2 = new Parada(ubicacion2, null);
+    Parada parada3 = new Parada(ubicacion3, null);
+    Parada parada4 = new Parada(ubicacion4, null);
+    Parada parada5 = new Parada(ubicacion5, null);
+    TransportePublico colectivo8 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.COLECTIVO, "8");
+    colectivo8.addParadas(parada2, parada3);
+    TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.COLECTIVO, "7");
+    colectivo7.addParadas(parada4, parada5);
+    
     Organizacion org = new Organizacion(
         "Prueba Empresa",
         TipoOrganizacion.EMPRESA,
@@ -95,6 +112,13 @@ public class Bootstrap {
 
     et.begin();
     // em.persist(ubicacion);
+    em.persist(parada1);
+    em.persist(parada2);
+    em.persist(parada3);
+    em.persist(parada4);
+    em.persist(parada5);
+    em.persist(colectivo7);
+    em.persist(colectivo8);
     em.persist(org2);
     em.persist(unSector);
     // Para que los metodos anden en el runner deben ser static

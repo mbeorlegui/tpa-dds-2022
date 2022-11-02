@@ -35,6 +35,9 @@ public class Parada {
     this.distanciaSiguienteParada = distanciaSiguienteParada;
   }
 
+  public Parada(){
+  }
+
   public double getDistanciaSiguienteParada() {
     return distanciaSiguienteParada.obtenerKilometros();
   }
