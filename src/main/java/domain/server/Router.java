@@ -33,42 +33,45 @@ public class Router {
 
     Spark.before("/user/*", ((request, response) -> {
       if (request.session().attribute("usuario_logueado") == null) {
+        request.session().attribute("mensaje", "Debes iniciar sesion para acceder");
         response.redirect("/home");
       }
     }));
 
     Spark.before("/user/general/*", ((request, response) -> {
-      if (request.session().attribute("tipo_usuario").toString() != "UsuarioGeneral") {
+      if (!request.session().attribute("tipo_usuario").toString().equals("UsuarioGeneral")) {
+        request.session().attribute("mensaje", "Debes ser un usuario general para acceder");
         response.redirect("/home");
       }
     }));
 
     Spark.before("/user/admin/*", ((request, response) -> {
-      if (request.session().attribute("tipo_usuario").toString() != "Administrador") {
+      if (!request.session().attribute("tipo_usuario").toString().equals("Administrador")) {
+        request.session().attribute("mensaje", "Debes ser un administrador para acceder");
         response.redirect("/home");
       }
     }));
 
-    Spark.get("/user/request", requestController::request, engineTemplate);
+    Spark.get("/user/general/request", requestController::request, engineTemplate);
 
-    Spark.get("/user/registrarMedicionCsv", registrarMedicionController::registrarMedicionCsv, engineTemplate);
+    Spark.get("/user/admin/registrarMedicionCsv", registrarMedicionController::registrarMedicionCsv, engineTemplate);
 
-    Spark.get("/user/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
+    Spark.get("/user/admin/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
-    Spark.get("/user/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
+    Spark.get("/user/general/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
 
     Spark.get("/user/calculadoraOrganizacion", reportController::calculadoraOrganizacion, engineTemplate);
 
     Spark.get("/user/calculadoraSectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
 
-    Spark.get("/user/vinculaciones", requestController::aceptarVinculacion, engineTemplate);
+    Spark.get("/user/admin/vinculaciones", requestController::aceptarVinculacion, engineTemplate);
 
-    Spark.get("/user/reportes", reportController::reportes, engineTemplate);
+    Spark.get("/user/admin/reportes", reportController::reportes, engineTemplate);
 
-    Spark.get("/user/reportes/hcTotal", reportController::reporteHcTotal, engineTemplate);
+    Spark.get("/user/admin/reportes/hcTotal", reportController::reporteHcTotal, engineTemplate);
 
-    Spark.get("/user/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
+    Spark.get("/user/admin/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
 
-    Spark.get("/user/reportes/composicion", reportController::reporteComposicion, engineTemplate);
+    Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
   }
 }
