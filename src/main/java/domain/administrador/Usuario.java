@@ -8,7 +8,9 @@ import static java.util.Objects.requireNonNull;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "discriminador", discriminatorType = DiscriminatorType.STRING)
+public abstract class Usuario {
   @Id
   @GeneratedValue
   @Column(name = "usuario_id")
@@ -17,21 +19,36 @@ public class Usuario {
   String user;
   @Getter
   String password;
+  /*
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_usuario")
   @Getter
   private TipoUsuario tipoUsuario;
+   */
   @Transient
   PasswordValidator validador = new PasswordValidator();
 
   public Usuario() {
   }
 
+  /*
   public Usuario(String user, String password, TipoUsuario tipoUsuario) {
     this.tipoUsuario = tipoUsuario;
     this.user = requireNonNull(user, "El usuario no debe ser vacio!");
     validador.validarPassword(password, user);
     this.password = password;
+  }
+   */
+
+  public Usuario(String user, String password) {
+    this.user = requireNonNull(user, "El usuario no debe ser vacio!");
+    validador.validarPassword(password, user);
+    this.password = password;
+  }
+
+
+  public String tipoUsuario() {
+    return this.getClass().getSimpleName();
   }
 
   /* Esto es una accion de un actor, no un metodo de una clase
