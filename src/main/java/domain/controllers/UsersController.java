@@ -53,7 +53,7 @@ public class UsersController {
     }
     
     request.session().attribute("usuario_logueado", usuario);
-    request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
+    // request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
     request.session().attribute("mensaje", "Bienvenido "+usuario+"!");
     response.redirect("/home");
     return null;

@@ -29,7 +29,7 @@ public class Bootstrap {
     et.begin();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     et.commit();
-    Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
         "Prueba Empresa",
@@ -92,6 +92,7 @@ public class Bootstrap {
     org2.addSector(unSector);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
+    Usuario usuario = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", miembro1);
 
     et.begin();
     // em.persist(ubicacion);
@@ -119,7 +120,6 @@ public class Bootstrap {
     em.persist(medicion3);
     em.persist(medicion4);
     em.persist(org2);
-    em.persist(admin);
     em.persist(subte);
     em.persist(tramo);
     em.persist(unTrayecto);
@@ -131,6 +131,7 @@ public class Bootstrap {
     em.persist(solicitud3);
     em.persist(miembro4);
     em.persist(solicitud4);
+    em.persist(usuario);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "

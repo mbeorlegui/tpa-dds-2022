@@ -32,7 +32,7 @@ public class Runner {
     et.begin();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     et.commit();
-    Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+    Usuario admin = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", null);
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
         "Prueba Empresa",

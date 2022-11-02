@@ -1,5 +1,6 @@
 package domain;
 
+import domain.administrador.Administrador;
 import domain.administrador.TipoUsuario;
 import domain.administrador.Usuario;
 import domain.exceptions.InvalidPasswordException;
@@ -105,57 +106,57 @@ public class UsuarioTests {
 
   @DisplayName("Instanciar: Admin con igual user y password")
   private Usuario adminConUserQueContienePassword() {
-    return new Usuario("matias", "matias", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "matias", null);
   }
 
   @DisplayName("Instanciar: Admin con user que contiene a password")
   private Usuario adminConIgualPasswordYUsuario() {
-    return new Usuario("matias", "matias", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "matias", null);
   }
 
   @DisplayName("Instanciar: Admin con password corto")
   private Usuario adminConPasswordFacil() {
-    return new Usuario("matias", "asd", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "asd", null);
   }
 
   @DisplayName("Instanciar: Admin con password comun")
   private Usuario adminConPasswordComun() {
-    return new Usuario("matias", "1111111111", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "1111111111", null);
   }
 
   @DisplayName("Instanciar: Admin con password sin definir")
   private Usuario adminConPasswordVacio() {
-    return new Usuario("matias", null, TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", null, null);
   }
 
   @DisplayName("Instanciar: Admin con user sin definir")
   private Usuario adminConUserVacio() {
-    return new Usuario(null, "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+    return new Administrador(null, "AltaContrRaseNia_*3154", null);
   }
 
   @DisplayName("Instanciar: Admin con password largo")
   private Usuario adminConPasswordLargo() {
-    return new Usuario("matias", LARGE_TEXT, TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", LARGE_TEXT, null);
   }
 
   @DisplayName("Instanciar: Admin con password corto")
   private Usuario adminConPasswordCorto() {
-    return new Usuario("matias", SHORT_TEXT, TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", SHORT_TEXT, null);
   }
 
   @DisplayName("Instanciar: Admin con password completo")
   private Usuario adminConPasswordCompleto() {
-    return new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "AltaContrRaseNia_*3154", null);
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres invalidos")
   private Usuario adminConPasswordConCaracteresRarosPeroValidos() {
-    return new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "AltaContrRaseNia_*3154", null);
   }
 
   @DisplayName("Instanciar: Admin con password con caracteres raros pero invalidos")
   private Usuario adminConPasswordConCaracteresInvalidos() {
-    return new Usuario("matias", "AltaContrRaseNia_*3154¥", TipoUsuario.ADMINISTRADOR);
+    return new Administrador("matias", "AltaContrRaseNia_*3154¥", null);
   }
 
 }
