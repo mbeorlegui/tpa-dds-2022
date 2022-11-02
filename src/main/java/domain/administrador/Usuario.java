@@ -46,6 +46,11 @@ public abstract class Usuario {
     this.password = password;
   }
 
+
+  public String tipoUsuario() {
+    return this.getClass().getSimpleName();
+  }
+
   /* Esto es una accion de un actor, no un metodo de una clase
   public void generarNuevoFactorDeEmision(Actividad actividad,
                                           Alcance alcance,

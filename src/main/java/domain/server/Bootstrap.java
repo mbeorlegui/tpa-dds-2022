@@ -93,6 +93,7 @@ public class Bootstrap {
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
     Usuario usuario = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", miembro1);
+    Usuario admin = new Administrador("alejo", "AltaContrRaseNia_*3154", org2);
 
     et.begin();
     // em.persist(ubicacion);
@@ -132,6 +133,7 @@ public class Bootstrap {
     em.persist(miembro4);
     em.persist(solicitud4);
     em.persist(usuario);
+    em.persist(admin);
     et.commit();
 //    System.out.println(
 //        "Mediciones en periodo1: "

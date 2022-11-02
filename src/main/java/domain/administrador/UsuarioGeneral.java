@@ -24,4 +24,6 @@ public class UsuarioGeneral extends Usuario {
 
   public UsuarioGeneral() {
   }
+
+
 }

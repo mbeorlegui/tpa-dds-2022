@@ -27,12 +27,16 @@
         <div class="navbar-nav w-100">
             <a class="nav-item nav-link mx-1 align-self-center" href="/home">Inicio</a>
             {{#if usuario_logueado}}
-                <a class="nav-item nav-link mx-md-1" href="/user/me/registrarMedicionParticular">Registrar medición</a>
-                <a class="nav-item nav-link mx-md-1" href="/user/me/registrarTrayecto">Registrar trayecto</a>
-                <a class="nav-item nav-link mx-md-1" href="/user/me/request">Solicitud vinculación</a>
-                <a class="nav-item nav-link mx-md-1" href="/user/me/calculadoraOrganizacion">Calculadora HC</a>
-                <a class="nav-item nav-link mx-md-1" href="/user/me/reportes">Reportes</a>
-                <a class="nav-item nav-link mx-md-1" href="/user/me/vinculaciones">Aceptar Vinculación</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/calculadoraOrganizacion">Calculadora HC</a>
+                {{#if usuario_general}}
+                <a class="nav-item nav-link mx-md-1" href="/user/registrarTrayecto">Registrar trayecto</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/request">Solicitud vinculación</a>
+                {{/if}}
+                {{#if usuario_administrador}}
+                <a class="nav-item nav-link mx-md-1" href="/user/registrarMedicionParticular">Registrar medición</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/reportes">Reportes</a>
+                <a class="nav-item nav-link mx-md-1" href="/user/vinculaciones">Aceptar Vinculación</a>
+                {{/if}}
                 <form class="form-inline my-2 my-lg-0 ms-auto" action="/session/remove" method="POST">
                     <button class="btn btn-outline-success my-2 my-sm-0 ml-auto" type="submit">Cerrar sesión</button>
                 </form>

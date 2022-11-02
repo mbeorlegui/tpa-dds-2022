@@ -9,8 +9,7 @@ import java.util.Map;
 
 public class RegistrarTrayectosController {
   public ModelAndView registrarTrayecto(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     return new ModelAndView(model, "registrarTrayecto.hbs");
   }
 }
