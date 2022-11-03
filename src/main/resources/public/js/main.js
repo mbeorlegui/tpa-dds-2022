@@ -196,3 +196,9 @@ function habilitarPeriodo(selectPeriodo){
         inputPeriodo.removeAttribute("disabled")
     }
 }
+
+function modificarUbicaciones(paradas){
+    console.log("hola")
+    console.log(paradas["1"])
+    
+}

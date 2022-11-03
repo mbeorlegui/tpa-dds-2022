@@ -20,6 +20,7 @@ import javax.persistence.AttributeOverride;
 public class Parada {
   @Id
   @GeneratedValue
+  @Getter
   @Column(name = "parada_id")
   private long id;
   @Getter

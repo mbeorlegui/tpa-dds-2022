@@ -33,6 +33,9 @@ public class TransportePublico extends Transporte {
   @Getter
   private String linea;
 
+  public TransportePublico(){
+  }
+
   public TransportePublico(TipoConsumo combustible, Double combustiblePorKm,
                            TipoDeTransportePublico tipoDeTransportePublico, String linea) {
     super(combustible, combustiblePorKm);

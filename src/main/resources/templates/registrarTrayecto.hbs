@@ -21,11 +21,25 @@
                         </button>
                         <hr class="line">
                     </div>
-                    <select class="form-select h-50" onchange="modificarUbicaciones('{{paradas.[0].ubicacion.calle}}')">
+                    
+                    <select class="form-select h-50" onchange="modificarUbicaciones({{paradasPorTransporte}})">
                         <option selected hidden>Seleccione transporte del tramo</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {{#each transportes}}
+                        <option class="text-lowercase" value="{{id}}">
+                            {{#if tipoDeTransportePublico}}
+                                {{tipoDeTransportePublico}} {{linea}}
+                            {{else}}
+                                {{#if tipoDeServicioContratado}}
+                                    {{tipoDeServicioContratado}}
+                                {{else}} 
+                                    {{#if tipoDeVehiculo}}
+                                        {{tipoDeVehiculo}}
+                                    {{else}}
+                                        {{tipoTransporte}}
+                                    {{/if}}
+                                {{/if}}
+                            {{/if}}</option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="col-8 d-flex my-2">

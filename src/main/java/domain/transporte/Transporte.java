@@ -48,6 +48,9 @@ public abstract class Transporte {
   @Transient
   private CalculadoraDeDistancia calculadoraDeDistancia;
 
+  public Transporte(){
+  }
+
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;
     this.combustiblePorKm = combustiblePorKm;

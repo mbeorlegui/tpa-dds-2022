@@ -8,9 +8,15 @@ import domain.medicion.RepoTiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.transporte.Bicicleta;
 import domain.transporte.Parada;
+import domain.transporte.Pie;
+import domain.transporte.ServicioContratado;
+import domain.transporte.TipoDeServicioContratado;
 import domain.transporte.TipoDeTransportePublico;
+import domain.transporte.TipoDeVehiculo;
 import domain.transporte.TransportePublico;
+import domain.transporte.VehiculoParticular;
 import domain.trayecto.Tramo;
 import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
@@ -47,6 +53,11 @@ public class Bootstrap {
     TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "7");
     colectivo7.addParadas(parada4, parada5);
+    ServicioContratado taxi =  new ServicioContratado(RepoTiposConsumos.getInstance().getTiposConsumos().get(0), 2.0, TipoDeServicioContratado.TAXI);
+    VehiculoParticular motoNafta = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(2), 1.2, TipoDeVehiculo.MOTO);
+    VehiculoParticular auto = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(1), 2.5, TipoDeVehiculo.AUTO);
+    Bicicleta bicicleta = new Bicicleta();
+    Pie pie = new Pie();
     
     Organizacion org = new Organizacion(
         "Prueba Empresa",
@@ -119,6 +130,11 @@ public class Bootstrap {
     em.persist(parada5);
     em.persist(colectivo7);
     em.persist(colectivo8);
+    em.persist(taxi);
+    em.persist(motoNafta);
+    em.persist(auto);
+    em.persist(bicicleta);
+    em.persist(pie);
     em.persist(org2);
     em.persist(unSector);
     // Para que los metodos anden en el runner deben ser static
