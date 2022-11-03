@@ -17,7 +17,7 @@ import domain.transporte.Transporte;
 
 public class RegistrarTrayectosController {
   public ModelAndView registrarTrayecto(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
     List<Parada> paradas = RepoParadas.getInstance().getParadas();
     System.out.println(new Gson().toJson(paradas.get(0)) );
