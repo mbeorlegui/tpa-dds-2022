@@ -99,13 +99,13 @@ public class Bootstrap {
     );
     Miembro miembro2 = new Miembro("Ignacio", "Ardanaz", 41567890, Documento.DNI, unTrayecto);
     Solicitud solicitud2 = new Solicitud(
-        unSector,
+        otroSector,
         miembro2,
         "Necesito el trabajo, no llego a fin de mes"
     );
     Miembro miembro3 = new Miembro("Alejo", "Goltzman", 41756189, Documento.DNI, unTrayecto);
     Solicitud solicitud3 = new Solicitud(
-        unSector,
+        otroSectorMas,
         miembro3,
         "Formar parte de la organización significaría un gran paso para mi carrera profesional"
     );
@@ -141,6 +141,8 @@ public class Bootstrap {
     em.persist(auto);
     em.persist(bicicleta);
     em.persist(pie);
+    em.persist(sectorTerritorial);
+    em.persist(org);
     em.persist(org2);
     em.persist(unSector);
     em.persist(otroSector);
@@ -160,13 +162,13 @@ public class Bootstrap {
 //        "Organizacion 0 de tipo gubernamental: " +
 //            ReportGenerator.getOrganizacionesPorTipo(
 //                TipoOrganizacion.GUBERNAMENTAL).get(0).getRazonSocial());
-    em.persist(sectorTerritorial);
+
     em.persist(medicion1);
     em.persist(medicion2);
-    em.persist(org);
+
     em.persist(medicion3);
     em.persist(medicion4);
-    em.persist(org2);
+    // em.persist(org2);
     em.persist(subte);
     em.persist(tramo);
     em.persist(unTrayecto);

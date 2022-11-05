@@ -50,7 +50,11 @@ public class RequestController implements WithGlobalEntityManager, Transactional
 
   public ModelAndView aceptarVinculacion(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
-    List<Solicitud> solicitudes = RepoSolicitudes.getInstance().getSolicitudes();
+    Administrador usuario = (Administrador) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
+
+    List<Solicitud> solicitudes = RepoSolicitudes.getInstance().getSolicitudesDeOrganizacion(usuario.getOrganizacionAsociada());
+    System.out.println("Organizacion: " + usuario.getOrganizacionAsociada().getRazonSocial());
+    System.out.println("Solicitudes de organizacion: " + solicitudes);
     model.put("solicitudes", solicitudes);
     return new ModelAndView(model, "aceptacionVinculacion.hbs");
   }

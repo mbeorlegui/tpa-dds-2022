@@ -1,9 +1,11 @@
 package domain.administrador;
 
+import domain.organizacion.Organizacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepoSolicitudes {
 
@@ -32,5 +34,10 @@ public class RepoSolicitudes {
     em.persist(solicitud);
   }
 
-
+  public List<Solicitud> getSolicitudesDeOrganizacion(Organizacion organizacion) {
+    return this.getSolicitudes()
+        .stream()
+        .filter(solicitud -> organizacion.tieneSectorDe(solicitud.getSector()))
+        .collect(Collectors.toList());
+  }
 }
