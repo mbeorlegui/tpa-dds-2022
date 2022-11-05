@@ -7,6 +7,8 @@ public class Server {
   public static void main(String[] args) {
     Bootstrap.init();
     Spark.port(9000);
+    // TODO: Cambiar puerto por variable de entorno para deploy
+    // Spark.port(Integer.parseInt(System.getenv("PORT")));
     Router.configure();
   }
 }
