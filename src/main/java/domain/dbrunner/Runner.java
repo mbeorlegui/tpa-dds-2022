@@ -19,6 +19,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +76,8 @@ public class Runner {
     Solicitud solicitud = new Solicitud(
         unSector,
         miembro,
-        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral",
+        LocalDateTime.now()
     );
     et.begin();
     // em.persist(ubicacion);

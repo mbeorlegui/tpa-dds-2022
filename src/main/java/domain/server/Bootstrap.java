@@ -24,6 +24,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -95,25 +96,29 @@ public class Bootstrap {
     Solicitud solicitud1 = new Solicitud(
         unSector,
         miembro1,
-        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral",
+        LocalDateTime.now()
     );
     Miembro miembro2 = new Miembro("Ignacio", "Ardanaz", 41567890, Documento.DNI, unTrayecto);
     Solicitud solicitud2 = new Solicitud(
         otroSector,
         miembro2,
-        "Necesito el trabajo, no llego a fin de mes"
+        "Necesito el trabajo, no llego a fin de mes",
+        LocalDateTime.now().minusDays(2)
     );
     Miembro miembro3 = new Miembro("Alejo", "Goltzman", 41756189, Documento.DNI, unTrayecto);
     Solicitud solicitud3 = new Solicitud(
         otroSectorMas,
         miembro3,
-        "Formar parte de la organización significaría un gran paso para mi carrera profesional"
+        "Formar parte de la organización significaría un gran paso para mi carrera profesional",
+        LocalDateTime.now().minusDays(1)
     );
     Miembro miembro4 = new Miembro("Alejo", "Sandrini", 41091789, Documento.DNI, unTrayecto);
     Solicitud solicitud4 = new Solicitud(
         unSector,
         miembro4,
-        "Tengo ganas de empezar a trabajar"
+        "Tengo ganas de empezar a trabajar",
+        LocalDateTime.now().minusHours(3)
     );
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
@@ -141,12 +146,12 @@ public class Bootstrap {
     em.persist(auto);
     em.persist(bicicleta);
     em.persist(pie);
-    em.persist(sectorTerritorial);
-    em.persist(org);
-    em.persist(org2);
     em.persist(unSector);
     em.persist(otroSector);
     em.persist(otroSectorMas);
+    em.persist(org);
+    em.persist(org2);
+    em.persist(sectorTerritorial);
     // Para que los metodos anden en el runner deben ser static
     // System.out.println("Ubicacion 0: " + ReportGenerator.getUbicaciones().get(0).getCalle());
 //    System.out.println(

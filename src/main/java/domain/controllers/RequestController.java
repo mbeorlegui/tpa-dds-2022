@@ -12,6 +12,7 @@ import spark.Request;
 import spark.Response;
 
 import javax.transaction.Transaction;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
 
     UsuarioGeneral usuario = (UsuarioGeneral) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
 
-    Solicitud nuevaSolicitud = new Solicitud(sector, usuario.getMiembroAsociado(), motivo);
+    Solicitud nuevaSolicitud = new Solicitud(sector, usuario.getMiembroAsociado(), motivo, LocalDateTime.now());
 
     System.out.println(nuevaSolicitud);
 
@@ -52,7 +53,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     Map<String, Object> model = new IndexController().llenarIndex(request);
     Administrador usuario = (Administrador) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
 
-    List<Solicitud> solicitudes = RepoSolicitudes.getInstance().getSolicitudesDeOrganizacion(usuario.getOrganizacionAsociada());
+    List<Solicitud> solicitudes = RepoSolicitudes.getInstance().getSolicitudesPendientesDeOrganizacion(usuario.getOrganizacionAsociada());
     System.out.println("Organizacion: " + usuario.getOrganizacionAsociada().getRazonSocial());
     System.out.println("Solicitudes de organizacion: " + solicitudes);
     model.put("solicitudes", solicitudes);

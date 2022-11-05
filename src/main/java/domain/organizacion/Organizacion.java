@@ -91,6 +91,8 @@ public class Organizacion {
   }
 
   public Boolean tieneSectorDe(Sector sector) {
+    System.out.println(this.sectores);
+    System.out.println(sector + " " + sectores.contains(sector));
     return sectores.contains(sector);
   }
 
