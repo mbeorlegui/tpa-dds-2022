@@ -21,6 +21,7 @@
         <class>domain.organizacion.Organizacion</class>
         <class>domain.medios.Contacto</class>
         <class>domain.medios.MedioDeComunicacion</class>
+        <class>domain.administrador.Solicitud</class>
 
 
         <properties>
