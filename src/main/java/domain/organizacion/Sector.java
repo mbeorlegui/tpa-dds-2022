@@ -29,10 +29,17 @@ public class Sector {
   @Column(name = "sector_id")
   private long id;
   @Getter
+  private String nombre;
+  @Getter
   @ManyToMany
   private List<Miembro> miembros = new ArrayList<>();
 
+
   public Sector() {
+  }
+
+  public Sector(String nombre) {
+    this.nombre = nombre;
   }
 
   public void addMiembro(Miembro miembro) {

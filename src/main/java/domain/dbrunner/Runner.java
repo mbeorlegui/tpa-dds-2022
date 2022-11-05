@@ -44,7 +44,7 @@ public class Runner {
         TipoOrganizacion.GUBERNAMENTAL,
         ubicacion,
         Clasificacion.UNIVERSIDAD);
-    Sector unSector = new Sector();
+    Sector unSector = new Sector("Un Sector");
     SectorTerritorial sectorTerritorial = new SectorTerritorial("Sector Prueba");
     // ------------------------
     // pruebas de mediciones

@@ -69,7 +69,9 @@ public class Bootstrap {
         TipoOrganizacion.GUBERNAMENTAL,
         ubicacion,
         Clasificacion.UNIVERSIDAD);
-    Sector unSector = new Sector();
+    Sector unSector = new Sector("Un Sector");
+    Sector otroSector = new Sector("Otro Sector");
+    Sector otroSectorMas = new Sector("Otro Sector Mas");
     SectorTerritorial sectorTerritorial = new SectorTerritorial("Sector Prueba");
     // ------------------------
     // pruebas de mediciones
@@ -118,6 +120,8 @@ public class Bootstrap {
     org2.agregarMedicion(medicion3);
     org2.agregarMedicion(medicion4);
     org2.addSector(unSector);
+    org2.addSector(otroSector);
+    org.addSector(otroSectorMas);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
     Usuario usuario = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", miembro1);
@@ -139,6 +143,8 @@ public class Bootstrap {
     em.persist(pie);
     em.persist(org2);
     em.persist(unSector);
+    em.persist(otroSector);
+    em.persist(otroSectorMas);
     // Para que los metodos anden en el runner deben ser static
     // System.out.println("Ubicacion 0: " + ReportGenerator.getUbicaciones().get(0).getCalle());
 //    System.out.println(
