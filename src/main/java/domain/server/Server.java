@@ -6,9 +6,11 @@ import spark.Spark;
 public class Server {
   public static void main(String[] args) {
     Bootstrap.init();
-    Spark.port(9000);
-    // TODO: Cambiar puerto por variable de entorno para deploy
-    // Spark.port(Integer.parseInt(System.getenv("PORT")));
+    if(System.getenv("PORT") != null) {
+      Spark.port(Integer.parseInt(System.getenv("PORT")));
+    } else {
+      Spark.port(9000);
+    }
     Router.configure();
   }
 }
