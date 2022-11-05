@@ -6,16 +6,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ar.edu.utn.frba.dds</groupId>
-    <artifactId>ejercicio</artifactId>
+    <artifactId>mi-huella-de-carbono</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ejercicio</name>
+    <name>mi-huella-de-carbono</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <!-- Build with:  mvn deploy -Dmaven.test.skip=true-->
+    <!-- Build with:  mvn deploy -DskipTests-->
     <!-- Deploy with: mvn clean heroku:deploy -Dmaven.test.skip=true -->
     <dependencies>
         <dependency>
