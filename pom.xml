@@ -8,17 +8,21 @@
     <groupId>ar.edu.utn.frba.dds</groupId>
     <artifactId>ejercicio</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <name>ejercicio</name>
-    <url>https://github.com/dds-utn</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
+    <!-- Build with:  mvn deploy -Dmaven.test.skip=true-->
+    <!-- Deploy with: mvn clean heroku:deploy -Dmaven.test.skip=true -->
     <dependencies>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.22.0-GA</version>
+        </dependency>
         <!-- JPA Persistence Dependencies -->
         <dependency>
             <groupId>org.uqbar-project</groupId>
@@ -105,7 +109,42 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!-- regular resource processsing -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <configuration>
+                    <jdkVersion>1.8</jdkVersion>
+                    <!-- Use your own application name -->
+                    <appName>huella-de-carbono-dds</appName>
+                    <processTypes>
+                        <!-- Tell Heroku how to launch your application -->
+                        <!-- You might have to remove the ./ in front   -->
+                        <web>java -jar -Dserver.port=$PORT target/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Esto sirve para correr el runner con mvn compile exec:java -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>domain.server.Server</mainClass>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -119,6 +158,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
+                    <skip>true</skip>
                     <configLocation>google_checks.xml</configLocation>
                     <violationSeverity>warning</violationSeverity>
                     <violationIgnore>
@@ -175,6 +215,7 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
+                            <skip>true</skip>
                             <excludes>
                                 <exclude>domain/services/apidistancias/</exclude>
                                 <exclude>domain/scheduler/</exclude>
@@ -202,6 +243,28 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <!-- This tells Maven to include all dependencies -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>domain.server.Server</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
