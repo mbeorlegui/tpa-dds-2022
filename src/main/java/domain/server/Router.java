@@ -4,9 +4,13 @@ import com.github.jknack.handlebars.Handlebars;
 import domain.administrador.Administrador;
 import domain.administrador.UsuarioGeneral;
 import domain.controllers.*;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 public class Router {
   public static void configure() {
@@ -17,6 +21,9 @@ public class Router {
     RegistrarMedicionController registrarMedicionController = new RegistrarMedicionController();
     RegistrarTrayectosController registrarTrayectosController = new RegistrarTrayectosController();
     ReportController reportController = new ReportController();
+
+    EntityManager em = PerThreadEntityManagers.getEntityManager();
+    EntityTransaction et = em.getTransaction();
 
     DebugScreen.enableDebugScreen();
 
@@ -73,5 +80,7 @@ public class Router {
     Spark.get("/user/admin/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
 
     Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
+
+    Spark.post("/user/general/request/persist", requestController::generarRequest, engineTemplate);
   }
 }

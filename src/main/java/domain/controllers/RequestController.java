@@ -1,23 +1,51 @@
 package domain.controllers;
 
-import domain.administrador.RepoSolicitudes;
-import domain.administrador.Solicitud;
+import domain.administrador.*;
 import domain.organizacion.Organizacion;
 import domain.organizacion.RepoOrganizaciones;
+import domain.organizacion.RepoSectores;
+import domain.organizacion.Sector;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.transaction.Transaction;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RequestController {
+public class RequestController implements WithGlobalEntityManager, TransactionalOps {
   public ModelAndView request(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
     return new ModelAndView(model, "request.hbs");
+  }
+
+  public ModelAndView generarRequest(Request request, Response response) {
+    String motivo = request.queryParams("motivo");
+    Long idSector = Long.parseLong(request.queryParams("sector"));
+
+    Sector sector = RepoSectores.getInstance().getSector(idSector);
+
+    UsuarioGeneral usuario = (UsuarioGeneral) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
+
+    Solicitud nuevaSolicitud = new Solicitud(sector, usuario.getMiembroAsociado(), motivo);
+
+    System.out.println(nuevaSolicitud);
+
+    // agregar a la clase para usarlo: implements WithGlobalEntityManager, TransactionalOps
+    withTransaction(() -> {
+      RepoSolicitudes.getInstance().persistSolicitud(nuevaSolicitud);
+    });
+
+
+    request.session().attribute("mensaje", "Se genero la nueva solicitud");
+    response.redirect("/home");
+
+    return null;
   }
 
   public ModelAndView aceptarVinculacion(Request request, Response response) {

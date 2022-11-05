@@ -28,5 +28,9 @@ public class RepoSolicitudes {
     return em.find(Solicitud.class, id);
   }
 
+  public void persistSolicitud(Solicitud solicitud) {
+    em.persist(solicitud);
+  }
+
 
 }
