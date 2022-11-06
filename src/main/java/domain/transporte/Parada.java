@@ -28,7 +28,7 @@ public class Parada {
   @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   Ubicacion ubicacion;
   @Setter
-  @Transient
+  @Embedded
   ResultadoDistancia distanciaSiguienteParada;
 
   public Parada(Ubicacion ubicacion, ResultadoDistancia distanciaSiguienteParada) {

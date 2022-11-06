@@ -1,8 +1,11 @@
 package domain.services.apidistancias.entities;
 
+import javax.persistence.Embeddable;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@Embeddable
 public class ResultadoDistancia {
   @Getter
   private double valor;
@@ -13,6 +16,9 @@ public class ResultadoDistancia {
   public ResultadoDistancia(double valor, String unidad) {
     this.valor = valor;
     this.unidad = unidad;
+  }
+
+  public ResultadoDistancia(){
   }
 
   public double obtenerKilometros() {

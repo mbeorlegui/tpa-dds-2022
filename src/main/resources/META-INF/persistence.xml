@@ -20,6 +20,7 @@
         <class>domain.organizacion.SectorTerritorial</class>
         <class>domain.organizacion.Organizacion</class>
         <class>domain.administrador.Solicitud</class>
+        <class>domain.services.apidistancias.entities.ResultadoDistancia</class>
 
 
         <properties>
