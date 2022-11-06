@@ -187,8 +187,8 @@ function obtenerNumeroNodo(elementos, nodo){
 function generarOptions(id, transportes){
     let select = document.getElementById(id)
     select.innerHTML= `<option selected hidden>Seleccione transporte del tramo</option>`
-    for([i, t] of JSON.parse(transportes).entries()){
-        crearOption(select, i, t)
+    for(t of JSON.parse(transportes)){
+        crearOption(select, t.id, t)
     }
 }
 

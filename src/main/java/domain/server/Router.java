@@ -73,5 +73,7 @@ public class Router {
     Spark.get("/user/admin/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
 
     Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
+
+    Spark.post("/user/general/registrarTrayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
   }
 }
