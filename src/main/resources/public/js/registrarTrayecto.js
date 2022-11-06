@@ -140,18 +140,17 @@ function enumerarParadas(){
 }
 
 /*
-cuando se modifique habilitar dos input
-si ya esta habilitado combinar datalist
-tambien comprobar si se selecciona una parada eliminarla de otra datalist para que no se repitan
+    Funcion: seleccionado el transporte, las ubicaciones disponibles se limitan si es un
+            transporte publico, cuando se modifique el transporte habilitar dos input ubicacion
  */
 function modificarUbicaciones(select){
-    //generarOptions(select.id, transporteJson)
-    console.log("idOptionTransporte: "+select.selectedIndex)
     let elementos = document.querySelectorAll(".listaUbicaciones, .transporte")
     let inputUbicaciones = document.querySelectorAll(".ubicacion, .transporte")
     let indexTransporte = obtenerNumeroNodo(elementos, select)
     ubicacionesDisponibles = JSON.parse(paradasJson)[select.selectedIndex]
     if(ubicacionesDisponibles.length > 0){
+        //Es un transporte publico, se limita que el primer input no tenga la ultima
+        //parada y que el segundo input no tenga la primer parada
         let ubicacionesSinPrimerParada = [].concat(ubicacionesDisponibles)
         let ubicacionesSinUltimaParada = [].concat(ubicacionesDisponibles)
         ubicacionesSinPrimerParada.shift()
@@ -159,6 +158,7 @@ function modificarUbicaciones(select){
         generarListaUbicaciones(elementos[indexTransporte-1],JSON.stringify(ubicacionesSinUltimaParada))
         generarListaUbicaciones(elementos[indexTransporte+1],JSON.stringify(ubicacionesSinPrimerParada))
     }else{
+        //No es un transporte publico, no se limitan las ubicaciones
         generarListaUbicaciones(elementos[indexTransporte-1],ubicacionesJson)
         generarListaUbicaciones(elementos[indexTransporte+1],ubicacionesJson)
     }
@@ -166,25 +166,38 @@ function modificarUbicaciones(select){
     inputUbicaciones[indexTransporte+1].disabled = false;
 }
 
-function obtenerNumeroNodo(elementos, select){
+/**
+ * @param {NodeList} elementos se utiliza querySelector para intercalar input o lista de ubicacion y select transporte
+ * @param {Node} nodo es el nodo que se busca su indice dentro del querySelector
+ * @returns {Number} numero del nodo dentro de un querySelector
+ */
+function obtenerNumeroNodo(elementos, nodo){
     let nroNodo = 0
-    while(!elementos[nroNodo].isSameNode(select)){
+    while(!elementos[nroNodo].isSameNode(nodo)){
         nroNodo++
     }
     return nroNodo
 }
 
+/*
+    Funcion: generar todos los options para el select de transporte
+    Parametros: id - id del select
+                transportes - list de objetos transporte
+*/
 function generarOptions(id, transportes){
-    console.log("generarOptions para: "+id)
     let select = document.getElementById(id)
     select.innerHTML= `<option selected hidden>Seleccione transporte del tramo</option>`
-    console.log("generarOptions: ")
-    console.log(JSON.parse(transportes))
     for([i, t] of JSON.parse(transportes).entries()){
         crearOption(select, i, t)
     }
 }
 
+/*
+    Funcion: generar un option para el select de transporte
+    Parametros: select - nodo
+                i - transporte id
+                transporte - objeto transporte
+*/
 function crearOption(select, i, transporte){
     let nombre
     if(transporte.tipoTransporte=="PARTICULAR"){
@@ -203,12 +216,12 @@ function crearOption(select, i, transporte){
 }
 
 /*
-no borrar los options, con las nuevas ubicaciones comparar con las existentes
+    Funcion: generar datalist para el input de ubicacion
+    TODO: no borrar los options, con las nuevas ubicaciones comparar con las existentes
 */
 function generarListaUbicaciones(datalist,ubicaciones){
     datalist.innerText = ""
     for(data of JSON.parse(ubicaciones)){
-        console.log(data)
         let option = document.createElement('option')
         let value = data.ubicacion.calle + " "+ data.ubicacion.altura
         option.setAttribute("value",value)
@@ -216,10 +229,18 @@ function generarListaUbicaciones(datalist,ubicaciones){
     }
 }
 
+/*
+    Funcion: eliminar texto de un elemento 
+    (lo uso para focus del input ubicacion y cuando agrego paradas)
+*/
 function eliminarTexto(elemento){
     elemento.value=""
 }
 
+/*
+    Funcion: desahabilitar los inputs que estan debajo de una nueva parada
+            De esta manera deben elegir transporte antes que ubicacion 
+*/
 function bloquearInputsUbicacion(id){
     let elementos = document.querySelectorAll(".ubicacion")
     let inputUbicacion = document.getElementById(id)
@@ -232,3 +253,7 @@ function bloquearInputsUbicacion(id){
         }
     }
 }
+
+/**
+ * TODO: cuando selecciona una ubicacion, eliminar del siguiente input
+ */

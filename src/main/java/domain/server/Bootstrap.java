@@ -49,10 +49,10 @@ public class Bootstrap {
     Parada parada5 = new Parada(ubicacion5, null);
     TransportePublico colectivo8 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "8");
-    colectivo8.addParadas(parada2, parada3);
+    colectivo8.addParadas(parada2, parada3, parada4);
     TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "7");
-    colectivo7.addParadas(parada4, parada5);
+    colectivo7.addParadas(parada4, parada5, parada1, parada2);
     ServicioContratado taxi =  new ServicioContratado(RepoTiposConsumos.getInstance().getTiposConsumos().get(0), 2.0, TipoDeServicioContratado.TAXI);
     VehiculoParticular motoNafta = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(2), 1.2, TipoDeVehiculo.MOTO);
     VehiculoParticular auto = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(1), 2.5, TipoDeVehiculo.AUTO);
