@@ -1,7 +1,5 @@
 package domain.administrador;
 
-import domain.organizacion.Organizacion;
-import domain.organizacion.RepoOrganizaciones;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;

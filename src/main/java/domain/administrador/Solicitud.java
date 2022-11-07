@@ -11,13 +11,18 @@ import static java.util.Objects.requireNonNull;
 @Entity
 @Table(name = "solicitud")
 public class Solicitud {
+  @Getter
   @Id
   @GeneratedValue
   @Column(name = "solicitud_id")
   private long id;
-  @Transient
+  @Getter
+  @ManyToOne
+  @JoinColumn(name = "sector_id")
   private Sector sector;
-  @Transient
+  @Getter
+  @ManyToOne
+  @JoinColumn(name = "miembro_id")
   private Miembro miembro;
   @Getter
   private String motivo;

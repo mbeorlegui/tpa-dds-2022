@@ -13,8 +13,10 @@
                 </p>
             </div>
             <div class="col-xl-4 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
-                <a href="/home"><img class="imagen" style="border-radius: 8%;" src="images/logo.png"
-                                     alt="Aviso de imagen rota"></a>
+                <a href="https://es.wikipedia.org/wiki/Huella_de_carbono" target="_blank"><img class="imagen"
+                                                                                               style="border-radius: 8%;"
+                                                                                               src="images/logo.png"
+                                                                                               alt="Aviso de imagen rota"></a>
             </div>
         </div>
         <hr>
@@ -23,8 +25,10 @@
             <div class="row mt-5">
                 <div class="row align-items-center">
                     <div class="col-xl-5 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
-                        <a href="/home"><img class="mx-auto d-block imagen2" src="images/utn-logo.png" width="60%"
-                                             alt="Aviso de imagen rota"></a>
+                        <a href="https://www.frba.utn.edu.ar/" target="_blank"><img class="mx-auto d-block imagen2"
+                                                                                    src="images/utn-logo.png"
+                                                                                    width="60%"
+                                                                                    alt="Aviso de imagen rota"></a>
                     </div>
                     <div class="col-xl-7 col-lg-6 col-md-8 align-items-center">
                         <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, quaerat
@@ -43,31 +47,31 @@
         </section>
         <hr>
         <div class="login-form">
-            <form>
-                <h1>¡Contáctanos!</h1>
-                <div class="content">
-                    <div class="input-field">
-                        <input type="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="email" placeholder="Correo electronico" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="comentario" placeholder="Comentario" autocomplete="nope"/>
-                    </div>
+            <form action="https://formsubmit.co/a035311e371b0fa39f570e1e07b7247b" method="POST"/>
+            <h1>¡Contáctanos!</h1>
+            <div class="content">
+                <div class="input-field">
+                    <input type="nombre" name="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
                 </div>
-                <div class="action">
-                    <button>Enviar 📩</button>
+                <div class="input-field">
+                    <input type="email" name="email" placeholder="Correo electronico" autocomplete="nope"/>
                 </div>
+                <div class="input-field">
+                    <input type="comentario" name="comentario" placeholder="Comentario" autocomplete="nope"/>
+                </div>
+            </div>
+            <div class="action">
+                <button>Enviar 📩</button>
+            </div>
             </form>
         </div>
     </div>
 {{/partial}}
 
 {{#partial "mensaje"}}
-<div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
-    <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
-</div>
+    <div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
+        <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
+    </div>
 {{/partial}}
 
 {{>footer.hbs}}

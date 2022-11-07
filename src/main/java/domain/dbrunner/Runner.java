@@ -61,7 +61,8 @@ public class Runner {
     TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.SUBTE, "X");
     List<Tramo> tramos = new ArrayList<>();
-    tramos.add(new Tramo(ubicacion, ubicacion, subte));
+    Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
+    tramos.add(tramo);
     Trayecto unTrayecto = new Trayecto(tramos);
     Miembro miembro = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
     org.agregarMedicion(medicion1);
@@ -103,6 +104,10 @@ public class Runner {
     em.persist(medicion4);
     em.persist(org2);
     em.persist(admin);
+    em.persist(subte);
+    em.persist(tramo);
+    em.persist(unTrayecto);
+    em.persist(miembro);
     em.persist(solicitud);
     et.commit();
 //    System.out.println(
@@ -134,6 +139,7 @@ public class Runner {
     System.out.println("Tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos());
     System.out.println("Factores de emision de tipos de consumo: " + RepoTiposConsumos.getInstance().getTiposConsumos().stream().map(tc -> tc.factorDeEmision.getFactor(UnidadEquivalenteCarbono.GRAMO)).collect(Collectors.toList()));
     System.out.println("Un Usuario: " + RepoUsuarios.getInstance().findByUsername("matias").getUser() + RepoUsuarios.getInstance().findByUsername("matias").getPassword());
+    System.out.println("Solicitudes: " + RepoSolicitudes.getInstance().getSolicitudes());
     System.out.println("Cerrando conexion");
     em.close();
   }
