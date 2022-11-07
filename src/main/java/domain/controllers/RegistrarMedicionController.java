@@ -44,6 +44,8 @@ public class RegistrarMedicionController {
   private CsvHandler csvHandler;
   public ModelAndView registrarMedicionCsv(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "registrarMedicionCsv.hbs");
   }
 
