@@ -56,6 +56,8 @@ public class Router {
 
     Spark.get("/user/admin/registrarMedicionCsv", registrarMedicionController::registrarMedicionCsv, engineTemplate);
 
+    Spark.post("/user/admin/registrarMedicionCsv", registrarMedicionController::procesarArchivo, engineTemplate);
+
     Spark.get("/user/admin/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
     Spark.get("/user/general/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
