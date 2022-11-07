@@ -1,11 +1,14 @@
 package domain.organizacion;
 
 import domain.administrador.UnidadEquivalenteCarbono;
+import domain.administrador.Usuario;
+import domain.medicion.Medicion;
 import domain.medicion.Periodicidad;
 import lombok.Getter;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,6 +90,20 @@ public class RepoOrganizaciones {
   // Correr con:
   // java -cp $PWD domain.organizacion.RepoOrganizaciones "google.com"
   // $PWD -> Variable de entorno que almacena el directorio actual
+
+  public void update(Organizacion organizacion) {
+    EntityTransaction et = em.getTransaction();
+    et.begin();
+    em.merge(organizacion);
+    et.commit();
+  }
+
+  public Organizacion findByRazonZocial(String razonSocial) {
+    return (Organizacion) em
+        .createQuery("from Organizacion where razon_social = :razonSocial")
+        .setParameter("razonSocial",razonSocial)
+        .getSingleResult();
+  }
 
   public static RepoOrganizaciones getInstance() {
     return INSTANCE;
