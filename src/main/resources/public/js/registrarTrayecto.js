@@ -132,10 +132,19 @@ function eliminarParada(boton){
 */
 function enumerarParadas(){
     let paradas = document.querySelectorAll('.paradaIntermediaLabel');
+    let ubicaciones = document.querySelectorAll('.ubicacion');
+    let transportes = document.querySelectorAll('.transporte');
     let numero = 1;
     for (let parada of paradas) {
         parada.textContent = "Parada "+ numero;
         numero++;
+    }
+    for(let i in ubicaciones){
+        ubicaciones[i].name = "ubicacion" + i
+    }
+    for(let i in transportes){
+        let numeroTransporte = parseInt(i) + 1
+        transportes[i].name = "transporte" + numeroTransporte
     }
 }
 
@@ -147,8 +156,8 @@ function modificarUbicaciones(select){
     let elementos = document.querySelectorAll(".listaUbicaciones, .transporte")
     let inputUbicaciones = document.querySelectorAll(".ubicacion, .transporte")
     let indexTransporte = obtenerNumeroNodo(elementos, select)
-    ubicacionesDisponibles = JSON.parse(paradasJson)[select.selectedIndex]
-    if(ubicacionesDisponibles.length > 0){
+    if(JSON.parse(paradasJson)[select.selectedIndex]){
+        ubicacionesDisponibles = JSON.parse(paradasJson)[select.selectedIndex]
         //Es un transporte publico, se limita que el primer input no tenga la ultima
         //parada y que el segundo input no tenga la primer parada
         let ubicacionesSinPrimerParada = [].concat(ubicacionesDisponibles)
@@ -252,6 +261,12 @@ function bloquearInputsUbicacion(id){
             elemento.disabled = true
         }
     }
+}
+
+function contarTramos(){
+    let input = document.getElementById("cantidadTramos")
+    let cantidad = document.querySelectorAll(".transporte").length
+    input.value = cantidad
 }
 
 /**

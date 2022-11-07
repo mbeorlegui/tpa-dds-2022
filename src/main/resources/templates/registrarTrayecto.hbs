@@ -1,11 +1,11 @@
 {{#partial "contenido"}}
     <div class="login-form w-100">
-        <form action="/user/general/registrarTrayecto/persist" method="POST">
+        <form action="/user/general/registrarTrayecto/persist" method="POST"  onsubmit="contarTramos()">
             <h1 class="ms-2">Registrar trayecto</h1>
             <div class="container-fluid" id="contenido">
                 <div class="col-8 d-flex my-2">
                     <label for="ubicacionInicio" class="form-label my-auto ms-5">Inicio del trayecto</label>
-                    <input class="form-control w-50 ms-auto ubicacion" list="datalist0" id="ubicacionInicio" name="ubicacionInicio"
+                    <input class="form-control w-50 ms-auto ubicacion" list="datalist0" id="ubicacionInicio" name="ubicacion0"
                            placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
                     <datalist class="listaUbicaciones" id="datalist0">
                         <!--{{#each paradas}}
@@ -44,12 +44,13 @@
                 </div>
                 <div class="col-8 d-flex my-2">
                     <label for="ubicacionFin" class="form-label my-auto ms-5">Fin del trayecto</label>
-                    <input class="form-control w-50 ms-auto ubicacion" list="datalistFinal" id="ubicacionFin" name="ubicacionFin"
+                    <input class="form-control w-50 ms-auto ubicacion" list="datalistFinal" id="ubicacionFin" name="ubicacion1"
                            placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
                     <datalist class="listaUbicaciones" id="datalistFinal">
                     </datalist>
                 </div>
             </div>
+            <input type="text" id="cantidadTramos" name="cantidadTramos" hidden>
             <div class="mt-4 action">
                 <button type="submit" class="btn btn-secondary">Cargar trayecto</button>
             </div>
