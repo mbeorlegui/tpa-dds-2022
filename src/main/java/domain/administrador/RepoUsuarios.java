@@ -1,10 +1,10 @@
 package domain.administrador;
 
 import domain.organizacion.Organizacion;
-import domain.organizacion.RepoOrganizaciones;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepoUsuarios {
@@ -30,10 +30,23 @@ public class RepoUsuarios {
     return em.find(Usuario.class, id);
   }
 
+  public Usuario getUsuarioByUsername(String user) {
+    return (Usuario) em
+        .createQuery("from Usuario where user = :user")
+        .setParameter("user",user)
+        .getSingleResult();
+  }
+
   public Usuario findByUsername(String username) {
     System.out.println(username);
     System.out.println(this.getUsuarios());
     return this.getUsuarios().stream().filter(usuario -> usuario.getUser().equals(username)).findAny().get();
   }
 
+  public void update(Usuario user) {
+    EntityTransaction et = em.getTransaction();
+    et.begin();
+    em.merge(user);
+    et.commit();
+  }
 }

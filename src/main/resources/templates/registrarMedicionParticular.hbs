@@ -2,32 +2,38 @@
     <div class="login-form">
         <h2>Registrar medición</h2>
         <div class="container d-flex justify-content-center border border-1 p-2">
-            <a class="btn btn-primary mx-2" href="/user/me/registrarMedicionParticular" role="button">Particular</a>
-            <a class="btn btn-secondary mx-2" href="/user/me/registrarMedicionCsv" role="button">CSV</a>
+            <a class="btn btn-primary mx-2" href="/user/admin/registrarMedicionParticular" role="button">Particular</a>
+            <a class="btn btn-secondary mx-2" href="/user/admin/registrarMedicionCsv" role="button">CSV</a>
         </div>
-        <div class="m-3 mb-4 col-11 justify-content-center">
+        <div class="m-3 col-11 justify-content-center">
             <select class="form-select h-50">
                 <option selected hidden>Seleccione tipo de consumo</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {{#each tipos_consumo}}
+                    <option class="text-lowercase" value="{{ id }}">{{ nombre }}</option>
+                {{/each}}
             </select>
-            <div class="d-flex p-1">
-                <label for="valor" class="form-label">Valor:</label>
-                <input class="ms-auto" type="text" name="valor" id="valor">
+            <div class="d-flex p-1 my-2">
+                <label for="valor" class="form-label">Valor</label>
+                <input class="ms-auto w-50" type="text" name="valor" id="valor">
             </div>
-            <div class="d-flex p-1">
-                <label for="periodicidad" class="form-label">Periodicidad:</label>
-                <input class="ms-auto" type="text" name="periodicidad" id="periodicidad">
+            <div class="d-flex p-1 my-2 align-items-center">
+                <label for="periodicidad" class="form-label m-0">Periodicidad</label>
+                <i class="fa fa-info-circle ms-2" title="Seleccione mensual o anual"></i>
+                <select class="ms-auto w-50 p-1" name="periodicidad" id="periodicidad" onchange="habilitarPeriodo(this)">
+                    <option value="" selected hidden disabled></option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
+                </select>
             </div>
-            <div class="d-flex p-1">
-                <label for="periodoImputacion" class="form-label">Periodo imputación:</label>
-                <input class="ms-auto" type="text" name="periodoImputacion" id="periodoImputacion">
-            </div>
-            <div class="d-grid gap-2 mt-4">
-                <input class="btn btn-secondary" type="submit" value="Registrar">
+            <div class="d-flex p-1 my-2 align-items-center">
+                <label for="periodoImputacion" class="form-label m-0">Periodo imputación</label>
+                <i class="fa fa-info-circle ms-2" title="" onmouseover="obtenerFormato(this)"></i>
+                <input class="ms-auto w-50" type="text" name="periodoImputacion" id="periodoImputacion" disabled>
             </div>
         </div>
+            <div class="action">
+                <button type="submit" class="btn btn-secondary">Registrar</button>
+            </div>
     </div>
 {{/partial}}
 

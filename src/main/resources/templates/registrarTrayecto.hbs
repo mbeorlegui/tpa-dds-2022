@@ -1,53 +1,71 @@
 {{#partial "contenido"}}
-    <div class="trayecto-form p-2">
+    <div class="login-form w-100">
         <form>
             <h1 class="ms-2">Registrar trayecto</h1>
             <div class="container-fluid" id="contenido">
                 <div class="col-8 d-flex my-2">
-                    <label for="exampleDataList" class="form-label my-auto ms-5">Inicio del trayecto</label>
-                    <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList"
-                           placeholder="Type to search...">
-                    <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
+                    <label for="ubicacionInicio" class="form-label my-auto ms-5">Inicio del trayecto</label>
+                    <input class="form-control w-50 ms-auto ubicacion" list="datalist0" id="ubicacionInicio"
+                           placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
+                    <datalist class="listaUbicaciones" id="datalist0">
+                        <!--{{#each paradas}}
+                        <option value="{{ubicacion.calle}} {{ubicacion.altura}}">
+                        {{/each}}-->
                     </datalist>
                 </div>
                 <div class="container d-flex align-items-center">
                     <div class="col-8 d-flex justify-content-center my-2">
                         <hr class="line">
                         <button type="button" class="btn btn-outline-secondary btn-circle"
-                                onclick="agregarParada(this)">+
+                                onclick='agregarParada(this)'>+
                         </button>
                         <hr class="line">
                     </div>
-                    <select class="form-select h-50">
+                    
+                    <select id="transporte1" class="form-select h-50 transporte" onchange="modificarUbicaciones(this)">
                         <option selected hidden>Seleccione transporte del tramo</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {{#each transportes}}
+                        <option class="text-lowercase" value="{{id}}">
+                            {{#if tipoDeTransportePublico}}
+                                {{{tipoDeTransportePublico}}} {{{linea}}}
+                            {{else}}
+                                {{#if tipoDeServicioContratado}}
+                                    {{{tipoDeServicioContratado}}}
+                                {{else}} 
+                                    {{#if tipoDeVehiculo}}
+                                        {{{tipoDeVehiculo}}}
+                                    {{else}}
+                                        {{{tipoTransporte}}}
+                                    {{/if}}
+                                {{/if}}
+                            {{/if}}</option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="col-8 d-flex my-2">
-                    <label for="exampleDataList" class="form-label my-auto ms-5">Fin del trayecto</label>
-                    <input class="form-control w-50 ms-auto" list="datalistOptions" id="exampleDataList"
-                           placeholder="Type to search...">
-                    <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
+                    <label for="ubicacionFin" class="form-label my-auto ms-5">Fin del trayecto</label>
+                    <input class="form-control w-50 ms-auto ubicacion" list="datalistFinal" id="ubicacionFin"
+                           placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
+                    <datalist class="listaUbicaciones" id="datalistFinal">
                     </datalist>
                 </div>
-                <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-secondary">Cargar trayecto</button>
-                </div>
+            </div>
+            <div class="mt-4 action">
+                <button type="submit" class="btn btn-secondary">Cargar trayecto</button>
             </div>
         </form>
     </div>
+    <script src="/js/registrarTrayecto.js"></script>
+        <script>
+            window.addEventListener("load", function(event) {
+                transportesData = {{{transportes}}}
+                ubicacionesData = {{{paradas}}}
+                paradasPorTransporteData = {{{paradasPorTransporte}}}
+
+                inicializarDatos(transportesData, paradasPorTransporteData, ubicacionesData)
+                generarOptions("transporte1", JSON.stringify(transportesData))
+            });
+        </script>
 {{/partial}}
 
 {{>layout.hbs}}

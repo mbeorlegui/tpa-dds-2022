@@ -1,19 +1,31 @@
 package domain.server;
 
-import domain.administrador.RepoUsuarios;
-import domain.administrador.TipoUsuario;
-import domain.administrador.UnidadEquivalenteCarbono;
-import domain.administrador.Usuario;
+import domain.administrador.*;
 import domain.medicion.Medicion;
 import domain.medicion.MedicionAdapter;
 import domain.medicion.MedicionRead;
 import domain.medicion.RepoTiposConsumos;
+import domain.miembro.Documento;
+import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.transporte.Bicicleta;
+import domain.transporte.Parada;
+import domain.transporte.Pie;
+import domain.transporte.ServicioContratado;
+import domain.transporte.TipoDeServicioContratado;
+import domain.transporte.TipoDeTransportePublico;
+import domain.transporte.TipoDeVehiculo;
+import domain.transporte.TransportePublico;
+import domain.transporte.VehiculoParticular;
+import domain.trayecto.Tramo;
+import domain.trayecto.Trayecto;
 import domain.ubicacion.Ubicacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Bootstrap {
@@ -24,8 +36,29 @@ public class Bootstrap {
     et.begin();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     et.commit();
-    Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
+    Ubicacion ubicacion2 = new Ubicacion(2, "Rivadavia", "4000");
+    Ubicacion ubicacion3 = new Ubicacion(2, "Rivadavia", "4300");
+    Ubicacion ubicacion4 = new Ubicacion(3, "Medrano", "500");
+    Ubicacion ubicacion5 = new Ubicacion(5, "Mozart", "2300");
+    Parada parada1 = new Parada(ubicacion, null);
+    Parada parada2 = new Parada(ubicacion2, null);
+    Parada parada3 = new Parada(ubicacion3, null);
+    Parada parada4 = new Parada(ubicacion4, null);
+    Parada parada5 = new Parada(ubicacion5, null);
+    TransportePublico colectivo8 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.COLECTIVO, "8");
+    colectivo8.addParadas(parada2, parada3, parada4);
+    TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.COLECTIVO, "7");
+    colectivo7.addParadas(parada4, parada5, parada1, parada2);
+    ServicioContratado taxi =  new ServicioContratado(RepoTiposConsumos.getInstance().getTiposConsumos().get(0), 2.0, TipoDeServicioContratado.TAXI);
+    VehiculoParticular motoNafta = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(2), 1.2, TipoDeVehiculo.MOTO);
+    VehiculoParticular auto = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(1), 2.5, TipoDeVehiculo.AUTO);
+    Bicicleta bicicleta = new Bicicleta();
+    Pie pie = new Pie();
+    
     Organizacion org = new Organizacion(
         "Prueba Empresa",
         TipoOrganizacion.EMPRESA,
@@ -50,6 +83,36 @@ public class Bootstrap {
     Medicion medicion3 = new MedicionAdapter().adaptarMedicion(medicionRead3);
     MedicionRead medicionRead4 = new MedicionRead("GAS_NATURAL", "8000", "MENSUAL", "03/2022");
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
+    TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
+        0.5, TipoDeTransportePublico.SUBTE, "X");
+    List<Tramo> tramos = new ArrayList<>();
+    Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
+    tramos.add(tramo);
+    Trayecto unTrayecto = new Trayecto(tramos);
+    Miembro miembro1 = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
+    Solicitud solicitud1 = new Solicitud(
+        unSector,
+        miembro1,
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+    );
+    Miembro miembro2 = new Miembro("Ignacio", "Ardanaz", 41567890, Documento.DNI, unTrayecto);
+    Solicitud solicitud2 = new Solicitud(
+        unSector,
+        miembro2,
+        "Necesito el trabajo, no llego a fin de mes"
+    );
+    Miembro miembro3 = new Miembro("Alejo", "Goltzman", 41756189, Documento.DNI, unTrayecto);
+    Solicitud solicitud3 = new Solicitud(
+        unSector,
+        miembro3,
+        "Formar parte de la organización significaría un gran paso para mi carrera profesional"
+    );
+    Miembro miembro4 = new Miembro("Alejo", "Sandrini", 41091789, Documento.DNI, unTrayecto);
+    Solicitud solicitud4 = new Solicitud(
+        unSector,
+        miembro4,
+        "Tengo ganas de empezar a trabajar"
+    );
     org.agregarMedicion(medicion1);
     org.agregarMedicion(medicion2);
     org2.agregarMedicion(medicion3);
@@ -57,9 +120,23 @@ public class Bootstrap {
     org2.addSector(unSector);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
+    Usuario usuario = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", miembro1);
+    Usuario admin = new Administrador("alejo", "AltaContrRaseNia_*3154", org2);
 
     et.begin();
     // em.persist(ubicacion);
+    em.persist(parada1);
+    em.persist(parada2);
+    em.persist(parada3);
+    em.persist(parada4);
+    em.persist(parada5);
+    em.persist(colectivo7);
+    em.persist(colectivo8);
+    em.persist(taxi);
+    em.persist(motoNafta);
+    em.persist(auto);
+    em.persist(bicicleta);
+    em.persist(pie);
     em.persist(org2);
     em.persist(unSector);
     // Para que los metodos anden en el runner deben ser static
@@ -84,6 +161,18 @@ public class Bootstrap {
     em.persist(medicion3);
     em.persist(medicion4);
     em.persist(org2);
+    em.persist(subte);
+    em.persist(tramo);
+    em.persist(unTrayecto);
+    em.persist(miembro1);
+    em.persist(solicitud1);
+    em.persist(miembro2);
+    em.persist(solicitud2);
+    em.persist(miembro3);
+    em.persist(solicitud3);
+    em.persist(miembro4);
+    em.persist(solicitud4);
+    em.persist(usuario);
     em.persist(admin);
     et.commit();
 //    System.out.println(

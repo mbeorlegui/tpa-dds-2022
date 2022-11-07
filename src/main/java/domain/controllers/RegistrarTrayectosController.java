@@ -4,13 +4,30 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
+
+import domain.transporte.Parada;
+import domain.transporte.RepoParadas;
+import domain.transporte.RepoTransportes;
+import domain.transporte.TipoTransporte;
+import domain.transporte.Transporte;
 
 public class RegistrarTrayectosController {
   public ModelAndView registrarTrayecto(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    List<Parada> paradas = RepoParadas.getInstance().getParadas();
+    model.put("paradas", new Gson().toJson(paradas));
+    List<Transporte> transportes = RepoTransportes.getInstance().getTransportes();
+    model.put("transportes", new Gson().toJson(transportes));
+    Map<Long, List<Parada>> paradasPorTransporte = new HashMap<Long, List<Parada>>();
+    transportes.forEach(t -> paradasPorTransporte.put(t.getId(),RepoParadas.getInstance().getParadasDeTransporte(t)));
+    model.put("paradasPorTransporte", new Gson().toJson(paradasPorTransporte));
     return new ModelAndView(model, "registrarTrayecto.hbs");
   }
 }

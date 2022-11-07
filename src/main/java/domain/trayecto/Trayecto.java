@@ -28,6 +28,8 @@ public class Trayecto {
     this.tramos = tramos;
   }
 
+  public Trayecto() {}
+
   public Double distanciaTotal() {
     return this.tramos.stream().mapToDouble(tramo -> tramo.distanciaIntermedia()).sum();
   }

@@ -14,8 +14,7 @@ import java.util.Map;
 
 public class ReportController {
   public ModelAndView calculadoraOrganizacion(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
     if (request.queryParams("organizacion") != null) {
@@ -53,8 +52,7 @@ public class ReportController {
   }
 
   public ModelAndView calculadoraSectorTerritorial(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
     model.put("sectores_territoriales", sectoresTerritoriales);
 
@@ -94,15 +92,13 @@ public class ReportController {
   }
 
   public ModelAndView reporteHcTotal(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","Huella de Carbono");
     return new ModelAndView(model, "reporteHcTotal.hbs");
   }
 
   public ModelAndView reporteEvolucion(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","Evolución");
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
@@ -150,15 +146,13 @@ public class ReportController {
   }
 
   public ModelAndView reporteComposicion(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","Composición");
     return new ModelAndView(model, "reporteComposicion.hbs");
   }
 
   public ModelAndView reportes(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","");
     return new ModelAndView(model, "layoutReporte.hbs");
   }

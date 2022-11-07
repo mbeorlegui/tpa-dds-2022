@@ -11,14 +11,12 @@ import java.util.Map;
 
 public class UsersController {
   public ModelAndView login(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     return new ModelAndView(model, "login.hbs");
   }
 
   public ModelAndView signin(Request request, Response response) {
-    Map<String, Object> model = new HashMap<>();
-//    model.put("usuario_logueado", request.session().attribute("usuario_logueado"));
+    Map<String, Object> model = new IndexController().llenarIndex(request);
     return new ModelAndView(model, "signin.hbs");
   }
 
@@ -51,9 +49,12 @@ public class UsersController {
       response.redirect("/loginError");
       return null;
     }
-
+    
     request.session().attribute("usuario_logueado", usuario);
-    request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
+    // request.session().attribute("tipo_usuario", usuarioEncontrado.getTipoUsuario());
+    System.out.println(usuarioEncontrado.tipoUsuario());
+    request.session().attribute("tipo_usuario", usuarioEncontrado.tipoUsuario());
+    request.session().attribute("mensaje", "Bienvenido "+usuario+"!");
     response.redirect("/home");
     return null;
   }
@@ -61,6 +62,7 @@ public class UsersController {
   public ModelAndView delete(Request req, Response res) {
     req.session().removeAttribute("usuario_logueado");
     req.session().removeAttribute("tipo_usuario");
+    req.session().attribute("mensaje", "Cerraste sesión correctamente.");
     res.redirect("/home");
     return null;
   }

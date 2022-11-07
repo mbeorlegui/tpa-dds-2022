@@ -1,30 +1,36 @@
 {{#partial "contenido"}}
-    <div class="container mt-5">
-        <h2 class="text-center fw-bold" id="about" name="about">About us</h2>
-        <div class="row mt-5">
-            <!-- La suma de las columnas tiene que dar 12 SIEMPRE -->
-            <div class="col-xl-8 col-lg-6 col-xs-12 p-3">
-                <p class="text-black text-justify">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci ratione blanditiis magnam facilis
-                    nesciunt incidunt, asperiores explicabo provident excepturi! Totam tempore delectus mollitia magni
-                    dignissimos? Exercitationem cumque consectetur ipsum dolores nam provident laborum! Iure dicta earum
-                    iusto odio quos porro possimus! Odio corporis quibusdam veniam possimus enim, reprehenderit alias
-                    laboriosam.
-                </p>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
-                <a href="/home"><img class="imagen" style="border-radius: 8%;" src="images/logo.png"
-                                     alt="Aviso de imagen rota"></a>
+    <div class="container">
+        <div class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
+            <h2 class="text-center fw-bold" id="about" name="about">Sobre nosotros</h2>
+            <div class="row mt-5">
+                <!-- La suma de las columnas tiene que dar 12 SIEMPRE -->
+                <div class="col-xl-8 col-lg-6 col-xs-12 p-3">
+                    <p class="text-black text-justify">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci ratione blanditiis magnam facilis
+                        nesciunt incidunt, asperiores explicabo provident excepturi! Totam tempore delectus mollitia magni
+                        dignissimos? Exercitationem cumque consectetur ipsum dolores nam provident laborum! Iure dicta earum
+                        iusto odio quos porro possimus! Odio corporis quibusdam veniam possimus enim, reprehenderit alias
+                        laboriosam.
+                    </p>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
+                    <a href="https://es.wikipedia.org/wiki/Huella_de_carbono" target="_blank"><img class="imagen"
+                                                                                                style="border-radius: 8%;"
+                                                                                                src="images/logo.png"
+                                                                                                alt="Aviso de imagen rota"></a>
+                </div>
             </div>
         </div>
         <hr>
-        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5">
+        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
             <h2 class="text-center fw-bold">Organizaciones vinculadas</h2>
             <div class="row mt-5">
                 <div class="row align-items-center">
                     <div class="col-xl-5 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
-                        <a href="/home"><img class="mx-auto d-block imagen2" src="images/utn-logo.png" width="60%"
-                                             alt="Aviso de imagen rota"></a>
+                        <a href="https://www.frba.utn.edu.ar/" target="_blank"><img class="mx-auto d-block imagen2"
+                                                                                    src="images/utn-logo.png"
+                                                                                    width="60%"
+                                                                                    alt="Aviso de imagen rota"></a>
                     </div>
                     <div class="col-xl-7 col-lg-6 col-md-8 align-items-center">
                         <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, quaerat
@@ -43,31 +49,32 @@
         </section>
         <hr>
         <div class="login-form">
-            <form>
-                <h1>¡Contáctanos!</h1>
-                <div class="content">
-                    <div class="input-field">
-                        <input type="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="email" placeholder="Correo electronico" autocomplete="nope"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="comentario" placeholder="Comentario" autocomplete="nope"/>
-                    </div>
+            <form action="https://formsubmit.co/a035311e371b0fa39f570e1e07b7247b" method="POST"/>
+            <h1>¡Contáctanos!</h1>
+            <div class="content">
+                <div class="input-field">
+                    <input type="nombre" name="nombre" placeholder="Nombre Completo" autocomplete="nope"/>
                 </div>
-                <div class="action">
-                    <button>Enviar 📩</button>
+                <div class="input-field">
+                    <input type="email" name="email" placeholder="Correo electronico" autocomplete="nope"/>
                 </div>
+                <div class="input-field">
+                    <textarea class="form-control my-2" id="exampleFormControlTextarea1" placeholder="COMENTARIO" rows="1" name="comentario"
+                        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' autocomplete="nope"></textarea>
+                </div>
+            </div>
+            <div class="action">
+                <button>Enviar 📩</button>
+            </div>
             </form>
         </div>
     </div>
 {{/partial}}
 
 {{#partial "mensaje"}}
-<div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
-    <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
-</div>
+    <div class="container-fluid bg-light" style="--bs-bg-opacity: .5;">
+        <h2 class="ms-4 p-1">Bienvenido {{usuario_logueado}}!</h2>
+    </div>
 {{/partial}}
 
 {{>footer.hbs}}

@@ -26,13 +26,15 @@ public class TransportePublico extends Transporte {
   @Column(name = "tipo_de_transporte_publico")
   private TipoDeTransportePublico tipoDeTransportePublico;
   @Getter
-  //@ManyToMany
   @OneToMany
   @JoinColumn(name = "transporte_publico_id")
   @OrderColumn(name = "posicion")
   private List<Parada> paradas = new ArrayList<>();
   @Getter
   private String linea;
+
+  public TransportePublico(){
+  }
 
   public TransportePublico(TipoConsumo combustible, Double combustiblePorKm,
                            TipoDeTransportePublico tipoDeTransportePublico, String linea) {

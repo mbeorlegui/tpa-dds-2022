@@ -21,7 +21,7 @@ public class Medicion {
   @Column(name = "medicion_id")
   private long id;
   @Getter
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "tipo_consumo_id")
   private TipoConsumo tipoConsumo;
   @Getter

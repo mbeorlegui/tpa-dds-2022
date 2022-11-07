@@ -1,9 +1,9 @@
 {{#partial "contenido"}}
-<div class="login-form" style="width: 90%;">
+<div class="login-form w-100">
     {{#if organizaciones }}
-    <form action="/user/me/calculadoraOrganizacion" method="GET">
+    <form action="/user/calculadoraOrganizacion" method="GET">
     {{else}}
-    <form action="/user/me/calculadoraSectorTerritorial" method="GET">
+    <form action="/user/calculadoraSectorTerritorial" method="GET">
     {{/if}}
         <h2>Calculadora de Huella de Carbono</h2>
         <div class="content">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-4 d-flex justify-content-between">
                     <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
-                    <select class="form-select" id="unidad" name="unidad">
+                    <select class="form-select ms-3" id="unidad" name="unidad">
                         <option value=""></option>
                         <option value="0">Gramos</option>
                         <option value="1">Kilogramos</option>
@@ -45,7 +45,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row bg-info mt-3">
             {{#if resultado}}
                 <h4>Huella de carbono = {{resultado}}</h4>
             {{/if}}

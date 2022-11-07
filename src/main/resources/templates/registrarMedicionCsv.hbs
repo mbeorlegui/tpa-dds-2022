@@ -1,18 +1,18 @@
 {{#partial "contenido"}}
-    <div class="login-form">
+    <form class="login-form" enctype='multipart/form-data' method='post'>
         <h2>Registrar medición</h2>
         <div class="container d-flex justify-content-center border border-1 p-2">
-            <a class="btn btn-secondary mx-2" href="/user/me/registrarMedicionParticular" role="button">Particular</a>
-            <a class="btn btn-primary mx-2" href="/user/me/registrarMedicionCsv" role="button">CSV</a>
+            <a class="btn btn-secondary mx-2" href="/user/admin/registrarMedicionParticular" role="button">Particular</a>
+            <a class="btn btn-primary mx-2" href="/user/admin/registrarMedicionCsv" role="button">CSV</a>
         </div>
         <div class="m-3 mb-4 col-11 justify-content-center">
             <label for="formFile" class="form-label">Seleccione un archivo CSV</label>
-            <input class="form-control" type="file" id="formFile" accept=".csv">
+            <input class="form-control" type="file" id="formFile" name='uploaded_file' accept=".csv">
         </div>
-        <div class="d-grid gap-2 m-3">
-            <input class="btn btn-secondary" type="submit" value="Registrar">
+        <div class="action">
+            <button type="submit" class="btn btn-secondary">Registrar</button>
         </div>
-    </div>
+    </form>
 {{/partial}}
 
 {{>layout.hbs}}

@@ -15,6 +15,9 @@ public class ServicioContratado extends Transporte {
   @Column(name = "tipo_de_servicio_contratado")
   private TipoDeServicioContratado tipoDeServicioContratado;
 
+  public ServicioContratado(){
+  }
+
   public ServicioContratado(TipoConsumo combustible, Double combustiblePorKm,
                             TipoDeServicioContratado tipoDeServicioContratado) {
     super(combustible, combustiblePorKm);

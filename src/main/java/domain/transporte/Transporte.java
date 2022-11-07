@@ -28,6 +28,7 @@ import javax.persistence.InheritanceType;
 public abstract class Transporte {
   @Id
   @GeneratedValue
+  @Getter
   @Column(name = "transporte_id")
   private long id;
   @Getter
@@ -46,6 +47,9 @@ public abstract class Transporte {
   @Setter
   @Transient
   private CalculadoraDeDistancia calculadoraDeDistancia;
+
+  public Transporte(){
+  }
 
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;
