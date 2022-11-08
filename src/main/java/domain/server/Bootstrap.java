@@ -8,6 +8,7 @@ import domain.medicion.RepoTiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.Bicicleta;
 import domain.transporte.Parada;
 import domain.transporte.Pie;
@@ -42,11 +43,11 @@ public class Bootstrap {
     Ubicacion ubicacion3 = new Ubicacion(2, "Rivadavia", "4300");
     Ubicacion ubicacion4 = new Ubicacion(3, "Medrano", "500");
     Ubicacion ubicacion5 = new Ubicacion(5, "Mozart", "2300");
-    Parada parada1 = new Parada(ubicacion, null);
-    Parada parada2 = new Parada(ubicacion2, null);
-    Parada parada3 = new Parada(ubicacion3, null);
-    Parada parada4 = new Parada(ubicacion4, null);
-    Parada parada5 = new Parada(ubicacion5, null);
+    Parada parada1 = new Parada(ubicacion, new ResultadoDistancia(1200,"M"));
+    Parada parada2 = new Parada(ubicacion2, new ResultadoDistancia(1200,"M"));
+    Parada parada3 = new Parada(ubicacion3, new ResultadoDistancia(1200,"M"));
+    Parada parada4 = new Parada(ubicacion4, new ResultadoDistancia(1200,"M"));
+    Parada parada5 = new Parada(ubicacion5, new ResultadoDistancia(1200,"M"));
     TransportePublico colectivo8 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "8");
     colectivo8.addParadas(parada2, parada3, parada4);
