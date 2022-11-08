@@ -25,6 +25,7 @@ public class SectorTerritorial {
   private long id;
   @Getter
   private String nombre;
+  @Getter
   @OneToMany
   @JoinColumn(name = "sector_territorial_id")
   private List<Organizacion> organizaciones = new ArrayList<>();

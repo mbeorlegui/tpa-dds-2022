@@ -58,3 +58,27 @@ function habilitarPeriodo(selectPeriodo){
         inputPeriodo.removeAttribute("disabled")
     }
 }
+
+/*
+    Pantalla: reportes
+    Funcion: habilitar y desahabilitar input mes luego de seleccionar periodicidad
+*/
+function modificarPeriodo(boton){
+    let contenedores = document.querySelectorAll(".mes-container")
+    console.log(contenedores)
+    for(contenedor of contenedores){
+        var nodes = contenedor.childNodes;
+        console.log(nodes)
+        for(node of nodes){
+            if(boton.value == "anual"){
+                node.disabled = true
+                node.hidden = true
+                node.required = false
+            }else{
+                node.disabled = false
+                node.hidden = false
+                node.required = true
+            }
+        }
+    }
+}

@@ -5,12 +5,16 @@ function inicializarDatos(listaHc, periodicidad){
     etiquetasPeriodicidad = []
     let mes
     for (periodo of periodicidad){
-        if (periodo.mes >= 10) {
-            mes = periodo.mes
-        } else {
-            mes = "0"+periodo.mes
+        if(periodo.mes == 0){
+            etiquetasPeriodicidad.push(periodo.anio)
+        }else{
+            if (periodo.mes >= 10) {
+                mes = periodo.mes
+            } else {
+                mes = "0"+periodo.mes
+            }
+            etiquetasPeriodicidad.push(mes+"/"+String(periodo.anio).substring(2))
         }
-        etiquetasPeriodicidad.push(mes+"/"+String(periodo.anio).substring(2))
     }
     console.log(etiquetasPeriodicidad)
     //etiquetasPeriodicidad = periodicidad

@@ -1,5 +1,7 @@
 package domain.controllers;
 
+import domain.administrador.Administrador;
+import domain.administrador.RepoUsuarios;
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
 import domain.medicion.Periodo;
@@ -105,12 +107,15 @@ public class ReportController {
     model.put("tipo_reporte","Evolución");
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
-    if (request.queryParams("entidad") != null) {
+    System.out.println(request.queryParams("tipo-entidad"));
+    
+    if (request.queryParams("tipo-entidad") != null && request.queryParams("tipo-entidad").equals("organizacion")) {
       Long organizacionId = Long.parseLong(request.queryParams("entidad"));
-      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
       String periodoDeImputacionInicio;
       String periodoDeImputacionFin;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      System.out.println(request.queryParams("periodicidad"));
       if(periodicidad == Periodicidad.ANUAL) {
         periodoDeImputacionInicio = request.queryParams("anio1");
         periodoDeImputacionFin = request.queryParams("anio2");
@@ -147,6 +152,13 @@ public class ReportController {
       List<Periodo> periodicidadList = periodicidad.getPeriodos(periodoDeImputacionInicio, periodoDeImputacionFin);
       model.put("resultado", resultado);
       model.put("periodicidad", new Gson().toJson(periodicidadList));
+    }else if(request.queryParams("tipo-entidad")!=null && request.queryParams("tipo-entidad").equals("sector")){
+      // TODO: hay que conseguir el sector terriorial de la organizacion del usuario?
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
+      //SectorTerritorial sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectorTerritorial();
+
+      System.out.println(new Gson().toJson(user.getOrganizacionAsociada()));
     }
     return new ModelAndView(model, "reporteEvolucion.hbs");
   }
