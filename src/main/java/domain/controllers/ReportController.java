@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
+import domain.medicion.Periodo;
 import domain.organizacion.*;
 import domain.reports.ReportGenerator;
 import spark.ModelAndView;
@@ -11,6 +12,8 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class ReportController {
   public ModelAndView calculadoraOrganizacion(Request request, Response response) {
@@ -105,8 +108,6 @@ public class ReportController {
     if (request.queryParams("entidad") != null) {
       Long organizacionId = Long.parseLong(request.queryParams("entidad"));
       Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
-      System.out.println(request.queryParams("periodicidad"));
-      periodicidad =  Periodicidad.ANUAL;
       String periodoDeImputacionInicio;
       String periodoDeImputacionFin;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
@@ -114,12 +115,15 @@ public class ReportController {
         periodoDeImputacionInicio = request.queryParams("anio1");
         periodoDeImputacionFin = request.queryParams("anio2");
       } else {
-        if (Integer.parseInt(request.queryParams("mes")) < 10) {
-          periodoDeImputacionInicio = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
-          periodoDeImputacionFin = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        if (Integer.parseInt(request.queryParams("mes1")) < 10) {
+          periodoDeImputacionInicio = "0" + request.queryParams("mes1") + "/" + request.queryParams("anio1");
         } else {
-          periodoDeImputacionInicio = request.queryParams("mes") + "/" + request.queryParams("anio");
-          periodoDeImputacionFin = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+          periodoDeImputacionInicio = request.queryParams("mes1") + "/" + request.queryParams("anio1");
+        }
+        if (Integer.parseInt(request.queryParams("mes2")) < 10) {
+          periodoDeImputacionFin = "0" + request.queryParams("mes2") + "/" + request.queryParams("anio2");
+        } else {
+          periodoDeImputacionFin = request.queryParams("mes2") + "/" + request.queryParams("anio2");
         }
       }
       switch (Integer.parseInt(request.queryParams("unidad"))) {
@@ -139,8 +143,10 @@ public class ReportController {
       Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
       List<Double> resultado = ReportGenerator.getEvolucionHcDeOrganizacion(organizacionId, periodicidad,
       periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
-      System.out.println(resultado.get(0));
+      System.out.println(resultado);
+      List<Periodo> periodicidadList = periodicidad.getPeriodos(periodoDeImputacionInicio, periodoDeImputacionFin);
       model.put("resultado", resultado);
+      model.put("periodicidad", new Gson().toJson(periodicidadList));
     }
     return new ModelAndView(model, "reporteEvolucion.hbs");
   }

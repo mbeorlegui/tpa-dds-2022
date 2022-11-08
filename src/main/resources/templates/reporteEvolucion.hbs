@@ -1,6 +1,6 @@
 {{#partial "form"}}
   <div class="content">
-    <form action="/user/me/reportes/evolucion" method="POST">
+    <form action="/user/admin/reportes/evolucion" method="GET" id="form">
     <div class="row justify-content-left" style="margin: 15px 0px 15px 0px;">
         <div class="col-md-9 text-start d-flex" style="padding-left: 0px">
             <h5>Seleccione tipo de entidad: </h5>
@@ -56,7 +56,7 @@
           </div>
           <div class="d-flex m-0 align-items-center">
             <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
-            <input type="number" min="1" max="12" id="mes1" class="form-control ms-auto p-1" style="width: 75%;"/>
+            <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>
           <div class="d-flex m-0 align-items-center">
             <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
@@ -64,7 +64,7 @@
           </div>
           <div class="d-flex m-0 align-items-center">
             <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
-            <input type="number" min="1" max="12" id="mes2" class="form-control ms-auto p-1" style="width: 75%;"/>
+            <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>
           <div class="d-flex m-0 align-items-center">
             <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>
@@ -77,14 +77,13 @@
         </div>
     </div>
     <div class="action">
-        <button onclick="generarGrafico({{resultado}})">Calcular</button>
-        <div class="container bg-info" id="grafico">
+        <button type="submit">Calcular</button>
+    </div>
+        <!--<div class="container bg-info" id="grafico">
           {{#each resultado}}
             <p>{{this}}</p>
           {{/each}}
-        </div>
-        
-    </div>
+        </div>-->
     </form>
   </div>
 {{/partial}}
@@ -93,6 +92,19 @@
     <div class="container">
       <canvas id="myChart"></canvas>
     </div>
+{{/partial}}
+
+{{#partial "script"}}
+  <!-- Agrego script para el grafico -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/reporteEvolucion.js"></script>
+  <script>
+    resultado = {{{resultado}}}
+    periodicidad = {{{periodicidad}}}
+    inicializarDatos(resultado, periodicidad)
+    generarGrafico()
+  </script>
 {{/partial}}
 
 {{>layoutReporte.hbs}}

@@ -40,6 +40,30 @@ public enum Periodicidad {
       }
       return periodos;
     }
+
+    @Override
+    public List<Periodo> getPeriodos(String periodoInicio, String periodoFin) {
+      // 06/2021 - 02/2022
+      int mesInicio = Integer.parseInt(StringUtils.left(periodoInicio, 2));
+      int mesFin = Integer.parseInt(StringUtils.left(periodoFin, 2));
+      int anioInicio = Integer.parseInt(
+          periodoInicio.substring(periodoInicio.length() - 4));
+      int anioFin = Integer.parseInt(periodoFin.substring(periodoFin.length() - 4));
+      List<Periodo> periodos = new ArrayList<>();
+
+      int anioAGuardar = anioInicio;
+      int mesAGuardar = mesInicio;
+      while ((anioAGuardar * 100 + mesAGuardar) <= (anioFin * 100 + mesFin)) {
+        periodos.add(new Periodo(mesAGuardar, anioAGuardar));
+        if (mesAGuardar == 12) {
+          mesAGuardar = 1;
+          anioAGuardar++;
+        } else {
+          mesAGuardar++;
+        }
+      }
+      return periodos;
+    }
   },
   ANUAL {
     @Override
@@ -57,6 +81,17 @@ public enum Periodicidad {
       }
       return anios;
     }
+
+    @Override
+    public List<Periodo> getPeriodos(String periodoInicio, String periodoFin) {
+      int anioInicio = Integer.parseInt(periodoInicio);
+      int anioFin = Integer.parseInt(periodoFin);
+      List<Periodo> anios = new ArrayList<>();
+      for (int i = anioInicio; i <= anioFin; i++) {
+        anios.add(new Periodo(0,i));
+      }
+      return anios;
+    }
   };
 
   public int diasTrabajados() {
@@ -64,6 +99,10 @@ public enum Periodicidad {
   }
 
   public List<String> getPeriodosIntermedios(String periodoInicio, String periodoFin) {
+    return Collections.emptyList();
+  }
+
+  public List<Periodo> getPeriodos(String periodoInicio, String periodoFin) {
     return Collections.emptyList();
   }
 }
