@@ -64,6 +64,8 @@ function habilitarPeriodo(selectPeriodo){
     Funcion: habilitar y desahabilitar input mes luego de seleccionar periodicidad
 */
 function modificarPeriodo(boton){
+    let inputAnio = document.getElementById("anio")
+    inputAnio.disabled = false
     let contenedores = document.querySelectorAll(".mes-container")
     console.log(contenedores)
     for(contenedor of contenedores){

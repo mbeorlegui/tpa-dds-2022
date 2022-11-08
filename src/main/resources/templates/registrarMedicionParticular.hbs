@@ -6,7 +6,7 @@
             <a class="btn btn-secondary mx-2" href="/user/admin/registrarMedicionCsv" role="button">CSV</a>
         </div>
         <div class="m-3 col-11 justify-content-center">
-            <select class="form-select h-50">
+            <select class="form-select h-50" required>
                 <option selected hidden>Seleccione tipo de consumo</option>
                 {{#each tipos_consumo}}
                     <option class="text-lowercase" value="{{ id }}">{{ nombre }}</option>
@@ -14,12 +14,12 @@
             </select>
             <div class="d-flex p-1 my-2">
                 <label for="valor" class="form-label">Valor</label>
-                <input class="ms-auto w-50" type="text" name="valor" id="valor">
+                <input class="ms-auto w-50" type="text" name="valor" id="valor" required>
             </div>
             <div class="d-flex p-1 my-2 align-items-center">
                 <label for="periodicidad" class="form-label m-0">Periodicidad</label>
                 <i class="fa fa-info-circle ms-2" title="Seleccione mensual o anual"></i>
-                <select class="ms-auto w-50 p-1" name="periodicidad" id="periodicidad" onchange="habilitarPeriodo(this)">
+                <select class="ms-auto w-50 p-1" name="periodicidad" id="periodicidad" onchange="habilitarPeriodo(this)" required>
                     <option value="" selected hidden disabled></option>
                     <option value="Mensual">Mensual</option>
                     <option value="Anual">Anual</option>
@@ -28,7 +28,7 @@
             <div class="d-flex p-1 my-2 align-items-center">
                 <label for="periodoImputacion" class="form-label m-0">Periodo imputación</label>
                 <i class="fa fa-info-circle ms-2" title="" onmouseover="obtenerFormato(this)"></i>
-                <input class="ms-auto w-50" type="text" name="periodoImputacion" id="periodoImputacion" disabled>
+                <input class="ms-auto w-50" type="text" name="periodoImputacion" id="periodoImputacion" required disabled>
             </div>
         </div>
             <div class="action">

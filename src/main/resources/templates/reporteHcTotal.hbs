@@ -32,13 +32,13 @@
             <h5>Seleccione periodicidad:</h5>
             <div class="d-md-block d-sm-flex m-1">
               <div class="form-check mx-sm-1">
-                  <input class="form-check-input" type="radio" name="periodicidad" id="anual">
+                  <input class="form-check-input" type="radio" name="periodicidad" id="anual"  value="anual" onclick="modificarPeriodo(this)">
                   <label class="form-check-label" for="anual">
                       Anual
                   </label>
               </div>
               <div class="form-check mx-sm-1">
-                  <input class="form-check-input" type="radio" name="periodicidad" id="mensual">
+                  <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)">
                   <label class="form-check-label" for="mensual">
                       Mensual
                   </label>
@@ -50,7 +50,7 @@
             <label class="form-label m-0" for="anio"><h5 class="m-0">Año:</h5></label>
             <input type="number" min="1" max="2022" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>
-          <div class="d-flex m-0 align-items-center">
+          <div class="d-flex m-0 align-items-center mes-container">
             <label class="form-label m-0" for="anio"><h5 class="m-0">Mes:</h5></label>
             <input type="number" min="1" max="12" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>

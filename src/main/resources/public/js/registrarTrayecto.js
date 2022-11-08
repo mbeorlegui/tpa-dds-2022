@@ -47,6 +47,7 @@ function agregarParada(boton){
     inputUbicacion.setAttribute("onfocus","eliminarTexto(this)")
     inputUbicacion.setAttribute("placeholder","Escriba para buscar...")
     inputUbicacion.disabled = true
+    inputUbicacion.required = true
 
     let datalist = document.createElement('datalist')
     datalist.classList.add('listaUbicaciones');
@@ -100,6 +101,7 @@ function agregarParada(boton){
     transportes.setAttribute('id',idTransporte)
     transportes.setAttribute("onchange","modificarUbicaciones(this)");
     transportes.innerHTML=`<option selected hidden>Seleccione transporte del tramo</option>`
+    transportes.required = true
 
     barraTransporte.appendChild(barraSeparacion)
     barraTransporte.appendChild(transportes)
