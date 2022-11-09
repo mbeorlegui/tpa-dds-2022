@@ -2,6 +2,8 @@ package domain.administrador;
 
 import domain.organizacion.Organizacion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithEntityManager;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.EntityManager;
 import java.util.Collections;
@@ -9,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepoSolicitudes {
+public class RepoSolicitudes implements WithGlobalEntityManager {
 
   private EntityManager em = PerThreadEntityManagers.getEntityManager();
 
@@ -33,7 +35,11 @@ public class RepoSolicitudes {
   }
 
   public void persistSolicitud(Solicitud solicitud) {
-    em.persist(solicitud);
+    entityManager().persist(solicitud);
+  }
+
+  public void updateSolicitud(Solicitud solicitud) {
+    entityManager().merge(solicitud);
   }
 
   public List<Solicitud> getSolicitudesDeOrganizacion(Organizacion organizacion) {

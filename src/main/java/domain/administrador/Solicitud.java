@@ -50,4 +50,13 @@ public class Solicitud {
   public boolean estaPendiente() {
     return this.getEstadoSolicitud().equals(EstadoSolicitud.PENDIENTE);
   }
+
+  public void aceptar() {
+    this.sector.addMiembro(this.miembro);
+    this.estadoSolicitud = EstadoSolicitud.COMPLETADA;
+  }
+
+  public void rechazar() {
+    this.estadoSolicitud = EstadoSolicitud.COMPLETADA;
+  }
 }

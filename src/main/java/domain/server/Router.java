@@ -79,5 +79,15 @@ public class Router {
     Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
 
     Spark.post("/user/general/request/persist", requestController::generarRequest, engineTemplate);
+
+    Spark.post("/user/admin/vinculaciones/accept", requestController::aceptarVinculacion, engineTemplate);
+
+    Spark.post("/user/admin/vinculaciones/deny", requestController::rechazarVinculacion, engineTemplate);
+
+    Spark.after(((request, response) -> {
+      PerThreadEntityManagers.getEntityManager().getEntityManagerFactory().getCache().evictAll();
+
+      // PerThreadEntityManagers.closeEntityManager();
+    }));
   }
 }

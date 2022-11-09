@@ -58,10 +58,34 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     return new ModelAndView(model, "aceptacionVinculacion.hbs");
   }
 
-  /*
-  public ModelAndView aceptarVinculacion(Request request, Response response) {
 
+  public ModelAndView aceptarVinculacion(Request request, Response response) {
+    Long idSolicitud = Long.parseLong(request.queryParams("solicitud"));
+    Solicitud solicitud = RepoSolicitudes.getInstance().getSolicitud(idSolicitud);
+    solicitud.aceptar();
+
+
+    withTransaction(() -> {
+      RepoSolicitudes.getInstance().updateSolicitud(solicitud);
+    });
+
+
+
+    response.redirect("/user/admin/vinculaciones");
+
+    return null;
   }
 
-   */
+  public ModelAndView rechazarVinculacion(Request request, Response response) {
+    Long idSolicitud = Long.parseLong(request.queryParams("solicitud"));
+    Solicitud solicitud = RepoSolicitudes.getInstance().getSolicitud(idSolicitud);
+    solicitud.rechazar();
+
+    withTransaction(() -> {
+      RepoSolicitudes.getInstance().updateSolicitud(solicitud);
+    });
+
+    response.redirect("/user/admin/vinculaciones");
+    return null;
+  }
 }
