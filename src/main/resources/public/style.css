@@ -284,3 +284,6 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#hiddenDiv { display: none; }
+#btn[disabled]:hover + #hiddenDiv { display: block; }
