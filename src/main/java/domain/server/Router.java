@@ -1,8 +1,5 @@
 package domain.server;
 
-import com.github.jknack.handlebars.Handlebars;
-import domain.administrador.Administrador;
-import domain.administrador.UsuarioGeneral;
 import domain.controllers.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
@@ -71,7 +68,7 @@ public class Router {
 
     Spark.get("/user/calculadoraSectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
 
-    Spark.get("/user/admin/vinculaciones", requestController::aceptarVinculacion, engineTemplate);
+    Spark.get("/user/admin/vinculaciones", requestController::vinculacionesOrganizacion, engineTemplate);
 
     Spark.get("/user/admin/reportes", reportController::reportes, engineTemplate);
 

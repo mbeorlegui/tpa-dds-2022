@@ -11,9 +11,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.transaction.Transaction;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +47,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     return null;
   }
 
-  public ModelAndView aceptarVinculacion(Request request, Response response) {
+  public ModelAndView vinculacionesOrganizacion(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     Administrador usuario = (Administrador) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
 
@@ -59,4 +57,11 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     model.put("solicitudes", solicitudes);
     return new ModelAndView(model, "aceptacionVinculacion.hbs");
   }
+
+  /*
+  public ModelAndView aceptarVinculacion(Request request, Response response) {
+
+  }
+
+   */
 }

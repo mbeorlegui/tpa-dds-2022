@@ -91,9 +91,16 @@ public class Organizacion {
   }
 
   public Boolean tieneSectorDe(Sector sector) {
-    System.out.println(this.sectores);
-    System.out.println(sector + " " + sectores.contains(sector));
     return sectores.contains(sector);
+  }
+
+  public Boolean tieneSectorConId(Long idSector) {
+    return sectores
+        .stream()
+        .mapToLong(sector -> sector.getId())
+        .boxed()
+        .collect(Collectors.toList())
+        .contains(idSector);
   }
 
   public Integer cantidadDeSectores() {

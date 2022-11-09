@@ -39,7 +39,7 @@ public class RepoSolicitudes {
   public List<Solicitud> getSolicitudesDeOrganizacion(Organizacion organizacion) {
     return this.getSolicitudesOrdenadasPorFecha()
         .stream()
-        .filter(solicitud -> organizacion.tieneSectorDe(solicitud.getSector()))
+        .filter(solicitud -> organizacion.tieneSectorConId(solicitud.getSector().getId()))
         .collect(Collectors.toList());
   }
 
