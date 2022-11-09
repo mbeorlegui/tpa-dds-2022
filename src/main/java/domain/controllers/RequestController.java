@@ -64,12 +64,10 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     Solicitud solicitud = RepoSolicitudes.getInstance().getSolicitud(idSolicitud);
     solicitud.aceptar();
 
-
     withTransaction(() -> {
       RepoSolicitudes.getInstance().updateSolicitud(solicitud);
+      RepoSectores.getInstance().updateSector(solicitud.getSector());
     });
-
-
 
     response.redirect("/user/admin/vinculaciones");
 

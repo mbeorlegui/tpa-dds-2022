@@ -84,10 +84,27 @@ public class Router {
 
     Spark.post("/user/admin/vinculaciones/deny", requestController::rechazarVinculacion, engineTemplate);
 
+    /*
+    Spark.before(((request, response) -> {
+      if (request.requestMethod() == "POST") {
+        PerThreadEntityManagers.getEntityManager().getTransaction();
+      }
+    }));
+
+     */
+
     Spark.after(((request, response) -> {
+      //PerThreadEntityManagers.getEntityManager().getTransaction().commit();
       PerThreadEntityManagers.getEntityManager().getEntityManagerFactory().getCache().evictAll();
 
       // PerThreadEntityManagers.closeEntityManager();
     }));
+
+    /*
+    Spark.exception(Exception.class, ((e, request, response) -> {
+      PerThreadEntityManagers.getEntityManager().getTransaction().rollback();
+    }));
+
+     */
   }
 }
