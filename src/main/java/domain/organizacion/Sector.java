@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sector")
@@ -58,6 +59,15 @@ public class Sector {
         .stream()
         .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad, unidadDeseada))
         .sum();
+  }
+
+  public Boolean tieneMiembroConId(Long idMiembro) {
+    return miembros
+        .stream()
+        .mapToLong(miembro -> miembro.getId())
+        .boxed()
+        .collect(Collectors.toList())
+        .contains(idMiembro);
   }
 
 }

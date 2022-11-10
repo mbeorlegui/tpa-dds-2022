@@ -20,6 +20,8 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "request.hbs");
   }
 
@@ -31,18 +33,24 @@ public class RequestController implements WithGlobalEntityManager, Transactional
 
     UsuarioGeneral usuario = (UsuarioGeneral) RepoUsuarios.getInstance().findByUsername(request.session().attribute("usuario_logueado"));
 
-    Solicitud nuevaSolicitud = new Solicitud(sector, usuario.getMiembroAsociado(), motivo, LocalDateTime.now());
+    if (sector.tieneMiembroConId(usuario.getMiembroAsociado().getId())) {
+      request.session().attribute("mensaje", "Este miembro ya pertenece a ese sector");
+      response.redirect("/user/general/request");
+    } else {
 
-    System.out.println(nuevaSolicitud);
+      Solicitud nuevaSolicitud = new Solicitud(sector, usuario.getMiembroAsociado(), motivo, LocalDateTime.now());
 
-    // agregar a la clase para usarlo: implements WithGlobalEntityManager, TransactionalOps
-    withTransaction(() -> {
-      RepoSolicitudes.getInstance().persistSolicitud(nuevaSolicitud);
-    });
+      System.out.println(nuevaSolicitud);
+
+      // agregar a la clase para usarlo: implements WithGlobalEntityManager, TransactionalOps
+      withTransaction(() -> {
+        RepoSolicitudes.getInstance().persistSolicitud(nuevaSolicitud);
+      });
 
 
-    request.session().attribute("mensaje", "Se genero la nueva solicitud");
-    response.redirect("/home");
+      request.session().attribute("mensaje", "Se genero la nueva solicitud");
+      response.redirect("/home");
+    }
 
     return null;
   }
