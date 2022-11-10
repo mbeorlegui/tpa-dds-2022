@@ -55,6 +55,9 @@ public class RequestController implements WithGlobalEntityManager, Transactional
     System.out.println("Organizacion: " + usuario.getOrganizacionAsociada().getRazonSocial());
     System.out.println("Solicitudes de organizacion: " + solicitudes);
     model.put("solicitudes", solicitudes);
+
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "aceptacionVinculacion.hbs");
   }
 
@@ -69,6 +72,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
       RepoSectores.getInstance().updateSector(solicitud.getSector());
     });
 
+    request.session().attribute("mensaje", "Se acepto la solicitud");
     response.redirect("/user/admin/vinculaciones");
 
     return null;
@@ -83,6 +87,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
       RepoSolicitudes.getInstance().updateSolicitud(solicitud);
     });
 
+    request.session().attribute("mensaje", "Se rechazo la solicitud");
     response.redirect("/user/admin/vinculaciones");
     return null;
   }
