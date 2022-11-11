@@ -6,13 +6,13 @@
             <h5>Seleccione tipo de entidad: </h5>
             <div class="d-md-flex ms-1">
               <div class="form-check mx-1">
-                  <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" value="organizacion" onclick="obtenerOrganizaciones()">
+                  <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" value="organizacion" onclick="modificarSelectOrg(this)">
                   <label class="form-check-label" for="organizacion">
                       Organización
                   </label>
               </div>
               <div class="form-check mx-1">
-                  <input class="form-check-input" type="radio" name="tipo-entidad" id="sector" value="sector">
+                  <input class="form-check-input" type="radio" name="tipo-entidad" id="sector" value="sector" onclick="modificarSelectOrg(this)">
                   <label class="form-check-label" for="sector">
                       Sector Territorial
                   </label>
