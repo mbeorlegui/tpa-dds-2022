@@ -1,15 +1,16 @@
 {{#partial "contenido"}}
     <div class="login-form w-100">
         <form>
-            <h1 class="ms-2">Registrar trayecto</h1>
+            <div class="container-fluid d-flex align-items-center mt-5">
+                <h1 class="ms-2 py-0 pe-3">Registrar trayecto</h1>
+                <i class="fa fa-info-circle pb-1" for="ubicacionInicio" title="Seleccione el transporte y luego la ubicación"></i>
+            </div>
             <div class="container-fluid" id="contenido">
                 <div class="col-8 d-flex my-2">
                     <label for="ubicacionInicio" class="form-label my-auto ms-5">Inicio del trayecto</label>
                     <input id="btn" class="form-control w-50 ms-auto ubicacion" list="datalist0" id="ubicacionInicio"
                            placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
-                    <div class="main" id="hiddenDiv">
-                        Seleccione el transporte
-                    </div>
+                    
                     <datalist class="listaUbicaciones" id="datalist0">
                         <!--{{#each paradas}}
                         <option value="{{ubicacion.calle}} {{ubicacion.altura}}">
@@ -49,9 +50,6 @@
                     <label for="ubicacionFin" class="form-label my-auto ms-5">Fin del trayecto</label>
                     <input id="btn" class="form-control w-50 ms-auto ubicacion" list="datalistFinal" id="ubicacionFin"
                            placeholder="Escriba para buscar..." onfocus="eliminarTexto(this)" disabled>
-                    <div class="main" id="hiddenDiv">
-                        Seleccione el transporte
-                    </div>
                     <datalist class="listaUbicaciones" id="datalistFinal">
                     </datalist>
                 </div>
