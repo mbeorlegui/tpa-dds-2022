@@ -64,9 +64,9 @@ public class Router {
 
     Spark.get("/user/general/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
 
-    Spark.get("/user/calculadoraOrganizacion", reportController::calculadoraOrganizacion, engineTemplate);
+    Spark.get("/user/calculadora/organizacion", reportController::calculadoraOrganizacion, engineTemplate);
 
-    Spark.get("/user/calculadoraSectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
+    Spark.get("/user/calculadora/sectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
 
     Spark.get("/user/admin/vinculaciones", requestController::vinculacionesOrganizacion, engineTemplate);
 

@@ -16,6 +16,13 @@ public class ReportController {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
+
+    model.put("periodicidad", request.queryParams("periodicidad"));
+    model.put("anio", request.queryParams("anio"));
+    model.put("mes", request.queryParams("mes"));
+    model.put("unidad", request.queryParams("unidad"));
+
+
     if (request.queryParams("organizacion") != null) {
       Long organizacionId = Long.parseLong(request.queryParams("organizacion"));
       Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
@@ -54,6 +61,11 @@ public class ReportController {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
     model.put("sectores_territoriales", sectoresTerritoriales);
+
+    model.put("periodicidad", request.queryParams("periodicidad"));
+    model.put("anio", request.queryParams("anio"));
+    model.put("mes", request.queryParams("mes"));
+    model.put("unidad", request.queryParams("unidad"));
 
     if (request.queryParams("sector_territorial") != null) {
       Long organizacionId = Long.parseLong(request.queryParams("sector_territorial"));
