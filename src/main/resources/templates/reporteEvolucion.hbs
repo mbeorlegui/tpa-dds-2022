@@ -1,17 +1,18 @@
 {{#partial "form"}}
   <div class="content">
+    <form action="/user/admin/reportes/evolucion" method="GET" id="form">
     <div class="row justify-content-left" style="margin: 15px 0px 15px 0px;">
         <div class="col-md-9 text-start d-flex" style="padding-left: 0px">
             <h5>Seleccione tipo de entidad: </h5>
             <div class="d-md-flex ms-1">
               <div class="form-check mx-1">
-                  <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" onclick="obtenerOrganizaciones()">
+                  <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" value="organizacion" onclick="obtenerOrganizaciones()">
                   <label class="form-check-label" for="organizacion">
                       Organización
                   </label>
               </div>
               <div class="form-check mx-1">
-                  <input class="form-check-input" type="radio" name="tipo-entidad" id="sector">
+                  <input class="form-check-input" type="radio" name="tipo-entidad" id="sector" value="sector">
                   <label class="form-check-label" for="sector">
                       Sector Territorial
                   </label>
@@ -19,11 +20,14 @@
             </div>
         </div>
         <div class="col-md-3 p-0 d-flex">
-            <select class="form-select ms-auto" id="entidad" required disabled>
+            <select class="form-select ms-auto" id="entidad" name="entidad" required disabled>
               <option hidden>Seleccione Entidad:</option>
-              <option value="0">Org1/Sector1</option>
+              {{#each organizaciones}}
+                <option value="{{ id }}">{{ razonSocial }}</option>
+              {{/each}}
+              <!--<option value="0">Org1/Sector1</option>
               <option value="1">Org2/Sector2</option>
-              <option value="2">Org3/Sector3</option>
+              <option value="2">Org3/Sector3</option>-->
             </select>
         </div>
     </div>
@@ -32,13 +36,13 @@
             <h5>Seleccione periodicidad:</h5>
             <div class="d-md-block d-sm-flex m-1">
               <div class="form-check mx-sm-1">
-                  <input class="form-check-input" type="radio" name="periodicidad" id="anual">
+                  <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual" onclick="modificarPeriodo(this)">
                   <label class="form-check-label" for="anual">
                       Anual
                   </label>
               </div>
               <div class="form-check mx-sm-1">
-                  <input class="form-check-input" type="radio" name="periodicidad" id="mensual">
+                  <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)">
                   <label class="form-check-label" for="mensual">
                       Mensual
                   </label>
@@ -47,16 +51,24 @@
         </div>
         <div class="col-md-8 d-sm-flex d-block justify-content-between">
           <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio"><h5 class="m-0">Año:</h5></label>
-            <input type="number" min="1" max="2022" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
+            <label class="form-label m-0" for="anio1"><h5 class="m-0">Año inicio:</h5></label>
+            <input type="number" min="1" max="2022" id="anio1" name="anio1" class="form-control ms-auto p-1" style="width: 75%;"/>
+          </div>
+          <div class="d-flex m-0 align-items-center mes-container">
+            <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
+            <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>
           <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio"><h5 class="m-0">Mes:</h5></label>
-            <input type="number" min="1" max="12" id="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
+            <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
+            <input type="number" min="1" max="2022" id="anio2" name="anio2" class="form-control ms-auto p-1" style="width: 75%;"/>
+          </div>
+          <div class="d-flex m-0 align-items-center mes-container">
+            <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
+            <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;"/>
           </div>
           <div class="d-flex m-0 align-items-center">
             <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>
-            <select class="form-select ms-auto" id="unidad" style="width: 75%;" required>
+            <select class="form-select ms-auto" id="unidad" name="unidad" style="width: 75%;" required>
                 <option value="0">Gramos</option>
                 <option value="1">Kilogramos</option>
                 <option value="2">Toneladas</option>
@@ -65,15 +77,34 @@
         </div>
     </div>
     <div class="action">
-        <button>Calcular</button>
+        <button type="submit">Calcular</button>
     </div>
+        <!--<div class="container bg-info" id="grafico">
+          {{#each resultado}}
+            <p>{{this}}</p>
+          {{/each}}
+        </div>-->
+    </form>
   </div>
 {{/partial}}
 
 {{#partial "resultado"}}
     <div class="container">
-      falta grafico
+      <canvas id="myChart"></canvas>
     </div>
+{{/partial}}
+
+{{#partial "script"}}
+  <!-- Agrego script para el grafico -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/reporteEvolucion.js"></script>
+  <script>
+    resultado = {{{resultado}}}
+    periodicidad = {{{periodicidad}}}
+    inicializarDatos(resultado, periodicidad)
+    generarGrafico()
+  </script>
 {{/partial}}
 
 {{>layoutReporte.hbs}}

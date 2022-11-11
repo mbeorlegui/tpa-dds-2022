@@ -14,13 +14,13 @@
                     <h4>Seleccione periodicidad: </h4>
                 </div>
                 <div class="col-md-2 form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual" onclick="modificarPeriodo(this)" required>
                     <label class="form-check-label" for="anual">
                         Anual
                     </label>
                 </div>
                 <div class="col-md-2  form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)">
                     <label class="form-check-label" for="mensual">
                         Mensual
                     </label>
@@ -29,15 +29,15 @@
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-between">
                     <label class="form-label d" for="anio"><h4>Año:</h4></label>
-                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;" name="anio" value="{{ anio }}"/>
+                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;" name="anio" required disabled/>
                 </div>
-                <div class="col-md-4 d-flex justify-content-between">
+                <div class="col-md-4 d-flex justify-content-between mes-container">
                     <label class="form-label d" for="mes"><h4>Mes:</h4></label>
-                    <input type="number" min="1" max="12" id="mes" class="form-control" style="width: 75%;" name="mes" value="{{ mes }}"/>
+                    <input type="number" min="1" max="12" id="mes" class="form-control" style="width: 75%;" name="mes" required disabled/>
                 </div>
                 <div class="col-md-4 d-flex justify-content-between">
                     <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
-                    <select class="form-select ms-3" id="unidad" name="unidad" value="{{ unidad }}">
+                    <select class="form-select ms-3" id="unidad" name="unidad" required>
                         <option value=""></option>
                         <option value="0">Gramos</option>
                         <option value="1">Kilogramos</option>

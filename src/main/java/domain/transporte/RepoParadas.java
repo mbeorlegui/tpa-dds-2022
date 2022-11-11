@@ -32,4 +32,14 @@ public class RepoParadas {
         .setParameter("id", transporte.getId())
         .getResultList();
   }
+
+  @SuppressWarnings("unchecked")
+  public Parada getParada(String calle, String altura) {
+    List<Parada> result = em
+        .createQuery("from Parada where calle = :calle and altura = :altura")
+        .setParameter("calle", calle)
+        .setParameter("altura", altura)
+        .getResultList();
+        return result.get(0);
+  }
 }

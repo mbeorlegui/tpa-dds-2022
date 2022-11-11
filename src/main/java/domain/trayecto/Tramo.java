@@ -48,6 +48,9 @@ public class Tramo {
   @JoinColumn(name = "transporte_id")
   private Transporte transporteUtilizado;
 
+  public Tramo(){
+  }
+
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
     this.origenDeTramo = origenDeTramo;
     this.destinoDeTramo = destinoDeTramo;

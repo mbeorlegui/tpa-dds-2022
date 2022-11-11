@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
@@ -19,19 +19,18 @@
         <class>domain.administrador.Usuario</class>
         <class>domain.organizacion.SectorTerritorial</class>
         <class>domain.organizacion.Organizacion</class>
-        <class>domain.medios.Contacto</class>
-        <class>domain.medios.MedioDeComunicacion</class>
         <class>domain.administrador.Solicitud</class>
-        <class>domain.services.apidistancias.entities.ResultadoDistancia</class>
 
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost:3306/TpIntegrador?createDatabaseIfNotExist=true"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="matiasbeorlegui"/>
+            <property name="hibernate.connePction.url"
+                      value="jdbc:mysql://eeyy8sgv6w5e7dbq:ot9oz2n6brovvuyz@o2olb7w3xv09alub.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/g3vvcq1189u6rh9x?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.connection.username" value="eeyy8sgv6w5e7dbq"/>
+            <property name="hibernate.connection.password" value="ot9oz2n6brovvuyz"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+
 
             <property name="use_sql_comments" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>

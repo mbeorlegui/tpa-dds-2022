@@ -1,5 +1,13 @@
 package domain.server;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import com.github.jknack.handlebars.Handlebars;
+import domain.administrador.Administrador;
+import domain.administrador.UsuarioGeneral;
 import domain.controllers.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
@@ -55,10 +63,17 @@ public class Router {
         response.redirect("/home");
       }
     }));
+    // Este after elimina la cache del em despues de terminar la request
+    /*Spark.after(((request, response) -> {
+      PerThreadEntityManagers.getEntityManager().clear();
+      //PerThreadEntityManagers.closeEntityManager();
+    }));*/
 
     Spark.get("/user/general/request", requestController::request, engineTemplate);
 
     Spark.get("/user/admin/registrarMedicionCsv", registrarMedicionController::registrarMedicionCsv, engineTemplate);
+
+    Spark.post("/user/admin/registrarMedicionCsv", registrarMedicionController::procesarArchivo, engineTemplate);
 
     Spark.get("/user/admin/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
@@ -106,5 +121,6 @@ public class Router {
     }));
 
      */
+    Spark.post("/user/general/registrarTrayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
   }
 }

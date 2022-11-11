@@ -9,6 +9,7 @@ import domain.medicion.TipoConsumo;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -21,21 +22,20 @@ public class CsvHandler {
   // TODO: Analizar refactor de Path segun instancias de Organizacion
   //  Podria tomarse el path concatenado al nombre de la organizacion
 
-
-  public List<Medicion> getMediciones() throws IOException {
+  public List<Medicion> getMediciones(InputStream input) throws IOException {
     MedicionAdapter medicionAdapter = new MedicionAdapter();
     List<Medicion> mediciones = new ArrayList<>();
-    List<MedicionRead> medicionesLeidas = this.getMedicionesRead();
+    List<MedicionRead> medicionesLeidas = this.getMedicionesRead(input);
 
     medicionesLeidas.forEach(m -> mediciones.add(medicionAdapter.adaptarMedicion(m)));
     
     return mediciones;
   }
 
-  public List<Medicion> getMediciones(List<TipoConsumo> tipoConsumos) throws IOException {
+  public List<Medicion> getMediciones(List<TipoConsumo> tipoConsumos, InputStream input) throws IOException {
     MedicionAdapter medicionAdapter = new MedicionAdapter();
     List<Medicion> mediciones = new ArrayList<>();
-    List<MedicionRead> medicionesLeidas = this.getMedicionesRead();
+    List<MedicionRead> medicionesLeidas = this.getMedicionesRead(input);
 
     medicionesLeidas.forEach(m -> mediciones.add(medicionAdapter.adaptarMedicion(tipoConsumos, m)));
 
@@ -43,9 +43,9 @@ public class CsvHandler {
   }
 
 
-  private List<MedicionRead> getMedicionesRead() throws IOException {
+  private List<MedicionRead> getMedicionesRead(InputStream input) throws IOException {
     CSVReader csvReader = new CSVReader(
-        new InputStreamReader(Files.newInputStream(Paths.get(FILE_PATH)), StandardCharsets.UTF_8));
+        new InputStreamReader(input, StandardCharsets.UTF_8));
     return getParse(csvReader);
   }
 

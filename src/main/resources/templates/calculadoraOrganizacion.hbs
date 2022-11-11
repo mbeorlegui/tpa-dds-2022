@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="dropright" style="margin: 15px 0px 15px 0px;">
-            <select class="form-select" data-style="btn-primary" id="unidad" name="organizacion">
+            <select class="form-select" data-style="btn-primary" id="unidad" name="organizacion" required>
                 <option hidden value="">Seleccione Entidad</option>
                 {{#each organizaciones}}
                     <option value="{{ id }}">{{ razonSocial }}</option>
