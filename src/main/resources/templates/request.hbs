@@ -1,27 +1,21 @@
 {{#partial "contenido"}}
     <div class="login-form">
-        <form>
+        <form action="/user/general/request/persist" method="POST">
             <h2>Solicitud de vinculación</h2>
             <div class="content">
                 <div class="dropright my-3">
-                    <select class="form-select my-1" name="organizacion" required onchange="obtenerSectorDe(value)">
-                        <option selected hidden disabled>Organización</option>
+                    <select class="form-select my-1" name="sector" required>
+                        <option selected hidden disabled>Organización - Sector</option>
                         {{#each organizaciones}}
-                            <option value="{{ id }}">{{ razonSocial }}</option>
+                            {{#each sectores}}
+                                <option value="{{ id }}">{{ razonSocial }} - {{ nombre }}</option>
+                            {{/each}}
                         {{/each}}
-                    </select>
-                </div>
-                <div class="dropright my-3">
-                    <select class="form-select my-1" name="sector" id="sector" required disabled>
-                        <option selected hidden disabled>Sector</option>
-                        <option value="1">Sector1</option>
-                        <option value="2">Sector2</option>
-                        <option value="3">Sector3</option>
                     </select>
                 </div>
                 <div class="input-field pt-3">
                     <label for="exampleFormControlTextarea1">Motivo</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="text"
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="motivo"
                               oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
                 </div>
             </div>

@@ -9,9 +9,13 @@ import com.github.jknack.handlebars.Handlebars;
 import domain.administrador.Administrador;
 import domain.administrador.UsuarioGeneral;
 import domain.controllers.*;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 public class Router {
   public static void configure() {
@@ -75,11 +79,11 @@ public class Router {
 
     Spark.get("/user/general/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
 
-    Spark.get("/user/calculadoraOrganizacion", reportController::calculadoraOrganizacion, engineTemplate);
+    Spark.get("/user/calculadora/organizacion", reportController::calculadoraOrganizacion, engineTemplate);
 
-    Spark.get("/user/calculadoraSectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
+    Spark.get("/user/calculadora/sectorTerritorial", reportController::calculadoraSectorTerritorial, engineTemplate);
 
-    Spark.get("/user/admin/vinculaciones", requestController::aceptarVinculacion, engineTemplate);
+    Spark.get("/user/admin/vinculaciones", requestController::vinculacionesOrganizacion, engineTemplate);
 
     Spark.get("/user/admin/reportes", reportController::reportes, engineTemplate);
 
@@ -89,6 +93,34 @@ public class Router {
 
     Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
 
+    Spark.post("/user/general/request/persist", requestController::generarRequest, engineTemplate);
+
+    Spark.post("/user/admin/vinculaciones/accept", requestController::aceptarVinculacion, engineTemplate);
+
+    Spark.post("/user/admin/vinculaciones/deny", requestController::rechazarVinculacion, engineTemplate);
+
+    /*
+    Spark.before(((request, response) -> {
+      if (request.requestMethod() == "POST") {
+        PerThreadEntityManagers.getEntityManager().getTransaction();
+      }
+    }));
+
+     */
+
+    Spark.after(((request, response) -> {
+      //PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+      PerThreadEntityManagers.getEntityManager().getEntityManagerFactory().getCache().evictAll();
+
+      // PerThreadEntityManagers.closeEntityManager();
+    }));
+
+    /*
+    Spark.exception(Exception.class, ((e, request, response) -> {
+      PerThreadEntityManagers.getEntityManager().getTransaction().rollback();
+    }));
+
+     */
     Spark.post("/user/general/registrarTrayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
   }
 }
