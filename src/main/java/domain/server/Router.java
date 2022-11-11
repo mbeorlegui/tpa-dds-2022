@@ -1,5 +1,10 @@
 package domain.server;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import com.github.jknack.handlebars.Handlebars;
 import domain.administrador.Administrador;
 import domain.administrador.UsuarioGeneral;
@@ -17,6 +22,9 @@ public class Router {
     RegistrarMedicionController registrarMedicionController = new RegistrarMedicionController();
     RegistrarTrayectosController registrarTrayectosController = new RegistrarTrayectosController();
     ReportController reportController = new ReportController();
+
+    EntityManager em = PerThreadEntityManagers.getEntityManager();
+    EntityTransaction et = em.getTransaction();
 
     DebugScreen.enableDebugScreen();
 
@@ -51,6 +59,11 @@ public class Router {
         response.redirect("/home");
       }
     }));
+    // Este after elimina la cache del em despues de terminar la request
+    /*Spark.after(((request, response) -> {
+      PerThreadEntityManagers.getEntityManager().clear();
+      //PerThreadEntityManagers.closeEntityManager();
+    }));*/
 
     Spark.get("/user/general/request", requestController::request, engineTemplate);
 
@@ -75,5 +88,7 @@ public class Router {
     Spark.get("/user/admin/reportes/evolucion", reportController::reporteEvolucion, engineTemplate);
 
     Spark.get("/user/admin/reportes/composicion", reportController::reporteComposicion, engineTemplate);
+
+    Spark.post("/user/general/registrarTrayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
   }
 }

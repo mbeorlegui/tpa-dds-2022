@@ -8,6 +8,7 @@ import domain.medicion.RepoTiposConsumos;
 import domain.miembro.Documento;
 import domain.miembro.Miembro;
 import domain.organizacion.*;
+import domain.services.apidistancias.entities.ResultadoDistancia;
 import domain.transporte.Bicicleta;
 import domain.transporte.Parada;
 import domain.transporte.Pie;
@@ -42,17 +43,19 @@ public class Bootstrap {
     Ubicacion ubicacion3 = new Ubicacion(2, "Rivadavia", "4300");
     Ubicacion ubicacion4 = new Ubicacion(3, "Medrano", "500");
     Ubicacion ubicacion5 = new Ubicacion(5, "Mozart", "2300");
-    Parada parada1 = new Parada(ubicacion, null);
-    Parada parada2 = new Parada(ubicacion2, null);
-    Parada parada3 = new Parada(ubicacion3, null);
-    Parada parada4 = new Parada(ubicacion4, null);
-    Parada parada5 = new Parada(ubicacion5, null);
+    Parada parada1 = new Parada(ubicacion, new ResultadoDistancia(1200,"M"));
+    Parada parada2 = new Parada(ubicacion2, new ResultadoDistancia(2200,"M"));
+    Parada parada3 = new Parada(ubicacion3, new ResultadoDistancia(800,"M"));
+    Parada parada4 = new Parada(ubicacion4, new ResultadoDistancia(3200,"M"));
+    Parada parada5 = new Parada(ubicacion5, new ResultadoDistancia(3800,"M"));
+    Parada parada6 = new Parada(ubicacion4, new ResultadoDistancia(7800,"M"));
+    Parada parada7 = new Parada(ubicacion2, new ResultadoDistancia(900,"M"));
     TransportePublico colectivo8 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "8");
     colectivo8.addParadas(parada2, parada3, parada4);
     TransportePublico colectivo7 = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.COLECTIVO, "7");
-    colectivo7.addParadas(parada4, parada5, parada1, parada2);
+    colectivo7.addParadas(parada6, parada5, parada1, parada7);
     ServicioContratado taxi =  new ServicioContratado(RepoTiposConsumos.getInstance().getTiposConsumos().get(0), 2.0, TipoDeServicioContratado.TAXI);
     VehiculoParticular motoNafta = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(2), 1.2, TipoDeVehiculo.MOTO);
     VehiculoParticular auto = new VehiculoParticular(RepoTiposConsumos.getInstance().getTiposConsumos().get(1), 2.5, TipoDeVehiculo.AUTO);
@@ -88,7 +91,13 @@ public class Bootstrap {
     List<Tramo> tramos = new ArrayList<>();
     Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
     tramos.add(tramo);
+    List<Tramo> tramos2 = new ArrayList<>();
+    Tramo tramo2 = new Tramo(ubicacion3, ubicacion4, colectivo8);
+    Tramo tramo3 = new Tramo(ubicacion4, ubicacion, colectivo7);
+    tramos2.add(tramo2);
+    tramos2.add(tramo3);
     Trayecto unTrayecto = new Trayecto(tramos);
+    Trayecto trayecto2 = new Trayecto(tramos2);
     Miembro miembro1 = new Miembro("Matias", "Beorlegui", 41567890, Documento.DNI, unTrayecto);
     Solicitud solicitud1 = new Solicitud(
         unSector,
@@ -107,7 +116,7 @@ public class Bootstrap {
         miembro3,
         "Formar parte de la organización significaría un gran paso para mi carrera profesional"
     );
-    Miembro miembro4 = new Miembro("Alejo", "Sandrini", 41091789, Documento.DNI, unTrayecto);
+    Miembro miembro4 = new Miembro("Alejo", "Sandrini", 41091789, Documento.DNI, trayecto2);
     Solicitud solicitud4 = new Solicitud(
         unSector,
         miembro4,
@@ -117,6 +126,7 @@ public class Bootstrap {
     org.agregarMedicion(medicion2);
     org2.agregarMedicion(medicion3);
     org2.agregarMedicion(medicion4);
+    unSector.addMiembro(miembro4);
     org2.addSector(unSector);
     sectorTerritorial.agregarOrganizacion(org2);
     sectorTerritorial.agregarOrganizacion(org);
@@ -130,6 +140,8 @@ public class Bootstrap {
     em.persist(parada3);
     em.persist(parada4);
     em.persist(parada5);
+    em.persist(parada6);
+    em.persist(parada7);
     em.persist(colectivo7);
     em.persist(colectivo8);
     em.persist(taxi);
@@ -139,6 +151,9 @@ public class Bootstrap {
     em.persist(pie);
     em.persist(org2);
     em.persist(unSector);
+    em.persist(tramo2);
+    em.persist(tramo3);
+    em.persist(trayecto2);
     // Para que los metodos anden en el runner deben ser static
     // System.out.println("Ubicacion 0: " + ReportGenerator.getUbicaciones().get(0).getCalle());
 //    System.out.println(

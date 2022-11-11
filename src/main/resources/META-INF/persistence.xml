@@ -22,6 +22,7 @@
         <class>domain.medios.Contacto</class>
         <class>domain.medios.MedioDeComunicacion</class>
         <class>domain.administrador.Solicitud</class>
+        <class>domain.services.apidistancias.entities.ResultadoDistancia</class>
 
 
         <properties>
