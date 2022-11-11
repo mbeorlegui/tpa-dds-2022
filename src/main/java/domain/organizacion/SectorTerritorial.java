@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sector_territorial")
@@ -81,5 +83,12 @@ public class SectorTerritorial {
 
   public List<Organizacion> getOrganizaciones() {
     return organizaciones;
+  }
+
+  public boolean contieneOrganizacion(Long id) {
+    return this.getOrganizaciones().stream()
+      .map(org->org.getId())
+      .collect(Collectors.toList())
+      .contains(id);
   }
 }

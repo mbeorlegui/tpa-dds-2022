@@ -65,7 +65,9 @@ function habilitarPeriodo(selectPeriodo){
 */
 function modificarPeriodo(boton){
     let inputAnio = document.getElementById("anio")
-    inputAnio.disabled = false
+    if(inputAnio != null){
+        inputAnio.disabled = false
+    }
     let contenedores = document.querySelectorAll(".mes-container")
     console.log(contenedores)
     for(contenedor of contenedores){

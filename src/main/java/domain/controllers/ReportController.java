@@ -7,13 +7,16 @@ import domain.medicion.Periodicidad;
 import domain.medicion.Periodo;
 import domain.organizacion.*;
 import domain.reports.ReportGenerator;
+import javassist.NotFoundException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -107,15 +110,16 @@ public class ReportController {
     model.put("tipo_reporte","Evolución");
     List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
     model.put("organizaciones", organizaciones);
-    System.out.println(request.queryParams("tipo-entidad"));
-    
-    if (request.queryParams("tipo-entidad") != null && request.queryParams("tipo-entidad").equals("organizacion")) {
-      Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+
+    if (request.queryParams("tipo-entidad") == null){
+      return new ModelAndView(model, "reporteEvolucion.hbs");
+    }else{
       Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
       String periodoDeImputacionInicio;
       String periodoDeImputacionFin;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
-      System.out.println(request.queryParams("periodicidad"));
+      List<Double> resultado = new ArrayList<>();
+      List<Periodo> periodicidadList = new ArrayList<>();
       if(periodicidad == Periodicidad.ANUAL) {
         periodoDeImputacionInicio = request.queryParams("anio1");
         periodoDeImputacionFin = request.queryParams("anio2");
@@ -145,22 +149,30 @@ public class ReportController {
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
           break;
       }
-      Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
-      List<Double> resultado = ReportGenerator.getEvolucionHcDeOrganizacion(organizacionId, periodicidad,
-      periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
-      System.out.println(resultado);
-      List<Periodo> periodicidadList = periodicidad.getPeriodos(periodoDeImputacionInicio, periodoDeImputacionFin);
+      if (request.queryParams("tipo-entidad").equals("organizacion")) {
+        Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+        resultado = ReportGenerator.getEvolucionHcDeOrganizacion(organizacionId, periodicidad,
+        periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
+      }else if(request.queryParams("tipo-entidad").equals("sector")){
+        Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
+        List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
+        try{
+          SectorTerritorial sectorTerritorial = sectoresTerritoriales.stream()
+          .filter(st -> st.contieneOrganizacion(user.getOrganizacionAsociada().getId()))
+          .findFirst()
+          .orElseThrow(() -> new NotFoundException("La organizacion no tiene un sector asociado"));
+          resultado = ReportGenerator.getEvolucionHcDeSector(sectorTerritorial.getId(),
+            periodicidad, periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
+        }catch(NotFoundException e){
+          System.out.println("La organizacion no tiene un sector asociado");
+        }
+      }
+      periodicidadList = periodicidad.getPeriodos(periodoDeImputacionInicio, periodoDeImputacionFin);
       model.put("resultado", resultado);
       model.put("periodicidad", new Gson().toJson(periodicidadList));
-    }else if(request.queryParams("tipo-entidad")!=null && request.queryParams("tipo-entidad").equals("sector")){
-      // TODO: hay que conseguir el sector terriorial de la organizacion del usuario?
-      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
-      Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
-      //SectorTerritorial sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectorTerritorial();
-
-      System.out.println(new Gson().toJson(user.getOrganizacionAsociada()));
+      return new ModelAndView(model, "reporteEvolucion.hbs");
     }
-    return new ModelAndView(model, "reporteEvolucion.hbs");
+    
   }
 
   public ModelAndView reporteComposicion(Request request, Response response) {
