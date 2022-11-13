@@ -86,3 +86,29 @@ function modificarPeriodo(boton){
         }
     }
 }
+
+/*
+    Pantalla: reportes
+    Funcion: cambiar encabezado tabla segun selecciona organizacion o sector territorial
+*/
+function modificarTabla(valor){
+    let columna = document.getElementById("entidad-tabla");
+    columna.innerText = valor
+}
+
+/*
+    Pantalla: reportes
+    Funcion: habilitar y desahabilitar select de organizacion
+*/
+function modificarSelectOrg(boton){
+    let selectEntidad = document.getElementById("entidad")
+    if(boton.value == "sector"){
+        selectEntidad.disabled = true
+        selectEntidad.hidden = true
+        selectEntidad.required = false
+    }else{
+        selectEntidad.disabled = false
+        selectEntidad.hidden = false
+        selectEntidad.required = true
+    }
+}

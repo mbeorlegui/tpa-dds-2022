@@ -7,6 +7,7 @@ import domain.medicion.Periodicidad;
 import domain.medicion.Periodo;
 import domain.organizacion.*;
 import domain.reports.ReportGenerator;
+import domain.reports.ReporteDeComposicion;
 import javassist.NotFoundException;
 import spark.ModelAndView;
 import spark.Request;
@@ -120,7 +121,73 @@ public class ReportController {
   public ModelAndView reporteHcTotal(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","Huella de Carbono");
-    return new ModelAndView(model, "reporteHcTotal.hbs");
+    List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
+    model.put("organizaciones", organizaciones);
+    
+    if (request.queryParams("tipo-entidad") == null){
+      return new ModelAndView(model, "reporteHcTotal.hbs");
+    }else{
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      String periodoDeImputacion;
+      UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      Double resultado = 0.0;
+      String nombreEntidad = "";
+      Long idEntidad = 0L;
+      if(periodicidad == Periodicidad.ANUAL) {
+        periodoDeImputacion = request.queryParams("anio");
+      } else {
+        if (Integer.parseInt(request.queryParams("mes")) < 10) {
+          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        } else {
+          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+        }
+      }
+      switch (Integer.parseInt(request.queryParams("unidad"))) {
+        case 0:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          break;
+        case 1:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+        case 2:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          break;
+        default:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+      }
+      if (request.queryParams("tipo-entidad").equals("organizacion")) {
+        Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+        Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
+        resultado = ReportGenerator.getHuellaDeCarbonoEnPeriodo(organizacionId,
+         periodicidad, periodoDeImputacion, unidadEquivalenteCarbono);
+        nombreEntidad =  organizacion.getRazonSocial();
+        idEntidad = organizacionId;
+        System.out.println("entro org: "+nombreEntidad);
+      }else if(request.queryParams("tipo-entidad").equals("sector")){
+        Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
+        List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
+        try{
+          SectorTerritorial sectorTerritorial = sectoresTerritoriales.stream()
+          .filter(st -> st.contieneOrganizacion(user.getOrganizacionAsociada().getId()))
+          .findFirst()
+          .orElseThrow(() -> new NotFoundException("La organizacion no tiene un sector asociado"));
+          resultado = sectorTerritorial.huellaDeCarbonoEnPeriodo(
+            periodicidad, periodoDeImputacion, unidadEquivalenteCarbono);
+          nombreEntidad = sectorTerritorial.getNombre();
+          idEntidad = sectorTerritorial.getId();
+          System.out.println("entro sector: "+nombreEntidad);
+        }catch(NotFoundException e){
+          System.out.println("La organizacion no tiene un sector asociado");
+        }
+      }
+      System.out.println(resultado);
+      model.put("resultado", resultado);
+      model.put("nombreEntidad", nombreEntidad);
+      model.put("id", idEntidad);
+      model.put("unidad", unidadEquivalenteCarbono);
+      return new ModelAndView(model, "reporteHcTotal.hbs");
+    }
   }
 
   public ModelAndView reporteEvolucion(Request request, Response response) {
@@ -196,7 +263,74 @@ public class ReportController {
   public ModelAndView reporteComposicion(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     model.put("tipo_reporte","Composición");
-    return new ModelAndView(model, "reporteComposicion.hbs");
+    List<Organizacion> organizaciones = RepoOrganizaciones.getInstance().getOrganizaciones();
+    model.put("organizaciones", organizaciones);
+
+    if (request.queryParams("tipo-entidad") == null){
+      return new ModelAndView(model, "reporteComposicion.hbs");
+    }else{
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual")  ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      String periodoDeImputacion;
+      UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      ReporteDeComposicion resultado = new ReporteDeComposicion(0, 0);
+      String nombreEntidad = "";
+      Long idEntidad = 0L;
+      if(periodicidad == Periodicidad.ANUAL) {
+        periodoDeImputacion = request.queryParams("anio");
+      } else {
+        if (Integer.parseInt(request.queryParams("mes")) < 10) {
+          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        } else {
+          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+        }
+      }
+      switch (Integer.parseInt(request.queryParams("unidad"))) {
+        case 0:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          break;
+        case 1:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+        case 2:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          break;
+        default:
+          unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          break;
+      }
+      if (request.queryParams("tipo-entidad").equals("organizacion")) {
+        Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+        Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
+        resultado = ReportGenerator.composicionHcDeOrganizacion(organizacionId,
+         periodicidad, periodoDeImputacion, unidadEquivalenteCarbono);
+        nombreEntidad =  organizacion.getRazonSocial();
+        idEntidad = organizacionId;
+        System.out.println("entro org: "+nombreEntidad);
+      }else if(request.queryParams("tipo-entidad").equals("sector")){
+        Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
+        List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
+        try{
+          SectorTerritorial sectorTerritorial = sectoresTerritoriales.stream()
+          .filter(st -> st.contieneOrganizacion(user.getOrganizacionAsociada().getId()))
+          .findFirst()
+          .orElseThrow(() -> new NotFoundException("La organizacion no tiene un sector asociado"));
+          resultado = ReportGenerator.composicionHcDeSectorTerritorial(sectorTerritorial.getId(),
+           periodicidad, periodoDeImputacion, unidadEquivalenteCarbono);
+          nombreEntidad = sectorTerritorial.getNombre();
+          idEntidad = sectorTerritorial.getId();
+          System.out.println("entro sector: "+nombreEntidad);
+        }catch(NotFoundException e){
+          System.out.println("La organizacion no tiene un sector asociado");
+        }
+      }
+      System.out.println(new Gson().toJson(resultado));
+      model.put("hcTrayectos", resultado.getHcTrayectos());
+      model.put("hcMediciones", resultado.getHcMediciones());
+      model.put("nombreEntidad", nombreEntidad);
+      model.put("id", idEntidad);
+      model.put("unidad", unidadEquivalenteCarbono);
+      return new ModelAndView(model, "reporteComposicion.hbs");
+    }
   }
 
   public ModelAndView reportes(Request request, Response response) {
