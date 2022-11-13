@@ -30,13 +30,14 @@ public class ReportController {
     model.put("anio", request.queryParams("anio"));
     model.put("mes", request.queryParams("mes"));
     model.put("unidad", request.queryParams("unidad"));
-
+    model.put("resultado","");
 
     if (request.queryParams("organizacion") != null) {
       Long organizacionId = Long.parseLong(request.queryParams("organizacion"));
-      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual") ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
       String periodoDeImputacion;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      String unidadResultado = "";
       if(periodicidad == Periodicidad.ANUAL) {
         periodoDeImputacion = request.queryParams("anio");
       } else {
@@ -49,19 +50,24 @@ public class ReportController {
       switch (Integer.parseInt(request.queryParams("unidad"))) {
         case 0:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          unidadResultado = "g";
           break;
         case 1:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          unidadResultado = "kg";
           break;
         case 2:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          unidadResultado = "t";
           break;
         default:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          unidadResultado = "kg";
           break;
       }
       Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
       model.put("resultado", organizacion.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadEquivalenteCarbono));
+      model.put("unidad", unidadResultado);
     }
     return new ModelAndView(model, "calculadoraOrganizacion.hbs");
   }
@@ -78,7 +84,7 @@ public class ReportController {
 
     if (request.queryParams("sector_territorial") != null) {
       Long organizacionId = Long.parseLong(request.queryParams("sector_territorial"));
-      Periodicidad periodicidad = request.queryParams("periodicidad") == "anual" ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
+      Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual") ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
       String periodoDeImputacion;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
       if(periodicidad == Periodicidad.ANUAL) {
