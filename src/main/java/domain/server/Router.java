@@ -77,7 +77,7 @@ public class Router {
 
     Spark.get("/user/admin/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
-    Spark.get("/user/general/registrarTrayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
+    Spark.get("/user/general/trayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
 
     Spark.get("/user/calculadora/organizacion", reportController::calculadoraOrganizacion, engineTemplate);
 
@@ -121,6 +121,6 @@ public class Router {
     }));
 
      */
-    Spark.post("/user/general/registrarTrayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
+    Spark.post("/user/general/trayecto/persist", registrarTrayectosController::generarTrayecto, engineTemplate);
   }
 }

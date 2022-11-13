@@ -1,7 +1,10 @@
 {{#partial "contenido"}}
     <div class="login-form w-100">
-        <form action="/user/general/registrarTrayecto/persist" method="POST"  onsubmit="contarTramos()">
-            <h1 class="ms-2">Registrar trayecto</h1>
+        <form action="/user/general/trayecto/persist" method="POST"  onsubmit="contarTramos()">
+            <div class="container-fluid d-flex align-items-center mt-5">
+                <h1 class="ms-2 py-0 pe-3">Registrar trayecto</h1>
+                <i class="fa fa-info-circle pb-1" for="ubicacionInicio" title="Seleccione el transporte y luego la ubicación"></i>
+            </div>
             <div class="container-fluid" id="contenido">
                 <div class="col-8 d-flex my-2">
                     <label for="ubicacionInicio" class="form-label my-auto ms-5">Inicio del trayecto</label>

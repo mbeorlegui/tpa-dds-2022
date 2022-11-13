@@ -1,11 +1,12 @@
 package domain.trayecto;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class RepoTrayectos {
+public class RepoTrayectos implements WithGlobalEntityManager {
   private EntityManager em = PerThreadEntityManagers.getEntityManager();
 
   private static final RepoTrayectos INSTANCE = new RepoTrayectos();
@@ -26,6 +27,6 @@ public class RepoTrayectos {
   }
 
   public void persistTrayecto(Trayecto trayecto) {
-    em.persist(trayecto);
+    entityManager().persist(trayecto);
   }
 }

@@ -1,11 +1,12 @@
 package domain.miembro;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class RepoMiembros {
+public class RepoMiembros implements WithGlobalEntityManager {
   private EntityManager em = PerThreadEntityManagers.getEntityManager();
 
   private static final RepoMiembros INSTANCE = new RepoMiembros();
@@ -26,7 +27,7 @@ public class RepoMiembros {
   }
 
   public void updateMiembro(Miembro miembro) {
-    em.merge(miembro);
+    entityManager().merge(miembro);
   }
     
 }
