@@ -24,7 +24,7 @@ public class InstanciasOrganizacion {
     this.sectorFinanzas = unSector(miembros.getMiembro6());
     this.sectorProduccion = unSector(miembros.getMiembro3(), miembros.getMiembro7());
     this.utn = unaUniversidadGubernamental(ubicaciones.getUbicacionUtn());
-    this.utn.addSectores(sectorDeRRHH, sectorFinanzas, new Sector());
+    this.utn.addSectores(sectorDeRRHH, sectorFinanzas, new Sector("Otro Sector"));
     this.utn.agregarContactos(contactos.getContacto1());
     this.orgFalsa = unaEmpresaSectorPrimario(ubicaciones.getUbicacionOrgFalsa());
     this.orgFalsa.addSectores(sectorDesarrollo, sectorDeRRHH, sectorProduccion);
@@ -32,7 +32,7 @@ public class InstanciasOrganizacion {
 
   @DisplayName("Instanciar: Un sector")
   public Sector unSector(Miembro... miembros) {
-    Sector sector = new Sector();
+    Sector sector = new Sector("Un Sector");
     sector.addMiembros(miembros);
     return sector;
   }

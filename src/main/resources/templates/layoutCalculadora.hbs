@@ -1,9 +1,9 @@
 {{#partial "contenido"}}
 <div class="login-form w-100">
     {{#if organizaciones }}
-    <form action="/user/calculadoraOrganizacion" method="GET">
+    <form action="/user/calculadora/organizacion" method="GET" id="form">
     {{else}}
-    <form action="/user/calculadoraSectorTerritorial" method="GET">
+    <form action="/user/calculadora/sectorTerritorial" method="GET" id="form">
     {{/if}}
         <h2>Calculadora de Huella de Carbono</h2>
         <div class="content">
@@ -14,13 +14,13 @@
                     <h4>Seleccione periodicidad: </h4>
                 </div>
                 <div class="col-md-2 form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="anual" value="anual" onclick="modificarPeriodo(this)" required>
                     <label class="form-check-label" for="anual">
                         Anual
                     </label>
                 </div>
                 <div class="col-md-2  form-check">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)">
                     <label class="form-check-label" for="mensual">
                         Mensual
                     </label>
@@ -29,26 +29,30 @@
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-between">
                     <label class="form-label d" for="anio"><h4>Año:</h4></label>
-                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;" name="anio"/>
+                    <input type="number" min="1" max="2022" id="anio" class="form-control" style="width: 75%;" name="anio" required disabled/>
                 </div>
-                <div class="col-md-4 d-flex justify-content-between">
+                <div class="col-md-4 d-flex justify-content-between mes-container">
                     <label class="form-label d" for="mes"><h4>Mes:</h4></label>
-                    <input type="number" min="1" max="12" id="mes" class="form-control" style="width: 75%;" name="mes"/>
+                    <input type="number" min="1" max="12" id="mes" class="form-control" style="width: 75%;" name="mes" required disabled/>
                 </div>
                 <div class="col-md-4 d-flex justify-content-between">
                     <label for="unidad" class="form-label"><h4>Unidad:</h4></label>
-                    <select class="form-select ms-3" id="unidad" name="unidad">
-                        <option value=""></option>
+                    <select class="form-select ms-3" id="unidad" name="unidad" required>
                         <option value="0">Gramos</option>
                         <option value="1">Kilogramos</option>
                         <option value="2">Toneladas</option>
                     </select>
                 </div>
             </div>
-            <div class="row bg-info mt-3">
-            {{#if resultado}}
-                <h4>Huella de carbono = {{resultado}}</h4>
-            {{/if}}
+            <div class="row mt-3">
+                {{#if resultado}}
+                <div class="card border-success p-0">
+                    <h5 class="card-header fw-bold text-success">Resultado</h5>
+                    <div class="card-body text-success">
+                        <h5 class="card-title">Huella de carbono = {{resultado}} {{unidad}}CO2eq</h5>
+                    </div>
+                </div>
+                {{/if}}
             </div>
         </div>
         <div class="action">
@@ -56,6 +60,53 @@
         </div>
     </form>
 </div>
+<script>
+    let form = document.getElementById("form")
+    //con este evento guardo datos del form en sessionStorage
+    form.addEventListener("submit", function(event) {
+        let entidad = document.getElementById("entidad")
+        let periodicidadAnual = document.getElementById("anual")
+        let periodicidadMensual = document.getElementById("mensual")
+        let inputAnio = document.getElementById("anio")
+        let inputMes = document.getElementById("mes")
+        let unidad = document.getElementById("unidad")
+        let periodicidad = ""
+        if(periodicidadAnual.checked){
+            periodicidad = "anual"
+        }else if(periodicidadMensual.checked){
+            periodicidad = "mensual"
+        }
+        let datos = JSON.stringify({'entidad':entidad.value, 'periodicidad': periodicidad,
+        'anio':anio.value,'mes':mes.value,'unidad':unidad.value})
+        sessionStorage.setItem('datos', datos);
+    });
+    //con este evento cargo datos del form en sessionStorage y los elimino despues de usarlos
+    window.addEventListener("load", function(event) {
+        if(sessionStorage.length>0){
+            let entidad = document.getElementById("entidad")
+            let periodicidadAnual = document.getElementById("anual")
+            let periodicidadMensual = document.getElementById("mensual")
+            let inputAnio = document.getElementById("anio")
+            let inputMes = document.getElementById("mes")
+            let unidad = document.getElementById("unidad")
+            
+            let datos = JSON.parse(sessionStorage.getItem('datos'))
+            console.log(datos)
+            entidad.value = datos.entidad
+            inputAnio.value = datos.anio
+            if(datos.periodicidad == "anual"){
+                modificarPeriodo(periodicidadAnual)
+                periodicidadAnual.checked=true
+            }else if(datos.periodicidad == "mensual"){
+                modificarPeriodo(periodicidadMensual)
+                inputMes.value = datos.mes
+                periodicidadMensual.checked=true
+            }
+            unidad.value = datos.unidad
+            sessionStorage.clear()
+        }
+    });
+</script>
 {{/partial}}
 
 {{>layout.hbs}}

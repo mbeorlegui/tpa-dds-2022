@@ -29,19 +29,6 @@ function obtenerSectorDe(organizacion){
 }
 
 /*
-    Pantalla: reportes
-    Funcion: cambiar color tipo de reporte seleccionado
-*/
-function cambiarSeleccionReporte(reporteActual){
-    console.log("hola")
-    let reporteAnterior = document.getElementsByClassName("btn-primary")
-    reporteAnterior.classList.replace("btn-primary","btn-secondary")
-    reporteActual.classList.replace("btn-secondary","btn-primary")
-    console.log(reporteActual)
-    console.log(reporteAnterior)
-}
-
-/*
     Pantalla: registrarMedicionParticular
     Funcion: cambiar title icono info de periodo segun la periodicidad
 */
@@ -69,5 +56,59 @@ function habilitarPeriodo(selectPeriodo){
         inputPeriodo.removeAttribute("disabled")
     } else {
         inputPeriodo.removeAttribute("disabled")
+    }
+}
+
+/*
+    Pantalla: reportes
+    Funcion: habilitar y desahabilitar input mes luego de seleccionar periodicidad
+*/
+function modificarPeriodo(boton){
+    let inputAnio = document.getElementById("anio")
+    if(inputAnio != null){
+        inputAnio.disabled = false
+    }
+    let contenedores = document.querySelectorAll(".mes-container")
+    console.log(contenedores)
+    for(contenedor of contenedores){
+        var nodes = contenedor.childNodes;
+        console.log(nodes)
+        for(node of nodes){
+            if(boton.value == "anual"){
+                node.disabled = true
+                node.hidden = true
+                node.required = false
+            }else{
+                node.disabled = false
+                node.hidden = false
+                node.required = true
+            }
+        }
+    }
+}
+
+/*
+    Pantalla: reportes
+    Funcion: cambiar encabezado tabla segun selecciona organizacion o sector territorial
+*/
+function modificarTabla(valor){
+    let columna = document.getElementById("entidad-tabla");
+    columna.innerText = valor
+}
+
+/*
+    Pantalla: reportes
+    Funcion: habilitar y desahabilitar select de organizacion
+*/
+function modificarSelectOrg(boton){
+    let selectEntidad = document.getElementById("entidad")
+    if(boton.value == "sector"){
+        selectEntidad.disabled = true
+        selectEntidad.hidden = true
+        selectEntidad.required = false
+    }else{
+        selectEntidad.disabled = false
+        selectEntidad.hidden = false
+        selectEntidad.required = true
     }
 }
