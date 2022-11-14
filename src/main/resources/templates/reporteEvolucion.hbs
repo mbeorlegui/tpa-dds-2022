@@ -47,21 +47,27 @@
             </div>
         </div>
         <div class="col-md-8 d-sm-flex d-block justify-content-between">
-          <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio1"><h5 class="m-0">Año inicio:</h5></label>
-            <input type="number" min="1" max="2022" id="anio1" name="anio1" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center mes-container">
-            <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
-            <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
-            <input type="number" min="1" max="2022" id="anio2" name="anio2" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center mes-container">
-            <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
-            <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+          <div class="d-lg-flex d-block">
+            <div class="d-sm-flex">
+              <div class="d-flex m-0 align-items-center">
+                <label class="form-label m-0" for="anio1"><h5 class="m-0">Año inicio:</h5></label>
+                <input type="number" min="1" max="2022" id="anio1" name="anio1" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+              <div class="d-flex m-0 align-items-center mes-container">
+                <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
+                <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+            </div>
+            <div class="d-sm-flex">
+              <div class="d-flex m-0 align-items-center">
+                <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
+                <input type="number" min="1" max="2022" id="anio2" name="anio2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+              <div class="d-flex m-0 align-items-center mes-container">
+                <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
+                <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+            </div>
           </div>
           <div class="d-flex m-0 align-items-center">
             <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>
@@ -76,18 +82,13 @@
     <div class="action">
         <button type="submit">Calcular</button>
     </div>
-        <!--<div class="container bg-info" id="grafico">
-          {{#each resultado}}
-            <p>{{this}}</p>
-          {{/each}}
-        </div>-->
     </form>
   </div>
 {{/partial}}
 
 {{#partial "resultado"}}
     <div class="container">
-      <canvas id="myChart"></canvas>
+      <canvas id="myChart" hidden></canvas>
     </div>
 {{/partial}}
 
