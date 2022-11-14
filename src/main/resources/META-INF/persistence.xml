@@ -31,7 +31,7 @@
             <property name="hibernate.connection.url"
                       value="jdbc:mysql://localhost:3306/TpIntegrador?createDatabaseIfNotExist=true"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="matiasbeorlegui"/>
+            <property name="hibernate.connection.password" value="matibeor"/>
 
             <property name="use_sql_comments" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
