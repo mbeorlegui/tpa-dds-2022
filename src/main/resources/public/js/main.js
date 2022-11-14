@@ -37,9 +37,9 @@ function obtenerFormato(icono){
     if(inputPeriodicidad==""){
         icono.setAttribute("title","Seleccione primero la periodicidad")
     }else if(inputPeriodicidad=="Mensual"){
-        icono.setAttribute("title","Inserte periodo con formato: 01/2022")
+        icono.setAttribute("title","Inserte periodo con formato: MM/AAAA")
     }else if(inputPeriodicidad=="Anual"){
-        icono.setAttribute("title","Inserte periodo con formato: 2022")
+        icono.setAttribute("title","Inserte periodo con formato: AAAA")
     }else{
         icono.setAttribute("title","Seleccione una periodicidad valida")
     }
