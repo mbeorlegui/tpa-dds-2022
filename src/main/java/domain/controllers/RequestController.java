@@ -95,7 +95,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
       RepoSolicitudes.getInstance().updateSolicitud(solicitud);
     });
 
-    request.session().attribute("mensaje", "Se rechazo la solicitud");
+    request.session().attribute("mensaje", "Se rechazó la solicitud");
     response.redirect("/user/admin/vinculaciones");
     return null;
   }
