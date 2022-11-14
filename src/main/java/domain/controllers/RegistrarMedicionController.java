@@ -84,8 +84,9 @@ public class RegistrarMedicionController {
     Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
     org.agregarMedicion(medicion);
     RepoOrganizaciones.getInstance().update(org);
-    System.out.println(medicion);
+
     request.session().attribute("mensaje", "Mediciones registradas");
+
     response.redirect("/user/admin/registrarMedicionParticular");
     return null;
   }
@@ -94,6 +95,8 @@ public class RegistrarMedicionController {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<TipoConsumo> tipos_consumo = RepoTiposConsumos.getInstance().getTiposConsumos();
     model.put("tipos_consumo", tipos_consumo);
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "registrarMedicionParticular.hbs");
   }
 }

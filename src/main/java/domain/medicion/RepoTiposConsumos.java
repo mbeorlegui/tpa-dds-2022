@@ -38,7 +38,6 @@ public class RepoTiposConsumos {
   }
 
   public TipoConsumo hayarTipo(String nombre) {
-    System.out.println("Tipo de consumo!: " + nombre);
     return this.getTiposConsumos()
         .stream()
         .filter(unConsumo -> unConsumo.toString().equals(nombre))
