@@ -157,13 +157,15 @@ public class ReportController {
           break;
       }
       if (request.queryParams("tipo-entidad").equals("organizacion")) {
-        Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+        String entidad = request.queryParams("entidad");
+        System.out.println("Entidad: " + entidad);
+        Long organizacionId = Long.parseLong(entidad);
         Organizacion organizacion = RepoOrganizaciones.getInstance().getOrganizacion(organizacionId);
         resultado = ReportGenerator.getHuellaDeCarbonoEnPeriodo(organizacionId,
          periodicidad, periodoDeImputacion, unidadEquivalenteCarbono);
         nombreEntidad =  organizacion.getRazonSocial();
         idEntidad = organizacionId;
-        System.out.println("entro org: "+nombreEntidad);
+        System.out.println("entro org: " + nombreEntidad);
       }else if(request.queryParams("tipo-entidad").equals("sector")){
         Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
         List<SectorTerritorial> sectoresTerritoriales = RepoSectoresTerritoriales.getInstance().getSectoresTerritoriales();
@@ -235,7 +237,9 @@ public class ReportController {
           break;
       }
       if (request.queryParams("tipo-entidad").equals("organizacion")) {
-        Long organizacionId = Long.parseLong(request.queryParams("entidad"));
+        String entidad = request.queryParams("entidad");
+        System.out.println("Entidad: " + entidad);
+        Long organizacionId = Long.parseLong(entidad);
         resultado = ReportGenerator.getEvolucionHcDeOrganizacion(organizacionId, periodicidad,
         periodoDeImputacionInicio, periodoDeImputacionFin, unidadEquivalenteCarbono);
       }else if(request.queryParams("tipo-entidad").equals("sector")){
