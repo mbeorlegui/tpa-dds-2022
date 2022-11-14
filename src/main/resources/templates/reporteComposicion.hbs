@@ -70,6 +70,45 @@
       </div>
     </form>
   </div>
+  <script>
+    //con este evento cargo datos del form con URLSearchParams
+    window.addEventListener("load", function(event) {
+      let params = new URLSearchParams(location.search)
+        if(params.has('tipo-entidad')){
+            let organizacion = document.getElementById("organizacion")
+            let sector = document.getElementById("sector")
+            let entidad = document.getElementById("entidad")
+            let periodicidadAnual = document.getElementById("anual")
+            let periodicidadMensual = document.getElementById("mensual")
+            let inputAnio = document.getElementById("anio")
+            let inputMes = document.getElementById("mes")
+            let unidad = document.getElementById("unidad")
+            
+            
+            if(params.get('tipo-entidad') === "organizacion"){
+              modificarSelectOrg(organizacion)
+              organizacion.checked=true
+              entidad.value = params.get('entidad')
+            }else if(params.get('tipo-entidad') === "sector"){
+              modificarSelectOrg(sector)
+              sector.checked=true
+            }
+            inputAnio.value = params.get('anio')
+            if(params.get('periodicidad') === "anual"){
+                modificarPeriodo(periodicidadAnual)
+                periodicidadAnual.checked=true
+            }else if(params.get('periodicidad') === "mensual"){
+                modificarPeriodo(periodicidadMensual)
+                inputMes.value = params.get('mes')
+                periodicidadMensual.checked=true
+            }
+            unidad.value = params.get('unidad')
+            
+            window.history.replaceState({}, '', `${location.pathname}?${params}`);
+           // window.history.replaceState({}, '', `${location.pathname}`);
+        }
+    });
+</script>
 {{/partial}}
 
 {{#partial "resultado"}}

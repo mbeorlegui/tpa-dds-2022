@@ -6,9 +6,9 @@
     <h2>Seleccione un tipo de reporte:</h2>
     {{/if}}
     <div class="container-fluid d-flex justify-content-center border border-1 p-2">
-        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/hcTotal" role="button" onload="cambiarSeleccionReporte(this)">HC Total</a>
-        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/evolucion" role="button"  onload="cambiarSeleccionReporte(this)">Evolución</a>
-        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/composicion" role="button"  onload="cambiarSeleccionReporte(this)">Composición</a>
+        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/hcTotal" role="button" id="hcTotal">HC Total</a>
+        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/evolucion" role="button"  id="evolucion">Evolución</a>
+        <a class="btn btn-secondary mx-2" href="/user/admin/reportes/composicion" role="button"  id="composicion">Composición</a>
     </div>
     {{#block "form"}}
     {{/block}}
@@ -17,6 +17,10 @@
 </div>
 {{#block "script"}}
 {{/block}}
+<script>
+    let reporte = "{{tipo_reporte}}"
+    cambiarSeleccionReporte(reporte)
+</script>
 {{/partial}}
 
 {{>layout.hbs}}
