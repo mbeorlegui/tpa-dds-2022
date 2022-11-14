@@ -101,6 +101,48 @@
     periodicidad = {{{periodicidad}}}
     inicializarDatos(resultado, periodicidad)
     generarGrafico()
+    
+    //con este evento cargo datos del form con URLSearchParams
+    window.addEventListener("load", function(event) {
+      let params = new URLSearchParams(location.search)
+        if(params.has('tipo-entidad')){
+            let organizacion = document.getElementById("organizacion")
+            let sector = document.getElementById("sector")
+            let entidad = document.getElementById("entidad")
+            let periodicidadAnual = document.getElementById("anual")
+            let periodicidadMensual = document.getElementById("mensual")
+            let inputAnio1 = document.getElementById("anio1")
+            let inputAnio2 = document.getElementById("anio2")
+            let inputMes1 = document.getElementById("mes1")
+            let inputMes2 = document.getElementById("mes2")
+            let unidad = document.getElementById("unidad")
+            
+            
+            if(params.get('tipo-entidad') === "organizacion"){
+              modificarSelectOrg(organizacion)
+              organizacion.checked=true
+              entidad.value = params.get('entidad')
+            }else if(params.get('tipo-entidad') === "sector"){
+              modificarSelectOrg(sector)
+              sector.checked=true
+            }
+            inputAnio1.value = params.get('anio1')
+            inputAnio2.value = params.get('anio2')
+            if(params.get('periodicidad') === "anual"){
+                modificarPeriodo(periodicidadAnual)
+                periodicidadAnual.checked=true
+            }else if(params.get('periodicidad') === "mensual"){
+                modificarPeriodo(periodicidadMensual)
+                inputMes1.value = params.get('mes1')
+                inputMes2.value = params.get('mes2')
+                periodicidadMensual.checked=true
+            }
+            unidad.value = params.get('unidad')
+            
+            window.history.replaceState({}, '', `${location.pathname}?${params}`);
+           // window.history.replaceState({}, '', `${location.pathname}`);
+        }
+    });
   </script>
 {{/partial}}
 
