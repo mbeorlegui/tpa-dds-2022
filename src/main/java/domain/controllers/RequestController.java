@@ -80,7 +80,7 @@ public class RequestController implements WithGlobalEntityManager, Transactional
       RepoSectores.getInstance().updateSector(solicitud.getSector());
     });
 
-    request.session().attribute("mensaje", "Se acepto la solicitud");
+    request.session().attribute("mensaje", "Se aceptó la solicitud");
     response.redirect("/user/admin/vinculaciones");
 
     return null;
