@@ -1,10 +1,10 @@
 package domain.controllers;
 
+import com.google.gson.Gson;
 import domain.administrador.Administrador;
 import domain.administrador.RepoUsuarios;
 import domain.administrador.Usuario;
-import domain.medicion.Medicion;
-import domain.medicion.RepoMediciones;
+import domain.medicion.*;
 import domain.organizacion.CsvHandler;
 import domain.organizacion.Organizacion;
 import domain.organizacion.RepoOrganizaciones;
@@ -37,9 +37,6 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.nio.file.*;
 
-import domain.medicion.RepoTiposConsumos;
-import domain.medicion.TipoConsumo;
-
 public class RegistrarMedicionController {
   private CsvHandler csvHandler;
   public ModelAndView registrarMedicionCsv(Request request, Response response) {
@@ -59,7 +56,7 @@ public class RegistrarMedicionController {
     List<Medicion> mediciones = csvHandler.getMediciones(input);
     mediciones.forEach(RepoMediciones.getInstance()::save);
 
-    //Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
+    // Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
     Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
     input.close();
     Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
@@ -71,10 +68,35 @@ public class RegistrarMedicionController {
     return null;
   }
 
+  @SneakyThrows
+  public ModelAndView procesarMedicionParticular(Request request, Response response) {
+    List<TipoConsumo> tiposConsumos = RepoTiposConsumos.getInstance().getTiposConsumos();
+    String valor = request.queryParams("valor");
+    String periodicidad = request.queryParams("periodicidad");
+    String periodoImputacion = request.queryParams("periodoImputacion");
+    int tipoDeConsumo = Integer.parseInt(request.queryParams("tipoDeConsumo")) - 1;
+    MedicionRead medicionRead = new MedicionRead(tiposConsumos.get(tipoDeConsumo).getNombre(), valor, periodicidad.toUpperCase(), periodoImputacion);
+    Medicion medicion = new MedicionAdapter().adaptarMedicion(medicionRead);
+    RepoMediciones.getInstance().save(medicion);
+
+    // Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
+    Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
+    Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
+    org.agregarMedicion(medicion);
+    RepoOrganizaciones.getInstance().update(org);
+
+    request.session().attribute("mensaje", "Mediciones registradas");
+
+    response.redirect("/user/admin/registrarMedicionParticular");
+    return null;
+  }
+
   public ModelAndView registrarMedicionParticular(Request request, Response response) {
     Map<String, Object> model = new IndexController().llenarIndex(request);
     List<TipoConsumo> tipos_consumo = RepoTiposConsumos.getInstance().getTiposConsumos();
     model.put("tipos_consumo", tipos_consumo);
+    model.put("mensaje", request.session().attribute("mensaje"));
+    request.session().removeAttribute("mensaje");
     return new ModelAndView(model, "registrarMedicionParticular.hbs");
   }
 }

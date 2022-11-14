@@ -74,7 +74,7 @@ function modificarPeriodo(boton){
         var nodes = contenedor.childNodes;
         console.log(nodes)
         for(node of nodes){
-            if(boton.value == "anual"){
+            if(boton.value === "anual"){
                 node.disabled = true
                 node.hidden = true
                 node.required = false
@@ -102,7 +102,7 @@ function modificarTabla(valor){
 */
 function modificarSelectOrg(boton){
     let selectEntidad = document.getElementById("entidad")
-    if(boton.value == "sector"){
+    if(boton.value === "sector"){
         selectEntidad.disabled = true
         selectEntidad.hidden = true
         selectEntidad.required = false

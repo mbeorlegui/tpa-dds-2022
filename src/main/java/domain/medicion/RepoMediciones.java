@@ -18,6 +18,7 @@ public class RepoMediciones {
   }
 
   public void save(Medicion medicion) {
+    System.out.println(medicion);
     EntityTransaction et = em.getTransaction();
     et.begin();
     em.persist(medicion);
