@@ -77,6 +77,8 @@ public class Router {
 
     Spark.get("/user/admin/registrarMedicionParticular", registrarMedicionController::registrarMedicionParticular, engineTemplate);
 
+    Spark.post("/user/admin/registrarMedicionParticular", registrarMedicionController::procesarMedicionParticular, engineTemplate);
+
     Spark.get("/user/general/trayecto", registrarTrayectosController::registrarTrayecto, engineTemplate);
 
     Spark.get("/user/calculadora/organizacion", reportController::calculadoraOrganizacion, engineTemplate);

@@ -6,13 +6,13 @@
               <h5>Seleccione tipo de entidad: </h5>
               <div class="d-md-flex ms-1">
                 <div class="form-check mx-1">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" onclick="modificarSelectOrg(this)" value="organizacion">
+                    <input class="form-check-input" type="radio" name="tipo-entidad" id="organizacion" onclick="modificarSelectOrg(this)" value="organizacion" required>
                     <label class="form-check-label" for="organizacion">
                         Organización
                     </label>
                 </div>
                 <div class="form-check mx-1">
-                    <input class="form-check-input" type="radio" name="tipo-entidad" id="sector" onclick="modificarSelectOrg(this)" value="sector">
+                    <input class="form-check-input" type="radio" name="tipo-entidad" id="sector" onclick="modificarSelectOrg(this)" value="sector" required>
                     <label class="form-check-label" for="sector">
                         Sector Territorial
                     </label>
@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-3 p-0 d-flex">
               <select class="form-select ms-auto" id="entidad" name="entidad" required disabled>
-                <option hidden>Seleccione una Entidad:</option>
+                <option hidden disabled selected value="">Seleccione una Entidad</option>
                 {{#each organizaciones}}
                 <option value="{{ id }}">{{ razonSocial }}</option>
                 {{/each}}
@@ -33,13 +33,13 @@
               <h5>Seleccione periodicidad:</h5>
               <div class="d-md-block d-sm-flex m-1">
                 <div class="form-check mx-sm-1">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="anual"  value="anual" onclick="modificarPeriodo(this)">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="anual"  value="anual" onclick="modificarPeriodo(this)" required>
                     <label class="form-check-label" for="anual">
                         Anual
                     </label>
                 </div>
                 <div class="form-check mx-sm-1">
-                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)">
+                    <input class="form-check-input" type="radio" name="periodicidad" id="mensual" value="mensual" onclick="modificarPeriodo(this)" required>
                     <label class="form-check-label" for="mensual">
                         Mensual
                     </label>
@@ -49,11 +49,11 @@
           <div class="col-md-8 d-sm-flex d-block justify-content-between">
             <div class="d-flex m-0 align-items-center">
               <label class="form-label m-0" for="anio"><h5 class="m-0">Año:</h5></label>
-              <input type="number" min="1" max="2022" id="anio" name="anio" class="form-control ms-auto p-1" style="width: 75%;"/>
+              <input type="number" min="1" max="2022" id="anio" name="anio" class="form-control ms-auto p-1" style="width: 75%;" required/>
             </div>
             <div class="d-flex m-0 align-items-center mes-container">
               <label class="form-label m-0" for="mes"><h5 class="m-0">Mes:</h5></label>
-              <input type="number" min="1" max="12" id="mes" name="mes" class="form-control ms-auto p-1" style="width: 75%;"/>
+              <input type="number" min="1" max="12" id="mes" name="mes" class="form-control ms-auto p-1" style="width: 75%;" required/>
             </div>
             <div class="d-flex m-0 align-items-center">
               <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>

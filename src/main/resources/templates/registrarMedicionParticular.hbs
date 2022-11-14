@@ -1,19 +1,19 @@
 {{#partial "contenido"}}
-    <div class="login-form">
+    <form class="login-form" method="post">
         <h2>Registrar medición</h2>
         <div class="container d-flex justify-content-center border border-1 p-2">
             <a class="btn btn-primary mx-2" href="/user/admin/registrarMedicionParticular" role="button">Particular</a>
             <a class="btn btn-secondary mx-2" href="/user/admin/registrarMedicionCsv" role="button">CSV</a>
         </div>
         <div class="m-3 col-11 justify-content-center">
-            <select class="form-select h-50" required>
-                <option selected hidden>Seleccione tipo de consumo</option>
+            <select class="form-select h-50" name="tipoDeConsumo" required>
+                <option selected hidden value="">Seleccione tipo de consumo</option>
                 {{#each tipos_consumo}}
-                    <option class="text-lowercase" value="{{ id }}">{{ nombre }}</option>
+                    <option class="text-uppercase" value="{{ id }}">{{ nombre }}</option>
                 {{/each}}
             </select>
             <div class="d-flex p-1 my-2 align-items-center">
-                <label for="valor" class="form-label">Valor</label>
+                <label for="valor" class="form-label align-items-center">Valor</label>
                 <input class="ms-auto w-50 form-control ms-auto p-1" type="text" name="valor" id="valor" required>
             </div>
             <div class="d-flex p-1 my-2 align-items-center">
@@ -34,7 +34,7 @@
             <div class="action">
                 <button type="submit" class="btn btn-secondary">Registrar</button>
             </div>
-    </div>
+    </form>
 {{/partial}}
 
 {{>layout.hbs}}
