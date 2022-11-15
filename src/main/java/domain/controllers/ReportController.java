@@ -39,13 +39,15 @@ public class ReportController {
       String periodoDeImputacion;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
       String unidadResultado = "";
+      Integer anio = Integer.parseInt(request.queryParams("anio"));
+      Integer mes = Integer.parseInt(request.queryParams("mes"));
       if(periodicidad == Periodicidad.ANUAL) {
-        periodoDeImputacion = request.queryParams("anio");
+        periodoDeImputacion = anio.toString();
       } else {
-        if (Integer.parseInt(request.queryParams("mes")) < 10) {
-          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        if (mes < 10) {
+          periodoDeImputacion = "0" + mes.toString() + "/" + anio.toString();
         } else {
-          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+          periodoDeImputacion = mes.toString() + "/" + anio.toString();
         }
       }
       switch (Integer.parseInt(request.queryParams("unidad"))) {
@@ -88,31 +90,39 @@ public class ReportController {
       Periodicidad periodicidad = request.queryParams("periodicidad").equals("anual") ? Periodicidad.ANUAL : Periodicidad.MENSUAL;
       String periodoDeImputacion;
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
+      String unidadResultado = "";
+      Integer anio = Integer.parseInt(request.queryParams("anio"));
+      Integer mes = Integer.parseInt(request.queryParams("mes"));
       if(periodicidad == Periodicidad.ANUAL) {
-        periodoDeImputacion = request.queryParams("anio");
+        periodoDeImputacion = anio.toString();
       } else {
-        if (Integer.parseInt(request.queryParams("mes")) < 10) {
-          periodoDeImputacion = "0" + request.queryParams("mes") + "/" + request.queryParams("anio");
+        if (mes < 10) {
+          periodoDeImputacion = "0" + mes.toString() + "/" + anio.toString();
         } else {
-          periodoDeImputacion = request.queryParams("mes") + "/" + request.queryParams("anio");
+          periodoDeImputacion = mes.toString() + "/" + anio.toString();
         }
       }
       switch (Integer.parseInt(request.queryParams("unidad"))) {
         case 0:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.GRAMO;
+          unidadResultado = "g";
           break;
         case 1:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          unidadResultado = "kg";
           break;
         case 2:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.TONELADA;
+          unidadResultado = "t";
           break;
         default:
           unidadEquivalenteCarbono = UnidadEquivalenteCarbono.KILOGRAMO;
+          unidadResultado = "kg";
           break;
       }
       SectorTerritorial sectorTerritorial = RepoSectoresTerritoriales.getInstance().getSectorTerritorial(organizacionId);
       model.put("resultado", sectorTerritorial.huellaDeCarbonoEnPeriodo(periodicidad, periodoDeImputacion, unidadEquivalenteCarbono));
+      model.put("unidad", unidadResultado);
     }
 
     return new ModelAndView(model, "calculadoraSectorTerritorial.hbs");
