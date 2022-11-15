@@ -246,6 +246,8 @@ function generarListaUbicaciones(datalist,ubicaciones){
 */
 function eliminarTexto(elemento){
     elemento.value=""
+    elemento.setAttribute("placeholder", "Escriba para buscar...")
+    elemento.classList.remove("border-danger")
 }
 
 /*
@@ -265,7 +267,38 @@ function bloquearInputsUbicacion(id){
     }
 }
 
-function contarTramos(){
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("form").addEventListener('submit', validarFormulario); 
+  });
+
+  function validarFormulario(evento) {
+    evento.preventDefault();
+    let ubicaciones = document.getElementsByClassName("ubicacion")
+    let formValido = true
+    for(ubicacion of ubicaciones){
+        let datalist = document.getElementById(ubicacion.getAttribute("list"))
+        let valorExistente = false
+        for(option of datalist.options){
+            console.log(option.value)
+            if(option.value == ubicacion.value){
+                valorExistente = true
+                break;
+            }
+        }
+        if(!valorExistente){
+            ubicacion.setAttribute("placeholder", "Ubicacion invalida")
+            ubicacion.classList.add("border-danger")
+            ubicacion.value = ""
+            formValido = false
+        }
+    }
+    if(!formValido){
+        return false
+    }
+    this.submit();
+  }
+
+function contarTramos(evento){
     let input = document.getElementById("cantidadTramos")
     let cantidad = document.querySelectorAll(".transporte").length
     input.value = cantidad
