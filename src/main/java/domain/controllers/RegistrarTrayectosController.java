@@ -56,11 +56,21 @@ public class RegistrarTrayectosController  implements WithGlobalEntityManager, T
       int separacionFin = fin.trim().lastIndexOf(" ");
       
       Transporte transporte = RepoTransportes.getInstance().getTransporte(idTransporte);
-      Parada paradaInicio = RepoParadas.getInstance().getParada(
-        inicio.substring(0, separacionInicio),inicio.substring(separacionInicio+1));
-      Parada paradaFin = RepoParadas.getInstance().getParada(
-        fin.substring(0, separacionFin),fin.substring(separacionFin+1));
-        
+      Parada paradaInicio = null, paradaFin = null;
+      try {
+        paradaInicio = RepoParadas.getInstance().getParada(
+            inicio.substring(0, separacionInicio), inicio.substring(separacionInicio + 1));
+      } catch(StringIndexOutOfBoundsException e) {
+        request.session().attribute("mensaje", "Error ingresando la parada de inicio. Reintentelo.");
+        response.redirect("/home");
+      }
+      try {
+        paradaFin = RepoParadas.getInstance().getParada(
+            fin.substring(0, separacionFin),fin.substring(separacionFin+1));
+      } catch(StringIndexOutOfBoundsException e) {
+        request.session().attribute("mensaje", "Error ingresando la parada de fin. Reintentelo.");
+        response.redirect("/home");
+      }
       Tramo tramo = new Tramo(paradaInicio.getUbicacion(), paradaFin.getUbicacion(), transporte);
       tramos.add(tramo);
       numeroTramo++;
