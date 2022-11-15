@@ -26,6 +26,7 @@ function inicializarDatos(listaHc, periodicidad){
 */
 function generarGrafico(){
     let grafico = document.getElementById('myChart');
+    grafico.hidden = false
     console.log(etiquetasPeriodicidad) 
     let myChart = new Chart(grafico, {
         type: 'bar',

@@ -1,34 +1,4 @@
 /*
-    Pantalla: reportes
-    Funcion: habilitar el select y generar options para las organizaciones
-*/
-function obtenerOrganizaciones(){
-    let selectEntidad = document.getElementById("entidad");
-    selectEntidad.disabled = false;
-    //tendría que generar options para las organizaciones registradas en la db
-}
-
-/*
-    Pantalla: reportes
-    Funcion: habilitar el select y generar options para los sectores territoriales
-*/
-function obtenerSectoresTerritoriales(){
-    let selectEntidad = document.getElementById("entidad");
-    selectEntidad.disabled = false;
-    //tendría que generar options para los sectores territoriales registrados en la db
-}
-
-/*
-    Pantalla: request
-    Funcion: habilitar el select de sectores y generar options segun una organizacion
-*/
-function obtenerSectorDe(organizacion){
-    let selectSector = document.getElementById("sector");
-    selectSector.disabled = false;
-    //tendría que generar options para los sectores territoriales registrados en la db
-}
-
-/*
     Pantalla: registrarMedicionParticular
     Funcion: cambiar title icono info de periodo segun la periodicidad
 */
@@ -110,5 +80,21 @@ function modificarSelectOrg(boton){
         selectEntidad.disabled = false
         selectEntidad.hidden = false
         selectEntidad.required = true
+    }
+}
+
+function cambiarSeleccionReporte(tipo){
+    let hcTotal = document.getElementById("hcTotal")
+    let evolucion = document.getElementById("evolucion")
+    let composicion = document.getElementById("composicion")
+    if(tipo === "Huella de Carbono"){
+        hcTotal.classList.remove("btn-secondary")
+        hcTotal.classList.add("btn-primary")
+    }else if(tipo === "Evolución"){
+        evolucion.classList.remove("btn-secondary")
+        evolucion.classList.add("btn-primary")
+    }else if(tipo === "Composición"){
+        composicion.classList.remove("btn-secondary")
+        composicion.classList.add("btn-primary")
     }
 }

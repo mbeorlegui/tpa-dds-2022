@@ -47,21 +47,27 @@
             </div>
         </div>
         <div class="col-md-8 d-sm-flex d-block justify-content-between">
-          <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio1"><h5 class="m-0">Año inicio:</h5></label>
-            <input type="number" min="1" max="2022" id="anio1" name="anio1" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center mes-container">
-            <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
-            <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center">
-            <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
-            <input type="number" min="1" max="2022" id="anio2" name="anio2" class="form-control ms-auto p-1" style="width: 75%;" required/>
-          </div>
-          <div class="d-flex m-0 align-items-center mes-container">
-            <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
-            <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+          <div class="d-lg-flex d-block">
+            <div class="d-sm-flex">
+              <div class="d-flex m-0 align-items-center">
+                <label class="form-label m-0" for="anio1"><h5 class="m-0">Año inicio:</h5></label>
+                <input type="number" min="1" max="2022" id="anio1" name="anio1" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+              <div class="d-flex m-0 align-items-center mes-container">
+                <label class="form-label m-0" for="mes1"><h5 class="m-0">Mes inicio:</h5></label>
+                <input type="number" min="1" max="12" id="mes1" name="mes1" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+            </div>
+            <div class="d-sm-flex">
+              <div class="d-flex m-0 align-items-center">
+                <label class="form-label m-0" for="anio2"><h5 class="m-0">Año fin:</h5></label>
+                <input type="number" min="1" max="2022" id="anio2" name="anio2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+              <div class="d-flex m-0 align-items-center mes-container">
+                <label class="form-label m-0" for="mes2"><h5 class="m-0">Mes fin:</h5></label>
+                <input type="number" min="1" max="12" id="mes2" name="mes2" class="form-control ms-auto p-1" style="width: 75%;" required/>
+              </div>
+            </div>
           </div>
           <div class="d-flex m-0 align-items-center">
             <label for="unidad" class="form-label m-0"><h5 class="m-0">Unidad:</h5></label>
@@ -76,18 +82,13 @@
     <div class="action">
         <button type="submit">Calcular</button>
     </div>
-        <!--<div class="container bg-info" id="grafico">
-          {{#each resultado}}
-            <p>{{this}}</p>
-          {{/each}}
-        </div>-->
     </form>
   </div>
 {{/partial}}
 
 {{#partial "resultado"}}
     <div class="container">
-      <canvas id="myChart"></canvas>
+      <canvas id="myChart" hidden></canvas>
     </div>
 {{/partial}}
 
@@ -101,6 +102,48 @@
     periodicidad = {{{periodicidad}}}
     inicializarDatos(resultado, periodicidad)
     generarGrafico()
+    
+    //con este evento cargo datos del form con URLSearchParams
+    window.addEventListener("load", function(event) {
+      let params = new URLSearchParams(location.search)
+        if(params.has('tipo-entidad')){
+            let organizacion = document.getElementById("organizacion")
+            let sector = document.getElementById("sector")
+            let entidad = document.getElementById("entidad")
+            let periodicidadAnual = document.getElementById("anual")
+            let periodicidadMensual = document.getElementById("mensual")
+            let inputAnio1 = document.getElementById("anio1")
+            let inputAnio2 = document.getElementById("anio2")
+            let inputMes1 = document.getElementById("mes1")
+            let inputMes2 = document.getElementById("mes2")
+            let unidad = document.getElementById("unidad")
+            
+            
+            if(params.get('tipo-entidad') === "organizacion"){
+              modificarSelectOrg(organizacion)
+              organizacion.checked=true
+              entidad.value = params.get('entidad')
+            }else if(params.get('tipo-entidad') === "sector"){
+              modificarSelectOrg(sector)
+              sector.checked=true
+            }
+            inputAnio1.value = params.get('anio1')
+            inputAnio2.value = params.get('anio2')
+            if(params.get('periodicidad') === "anual"){
+                modificarPeriodo(periodicidadAnual)
+                periodicidadAnual.checked=true
+            }else if(params.get('periodicidad') === "mensual"){
+                modificarPeriodo(periodicidadMensual)
+                inputMes1.value = params.get('mes1')
+                inputMes2.value = params.get('mes2')
+                periodicidadMensual.checked=true
+            }
+            unidad.value = params.get('unidad')
+            
+            window.history.replaceState({}, '', `${location.pathname}?${params}`);
+           // window.history.replaceState({}, '', `${location.pathname}`);
+        }
+    });
   </script>
 {{/partial}}
 
