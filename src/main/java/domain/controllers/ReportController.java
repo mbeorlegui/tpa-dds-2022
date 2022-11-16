@@ -40,10 +40,10 @@ public class ReportController {
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
       String unidadResultado = "";
       Integer anio = Integer.parseInt(request.queryParams("anio"));
-      Integer mes = Integer.parseInt(request.queryParams("mes"));
       if(periodicidad == Periodicidad.ANUAL) {
         periodoDeImputacion = anio.toString();
       } else {
+        Integer mes = Integer.parseInt(request.queryParams("mes"));
         if (mes < 10) {
           periodoDeImputacion = "0" + mes.toString() + "/" + anio.toString();
         } else {
@@ -92,10 +92,11 @@ public class ReportController {
       UnidadEquivalenteCarbono unidadEquivalenteCarbono;
       String unidadResultado = "";
       Integer anio = Integer.parseInt(request.queryParams("anio"));
-      Integer mes = Integer.parseInt(request.queryParams("mes"));
+
       if(periodicidad == Periodicidad.ANUAL) {
         periodoDeImputacion = anio.toString();
       } else {
+        Integer mes = Integer.parseInt(request.queryParams("mes"));
         if (mes < 10) {
           periodoDeImputacion = "0" + mes.toString() + "/" + anio.toString();
         } else {

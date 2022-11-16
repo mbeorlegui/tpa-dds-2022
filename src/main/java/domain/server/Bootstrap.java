@@ -91,9 +91,10 @@ public class Bootstrap {
     Medicion medicion4 = new MedicionAdapter().adaptarMedicion(medicionRead4);
     TransportePublico subte = new TransportePublico(RepoTiposConsumos.getInstance().getTiposConsumos().get(0),
         0.5, TipoDeTransportePublico.SUBTE, "X");
+    // subte.addParadas(parada1);
     List<Tramo> tramos = new ArrayList<>();
-    Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
-    tramos.add(tramo);
+    // Tramo tramo = new Tramo(ubicacion, ubicacion, subte);
+    // tramos.add(tramo);
     List<Tramo> tramos2 = new ArrayList<>();
     Tramo tramo2 = new Tramo(ubicacion3, ubicacion4, colectivo8);
     Tramo tramo3 = new Tramo(ubicacion4, ubicacion, colectivo7);
@@ -198,8 +199,8 @@ public class Bootstrap {
     em.persist(medicion3);
     em.persist(medicion4);
     // em.persist(org2);
-    em.persist(subte);
-    em.persist(tramo);
+    // em.persist(subte);
+    // em.persist(tramo);
     em.persist(unTrayecto);
     em.persist(miembro1);
     em.persist(solicitud1);

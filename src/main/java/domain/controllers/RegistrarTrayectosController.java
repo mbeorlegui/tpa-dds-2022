@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -56,23 +57,41 @@ public class RegistrarTrayectosController  implements WithGlobalEntityManager, T
       int separacionFin = fin.trim().lastIndexOf(" ");
       
       Transporte transporte = RepoTransportes.getInstance().getTransporte(idTransporte);
-      Parada paradaInicio = null, paradaFin = null;
-      try {
-        paradaInicio = RepoParadas.getInstance().getParada(
-            inicio.substring(0, separacionInicio), inicio.substring(separacionInicio + 1));
-      } catch(StringIndexOutOfBoundsException e) {
-        request.session().attribute("mensaje", "Error ingresando la parada de inicio. Reintentelo.");
-        response.redirect("/home");
+      System.out.println("Transporte elegido: " + transporte.getClass().getSimpleName());
+      if(transporte.getClass().getSimpleName().equals("TransportePublico")) {
+        Parada paradaInicio = null, paradaFin = null;
+        try {
+          paradaInicio = RepoParadas.getInstance().getParada(
+              inicio.substring(0, separacionInicio), inicio.substring(separacionInicio + 1));
+        } catch (StringIndexOutOfBoundsException e) {
+          request.session().attribute("mensaje", "Error ingresando la parada de inicio. Reintentelo.");
+          response.redirect("/home");
+          return null;
+        }
+        try {
+          paradaFin = RepoParadas.getInstance().getParada(
+              fin.substring(0, separacionFin), fin.substring(separacionFin + 1));
+        } catch (StringIndexOutOfBoundsException e) {
+          request.session().attribute("mensaje", "Error ingresando la parada de fin. Reintentelo.");
+          response.redirect("/home");
+          return null;
+        }
+        try {
+          Tramo tramo = new Tramo(paradaInicio.getUbicacion(), paradaFin.getUbicacion(), transporte);
+          tramos.add(tramo);
+        } catch (IllegalArgumentException e) {
+          request.session().attribute("mensaje", "Error ingresando parada fuera de limites del transporte publico. Reintentelo.");
+          response.redirect("/home");
+          return null;
+        }
+      } else {
+        Ubicacion ubicacionInicio = new Ubicacion(ThreadLocalRandom.current().nextInt(1, 6), inicio.substring(0, separacionInicio), inicio.substring(separacionInicio + 1));
+        Ubicacion ubicacionFin = new Ubicacion(ThreadLocalRandom.current().nextInt(1, 6), fin.substring(0, separacionFin), fin.substring(separacionFin + 1));
+        Tramo tramo = new Tramo(ubicacionInicio, ubicacionFin, transporte);
+        tramos.add(tramo);
       }
-      try {
-        paradaFin = RepoParadas.getInstance().getParada(
-            fin.substring(0, separacionFin),fin.substring(separacionFin+1));
-      } catch(StringIndexOutOfBoundsException e) {
-        request.session().attribute("mensaje", "Error ingresando la parada de fin. Reintentelo.");
-        response.redirect("/home");
-      }
-      Tramo tramo = new Tramo(paradaInicio.getUbicacion(), paradaFin.getUbicacion(), transporte);
-      tramos.add(tramo);
+
+
       numeroTramo++;
     }
     
