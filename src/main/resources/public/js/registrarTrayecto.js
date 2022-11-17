@@ -267,6 +267,7 @@ function bloquearInputsUbicacion(id){
     }
 }
 
+/*
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("form").addEventListener('submit', validarFormulario); 
   });
@@ -297,6 +298,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     this.submit();
   }
+
+ */
 
 function contarTramos(evento){
     let input = document.getElementById("cantidadTramos")

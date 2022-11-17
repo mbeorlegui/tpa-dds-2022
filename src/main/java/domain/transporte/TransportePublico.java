@@ -7,6 +7,7 @@ import domain.ubicacion.Ubicacion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -104,6 +105,11 @@ public class TransportePublico extends Transporte {
     if (!this.tieneUnaParadaEn(origen) || !this.tieneUnaParadaEn(destino)) {
       throw new IllegalArgumentException("Los tramos no coinciden con las paradas");
     }
+  }
+
+  @Override
+  public void verificarPuedeViajarEntre(Ubicacion origen, Ubicacion destino) {
+    this.verificarParadas(origen, destino);
   }
 
   @Override
