@@ -1,0 +1,27 @@
+﻿@startuml Diagrama-arquitectura
+
+!theme blueprint
+
+actor usuario
+
+
+node "Cliente" {
+  [Navegador]
+}
+
+cloud HTTPS {
+}
+
+node "ServerHeroku" {
+  [App]
+  database database
+}
+
+
+
+usuario --> [Navegador]
+[Navegador] --> HTTPS
+HTTPS --> [App]
+[App] --> database
+
+@enduml

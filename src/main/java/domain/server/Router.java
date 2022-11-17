@@ -36,6 +36,7 @@ public class Router {
 
     Spark.get("/home", homeController::home, engineTemplate);
     Spark.redirect.get("/", "/home");
+    Spark.get("/recomendaciones", homeController::guiaRecomendaciones, engineTemplate);
 
     Spark.get("/login", usersController::login, engineTemplate);
     Spark.get("/signin", usersController::signin, engineTemplate);

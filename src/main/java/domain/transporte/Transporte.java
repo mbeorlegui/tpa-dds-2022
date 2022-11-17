@@ -72,4 +72,8 @@ public abstract class Transporte {
     return combustible.calcularHuellaDeCarbono(
         distanciaRecorrida * combustiblePorKm, unidadDeseada);
   }
+
+  public void verificarPuedeViajarEntre(Ubicacion origen, Ubicacion destino) {
+    //No hace nada
+  }
 }
