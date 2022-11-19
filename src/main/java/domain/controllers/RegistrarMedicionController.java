@@ -77,12 +77,13 @@ public class RegistrarMedicionController {
     int tipoDeConsumo = Integer.parseInt(request.queryParams("tipoDeConsumo")) - 1;
     MedicionRead medicionRead = new MedicionRead(tiposConsumos.get(tipoDeConsumo).getNombre(), valor, periodicidad.toUpperCase(), periodoImputacion);
     Medicion medicion = new MedicionAdapter().adaptarMedicion(medicionRead);
-    RepoMediciones.getInstance().save(medicion);
 
     // Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
     Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
     Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
+    System.out.println(org.getId());
     org.agregarMedicion(medicion);
+    RepoMediciones.getInstance().save(medicion);
     RepoOrganizaciones.getInstance().update(org);
 
     request.session().attribute("mensaje", "Mediciones registradas");
