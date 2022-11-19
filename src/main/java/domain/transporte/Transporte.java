@@ -3,6 +3,7 @@ package domain.transporte;
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.TipoConsumo;
 import domain.services.apidistancias.CalculadoraDeDistancia;
+import domain.services.apidistancias.CalculadoraDeDistanciaRetrofit;
 import domain.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,7 @@ import javax.persistence.InheritanceType;
 public abstract class Transporte {
   @Id
   @GeneratedValue
+  @Getter
   @Column(name = "transporte_id")
   private long id;
   @Getter
@@ -47,9 +49,14 @@ public abstract class Transporte {
   @Transient
   private CalculadoraDeDistancia calculadoraDeDistancia;
 
+  public Transporte(){
+    calculadoraDeDistancia = new CalculadoraDeDistanciaRetrofit();
+  }
+
   public Transporte(TipoConsumo combustible, Double combustiblePorKm) {
     this.combustible = combustible;
     this.combustiblePorKm = combustiblePorKm;
+    this.calculadoraDeDistancia = new CalculadoraDeDistanciaRetrofit();
   }
 
   public double calcularDistancia(Ubicacion origenDeTramo, Ubicacion destinoDeTramo) {
@@ -64,5 +71,9 @@ public abstract class Transporte {
                                            UnidadEquivalenteCarbono unidadDeseada) {
     return combustible.calcularHuellaDeCarbono(
         distanciaRecorrida * combustiblePorKm, unidadDeseada);
+  }
+
+  public void verificarPuedeViajarEntre(Ubicacion origen, Ubicacion destino) {
+    //No hace nada
   }
 }

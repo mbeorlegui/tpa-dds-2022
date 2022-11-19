@@ -5,6 +5,7 @@ import domain.administrador.UnidadEquivalenteCarbono;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,5 +102,19 @@ public class RepoTiposConsumos {
     em.persist(distanciaMedia);
     System.out.println("Tipos de consumo actualizados");
     //em.close();
+  }
+
+  public void save(TipoConsumo tipoConsumo) {
+    EntityTransaction et = em.getTransaction();
+    et.begin();
+    em.persist(tipoConsumo);
+    et.commit();
+  }
+
+  public void update(TipoConsumo tipoConsumo) {
+    EntityTransaction et = em.getTransaction();
+    et.begin();
+    em.merge(tipoConsumo);
+    et.commit();
   }
 }

@@ -20,6 +20,7 @@ import javax.persistence.AttributeOverride;
 public class Parada {
   @Id
   @GeneratedValue
+  @Getter
   @Column(name = "parada_id")
   private long id;
   @Getter
@@ -27,12 +28,15 @@ public class Parada {
   @AttributeOverride(name = "localidadID", column = @Column(name = "localidad_id"))
   Ubicacion ubicacion;
   @Setter
-  @Transient
+  @Embedded
   ResultadoDistancia distanciaSiguienteParada;
 
   public Parada(Ubicacion ubicacion, ResultadoDistancia distanciaSiguienteParada) {
     this.ubicacion = ubicacion;
     this.distanciaSiguienteParada = distanciaSiguienteParada;
+  }
+
+  public Parada(){
   }
 
   public double getDistanciaSiguienteParada() {

@@ -1,5 +1,8 @@
 package domain.reports;
 
+import lombok.Getter;
+
+@Getter
 public class ReporteDeComposicion {
   @SuppressWarnings({"FieldCanBeLocal", "unused"})
   private final double hcMediciones;

@@ -19,6 +19,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class Runner {
     et.begin();
     RepoTiposConsumos.getInstance().actualizarTiposDeConsumoDB();
     et.commit();
-    Usuario admin = new Usuario("matias", "AltaContrRaseNia_*3154", TipoUsuario.ADMINISTRADOR);
+    Usuario admin = new UsuarioGeneral("matias", "AltaContrRaseNia_*3154", null);
     Ubicacion ubicacion = new Ubicacion(1, "Calle Falsa", "123");
     Organizacion org = new Organizacion(
         "Prueba Empresa",
@@ -44,7 +45,7 @@ public class Runner {
         TipoOrganizacion.GUBERNAMENTAL,
         ubicacion,
         Clasificacion.UNIVERSIDAD);
-    Sector unSector = new Sector();
+    Sector unSector = new Sector("Un Sector");
     SectorTerritorial sectorTerritorial = new SectorTerritorial("Sector Prueba");
     // ------------------------
     // pruebas de mediciones
@@ -75,7 +76,8 @@ public class Runner {
     Solicitud solicitud = new Solicitud(
         unSector,
         miembro,
-        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral"
+        "El motivo de la solicitud es porque quiero trabajar allí por el gran clima laboral",
+        LocalDateTime.now()
     );
     et.begin();
     // em.persist(ubicacion);

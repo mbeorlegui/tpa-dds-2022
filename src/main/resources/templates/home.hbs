@@ -1,26 +1,28 @@
 {{#partial "contenido"}}
-    <div class="container mt-5">
-        <h2 class="text-center fw-bold" id="about" name="about">About us</h2>
-        <div class="row mt-5">
-            <!-- La suma de las columnas tiene que dar 12 SIEMPRE -->
-            <div class="col-xl-8 col-lg-6 col-xs-12 p-3">
-                <p class="text-black text-justify">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci ratione blanditiis magnam facilis
-                    nesciunt incidunt, asperiores explicabo provident excepturi! Totam tempore delectus mollitia magni
-                    dignissimos? Exercitationem cumque consectetur ipsum dolores nam provident laborum! Iure dicta earum
-                    iusto odio quos porro possimus! Odio corporis quibusdam veniam possimus enim, reprehenderit alias
-                    laboriosam.
-                </p>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
-                <a href="https://es.wikipedia.org/wiki/Huella_de_carbono" target="_blank"><img class="imagen"
-                                                                                               style="border-radius: 8%;"
-                                                                                               src="images/logo.png"
-                                                                                               alt="Aviso de imagen rota"></a>
+    <div class="container">
+        <div class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
+            <h2 class="text-center fw-bold" id="about" name="about">Sobre nosotros</h2>
+            <div class="row mt-5">
+                <!-- La suma de las columnas tiene que dar 12 SIEMPRE -->
+                <div class="col-xl-8 col-lg-6 col-xs-12 p-3">
+                    <p class="text-black text-justify">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci ratione blanditiis magnam facilis
+                        nesciunt incidunt, asperiores explicabo provident excepturi! Totam tempore delectus mollitia magni
+                        dignissimos? Exercitationem cumque consectetur ipsum dolores nam provident laborum! Iure dicta earum
+                        iusto odio quos porro possimus! Odio corporis quibusdam veniam possimus enim, reprehenderit alias
+                        laboriosam.
+                    </p>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-xs-12 p-5 d-flex justify-content-center">
+                    <a href="https://es.wikipedia.org/wiki/Huella_de_carbono" target="_blank"><img class="imagen"
+                                                                                                style="border-radius: 8%;"
+                                                                                                src="images/logo.png"
+                                                                                                alt="Aviso de imagen rota"></a>
+                </div>
             </div>
         </div>
         <hr>
-        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5">
+        <section id="orgVinculadas" name="orgVinculadas" class="container mt-5 bg-light py-1" style="--bs-bg-opacity: .25;">
             <h2 class="text-center fw-bold">Organizaciones vinculadas</h2>
             <div class="row mt-5">
                 <div class="row align-items-center">
@@ -57,7 +59,8 @@
                     <input type="email" name="email" placeholder="Correo electronico" autocomplete="nope"/>
                 </div>
                 <div class="input-field">
-                    <input type="comentario" name="comentario" placeholder="Comentario" autocomplete="nope"/>
+                    <textarea class="form-control my-2" id="exampleFormControlTextarea1" placeholder="COMENTARIO" rows="1" name="comentario"
+                        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' autocomplete="nope"></textarea>
                 </div>
             </div>
             <div class="action">

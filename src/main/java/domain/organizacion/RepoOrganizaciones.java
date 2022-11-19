@@ -2,21 +2,19 @@ package domain.organizacion;
 
 import domain.administrador.UnidadEquivalenteCarbono;
 import domain.medicion.Periodicidad;
-import lombok.Getter;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 public class RepoOrganizaciones {
-  private EntityManager em = PerThreadEntityManagers.getEntityManager();
+  private static final EntityManager em = PerThreadEntityManagers.getEntityManager();
 
-  @Getter
-  private static List<Organizacion> organizaciones = new ArrayList<>();
+  // private static final List<Organizacion> organizaciones = new ArrayList<>();
 
   private static final RepoOrganizaciones INSTANCE = new RepoOrganizaciones();
 
@@ -25,7 +23,7 @@ public class RepoOrganizaciones {
   }
 
   @SuppressWarnings("unchecked")
-  public List<Organizacion> getOrganizaciones() {
+  public static List<Organizacion> getOrganizaciones() {
     return em
         .createQuery("from Organizacion")
         .getResultList();
@@ -68,13 +66,14 @@ public class RepoOrganizaciones {
   }
 
   // Se ejecuta con tarea programada
-  public void enviarGuiaDeRecomendaciones(String link) {
-    this.getOrganizaciones().forEach(
+  public static void enviarGuiaDeRecomendaciones(String link) {
+    getOrganizaciones().forEach(
         org -> org.enviarGuiaDeRecomendaciones(link)
     );
   }
 
-  public void main(String[] args) {
+  // Send notifications
+  public static void main(String[] args) {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date(System.currentTimeMillis());
     String currentDate = formatter.format(date);
@@ -82,11 +81,25 @@ public class RepoOrganizaciones {
         "[" + currentDate + "] - INFO - Guia de recomendaciones enviada a contactos - Link: "
             + args[0]
     );
-    this.enviarGuiaDeRecomendaciones(args[0]);
+    enviarGuiaDeRecomendaciones(args[0]);
   }
   // Correr con:
   // java -cp $PWD domain.organizacion.RepoOrganizaciones "google.com"
   // $PWD -> Variable de entorno que almacena el directorio actual
+
+  public void update(Organizacion organizacion) {
+    EntityTransaction et = em.getTransaction();
+    et.begin();
+    em.merge(organizacion);
+    et.commit();
+  }
+
+  public Organizacion findByRazonZocial(String razonSocial) {
+    return (Organizacion) em
+        .createQuery("from Organizacion where razon_social = :razonSocial")
+        .setParameter("razonSocial",razonSocial)
+        .getSingleResult();
+  }
 
   public static RepoOrganizaciones getInstance() {
     return INSTANCE;

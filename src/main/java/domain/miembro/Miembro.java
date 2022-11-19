@@ -20,6 +20,7 @@ import javax.persistence.Enumerated;
 @Entity
 @Table(name = "miembro")
 public class Miembro {
+  @Getter
   @Id
   @GeneratedValue
   @Column(name = "miembro_id")

@@ -2,32 +2,54 @@
     <div class="login-form acept">
         <h2 style="padding: 10px 0px 10px 5px;">Aceptacion de Vinculación de Trabajadores</h2>
         {{#each solicitudes}}
-            <div class="row row-cols-1 row-cols-md-1 mb-1">
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Solicitud número {{ id }}</h4>
-                        </div>
-                        <div class="card-body" style="padding: 0px 1rem 1rem 1rem;">
-                            <ul class="list-unstyled mt-3 mb-4 text-left">
-                                <li>Nombre: {{ miembro.nombre }}</li>
-                                <li>Apellido: {{ miembro.apellido }}</li>
-                                <li>Nro de Documento: {{ miembro.numeroDeDocumento }}</li>
-                                <li>ID sector: {{ sector.id }}</li>
-                                <li>Motivo: {{ motivo }}</li>
-                            </ul>
-                            <div class="row justify-content-rigth">
-                                <div class="col-2 offset-md-8">
-                                    <button type="button" class="boton-aceptar">Aceptar</button>
+            <form action="/user/admin/vinculaciones/accept" method="POST">
+                <input type="hidden" name="solicitud" value="{{ id }}">
+                <div class="row row-cols-1 row-cols-md-1 mb-1">
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal">Solicitud de {{ miembro.nombre }}</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="container mb-4 text-left p-0">
+                                    <h5 class="bg-success bg-opacity-10 border-1 border-success border-bottom py-1 px-4">Datos</h5>
+                                    <div class="mx-5">
+                                        <p>Fecha: {{ fechaGeneracion.dayOfMonth }}/{{ fechaGeneracion.monthValue }}/{{ fechaGeneracion.year }}</p>
+                                        <p>Solicitante: {{ miembro.nombre }} {{ miembro.apellido }}</p>
+                                        <p>Nro de Documento: {{ miembro.numeroDeDocumento }}</p>
+                                        <p>Desea vincularse con el sector: {{ sector.nombre }}</p>
+                                    </div>
+                                    <h5 class="bg-success bg-opacity-10 border-1 border-success border-bottom py-1 px-4">Motivo</h5>
+                                    <div class="mx-5">
+                                        <p>{{ motivo }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <button type="button" class="boton-rechazar">Rechazar</button>
+                                <div class="row justify-content-rigth mx-2 my-3">
+                                    <div class="col-lg-2 col-md-4 offset-lg-8 offset-md-2">
+                                        <button type="submit" class="boton-aceptar">Aceptar</button>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4">
+                                        <button type="submit" class="boton-rechazar" formaction="/user/admin/vinculaciones/deny">Rechazar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+        {{else}}
+            <form>
+                <input type="hidden" name="solicitud" value="{{ id }}">
+                <div class="row row-cols-1 row-cols-md-1 mb-1">
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal text-center">No hay solicitudes pendientes</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         {{/each}}
     </div>
 {{/partial}}

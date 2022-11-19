@@ -48,7 +48,11 @@ public class Tramo {
   @JoinColumn(name = "transporte_id")
   private Transporte transporteUtilizado;
 
+  public Tramo(){
+  }
+
   public Tramo(Ubicacion origenDeTramo, Ubicacion destinoDeTramo, Transporte transporteUtilizado) {
+    transporteUtilizado.verificarPuedeViajarEntre(origenDeTramo, destinoDeTramo);
     this.origenDeTramo = origenDeTramo;
     this.destinoDeTramo = destinoDeTramo;
     this.transporteUtilizado = transporteUtilizado;

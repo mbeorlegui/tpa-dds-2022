@@ -9,7 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +72,7 @@ public class MedicionTest {
     organizacion.agregarMedicion(unaMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptada);
     organizacion.agregarMedicion(otraMedicionAdaptadaMas);
-    otraOrganizacion.agregarMediciones(csvHandler.getMediciones(tipoConsumos));
+    otraOrganizacion.agregarMediciones(csvHandler.getMediciones(tipoConsumos, Files.newInputStream(Paths.get("data/Mediciones.csv"))));
     assertTrue(organizacion.contieneMedicionIdentica(unaMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptada));
     assertTrue(organizacion.contieneMedicionIdentica(otraMedicionAdaptadaMas));

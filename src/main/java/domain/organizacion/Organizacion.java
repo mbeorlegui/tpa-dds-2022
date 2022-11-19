@@ -94,6 +94,15 @@ public class Organizacion {
     return sectores.contains(sector);
   }
 
+  public Boolean tieneSectorConId(Long idSector) {
+    return sectores
+        .stream()
+        .mapToLong(sector -> sector.getId())
+        .boxed()
+        .collect(Collectors.toList())
+        .contains(idSector);
+  }
+
   public Integer cantidadDeSectores() {
     return sectores.size();
   }

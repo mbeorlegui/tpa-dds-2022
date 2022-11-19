@@ -28,4 +28,5 @@ public class Contacto {
     this.email = email;
     this.numeroDeWhatsapp = numeroDeWhatsapp;
   }
+  public Contacto() {}
 }

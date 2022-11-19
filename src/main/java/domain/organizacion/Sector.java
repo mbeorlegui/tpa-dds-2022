@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sector")
@@ -29,10 +30,17 @@ public class Sector {
   @Column(name = "sector_id")
   private long id;
   @Getter
+  private String nombre;
+  @Getter
   @ManyToMany
   private List<Miembro> miembros = new ArrayList<>();
 
+
   public Sector() {
+  }
+
+  public Sector(String nombre) {
+    this.nombre = nombre;
   }
 
   public void addMiembro(Miembro miembro) {
@@ -51,6 +59,15 @@ public class Sector {
         .stream()
         .mapToDouble(miembro -> miembro.calcularHuellaDeCarbono(periodicidad, unidadDeseada))
         .sum();
+  }
+
+  public Boolean tieneMiembroConId(Long idMiembro) {
+    return miembros
+        .stream()
+        .mapToLong(miembro -> miembro.getId())
+        .boxed()
+        .collect(Collectors.toList())
+        .contains(idMiembro);
   }
 
 }
