@@ -94,7 +94,7 @@ public class RepoOrganizaciones {
     et.commit();
   }
 
-  public Organizacion findByRazonZocial(String razonSocial) {
+  public Organizacion findByRazonSocial(String razonSocial) {
     return (Organizacion) em
         .createQuery("from Organizacion where razon_social = :razonSocial")
         .setParameter("razonSocial",razonSocial)

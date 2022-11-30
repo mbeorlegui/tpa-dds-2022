@@ -1,41 +1,22 @@
 package domain.controllers;
 
-import com.google.gson.Gson;
 import domain.administrador.Administrador;
 import domain.administrador.RepoUsuarios;
-import domain.administrador.Usuario;
 import domain.medicion.*;
 import domain.organizacion.CsvHandler;
 import domain.organizacion.Organizacion;
 import domain.organizacion.RepoOrganizaciones;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lombok.SneakyThrows;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import spark.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.servlet.*;
-import javax.servlet.http.*;
 import java.io.*;
-import java.nio.file.*;
 
 public class RegistrarMedicionController {
   private CsvHandler csvHandler;
@@ -59,7 +40,7 @@ public class RegistrarMedicionController {
     // Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
     Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
     input.close();
-    Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
+    Organizacion org = RepoOrganizaciones.getInstance().findByRazonSocial(user.getOrganizacionAsociada().getRazonSocial());
     org.agregarMediciones(mediciones);
     RepoOrganizaciones.getInstance().update(org);
 
@@ -80,7 +61,7 @@ public class RegistrarMedicionController {
 
     // Se obtiene la organizacion asociada al usuario de la sesion y se le agregan las mediciones
     Administrador user = (Administrador) RepoUsuarios.getInstance().getUsuarioByUsername(request.session().attribute("usuario_logueado"));
-    Organizacion org = RepoOrganizaciones.getInstance().findByRazonZocial(user.getOrganizacionAsociada().getRazonSocial());
+    Organizacion org = RepoOrganizaciones.getInstance().findByRazonSocial(user.getOrganizacionAsociada().getRazonSocial());
     System.out.println(org.getId());
     org.agregarMedicion(medicion);
     RepoMediciones.getInstance().save(medicion);
